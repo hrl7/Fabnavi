@@ -1,6 +1,7 @@
 module Fabnavi
-  DATADIR = "/Users/hrl7/src/moz/fabnavi/gdworker/public/data/" 
+  DATADIR = Dir.pwd.to_s + "/public/data/"
   OUTER_DATADIR = "data/"
+
 
   def save_pict url, id
     fileName =File.basename(/^http.*.JPG/.match(url)[0])

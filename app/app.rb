@@ -2,7 +2,6 @@ require "socket"
 require "json"
 require "pp"
 require "open-uri"
-require "FileUtils"
 require "uri"
 require "resque"
 require "redis"
@@ -32,6 +31,8 @@ module Gdworker
     Resque.redis = Redis.new
 
     get '/' do
+      puts "*****************"
+      puts Fabnavi::DATADIR
      render 'project/index' 
     end
 
