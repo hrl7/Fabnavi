@@ -31,8 +31,6 @@ module Gdworker
     Resque.redis = Redis.new
 
     get '/' do
-      puts "*****************"
-      puts Fabnavi::DATADIR
      render 'project/index' 
     end
 
