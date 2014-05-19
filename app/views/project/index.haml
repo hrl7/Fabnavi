@@ -1,0 +1,59 @@
+!!!
+/
+  This Source Code Form is subject to the terms of the Mozilla Public
+  \- License, v. 2.0. If a copy of the MPL was not distributed with this file,
+  \- You can obtain one at http://mozilla.org/MPL/2.0/.
+%html
+  %head
+    %meta{charset: "utf-8"}/
+    %title{"data-l10n-id" => "title"} PlayController : FabNavi
+    = stylesheet_link_tag 'common', 'play','record'
+    = javascript_include_tag 'jquery', 'common', 'Analyzer','Keybind','WorkQueue','PlayConfig','ProjectList','Player','Calibrator','Panel','Note','Recorder','CameraAPI','list','PhotoList','ConfigList', 'Fabnavi'
+    %meta{content: "width=device-width, user-scalable=no", name: "viewport"}/
+  %body{onload: "Fabnavi.run()"}
+    #projectList
+      #buttons
+        %input#editButton{type: "button", value: "Edit"}/
+        %input#makeButton{type: "button", value: "Make!"}/
+      %ul#project-list
+      %li#newProject New Project
+    #contents
+      %img#photo{height: "3715", width: "4928", crossorigin:"anonymous"}/
+      %canvas#cvs
+      #counter
+      #arrow ▶
+      .help
+        x,y,w,h : スライダーを選択します
+        %br/
+        ← , → : 選択されているスライダーの値を調整します。
+        %br>/
+        スライダーが選択されていなければ、ページを移動します。
+        %br/
+        q : プロジェクト選択画面に戻ります
+        %br/
+        v : 設定画面を表示/非表示
+        %br/
+      #panel
+        #param
+          .x-slider
+            .param-name X:
+            #px.indicator
+            %input#x{max: "3000", min: "1", step: "1",value:"2", type: "range"}/
+          .y-slider
+            .param-name Y:
+            #py.indicator
+            %input#y{max: "3000", min: "-300", step: "1", type: "range"}/
+          .x-slider
+            .param-name W:
+            #pw.indicator
+            %input#w{max: "5000", min: "1", step: "1", type: "range"}/
+          .y-slider
+            .param-name H:
+            #ph.indicator
+            %input#h{max: "5000", min: "1", step: "1", type: "range"}/
+        #info
+          %input#save{type: "button", value: "save config"}/
+          %input#savePlaylist{type: "button", value: "save PlayList"}/
+          %input#delete{type: "button", value: "delete slide"}/
+        %img#note{alt: ""}/
+        %ul#processes
