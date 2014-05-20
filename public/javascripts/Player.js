@@ -4,6 +4,7 @@
 ID = "";
 var PlayController = {
   currentURL:"",
+  currentImg:"",
   init: function() {
     PlayController.defaultInit();
     CalibrateController.init();
@@ -156,8 +157,9 @@ var PlayController = {
     }
   },
 
-  show: function(index) {
-    PlayController.setPhoto(Number(index));
+  show: function(index,force) {
+    if(force == undefined)force = false; 
+    PlayController.setPhoto(Number(index),force);
     $("#arrow").text("");
     clearTimeout(PlayController.timerid);
     //---------Annotations
@@ -174,7 +176,7 @@ var PlayController = {
     PlayConfig.index = Number(index);
   },
 
-  setPhoto: function(index) {
+  setPhoto: function(index,force) {
     var url = PlayConfig.imgURLs[index];
     if(url != PlayController.currentURL){
       var img = new Image();
@@ -182,8 +184,11 @@ var PlayController = {
         img.onload = function () {
           PlayController.ctx.clearRect(0,0,PlayController.cvs.width,PlayController.cvs.height);
           PlayController.draw(img);
+          PlayController.currentImg = img;
         };
       $("#photo").attr("src",url); 
+    } else if(force) {
+      PlayController.draw(PlayController.currentImg); 
     }
     PlayController.currentURL = url;
     PlayController.photoList.selectByName(url);

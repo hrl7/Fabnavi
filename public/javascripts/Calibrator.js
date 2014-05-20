@@ -48,12 +48,12 @@ var CalibrateController = {
     obj.mousemove(function(e){
       target.text(obj.val());
       CalibrateController.updateConfig();
-      PlayController.show(PlayConfig.index);
+      PlayController.show(PlayConfig.index,true);
     }); 
     obj.on('keydown',function(e){
       target.text(obj.val());
       CalibrateController.updateConfig();
-      PlayController.show(PlayConfig.index);
+      PlayController.show(PlayConfig.index,true);
     }); 
   },
 
