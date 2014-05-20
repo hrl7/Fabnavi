@@ -73,8 +73,10 @@ Gdworker::App.controllers :project do
     pict = Base64.decode64(data)
     fileName =File.basename(/^http.*.JPG/.match(url)[0])
     filePath = Fabnavi::DATADIR+id+"/original/"+ fileName
+    thumnailPath = DATADIR+id+"/thumbnail.jpg" 
     outerfilePath = Fabnavi::OUTER_DATADIR+id+"/original/"+ fileName
     File.binwrite(filePath,pict)
+    FileUtils.copy_file(filePath,thumnailPath)
     return outerfilePath.to_json
   end 
   # get :index, :map => '/foo/bar' do

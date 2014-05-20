@@ -120,7 +120,6 @@ var PlayController = {
     CommonController.getLocalConfig(id);
     PlayController.show(startIndex);
     $("#contents").show();
-//    setTimeout(CalibrateController.update,100);
   },
 
   getParametersFromQuery: function () {

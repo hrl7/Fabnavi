@@ -6,6 +6,7 @@ module Fabnavi
   def save_pict url, id
     fileName =File.basename(/^http.*.JPG/.match(url)[0])
     filePath = DATADIR+id+"/original/"+ fileName
+    puts thumnailPath
     open(filePath, 'wb') do |output|
       open(url) do |data| 
         output.write(data.read)
