@@ -90,8 +90,10 @@ input[type="range"] {
   position: fixed;
   left: 20px;
   z-index: 2;
-  background-color: rgba(0, 0, 0, 0.6); }
+  background-color: rgba(0, 0, 0, 0.6); 
   -moz-user-select:none;
+ }
+
 
 #button-container {
   text-align: center; }
