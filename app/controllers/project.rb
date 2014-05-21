@@ -15,9 +15,13 @@ Gdworker::App.controllers :project do
   get "/getProject" do 
     id = params[:project_id]
     res = []
-    Dir.chdir(Fabnavi::DATADIR + id+ "/original")
-    Dir.glob('*.{jpg,JPG}').each do |t|
-      res.push("data/"+id+"/original/"+t)
+    if id == "undefined" then
+      puts "id is Undefined" 
+    else 
+      Dir.chdir(Fabnavi::DATADIR + id+ "/original")
+      Dir.glob('*.{jpg,JPG}').each do |t|
+        res.push("data/"+id+"/original/"+t)
+      end
     end
     res.to_json
   end

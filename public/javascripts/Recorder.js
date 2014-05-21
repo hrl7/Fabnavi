@@ -23,7 +23,6 @@ var RecordController = {
     $('#projectList').hide();
     $('#contents').hide();
     clearTimeout(RecordController.timer);
-    CameraAPI.init();
     RecordController.timer = setTimeout(function() {
       var p = CameraAPI.shoot();
       p.then(function(url, error) {

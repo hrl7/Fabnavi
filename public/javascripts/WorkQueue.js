@@ -49,17 +49,19 @@ WorkQueue.prototype = {
         bufCtx.drawImage(bimg,0,0);
         var pict = bufCvs.toDataURL("image/jpeg").substring(23);
 
+        console.log("project_id",id);
         $.post("/project/postPicture",
           { 
             data:pict,
-          project_id:id,
-          url:url
+            project_id:id,
+            url:url
           },
           function(res,error){
             res = res.replace("\"","","g");
             PlayConfig.imgURLs.splice(PlayConfig.index+1,0,res);
-            PlayController.next();
             RecordController.updateList();
+            PlayController.next();
+            PlayController.show(PlayConfig.index,true);
             PlayConfig.postConfig();
             this.index++; 
             return this.fire();
