@@ -2,7 +2,6 @@ var CameraAPI = {
 
   init:function () {
     document.sonycameracontroller.setup({ipaddress: "10.0.0.1", port: 10000, version: "1.0"});
-    console.log("init");
     document.sonycameracontroller.zoomIn();
     document.sonycameracontroller.zoomOut();
     document.sonycameracontroller.zoomOutAll();
@@ -16,9 +15,7 @@ var CameraAPI = {
   },
   zoomOnce:function(){
     var d = $.Deferred();
-    console.log("zoom");
     document.sonycameracontroller.zoomIn(function(res){
-      console.log(res);
       setTimeout(function(){
         d.resolve();
       },700);

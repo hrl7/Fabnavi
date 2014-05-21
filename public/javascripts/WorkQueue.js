@@ -49,7 +49,6 @@ WorkQueue.prototype = {
         bufCtx.drawImage(bimg,0,0);
         var pict = bufCvs.toDataURL("image/jpeg").substring(23);
 
-        console.log("project_id",id);
         $.post("/project/postPicture",
           { 
             data:pict,

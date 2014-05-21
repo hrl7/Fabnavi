@@ -179,15 +179,27 @@ var PlayController = {
     var url = PlayConfig.imgURLs[index];
     if(url != PlayController.currentURL){
       var img = new Image();
-      img.src = url
-        img.onload = function () {
-          PlayController.ctx.clearRect(0,0,PlayController.cvs.width,PlayController.cvs.height);
-          PlayController.draw(img);
-          PlayController.currentImg = img;
-        };
+      img.src = url;
+      img.onload = function () {
+        PlayController.ctx.clearRect(0,0,PlayController.cvs.width,PlayController.cvs.height);
+        PlayController.draw(img);
+        PlayController.currentImg = img;
+      };
       $("#photo").attr("src",url); 
     } else if(force) {
-      PlayController.draw(PlayController.currentImg); 
+      if(PlayController.currentImg != ""){
+        PlayController.draw(PlayController.currentImg); 
+      } else {
+        var img = new Image();
+        img.src = url;
+        img.onload = function () {
+          CalibrateController.updateConfig();
+          PlayController.ctx.clearRect(0,0,PlayController.cvs.width,PlayController.cvs.height);
+          PlayController.draw(img);
+          PlayController.currentimg = img;
+        };
+        $("#photo").attr("src",url); 
+      }
     }
     PlayController.currentURL = url;
     PlayController.photoList.selectByName(url);

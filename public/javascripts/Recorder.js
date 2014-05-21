@@ -33,9 +33,6 @@ var RecordController = {
         queue.push(PlayConfig.projectName,url,PlayConfig.index);
         queue.fire();
 
-        window.setTimeout(function(){
-          CalibrateController.update();
-        },2000);
 
         $('#shoot').show();
         $('#contents').show();
