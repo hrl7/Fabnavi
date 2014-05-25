@@ -12,6 +12,7 @@
     %meta{content: "width=device-width, user-scalable=no", name: "viewport"}/
   %body{onload: "Fabnavi.run()"}
     #projectList
+      =@projects
       #buttons
         %input#editButton{type: "button", value: "Edit"}/
         %input#makeButton{type: "button", value: "Make!"}/

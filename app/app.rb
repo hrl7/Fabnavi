@@ -32,6 +32,7 @@ module Gdworker
     Resque.redis = Redis.new
 
     get '/' do
+#     @playlists = Playlist.all(:order => 'updated_at desc')
      render 'project/index' 
     end
 
