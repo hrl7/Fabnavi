@@ -2,13 +2,10 @@ Gdworker::App.controllers :project do
 
   get "/getList" do 
     res = []
-    Dir.chdir(Fabnavi::DATADIR)
-    Dir.glob('*').each do |t|
-      Dir.chdir(t)
-      picts = Dir.glob('*.{jpg,JPG}')  
-      res.push({:id=>t,:thumbnail=>("data/"+t+"/"+picts[0].to_s)})
-      Dir.chdir("../")
-    end
+    all = Playlist.all(:order => 'updated_at desc')
+    all.each{|p|
+      res.push({:id=>p.projectName,:thumbnail=>"data/"+p.projectName+"/pict20140418_112846_0.JPG.jpg"})
+    }
     res.to_json
   end
 
