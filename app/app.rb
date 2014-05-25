@@ -12,6 +12,7 @@ require "base64"
 require "date"
 
 require "rexml/document"
+require "aws-sdk"
 
 include Fabnavi
 

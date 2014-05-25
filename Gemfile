@@ -35,4 +35,5 @@ gem 'padrino', '0.12.1'
 # end
 #
 gem 'resque'
+gem 'aws-sdk'
 #gem 'gd2'

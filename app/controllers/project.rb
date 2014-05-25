@@ -76,31 +76,8 @@ Gdworker::App.controllers :project do
     url = params[:url]
     pict = Base64.decode64(data)
     fileName =File.basename(/^http.*.JPG/.match(url)[0])
-    filePath = Fabnavi::DATADIR+id+"/original/"+ fileName
-    thumnailPath = DATADIR+id+"/thumbnail.jpg" 
-    outerfilePath = Fabnavi::OUTER_DATADIR+id+"/original/"+ fileName
-    File.binwrite(filePath,pict)
-    FileUtils.copy_file(filePath,thumnailPath)
-    return outerfilePath.to_json
+    filePath = id+'/'+fileName
+    save_pict_S3(filePath,pict)
+    return "http://files.fabnavi.s3.amazonaws.com/"+filePath
   end 
-  # get :index, :map => '/foo/bar' do
-  #   session[:foo] = 'bar'
-  #   render 'index'
-
-
-  # get :sample, :map => '/sample/url', :provides => [:any, :js] do
-  #   case content_type
-  #     when :js then ...
-  #     else ...
-  # end
-
-  # get :foo, :with => :id do
-  #   'Maps to url '/foo/#{params[:id]}''
-  # end
-
-  # get '/example' do
-  #   'Hello world!'
-  # end
-
-
 end
