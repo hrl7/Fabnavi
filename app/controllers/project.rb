@@ -25,11 +25,13 @@ Gdworker::App.controllers :project do
 
   get "/getConfigFiles" do
     id = params[:project_id]
-    Dir.chdir(Fabnavi::DATADIR + id + "/")
-    res = []
-    Dir.glob('*.config').each do |file|
-      res.push("data/" + id + "/" + file)
-    end
+    res = Playlist.find_by(:projectname=>id)
+    puts res.to_s
+  #  Dir.chdir(Fabnavi::DATADIR + id + "/")
+  #  res = []
+  #  Dir.glob('*.config').each do |file|
+  #    res.push("data/" + id + "/" + file)
+  #  end
     res.to_json
   end
 
