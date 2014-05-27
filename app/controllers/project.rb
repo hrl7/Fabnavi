@@ -1,3 +1,4 @@
+require "fabnavi_utils"
 Gdworker::App.controllers :project do
 
   get "/getList" do 
