@@ -1,0 +1,49 @@
+- error = @backup.errors.include?(:projectName)
+%fieldset.control-group{:class => error ? 'has-error' : ''}
+  =f.label :projectName, :class => 'control-label'
+  .controls
+    =f.text_field :projectName, :class => 'form-control input-large input-with-feedback', :autofocus => true
+    %span.help-inline=error ? f.error_message_on(:projectName, :class => 'text-error') : pat(:example)
+- error = @backup.errors.include?(:body)
+%fieldset.control-group{:class => error ? 'has-error' : ''}
+  =f.label :body, :class => 'control-label'
+  .controls
+    ~f.text_area :body, :class => 'form-control input-large input-with-feedback'
+    %span.help-inline=error ? f.error_message_on(:body, :class => 'text-error') : pat(:example)
+- error = @backup.errors.include?(:author)
+%fieldset.control-group{:class => error ? 'has-error' : ''}
+  =f.label :author, :class => 'control-label'
+  .controls
+    =f.text_field :author, :class => 'form-control input-large input-with-feedback'
+    %span.help-inline=error ? f.error_message_on(:author, :class => 'text-error') : pat(:example)
+- error = @backup.errors.include?(:author_id)
+%fieldset.control-group{:class => error ? 'has-error' : ''}
+  =f.label :author_id, :class => 'control-label'
+  .controls
+    =f.text_field :author_id, :class => 'form-control input-large input-with-feedback'
+    %span.help-inline=error ? f.error_message_on(:author_id, :class => 'text-error') : pat(:example)
+- error = @backup.errors.include?(:author_email)
+%fieldset.control-group{:class => error ? 'has-error' : ''}
+  =f.label :author_email, :class => 'control-label'
+  .controls
+    =f.text_field :author_email, :class => 'form-control input-large input-with-feedback'
+    %span.help-inline=error ? f.error_message_on(:author_email, :class => 'text-error') : pat(:example)
+- error = @backup.errors.include?(:lock)
+%fieldset.control-group{:class => error ? 'has-error' : ''}
+  =f.label :lock, :class => 'control-label'
+  .controls
+    =f.check_box :lock, :class => 'form-control input-large input-with-feedback'
+    %span.help-inline=error ? f.error_message_on(:lock, :class => 'text-error') : pat(:example)
+- error = @backup.errors.include?(:rev)
+%fieldset.control-group{:class => error ? 'has-error' : ''}
+  =f.label :rev, :class => 'control-label'
+  .controls
+    =f.text_field :rev, :class => 'form-control input-large input-with-feedback'
+    %span.help-inline=error ? f.error_message_on(:rev, :class => 'text-error') : pat(:example)
+
+.form-actions
+  =f.submit pat(:save), :class => 'btn btn-primary'
+  &nbsp;
+  =f.submit pat(:save_and_continue), :class => 'btn btn-info', :name => 'save_and_continue'
+  &nbsp;
+  =link_to pat(:cancel), url(:backups, :index), :class => 'btn btn-default'

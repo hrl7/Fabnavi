@@ -13,15 +13,6 @@ Gdworker::App.controllers :project do
   get "/getProject" do 
     id = params[:project_id]
     res = Playlist.find_by(:projectname=>id)
-#    res = []
-#    if id == "undefined" then
-#      puts "id is Undefined" 
-#    else 
-#      Dir.chdir(Fabnavi::DATADIR + id+ "/original")
-#      Dir.glob('*.{jpg,JPG}').each do |t|
-#        res.push("data/"+id+"/original/"+t)
-#      end
-#    end
     res.to_json
   end
 
@@ -32,30 +23,20 @@ Gdworker::App.controllers :project do
   end
 
   get "/new" do
-    if params[:projectName] == nil then
-      id = Time.now.nsec.to_s
-    else 
-      id = params[:projectName].to_s
+    id = params[:projectName]
+    if id == nil then
+      puts "no given name"
+      return 
     end
-    Dir.chdir(Fabnavi::DATADIR)
-    Dir.mkdir id
-    Dir.chdir(id)
-    Dir.mkdir "original"
-    Dir.mkdir "note"
-    FileUtils.touch "fabnavi.play.config"
-    backup_config id
-    return {:id=>id}.to_json 
-  end
 
-  get "/takePicture" do
-    id = params[:project_id]
-    api = CameraAPI.new 
-    query = api.generateOp("actTakePicture",[])
-    doc = api.fire query
-    url = doc['result'][0][0]
-    save_pict url, id
-    fileName = File.basename(/^http.*.JPG/.match(url)[0])
-    return {:url=>"data/"+id+"/original/"+fileName}.to_json
+    res = Playlist.find_by(:projectname => id)
+    if res == nil then
+     puts id.to_s + " is already exist!"
+     return 
+    end
+
+    puts id.to_s + " is ok."
+    return 
   end
 
   post "/postConfig" do
