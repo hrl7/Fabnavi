@@ -30,8 +30,9 @@
         %th.header= mat(:backup, :projectName)
         %th.header= mat(:backup, :body)
         %th.header= mat(:backup, :author)
-        %th.header= mat(:backup, :author_id)
-        %th.header= mat(:backup, :author_email)
+        %th.header= mat(:backup, :authorId)
+        %th.header= mat(:backup, :author_e_mail)
+        %th.header= mat(:backup, :thumbnail)
         %th.header= mat(:backup, :lock)
         %th.header= mat(:backup, :rev)
         %th.header= mat(:backup, :created_at)
@@ -47,8 +48,9 @@
           %td.list-column=backup.projectName
           %td.list-column=backup.body
           %td.list-column=backup.author
-          %td.list-column=backup.author_id
-          %td.list-column=backup.author_email
+          %td.list-column=backup.authorId
+          %td.list-column=backup.author_e_mail
+          %td.list-column=backup.thumbnail
           %td.list-column= backup.lock ? tag_icon(:ok) : tag_icon(:remove)
           %td.list-column=backup.rev
           %td.list-column=time_ago_in_words backup.created_at

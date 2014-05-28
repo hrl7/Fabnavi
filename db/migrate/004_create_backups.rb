@@ -4,8 +4,9 @@ class CreateBackups < ActiveRecord::Migration
       t.string :projectName
       t.text :body
       t.string :author
-      t.string :author_id
-      t.string :author_email
+      t.string :authorId
+      t.string :author_e_mail
+      t.string :thumbnail
       t.boolean :lock
       t.integer :rev
       t.timestamps

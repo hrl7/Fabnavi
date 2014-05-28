@@ -16,18 +16,24 @@
   .controls
     =f.text_field :author, :class => 'form-control input-large input-with-feedback'
     %span.help-inline=error ? f.error_message_on(:author, :class => 'text-error') : pat(:example)
-- error = @backup.errors.include?(:author_id)
+- error = @backup.errors.include?(:authorId)
 %fieldset.control-group{:class => error ? 'has-error' : ''}
-  =f.label :author_id, :class => 'control-label'
+  =f.label :authorId, :class => 'control-label'
   .controls
-    =f.text_field :author_id, :class => 'form-control input-large input-with-feedback'
-    %span.help-inline=error ? f.error_message_on(:author_id, :class => 'text-error') : pat(:example)
-- error = @backup.errors.include?(:author_email)
+    =f.text_field :authorId, :class => 'form-control input-large input-with-feedback'
+    %span.help-inline=error ? f.error_message_on(:authorId, :class => 'text-error') : pat(:example)
+- error = @backup.errors.include?(:author_e_mail)
 %fieldset.control-group{:class => error ? 'has-error' : ''}
-  =f.label :author_email, :class => 'control-label'
+  =f.label :author_e_mail, :class => 'control-label'
   .controls
-    =f.text_field :author_email, :class => 'form-control input-large input-with-feedback'
-    %span.help-inline=error ? f.error_message_on(:author_email, :class => 'text-error') : pat(:example)
+    =f.text_field :author_e_mail, :class => 'form-control input-large input-with-feedback'
+    %span.help-inline=error ? f.error_message_on(:author_e_mail, :class => 'text-error') : pat(:example)
+- error = @backup.errors.include?(:thumbnail)
+%fieldset.control-group{:class => error ? 'has-error' : ''}
+  =f.label :thumbnail, :class => 'control-label'
+  .controls
+    =f.text_field :thumbnail, :class => 'form-control input-large input-with-feedback'
+    %span.help-inline=error ? f.error_message_on(:thumbnail, :class => 'text-error') : pat(:example)
 - error = @backup.errors.include?(:lock)
 %fieldset.control-group{:class => error ? 'has-error' : ''}
   =f.label :lock, :class => 'control-label'

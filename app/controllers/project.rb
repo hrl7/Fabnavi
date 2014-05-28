@@ -18,7 +18,7 @@ Gdworker::App.controllers :project do
 
   get "/getConfigFiles" do
     id = params[:project_id]
-    res = Playlist.find_by(:projectname=>id)
+    res = Backup.find_by(:projectname=>id)
     res.to_json
   end
 
@@ -26,24 +26,40 @@ Gdworker::App.controllers :project do
     id = params[:projectName]
     if id == nil then
       puts "no given name"
-      return 
+      id = Time.now.to_s
     end
 
     res = Playlist.find_by(:projectname => id)
-    if res == nil then
-     puts id.to_s + " is already exist!"
-     return 
+    if not res == nil then
+      puts id.to_s + " is already exist!"
+      id = Time.now.to_s
     end
 
     puts id.to_s + " is ok."
-    return 
+    res = id.to_s
+    return {:id => res}.to_json
   end
 
   post "/postConfig" do
     id = params[:project_id]
+    prev = Playlist.find_by(:projectname => id)
+    puts prev
+    Backup.new do |b|
+     b.projectName = prev.projectName
+     b.body = prev.body
+     b.save
+    end
+
+    
     data = params[:data]
-    backup_config id
-    save_config id,data
+    Playlist.new do |ls|
+     ls.projectName = id
+     ls.body = data
+     ls.save
+    end
+
+#    backup_config id
+#    save_config id,data
   end
 
   post "/postPicture" do

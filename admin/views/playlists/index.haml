@@ -29,6 +29,10 @@
         %th.header= mat(:playlist, :id)
         %th.header= mat(:playlist, :projectName)
         %th.header= mat(:playlist, :body)
+        %th.header= mat(:playlist, :author)
+        %th.header= mat(:playlist, :authorId)
+        %th.header= mat(:playlist, :author_email)
+        %th.header= mat(:playlist, :thumbnail)
         %th.header= mat(:playlist, :created_at)
         %th.header= mat(:playlist, :updated_at)
         %th.header.list-row-action-header
@@ -41,6 +45,10 @@
           %td.list-column=playlist.id
           %td.list-column=playlist.projectName
           %td.list-column=playlist.body
+          %td.list-column=playlist.author
+          %td.list-column=playlist.authorId
+          %td.list-column=playlist.author_email
+          %td.list-column=playlist.thumbnail
           %td.list-column=time_ago_in_words playlist.created_at
           %td.list-column=time_ago_in_words playlist.updated_at
           %td.list-column.list-row-action
