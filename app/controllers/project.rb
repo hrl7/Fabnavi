@@ -42,8 +42,9 @@ Gdworker::App.controllers :project do
 
   post "/postConfig" do
     id = params[:project_id]
+    puts "***********" 
+    puts id
     prev = Playlist.find_by(:projectname => id)
-    p.updated_atuts prev
     Backup.new do |b|
      b.projectName = prev.projectName
      b.body = prev.body
