@@ -19,7 +19,6 @@ Gdworker::App.controllers :project do
   get "/getConfigFiles" do
     id = params[:project_id]
     res = Backup.where(projectname:id)
-    puts res
     res.to_json
   end
 
@@ -44,7 +43,7 @@ Gdworker::App.controllers :project do
   post "/postConfig" do
     id = params[:project_id]
     prev = Playlist.find_by(:projectname => id)
-    puts prev
+    p.updated_atuts prev
     Backup.new do |b|
      b.projectName = prev.projectName
      b.body = prev.body
@@ -58,9 +57,6 @@ Gdworker::App.controllers :project do
      ls.body = data
      ls.save
     end
-
-#    backup_config id
-#    save_config id,data
   end
 
   post "/postPicture" do
