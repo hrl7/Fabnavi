@@ -18,7 +18,8 @@ Gdworker::App.controllers :project do
 
   get "/getConfigFiles" do
     id = params[:project_id]
-    res = Backup.find_by(:projectname=>id)
+    res = Backup.where(projectname:id)
+    puts res
     res.to_json
   end
 
@@ -49,8 +50,8 @@ Gdworker::App.controllers :project do
      b.body = prev.body
      b.save
     end
+    prev.delete
 
-    
     data = params[:data]
     Playlist.new do |ls|
      ls.projectName = id
