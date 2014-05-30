@@ -42,8 +42,6 @@ Gdworker::App.controllers :project do
 
   post "/postConfig" do
     id = params[:project_id]
-    puts "***********" 
-    puts id
     prev = Playlist.find_by(:projectname => id)
     Backup.new do |b|
      b.projectName = prev.projectName
