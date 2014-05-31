@@ -36,4 +36,7 @@ gem 'padrino', '0.12.1'
 #
 gem 'resque'
 gem 'aws-sdk'
-#gem 'gd2'
+group :development do
+  gem 'better_errors'
+  gem 'binding_of_caller'
+end

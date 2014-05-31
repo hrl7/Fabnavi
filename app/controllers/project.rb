@@ -23,7 +23,7 @@ Gdworker::App.controllers :project do
   end
 
   get "/new" do
-    id = params[:projectName]
+    id = params[:projectname]
     if id == nil then
       puts "no given name"
       id = Time.now.to_s
@@ -43,13 +43,14 @@ Gdworker::App.controllers :project do
   post "/postConfig" do
     id = params[:project_id]
     prev = Playlist.find_by(:projectname => id)
-    Backup.new do |b|
-     b.projectName = prev.projectName
-     b.body = prev.body
-     b.save
+    if not prev == nil then
+      Backup.new do |b|
+       b.projectName = prev.projectName
+       b.body = prev.body
+       b.save
+      end
+      prev.delete
     end
-    prev.delete
-
     data = params[:data]
     Playlist.new do |ls|
      ls.projectName = id
@@ -66,6 +67,7 @@ Gdworker::App.controllers :project do
     fileName =File.basename(/^http.*.JPG/.match(url)[0])
     filePath = id+'/'+fileName
     save_pict_S3(filePath,pict)
-    return "http://files.fabnavi.s3.amazonaws.com/"+filePath
+    res = "https://s3-ap-northeast-1.amazonaws.com/files.fabnavi/"+filePath
+    return res
   end 
 end

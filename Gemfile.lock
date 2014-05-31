@@ -21,7 +21,15 @@ GEM
       json (~> 1.4)
       nokogiri (>= 1.4.4)
     bcrypt (3.1.7)
+    better_errors (1.1.0)
+      coderay (>= 1.0.0)
+      erubis (>= 2.6.6)
+    binding_of_caller (0.7.2)
+      debug_inspector (>= 0.0.1)
     builder (3.1.4)
+    coderay (1.1.0)
+    debug_inspector (0.0.2)
+    erubis (2.7.0)
     haml (4.0.5)
       tilt
     http_router (0.11.1)
@@ -114,6 +122,8 @@ DEPENDENCIES
   activerecord (>= 3.1)
   aws-sdk
   bcrypt
+  better_errors
+  binding_of_caller
   haml
   padrino (= 0.12.1)
   pg
