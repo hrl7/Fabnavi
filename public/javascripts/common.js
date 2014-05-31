@@ -24,6 +24,7 @@ var CommonController = {
   },
 
   getJSON: function(url, callback) {
+    console.trace();
     $.getJSON(url, function(result) {
       if (result["error"]) {
         callback(null, result["error"]);

@@ -26,13 +26,13 @@ Gdworker::App.controllers :project do
     id = params[:projectname]
     if id == nil then
       puts "no given name"
-      id = Time.now.to_s
+      id = Time.now.strftime("%Y-%m-%d_%H-%M-%S")
     end
 
     res = Playlist.find_by(:projectname => id)
     if not res == nil then
       puts id.to_s + " is already exist!"
-      id = Time.now.to_s
+      id = Time.now.strftime("%Y-%m-%d_%H-%M-%S")
     end
 
     puts id.to_s + " is ok."
