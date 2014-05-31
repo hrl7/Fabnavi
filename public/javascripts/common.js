@@ -24,7 +24,6 @@ var CommonController = {
   },
 
   getJSON: function(url, callback) {
-    console.trace();
     $.getJSON(url, function(result) {
       if (result["error"]) {
         callback(null, result["error"]);
@@ -75,7 +74,6 @@ var CommonController = {
   },
 
   getLocalConfig: function(id){
-                   console.trace();
     var res = CommonController.getLocalData(id);
     if(!res){
       CommonController.localConfig = "";

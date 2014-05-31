@@ -184,6 +184,7 @@ var PlayController = {
         PlayController.ctx.clearRect(0,0,PlayController.cvs.width,PlayController.cvs.height);
         PlayController.draw(img);
         PlayController.currentImg = img;
+        CalibrateController.updatePhoto();
       };
       $("#photo").attr("src",url); 
     } else if(force) {

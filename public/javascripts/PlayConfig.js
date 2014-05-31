@@ -68,7 +68,7 @@ var PlayConfig = {
 
                        PlayConfig.parse(result.body);
                        d.resolve();
-                       PlayConfig.postConfig();
+//                       PlayConfig.postConfig();
                      }
                      ); 
                  return d.promise();

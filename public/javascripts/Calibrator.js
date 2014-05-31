@@ -90,7 +90,6 @@ var CalibrateController = {
                    $('#py').text = CalibrateController.y;
                    $('#pw').text = CalibrateController.w;
                    $('#ph').text = CalibrateController.h;
-                   CalibrateController.updatePhoto();
                  }
                }
 }

@@ -8,7 +8,6 @@ ConfigList.prototype = new ListController("configList");
 ConfigList.prototype.load = function () {
   PlayConfig.getConfigList().done(function(){
     PlayConfig.configFileList = PlayConfig.configFileList.reverse();
-    console.log(PlayConfig.configFileList);
     for(i in PlayConfig.configFileList){
       var data = PlayConfig.configFileList[i].updated_at;
       var a = data.split('/');
