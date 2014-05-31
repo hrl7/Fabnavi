@@ -8,22 +8,51 @@ var CalibrateController = {
   h:1000,
   cx:0,
   cy:0,
+  lx:0,
+  ly:0,
+  drag:false,
   init: function(){
     document.getElementById('bwp').onclick = function(){
       CalibrateController.w += 10;
+      CalibrateController.h += 10;
       CalibrateController.update();
     };
     document.getElementById('bwm').onclick = function(){
       CalibrateController.w -= 10;
+      CalibrateController.h -= 10;
       CalibrateController.update();
     };
     document.getElementById('bhp').onclick = function(){
       CalibrateController.h += 10;
+      CalibrateController.w += 10;
       CalibrateController.update();
     };
     document.getElementById('bhm').onclick = function(){
       CalibrateController.h -= 10;
+      CalibrateController.w -= 10;
       CalibrateController.update();
+    };
+
+    var cvs = document.getElementById('cvs');
+    cvs.onmousedown = function (e) {
+      console.log( "mouseDown");
+      CalibrateController.drag = true;
+      CalibrateController.lx = e.clientX;
+      CalibrateController.ly = e.clientY;
+    };
+    cvs.onmouseup = function (e){
+      console.log( "mouseup");
+      CalibrateController.drag = false;
+    };
+    cvs.onmousemove= function (e){
+      console.log("mousemovinag... : drag ",CalibrateController.drag );
+      if(CalibrateController.drag){
+        CalibrateController.cx += CalibrateController.lx - e.clientX;
+        CalibrateController.cy -= e.clientY - CalibrateController.ly; 
+        CalibrateController.lx =  e.clientX;
+        CalibrateController.ly =  e.clientY;
+        CalibrateController.update();
+      }
     };
     CalibrateController.cvs = document.getElementById('cvs');
     CalibrateController.ctx = CalibrateController.cvs.getContext('2d');
@@ -68,13 +97,11 @@ var CalibrateController = {
                },
 
   update : function(){
-             console.log(CommonController.localConfig);
-             console.log(CalibrateController.x,CalibrateController.y,CalibrateController.w, CalibrateController.h);
-
-             $('#px').text = CalibrateController.x;
-             $('#py').text = CalibrateController.y;
-             $('#pw').text = CalibrateController.w;
-             $('#ph').text = CalibrateController.h;
+             /*           $('#px').text = CalibrateController.x;
+                          $('#py').text = CalibrateController.y;
+                          $('#pw').text = CalibrateController.w;
+                          $('#ph').text = CalibrateController.h;
+                          */
              CalibrateController.updateConfig();
              PlayController.show(PlayConfig.index,true);
            },
