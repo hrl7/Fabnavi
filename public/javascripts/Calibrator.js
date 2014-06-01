@@ -13,23 +13,23 @@ var CalibrateController = {
   drag:false,
   init: function(){
     document.getElementById('bwp').onclick = function(){
-      CalibrateController.w += 10;
-      CalibrateController.h += 10;
+      CalibrateController.w += 50;
+      CalibrateController.h += 50;
       CalibrateController.update();
     };
     document.getElementById('bwm').onclick = function(){
-      CalibrateController.w -= 10;
-      CalibrateController.h -= 10;
+      CalibrateController.w -= 50;
+      CalibrateController.h -= 50;
       CalibrateController.update();
     };
     document.getElementById('bhp').onclick = function(){
-      CalibrateController.h += 10;
-      CalibrateController.w += 10;
+      CalibrateController.h += 50;
+      CalibrateController.w += 50;
       CalibrateController.update();
     };
     document.getElementById('bhm').onclick = function(){
-      CalibrateController.h -= 10;
-      CalibrateController.w -= 10;
+      CalibrateController.h -= 50;
+      CalibrateController.w -= 50;
       CalibrateController.update();
     };
 
@@ -97,11 +97,6 @@ var CalibrateController = {
                },
 
   update : function(){
-             /*           $('#px').text = CalibrateController.x;
-                          $('#py').text = CalibrateController.y;
-                          $('#pw').text = CalibrateController.w;
-                          $('#ph').text = CalibrateController.h;
-                          */
              CalibrateController.updateConfig();
              PlayController.show(PlayConfig.index,true);
            },
