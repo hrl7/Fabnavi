@@ -7,7 +7,7 @@ var PlayController = {
   currentImg:"",
   init: function() {
     PlayController.defaultInit();
-    CalibrateController.init();
+    Ca.init();
 
     ProjectList.load();
     $('#panel').hide();
@@ -92,13 +92,18 @@ var PlayController = {
   },
 
   _drawImage:function(image,sx,sy,sw,sh,dx,dy,dw,dh){
+    try {
     PlayController.ctx.drawImage(image,sx,sy,sw,sh,dx,dy,dw,dh);
+    } catch(e){
+      console.log(sx+","+sy+","+sw+","+sh);
+      console.log(dx+","+dy+","+dw+","+dh);
+    }
   },
 
   play: function(id) {
     $('#projectList').hide();
     $('#contents').show();
-    CalibrateController.initProject(id);
+    Ca.initProject(id);
     if(CommonController.localConfig == ""){
       CommonController.localConfig = {x:0,y:0,w:$('#photo').width(),h:$('#photo').height()};
     }
@@ -184,7 +189,7 @@ var PlayController = {
         PlayController.ctx.clearRect(0,0,PlayController.cvs.width,PlayController.cvs.height);
         PlayController.draw(img);
         PlayController.currentImg = img;
-        CalibrateController.updatePhoto();
+        Ca.updatePhoto();
       };
       $("#photo").attr("src",url); 
     } else if(force) {
@@ -194,7 +199,7 @@ var PlayController = {
         var img = new Image();
         img.src = url;
         img.onload = function () {
-          CalibrateController.updateConfig();
+          Ca.updateConfig();
           PlayController.ctx.clearRect(0,0,PlayController.cvs.width,PlayController.cvs.height);
           PlayController.draw(img);
           PlayController.currentimg = img;
