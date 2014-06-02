@@ -13,19 +13,22 @@ var Ca = {
   drag:false,
   zi:false,
   zo:false,
-  zoomIn :function () {
-    Ca.w -= 1;
-    Ca.h -= 1;
+  as:1,
+  zoomIn :function (_shift) {
+   var shift = _shift | 10;
+    Ca.w -= shift;
+    Ca.h -= shift*Ca.as;
     Ca.update();
   },
-  zoomOut:function () {
-            Ca.w += 1;
-            Ca.h += 1;
+  zoomOut:function (_shift) {
+   var shift = _shift | 10;
+    Ca.w += shift;
+    Ca.h += shift*Ca.as;
             Ca.update();
           },
   init: function(){
-          var zoomInBtn = document.getElementById('zoomOut');
-          var zoomOutBtn = document.getElementById('zoomIn');
+          var zoomOutBtn = document.getElementById('zoomOut');
+          var zoomInBtn = document.getElementById('zoomIn');
           zoomInBtn.onmousedown = function(){
             Ca.zi = true;
           };
@@ -49,6 +52,7 @@ var Ca = {
             if(Ca.zi)Ca.zoomIn();
             if(Ca.zo)Ca.zoomOut();
           },50);
+
           var cvs = document.getElementById('cvs');
           cvs.onmousedown = function (e) {
             Ca.drag = true;
@@ -77,6 +81,7 @@ var Ca = {
         },
 
   updatePhoto:function () {
+               Ca.as = Ca.h/Ca.w;
                 Ca.cx = Math.floor(Ca.w/2) + Ca.x;
                 Ca.cy = Math.floor(Ca.h/2) + Ca.y;
               },
