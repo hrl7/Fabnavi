@@ -1,0 +1,43 @@
+- error = @playlist.errors.include?(:projectName)
+%fieldset.control-group{:class => error ? 'has-error' : ''}
+  =f.label :projectName, :class => 'control-label'
+  .controls
+    =f.text_field :projectName, :class => 'form-control input-large input-with-feedback', :autofocus => true
+    %span.help-inline=error ? f.error_message_on(:projectName, :class => 'text-error') : pat(:example)
+- error = @playlist.errors.include?(:body)
+%fieldset.control-group{:class => error ? 'has-error' : ''}
+  =f.label :body, :class => 'control-label'
+  .controls
+    ~f.text_area :body, :class => 'form-control input-large input-with-feedback'
+    %span.help-inline=error ? f.error_message_on(:body, :class => 'text-error') : pat(:example)
+- error = @playlist.errors.include?(:author)
+%fieldset.control-group{:class => error ? 'has-error' : ''}
+  =f.label :author, :class => 'control-label'
+  .controls
+    =f.text_field :author, :class => 'form-control input-large input-with-feedback'
+    %span.help-inline=error ? f.error_message_on(:author, :class => 'text-error') : pat(:example)
+- error = @playlist.errors.include?(:authorId)
+%fieldset.control-group{:class => error ? 'has-error' : ''}
+  =f.label :authorId, :class => 'control-label'
+  .controls
+    =f.text_field :authorId, :class => 'form-control input-large input-with-feedback'
+    %span.help-inline=error ? f.error_message_on(:authorId, :class => 'text-error') : pat(:example)
+- error = @playlist.errors.include?(:author_email)
+%fieldset.control-group{:class => error ? 'has-error' : ''}
+  =f.label :author_email, :class => 'control-label'
+  .controls
+    =f.text_field :author_email, :class => 'form-control input-large input-with-feedback'
+    %span.help-inline=error ? f.error_message_on(:author_email, :class => 'text-error') : pat(:example)
+- error = @playlist.errors.include?(:thumbnail)
+%fieldset.control-group{:class => error ? 'has-error' : ''}
+  =f.label :thumbnail, :class => 'control-label'
+  .controls
+    =f.text_field :thumbnail, :class => 'form-control input-large input-with-feedback'
+    %span.help-inline=error ? f.error_message_on(:thumbnail, :class => 'text-error') : pat(:example)
+
+.form-actions
+  =f.submit pat(:save), :class => 'btn btn-primary'
+  &nbsp;
+  =f.submit pat(:save_and_continue), :class => 'btn btn-info', :name => 'save_and_continue'
+  &nbsp;
+  =link_to pat(:cancel), url(:playlists, :index), :class => 'btn btn-default'

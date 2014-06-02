@@ -9,7 +9,7 @@ ConfigList.prototype.load = function () {
   PlayConfig.getConfigList().done(function(){
     PlayConfig.configFileList = PlayConfig.configFileList.reverse();
     for(i in PlayConfig.configFileList){
-      var data = PlayConfig.configFileList[i];
+      var data = PlayConfig.configFileList[i].updated_at;
       var a = data.split('/');
       var str = a[a.length-1];
       var id = str.split('.')[0];

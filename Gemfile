@@ -16,7 +16,7 @@ gem 'rake'
 # Component requirements
 gem 'bcrypt'
 gem 'activerecord', '>= 3.1', :require => 'active_record'
-#gem 'sqlite3'
+gem 'sqlite3'
 gem 'pg'
 gem 'sass'
 gem 'haml'
@@ -35,4 +35,8 @@ gem 'padrino', '0.12.1'
 # end
 #
 gem 'resque'
-#gem 'gd2'
+gem 'aws-sdk'
+group :development do
+  gem 'better_errors'
+  gem 'binding_of_caller'
+end

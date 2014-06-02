@@ -1,80 +1,116 @@
 /* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this file,
  * You can obtain one at http://mozilla.org/MPL/2.0/. */
-var CalibrateController = {
-  init: function(){
-    $('#x').val(0);
-    $('#y').val(0);
-    $('#h').val(10000);
-    $('#w').val(10000);
-    CalibrateController.valueListener($('#x'),$('#px'));
-    CalibrateController.valueListener($('#y'),$('#py'));
-    CalibrateController.valueListener($('#w'),$('#pw'));
-    CalibrateController.valueListener($('#h'),$('#ph'));
-    CalibrateController.cvs = document.getElementById('cvs');
-    CalibrateController.ctx = CalibrateController.cvs.getContext('2d');
-    CalibrateController.image = document.getElementById('photo');
-    CalibrateController.cvs.height = screen.height;
-    CalibrateController.cvs.width = screen.width;
-    $("#save").click(CalibrateController.saveConfig);
+var Ca = {
+  x:0,
+  y:0,
+  w:1000,
+  h:1000,
+  cx:0,
+  cy:0,
+  lx:0,
+  ly:0,
+  drag:false,
+  zi:false,
+  zo:false,
+  as:1,
+  zoomIn :function (_shift) {
+   var shift = _shift | 10;
+    Ca.w -= shift;
+    Ca.h -= shift*Ca.as;
+    Ca.update();
   },
+  zoomOut:function (_shift) {
+   var shift = _shift | 10;
+    Ca.w += shift;
+    Ca.h += shift*Ca.as;
+            Ca.update();
+          },
+  init: function(){
+          var zoomOutBtn = document.getElementById('zoomOut');
+          var zoomInBtn = document.getElementById('zoomIn');
+          zoomInBtn.onmousedown = function(){
+            Ca.zi = true;
+          };
+          zoomInBtn.onmouseup= function(){
+            Ca.zi = false;
+          };
+          zoomInBtn.onmouseleave= function(){
+            Ca.zi = false;
+          };
+          zoomOutBtn.onmousedown= function(){
+            Ca.zo = true;
+          };
+          zoomOutBtn.onmouseup= function(){
+            Ca.zo = false;
+          };
+          zoomOutBtn.onmouseleave= function(){
+            Ca.zo = false;
+          };
+
+          setInterval(function(){
+            if(Ca.zi)Ca.zoomIn();
+            if(Ca.zo)Ca.zoomOut();
+          },50);
+
+          var cvs = document.getElementById('cvs');
+          cvs.onmousedown = function (e) {
+            Ca.drag = true;
+            Ca.lx = e.clientX;
+            Ca.ly = e.clientY;
+          };
+          cvs.onmouseup = function (e){
+            Ca.drag = false;
+          };
+          cvs.onmousemove= function (e){
+            if(Ca.drag){
+              Ca.cx -= Ca.lx - e.clientX;
+              Ca.cy += e.clientY - Ca.ly; 
+              Ca.lx =  e.clientX;
+              Ca.ly =  e.clientY;
+              Ca.update();
+            }
+          };
+          Ca.cvs = document.getElementById('cvs');
+          Ca.ctx = Ca.cvs.getContext('2d');
+          Ca.image = document.getElementById('photo');
+          Ca.cvs.height = screen.height;
+          Ca.cvs.width = screen.width;
+          $("#save").click(Ca.saveConfig);
+          Ca.updatePhoto();
+        },
+
+  updatePhoto:function () {
+               Ca.as = Ca.h/Ca.w;
+                Ca.cx = Math.floor(Ca.w/2) + Ca.x;
+                Ca.cy = Math.floor(Ca.h/2) + Ca.y;
+              },
 
   updateConfig:function(){
-    var w = $('#w').val();
-    var h = $('#h').val();
-    $('#w').attr('max',CalibrateController.image.naturalWidth - $('#x').val());
-    $('#h').attr('max',CalibrateController.image.naturalHeight- $('#y').val());
-    if(w > CalibrateController.image.naturalWidth - $('#x').val()){
-      w = CalibrateController.image.naturalWidth - $('#x').val();
-      $('#w').val(w);
-    }
-
-    if(h > CalibrateController.image.naturalHeight- $('#y').val()){
-      h = CalibrateController.image.naturalHeight - $('#y').val();
-      $('#h').val(h);
-    }
-    var x = $('#x').val();
-    var y = $('#y').val();
-    CommonController.localConfig = {
-      x:x,y:y,w:w,h:h
-    };
-  },
+                 Ca.x = Ca.cx - Math.floor(Ca.w/2);
+                 Ca.y = Ca.cy - Math.floor(Ca.h/2);
+                 CommonController.localConfig = {
+                   x:Ca.x,y:Ca.y,w:Ca.w,h:Ca.h
+                 };
+               },
 
   saveConfig : function(){
-    if(CommonController.localConfig != "")CommonController.setLocalConfig(PlayConfig.projectName);
-  },
-
-  valueListener: function(obj,target){
-    obj.mousemove(function(e){
-      target.text(obj.val());
-      CalibrateController.updateConfig();
-      PlayController.show(PlayConfig.index,true);
-    }); 
-    obj.on('keydown',function(e){
-      target.text(obj.val());
-      CalibrateController.updateConfig();
-      PlayController.show(PlayConfig.index,true);
-    }); 
-  },
+                 if(CommonController.localConfig != "")CommonController.setLocalConfig(PlayConfig.projectName);
+               },
 
   update : function(){
-    $('#px').text = $('#x').val();
-    $('#py').text = $('#y').val();
-    $('#pw').text = $('#w').val();
-    $('#ph').text = $('#h').val();
-    CalibrateController.updateConfig();
-    PlayController.show(PlayConfig.index);
-
-  },
+             Ca.updateConfig();
+             PlayController.show(PlayConfig.index,true);
+           },
 
   initProject: function(id) {
-    if(CommonController.localConfig != ""){
-      $('#x').val(CommonController.localConfig.x);
-      $('#y').val(CommonController.localConfig.y);
-      $('#w').val(CommonController.localConfig.w);
-      $('#h').val(CommonController.localConfig.h);
-    }
-    //    CalibrateController.update();
-  }
+                 CommonController.getLocalConfig(id);
+                 if(CommonController.localConfig != ""){
+                   Ca.x = CommonController.localConfig.x;
+                   Ca.y = CommonController.localConfig.y;
+                   Ca.w = CommonController.localConfig.w;
+                   Ca.h = CommonController.localConfig.h;
+                 }
+               }
 }
 

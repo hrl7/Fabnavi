@@ -14,7 +14,7 @@
 #   }
 #
 ActiveRecord::Base.configurations[:development] = {
-  :adapter => 'postgresql',
+  :adapter => 'sqlite3',
   :database => Padrino.root('db', 'gdworker_development.db')
 
 }

@@ -12,6 +12,7 @@ require "base64"
 require "date"
 
 require "rexml/document"
+require "aws-sdk"
 
 include Fabnavi
 
@@ -31,6 +32,7 @@ module Gdworker
     Resque.redis = Redis.new
 
     get '/' do
+#     @playlists = Playlist.all(:order => 'updated_at desc')
      render 'project/index' 
     end
 

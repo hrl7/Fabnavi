@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2) do
+ActiveRecord::Schema.define(version: 4) do
 
   create_table "accounts", force: true do |t|
     t.string   "name"
@@ -23,10 +23,26 @@ ActiveRecord::Schema.define(version: 2) do
     t.datetime "updated_at"
   end
 
-  create_table "projects", force: true do |t|
-    t.string   "title"
-    t.string   "contents"
+  create_table "backups", force: true do |t|
+    t.string   "projectName"
+    t.text     "body"
     t.string   "author"
+    t.string   "authorId"
+    t.string   "author_e_mail"
+    t.string   "thumbnail"
+    t.boolean  "lock"
+    t.integer  "rev"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "playlists", force: true do |t|
+    t.string   "projectName"
+    t.text     "body"
+    t.string   "author"
+    t.string   "authorId"
+    t.string   "author_email"
+    t.string   "thumbnail"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

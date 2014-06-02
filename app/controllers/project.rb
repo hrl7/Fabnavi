@@ -1,73 +1,62 @@
+require "fabnavi_utils"
 Gdworker::App.controllers :project do
 
   get "/getList" do 
     res = []
-    Dir.chdir(Fabnavi::DATADIR)
-    Dir.glob('*').each do |t|
-      Dir.chdir(t)
-      picts = Dir.glob('*.{jpg,JPG}')  
-      res.push({:id=>t,:thumbnail=>("data/"+t+"/"+picts[0].to_s)})
-      Dir.chdir("../")
-    end
+    all = Playlist.all(:order => 'updated_at desc')
+    all.each{|p|
+      res.push({:id=>p.projectName,:thumbnail=>"data/"+p.projectName+"/pict20140418_112846_0.JPG.jpg"})
+    }
     res.to_json
   end
 
   get "/getProject" do 
     id = params[:project_id]
-    res = []
-    if id == "undefined" then
-      puts "id is Undefined" 
-    else 
-      Dir.chdir(Fabnavi::DATADIR + id+ "/original")
-      Dir.glob('*.{jpg,JPG}').each do |t|
-        res.push("data/"+id+"/original/"+t)
-      end
-    end
+    res = Playlist.find_by(:projectname=>id)
     res.to_json
   end
 
   get "/getConfigFiles" do
     id = params[:project_id]
-    Dir.chdir(Fabnavi::DATADIR + id + "/")
-    res = []
-    Dir.glob('*.config').each do |file|
-      res.push("data/" + id + "/" + file)
-    end
+    res = Backup.where(projectname:id)
     res.to_json
   end
 
   get "/new" do
-    if params[:projectName] == nil then
-      id = Time.now.nsec.to_s
-    else 
-      id = params[:projectName].to_s
+    id = params[:projectname]
+    if id == nil then
+      puts "no given name"
+      id = Time.now.strftime("%Y-%m-%d_%H-%M-%S")
     end
-    Dir.chdir(Fabnavi::DATADIR)
-    Dir.mkdir id
-    Dir.chdir(id)
-    Dir.mkdir "original"
-    Dir.mkdir "note"
-    FileUtils.touch "fabnavi.play.config"
-    backup_config id
-    return {:id=>id}.to_json 
-  end
 
-  get "/takePicture" do
-    id = params[:project_id]
-    api = CameraAPI.new 
-    query = api.generateOp("actTakePicture",[])
-    doc = api.fire query
-    url = doc['result'][0][0]
-    save_pict url, id
-    fileName = File.basename(/^http.*.JPG/.match(url)[0])
-    return {:url=>"data/"+id+"/original/"+fileName}.to_json
+    res = Playlist.find_by(:projectname => id)
+    if not res == nil then
+      puts id.to_s + " is already exist!"
+      id = Time.now.strftime("%Y-%m-%d_%H-%M-%S")
+    end
+
+    puts id.to_s + " is ok."
+    res = id.to_s
+    return {:id => res}.to_json
   end
 
   post "/postConfig" do
     id = params[:project_id]
+    prev = Playlist.find_by(:projectname => id)
+    if not prev == nil then
+      Backup.new do |b|
+       b.projectName = prev.projectName
+       b.body = prev.body
+       b.save
+      end
+      prev.delete
+    end
     data = params[:data]
-    backup_config id
-    save_config id,data
+    Playlist.new do |ls|
+     ls.projectName = id
+     ls.body = data
+     ls.save
+    end
   end
 
   post "/postPicture" do
@@ -76,31 +65,9 @@ Gdworker::App.controllers :project do
     url = params[:url]
     pict = Base64.decode64(data)
     fileName =File.basename(/^http.*.JPG/.match(url)[0])
-    filePath = Fabnavi::DATADIR+id+"/original/"+ fileName
-    thumnailPath = DATADIR+id+"/thumbnail.jpg" 
-    outerfilePath = Fabnavi::OUTER_DATADIR+id+"/original/"+ fileName
-    File.binwrite(filePath,pict)
-    FileUtils.copy_file(filePath,thumnailPath)
-    return outerfilePath.to_json
+    filePath = id+'/'+fileName
+    save_pict_S3(filePath,pict)
+    res = "https://s3-ap-northeast-1.amazonaws.com/files.fabnavi/"+filePath
+    return res
   end 
-  # get :index, :map => '/foo/bar' do
-  #   session[:foo] = 'bar'
-  #   render 'index'
-
-
-  # get :sample, :map => '/sample/url', :provides => [:any, :js] do
-  #   case content_type
-  #     when :js then ...
-  #     else ...
-  # end
-
-  # get :foo, :with => :id do
-  #   'Maps to url '/foo/#{params[:id]}''
-  # end
-
-  # get '/example' do
-  #   'Hello world!'
-  # end
-
-
 end
