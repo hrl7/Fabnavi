@@ -14,14 +14,14 @@
 #   }
 #
 ActiveRecord::Base.configurations[:development] = {
-  :adapter => 'sqlite3',
-  :database => Padrino.root('db', 'gdworker_development.db')
+  :adapter => 'postgresql',
+  :database => Padrino.root('db', 'development_databasedb')
 
 }
 
 ActiveRecord::Base.configurations[:production] = {
   :adapter => 'postgresql',
-  :database => Padrino.root('db', 'gdworker_production.db')
+  :database => Padrino.root('db', 'gdworker_productiondb')
 
 }
 
