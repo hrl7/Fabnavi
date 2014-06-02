@@ -68,26 +68,42 @@ var PlayController = {
     var dy = 0;
     var dw = PlayController.cvs.width;
     var dh = PlayController.cvs.height;
-
-    if(CommonController.localConfig.y < 0){
+    
+    PlayController.ctx.fillStyle = "black"; 
+    
+    if(sy < 0){
       var StoDh = dh/sh; 
-      var StoDw = dw/sw;
       dy = sy*StoDh;
       dh += dy;
       sh += sy;
       sy = 0;
       dy *=-1;
+      PlayController.ctx.fillRect(0,0,PlayController.cvs.width,dy);
+    } 
 
+    if(sx < 0){ 
+      var StoDw = dw/sw;
       dx = sx*StoDw;
       dw += dx;
       sw += sx;
       sx = 0;
       dx *= -1;
-      PlayController.ctx.fillStyle = "black"; 
-      PlayController.ctx.fillRect(0,0,dw,dy);
-      PlayController.ctx.fillRect(0,0,dx,dh);
-    } 
+      PlayController.ctx.fillRect(0,0,dx,PlayController.cvs.height);
+    }
 
+    if(sx + sw > image.width){
+      var StoDw = dw/sw;
+      sw -= (sx + sw - image.width);
+      dw = sw*StoDw;
+      PlayController.ctx.fillRect(dx+dw,0,PlayController.cvs.width-dx-dw,PlayController.cvs.height);
+    }
+
+    if(sy + sh > image.height){
+      var StoDh = dh/sh;
+      sh -= (sy + sh - image.height);
+      dh = sh*StoDh;
+      PlayController.ctx.fillRect(0,dy+dh,PlayController.cvs.width,100);
+    }
     PlayController._drawImage(image,sx,sy,sw,sh,dx,dy,dw,dh);
   },
 
