@@ -106,13 +106,10 @@ var Ca = {
   initProject: function(id) {
                  CommonController.getLocalConfig(id);
                  if(CommonController.localConfig != ""){
-                   Ca.x = CommonController.localConfig.x;
-                   Ca.y = CommonController.localConfig.y;
-                   Ca.w = CommonController.localConfig.w;
-                   Ca.h = CommonController.localConfig.h;
-                 }
-                 else {
-                    console.log("no init");
+                   Ca.x = Number(CommonController.localConfig.x);
+                   Ca.y = Number(CommonController.localConfig.y);
+                   Ca.w = Number(CommonController.localConfig.w);
+                   Ca.h = Number(CommonController.localConfig.h);
                  }
                }
 }
