@@ -61,10 +61,8 @@ var Ca = {
   },
 
   updatePhoto:function () {
-                Ca.maxWidth = Ca.image.naturalWidth;
-                Ca.maxHeight = Ca.image.naturalHeight;
-                Ca.cx = Math.floor(Ca.maxWidth/2);
-                Ca.cy = Math.floor(Ca.maxHeight/2);
+                Ca.cx = Math.floor(Ca.w/2) + Ca.x;
+                Ca.cy = Math.floor(Ca.h/2) + Ca.y;
               },
 
   updateConfig:function(){

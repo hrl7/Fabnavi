@@ -108,12 +108,7 @@ var PlayController = {
   },
 
   _drawImage:function(image,sx,sy,sw,sh,dx,dy,dw,dh){
-    try {
     PlayController.ctx.drawImage(image,sx,sy,sw,sh,dx,dy,dw,dh);
-    } catch(e){
-      console.log(sx+","+sy+","+sw+","+sh);
-      console.log(dx+","+dy+","+dw+","+dh);
-    }
   },
 
   play: function(id) {
@@ -196,7 +191,7 @@ var PlayController = {
     PlayConfig.index = Number(index);
   },
 
-  setPhoto: function(index,force) {
+  setPhoto: function(index,force,first) {
     var url = PlayConfig.imgURLs[index];
     if(url != PlayController.currentURL){
       var img = new Image();
