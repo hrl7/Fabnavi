@@ -82,8 +82,8 @@ var Ca = {
 
   updatePhoto:function () {
                Ca.as = Ca.h/Ca.w;
-                Ca.cx = Math.floor(Ca.w/2) + Ca.x;
-                Ca.cy = Math.floor(Ca.h/2) + Ca.y;
+                Ca.cx = Math.floor(Ca.w/2) + Number(Ca.x);
+                Ca.cy = Math.floor(Ca.h/2) + Number(Ca.y);
               },
 
   updateConfig:function(){
@@ -110,6 +110,9 @@ var Ca = {
                    Ca.y = CommonController.localConfig.y;
                    Ca.w = CommonController.localConfig.w;
                    Ca.h = CommonController.localConfig.h;
+                 }
+                 else {
+                    console.log("no init");
                  }
                }
 }
