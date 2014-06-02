@@ -44,8 +44,8 @@ var Ca = {
     };
     cvs.onmousemove= function (e){
       if(Ca.drag){
-        Ca.cx += Ca.lx - e.clientX;
-        Ca.cy -= e.clientY - Ca.ly; 
+        Ca.cx -= Ca.lx - e.clientX;
+        Ca.cy += e.clientY - Ca.ly; 
         Ca.lx =  e.clientX;
         Ca.ly =  e.clientY;
         Ca.update();
