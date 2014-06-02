@@ -32,15 +32,20 @@ var Ca = {
           zoomInBtn.onmouseup= function(){
             Ca.zi = false;
           };
+          zoomInBtn.onmouseleave= function(){
+            Ca.zi = false;
+          };
           zoomOutBtn.onmousedown= function(){
             Ca.zo = true;
           };
           zoomOutBtn.onmouseup= function(){
             Ca.zo = false;
           };
+          zoomOutBtn.onmouseleave= function(){
+            Ca.zo = false;
+          };
 
           setInterval(function(){
-           console.log(Ca.zi,Ca.zo);
             if(Ca.zi)Ca.zoomIn();
             if(Ca.zo)Ca.zoomOut();
           },50);
