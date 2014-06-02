@@ -102,6 +102,27 @@ var Keys = {
           if(e.ctrlKey)document.activeElement.blur();
           break;
         }
+        case 73:{
+          Ca.zi = true;
+          break;
+        }
+        case 79:{
+          Ca.zo = true;
+          break;
+        }
+      }
+    };
+
+    window.onkeyup = function (e){
+      switch(e.keyCode){
+        case 73:{
+          Ca.zi = false;
+          break;
+        }
+        case 79:{
+          Ca.zo = false;
+          break;
+        }
       }
     };
 
