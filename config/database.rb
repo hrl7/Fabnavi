@@ -13,6 +13,7 @@
 #     :socket    => '/tmp/mysql.sock'
 #   }
 #
+postgres = URI.parse(ENV['DATABASE_URL'] || '')
 ActiveRecord::Base.configurations[:development] = {
   :adapter => 'postgresql',
   :database => Padrino.root('db', 'development_databasedb')
@@ -21,13 +22,15 @@ ActiveRecord::Base.configurations[:development] = {
 
 ActiveRecord::Base.configurations[:production] = {
   :adapter => 'postgresql',
-  :database => Padrino.root('db', 'gdworker_productiondb')
-
+  :database => postgres.path[1..-1], 
+  :username => postgres.user,
+  :password => postgres.password,
+  :host     => postgres.host
 }
 
 ActiveRecord::Base.configurations[:test] = {
   :adapter => 'postgresql',
-  :database => Padrino.root('db', 'gdworker_test.db')
+  :database => Padrino.root('db', 'gdworker_testdb')
 
 }
 
