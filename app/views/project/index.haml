@@ -24,11 +24,8 @@
       #counter
       #arrow ▶
       .help
-        x,y,w,h : スライダーを選択します
-        %br/
-        ← , → : 選択されているスライダーの値を調整します。
         %br>/
-        スライダーが選択されていなければ、ページを移動します。
+        ページを移動します。
         %br/
         q : プロジェクト選択画面に戻ります
         %br/
@@ -36,22 +33,8 @@
         %br/
       #panel
         #param
-          .x-slider
-            .param-name X:
-            #px.indicator
-          .y-slider
-            .param-name Y:
-            #py.indicator
-          .x-slider
-            .param-name W:
-            #pw.indicator
-            %input#bwp{type:"button",value:"right"}/
-            %input#bwm{type:"button",value:"left"}/
-          .y-slider
-            .param-name H:
-            %input#bhp{type:"button",value:"up"}/
-            %input#bhm{type:"button",value:"down"}/
-            #ph.indicator
+          %input#zoomIn{type:"button",value:"+"}/
+          %input#zoomOut{type:"button",value:"-"}/
         #info
           %input#save{type: "button", value: "save config"}/
           %input#savePlaylist{type: "button", value: "save PlayList"}/
