@@ -12,13 +12,13 @@ Gdworker::App.controllers :project do
 
   get "/getProject" do 
     id = params[:project_id]
-    res = Playlist.find_by(:projectname=>id)
+    res = Playlist.find_by(:projectName=>id)
     res.to_json
   end
 
   get "/getConfigFiles" do
     id = params[:project_id]
-    res = Backup.where(projectname:id)
+    res = Backup.where(projectName:id)
     res.to_json
   end
 
@@ -29,7 +29,7 @@ Gdworker::App.controllers :project do
       id = Time.now.strftime("%Y-%m-%d_%H-%M-%S")
     end
 
-    res = Playlist.find_by(:projectname => id)
+    res = Playlist.find_by(:projectName => id)
     if not res == nil then
       puts id.to_s + " is already exist!"
       id = Time.now.strftime("%Y-%m-%d_%H-%M-%S")
@@ -42,7 +42,7 @@ Gdworker::App.controllers :project do
 
   post "/postConfig" do
     id = params[:project_id]
-    prev = Playlist.find_by(:projectname => id)
+    prev = Playlist.find_by(:projectName => id)
     if not prev == nil then
       Backup.new do |b|
        b.projectName = prev.projectName
