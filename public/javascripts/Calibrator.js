@@ -31,6 +31,12 @@ var Ca = {
           var zoomOutBtn = document.getElementById('zoomOut');
           var zoomInBtn = document.getElementById('zoomIn');
           var aspBtn = document.getElementById('aspectShift');
+          window.onwheel = function(e){
+            e.preventDefault();
+            var y = e.deltaY;
+            if(y>0)Ca.zoomOut(y);
+            else Ca.zoomIn(-y);
+          };
 
           zoomInBtn.onmousedown = function(){
             Ca.zi = true;
