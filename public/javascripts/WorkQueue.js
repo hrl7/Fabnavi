@@ -57,6 +57,7 @@ WorkQueue.prototype = {
           },
           function(res,error){
             res = res.replace("\"","","g");
+            PlayConfig.setThumbnail(res);
             PlayConfig.imgURLs.splice(PlayConfig.index+1,0,res);
             RecordController.updateList();
             PlayController.next();

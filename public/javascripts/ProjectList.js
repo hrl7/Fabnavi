@@ -28,7 +28,8 @@ var ProjectList = {
       for (var i = 0, n = result.length; i < n; i++) {
         var project = result[i];
         var id = project.id;
-        var thumbnail = project.thumbnail;
+        if(project.thumbnail == null)var thumbnail = "";
+        else var thumbnail = project.thumbnail;
 
         var image = $(document.createElement("img"));
         image.attr("src", thumbnail);

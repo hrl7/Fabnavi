@@ -5,7 +5,7 @@ Gdworker::App.controllers :project do
     res = []
     all = Playlist.all(:order => 'updated_at desc')
     all.each{|p|
-      res.push({:id=>p.projectName,:thumbnail=>"data/"+p.projectName+"/pict20140418_112846_0.JPG.jpg"})
+      res.push({:id=>p.projectName,:thumbnail=> p.thumbnail})
     }
     res.to_json
   end
@@ -58,6 +58,14 @@ Gdworker::App.controllers :project do
      ls.save
     end
   end
+
+  post "/setThumbnail" do
+    thumbnailUrl = params[:thumbnail]
+    id = params[:project_id]
+    proj = Playlist.find_by(:projectName => id)
+    proj.thumbnail = thumbnailUrl
+    proj.save
+  end 
 
   post "/postPicture" do
     data = params[:data]

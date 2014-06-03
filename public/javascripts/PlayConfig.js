@@ -216,6 +216,13 @@ var PlayConfig = {
   removeIndex: function(index){
                  PlayConfig.imgURLs.splice(index,1);
                },
+  setThumbnail: function(thumbnailURL){
+                $.post("project/setThumbnail",
+                    {project_id:PlayConfig.projectName,
+                     thumbnail:thumbnailURL
+                    },function(){},
+                    "jsonp");
+                },
 
   postConfig: function(){
                 PlayConfig.setXMLFromObjects();
