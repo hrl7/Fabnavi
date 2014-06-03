@@ -8,9 +8,6 @@ var CameraAPI = {
     window.setTimeout(function(){
       CameraAPI.zoomOnce()
       .then(function(){return CameraAPI.zoomOnce()})
-      .then(function(){return CameraAPI.zoomOnce()})
-      .then(function(){return CameraAPI.zoomOnce()})
-      .then(function(){return CameraAPI.zoomOnce()})
     },3000);
   },
   zoomOnce:function(){
