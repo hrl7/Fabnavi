@@ -14,6 +14,7 @@ var Ca = {
   zi:false,
   zo:false,
   as:1,
+  aspShift:false,
   zoomIn :function (_shift) {
    var shift = _shift | 10;
     Ca.w -= shift;
@@ -29,6 +30,8 @@ var Ca = {
   init: function(){
           var zoomOutBtn = document.getElementById('zoomOut');
           var zoomInBtn = document.getElementById('zoomIn');
+          var aspBtn = document.getElementById('aspectShift');
+
           zoomInBtn.onmousedown = function(){
             Ca.zi = true;
           };
@@ -48,6 +51,10 @@ var Ca = {
             Ca.zo = false;
           };
 
+          aspBtn.onclick = function (e) {
+             Ca.aspShift = !Ca.aspShift;
+          }
+
           setInterval(function(){
             if(Ca.zi)Ca.zoomIn();
             if(Ca.zo)Ca.zoomOut();
@@ -64,11 +71,17 @@ var Ca = {
           };
           cvs.onmousemove= function (e){
             if(Ca.drag){
+             if(Ca.aspShift){
+              Ca.w += Ca.lx - e.clientX;
+              Ca.update();
+              Ca.updatePhoto();
+             }else {
               Ca.cx -= Ca.lx - e.clientX;
               Ca.cy += e.clientY - Ca.ly; 
               Ca.lx =  e.clientX;
               Ca.ly =  e.clientY;
               Ca.update();
+             }
             }
           };
           Ca.cvs = document.getElementById('cvs');

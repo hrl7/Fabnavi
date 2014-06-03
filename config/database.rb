@@ -15,8 +15,8 @@
 #
 postgres = URI.parse(ENV['DATABASE_URL'] || '')
 ActiveRecord::Base.configurations[:development] = {
-  :adapter => 'postgresql',
-  :database => Padrino.root('db', 'development_databasedb')
+  :adapter => 'sqlite3',
+  :database => Padrino.root('db', 'development_database.db')
 
 }
 
