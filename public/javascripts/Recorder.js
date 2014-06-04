@@ -7,6 +7,7 @@ var RecordController = {
     $("#start").hide();
     $('#projectList').hide();
     PlayConfig.init();
+    Ca.initProject("  ");
     CommonController.getJSON("/project/new", function(result, error) {
       if (error) {
         alert(error);
