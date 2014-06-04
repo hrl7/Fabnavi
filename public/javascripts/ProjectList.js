@@ -6,114 +6,108 @@ A = 1.0;
 var ProjectList = {
   init : function () {
 
-  },
+         },
 
   load :function () {
-    ProjectList.selectedId = "";
-    CommonController.getJSON("project/getList", function(result, error) {
-      if (error) {
-        alert(error);
-        return;
-      }
-      var projectList = $("#projectList");
-      document.getElementById('newProject').ondblclick = function(){
-        PlayConfig.fastDraw = true;
-        Keys.recorderKeyBind();
-        RecordController.newProject();
-        PlayController.info();
-      };
-      document.getElementById('newProject').click(function(e){
-        ProjectList.select(e.currentTarget);
-      });
-      for (var i = 0, n = result.length; i < n; i++) {
-        var project = result[i];
-        var id = project.id;
-        if(project.thumbnail == null)var thumbnail = "";
-        else var thumbnail = project.thumbnail;
+          ProjectList.selectedId = "";
+          CommonController.getJSON("project/getList", function(result, error) {
+            if (error) {
+              alert(error);
+              return;
+            }
+            var projectList = $("#projectList");
+            var newProject = document.getElementById('__newProject__');
+            newProject.ondblclick = function(){
+              PlayConfig.fastDraw = true;
+              Keys.recorderKeyBind();
+              RecordController.newProject();
+              PlayController.info();
+            };
+            for (var i = 0, n = result.length; i < n; i++) {
+              var project = result[i];
+              var id = project.id;
+              if(project.thumbnail == null)var thumbnail = "";
+              else var thumbnail = project.thumbnail;
 
-        var image = $(document.createElement("img"));
-        image.attr("src", thumbnail);
-        image.addClass("thumbnail");
+              var image = $(document.createElement("img"));
+              image.attr("src", thumbnail);
+              image.addClass("thumbnail");
 
-        var li = $(document.createElement("li"));
-        li.append(image);
-        li.attr("id", id);
-        li.click(function(e){
-          ProjectList.select(e.currentTarget);
-        });
+              var li = $(document.createElement("li"));
+              li.append(image);
+              li.attr("id", id);
 
-        li.dblclick(function(e){
-          PlayConfig.fastDraw = true;
-          Keys.playerKeyBind();
-          PlayController.play(e.currentTarget.id);
-        });
+              var updateBtn = document.createElement('input');
+              updateBtn.type = "button";
+              updateBtn.value = "Update";
+              updateBtn.className = "editButton";
 
-        var title = $('<div>');
-        title.text(id);
-        li.append(title);
+              var playBtn = document.createElement('input');
+              playBtn.type = "button";
+              playBtn.value = "Play";
+              playBtn.className = "makeButton";
 
-        projectList.append(li);
+              var title = $('<div>');
+              title.text(id);
+              li.append(title);
+              li.append(updateBtn);
+              li.append(playBtn);
+              projectList.append(li);
+            }
 
-      }
+            var makeButtons = document.getElementsByClassName('makeButton');
+            for (var i = 0; i < makeButtons.length;i++){
+              makeButtons[i].onclick = function(e){ 
+                PlayConfig.fastDraw = false;
+                Keys.playerKeyBind();
+                PlayController.play(e.originalTarget.parentElement.id);
+              };
+            }
 
-      document.getElementById('makeButton').onclick = function(){ 
-        if(ProjectList.selectedId){
-          PlayConfig.fastDraw = false;
-          Keys.playerKeyBind();
-          PlayController.play(ProjectList.selectedId);
-        }
-      }
-
-      document.getElementById('editButton').onclick = function(){ 
-        if(ProjectList.selectedId){
-          PlayConfig.fastDraw = true;
-          Keys.recorderKeyBind();
-          var id = ProjectList.selectedId;
-          PlayController.play(id);
-          PlayController.info();
-        }
-      }
-    });
-    ProjectList.select($('li')[0]);
-    Keys.projectListKeyBind();
-  },
+            var editButtons = document.getElementsByClassName('editButton');
+            for (var i = 0; i < editButtons.length;i++){
+              editButtons[i].onclick = function(e){
+                PlayConfig.fastDraw = true;
+                Keys.recorderKeyBind();
+                PlayController.play(e.originalTarget.parentElement.id);
+                PlayController.info();
+              }
+            }
+          });
+          ProjectList.select($('li')[0]);
+          Keys.projectListKeyBind();
+        },
 
   select : function (target) {
-    if(target.tagName != "LI")return 0;
-    $('li').removeClass('selectedItem');
-    target.className = 'selectedItem';
-    ProjectList.selectedId = target.id;
-  },
+             if(target.tagName != "LI")return 0;
+             $('li').removeClass('selectedItem');
+             target.className = 'selectedItem';
+             ProjectList.selectedId = target.id;
+           },
 
   prev : function () {
-    if(ProjectList.selectedId == "")return 0;
-    var s = $('#'+ProjectList.selectedId)[0].previousElementSibling;
-    if(s == null)return 0;
-    ProjectList.select(s); 
-  },
+           if(ProjectList.selectedId == "")return 0;
+           var s = $('#'+ProjectList.selectedId)[0].previousElementSibling;
+           if(s == null)return 0;
+           ProjectList.select(s); 
+         },
 
   next : function () {
-    if(ProjectList.selectedId == ""){
-      ProjectList.select($("li")[0]);
-      return 0;
-    }
-    var s = $('#'+ProjectList.selectedId)[0].nextElementSibling;
-    if(s == null)return 0;
-    ProjectList.select(s); 
-  },
+           if(ProjectList.selectedId == ""){
+             ProjectList.select($("li")[0]);
+             return 0;
+           }
+           var s = $('#'+ProjectList.selectedId)[0].nextElementSibling;
+           if(s == null)return 0;
+           ProjectList.select(s); 
+         },
 
   play : function () {
-    if(ProjectList.selectedId == "")return 0;
-    if(ProjectList.selectedId == "newProject"){
-      /* 
-         PlayConfig.fastDraw = true;
-         Keys.recorderKeyBind();
-         RecordController.newProject();
-         PlayController.info();
-         */
-      return 0;
-    }
-    Keys.playerKeyBind();
-    PlayController.play(ProjectList.selectedId);
-  }
+           if(ProjectList.selectedId == "")return 0;
+           if(ProjectList.selectedId == "newProject"){
+             return 0;
+           }
+           Keys.playerKeyBind();
+           PlayController.play(ProjectList.selectedId);
+         }
 };
