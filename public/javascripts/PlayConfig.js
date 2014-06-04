@@ -54,6 +54,35 @@ var PlayConfig = {
     PlayConfig.index = 0;
     PlayConfig.notes = [];
     $('#savePlaylist').click(PlayConfig.postConfig);
+    var propertyContents = document.getElementById('property');
+    var editContents = document.getElementById('editProject');
+    var calibrateContents = document.getElementById('calibrate');
+    document.getElementById('takePicture').onclick = function(){
+      RecordController.shoot(); 
+    };
+    document.getElementById('shootMode').onclick = function(){
+    
+    };
+    document.getElementById('setThumbnail').onclick = function(){
+      PlayConfig.setThumbnail(PlayConfig.imgURLs[PlayConfig.index]); 
+    };
+  
+    document.getElementById('property_tab').onclick = function(){
+      propertyContents.className = "show"; 
+      editContents.className = "hide";
+      calibrateContents.className = "hide";
+    };
+    document.getElementById('edit_tab').onclick = function(){
+      propertyContents.className = "hide"; 
+      editContents.className = "show";
+      calibrateContents.className = "hide";
+    };
+    document.getElementById('calibrate_tab').onclick = function(){
+      propertyContents.className = "hide"; 
+      editContents.className = "hide";
+      calibrateContents.className = "show";
+    
+    };
   },
 
   initProject: function(id,configFile){

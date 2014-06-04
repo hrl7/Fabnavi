@@ -110,9 +110,9 @@ var Keys = {
                                  Ca.zo = true;
                                  break;
                                }
-                        case 65: {
+                       case 65: {
                                   Ca.aspShift = !Ca.aspShift;
-                                 }
+                                }
                      }
                    };
 
@@ -163,7 +163,8 @@ var Keys = {
                                     RecordController.shoot();
                                     break;
                                   }
-                         case 86 : {
+                         case 86 :
+                         case 72 : {
                                      PlayController.info();
                                      break;
                                    }
@@ -196,9 +197,9 @@ var Keys = {
                                    Ca.zo = true;
                                    break;
                                  }
-                        case 65: {
-                                  Ca.aspShift = !Ca.aspShift;
-                                 }
+                         case 65: {
+                                    Ca.aspShift = !Ca.aspShift;
+                                  }
                        }
                      };
                      window.onkeyup = function (e){
@@ -212,12 +213,12 @@ var Keys = {
                                    break;
                                  }
                        }
-                      };
-                     },
-                       isActive: function(){
-                                   var id = document.activeElement.id;
-                                   var i = ['x','y','w','h'].indexOf(id);
-                                   if(i == -1)return false;
-                                   else return true;
-                                 }
-                   };
+                     };
+                   },
+  isActive: function(){
+              var id = document.activeElement.id;
+              var i = ['x','y','w','h'].indexOf(id);
+              if(i == -1)return false;
+              else return true;
+            }
+};

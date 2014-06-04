@@ -32,7 +32,23 @@ li > img {
   transform: rotateZ(180deg); }
 
 #param {
-  background-color: rgba(0, 0, 0, 0.6); }
+  background-color: rgba(0, 0, 0, 0.6); 
+  color:white;
+ }
+
+ .show { 
+  display:block; 
+ }
+ .tab_block {
+ }
+ .hide{
+  display:none;
+ }
+ .tab {
+  float:left;
+  padding:2px;
+  border:2px solid white;
+ }
 
 input[type="range"] {
   width: 600px;
