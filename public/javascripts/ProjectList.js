@@ -42,6 +42,11 @@ var ProjectList = {
               updateBtn.value = "Update";
               updateBtn.className = "editButton";
 
+              var deleteBtn= document.createElement('input');
+              deleteBtn.type = "button";
+              deleteBtn.value = "Delete";
+              deleteBtn.className = "deleteButton";
+
               var playBtn = document.createElement('input');
               playBtn.type = "button";
               playBtn.value = "Play";
@@ -50,8 +55,9 @@ var ProjectList = {
               var title = $('<div>');
               title.text(id);
               li.append(title);
-              li.append(updateBtn);
               li.append(playBtn);
+              li.append(updateBtn);
+              li.append(deleteBtn);
               projectList.append(li);
             }
 
