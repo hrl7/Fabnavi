@@ -204,6 +204,7 @@ var PlayController = {
       };
       $("#photo").attr("src",url); 
     } else if(force) {
+     console.log(force,PlayController.currentURL,PlayController.currentImg);
       if(PlayController.currentImg != ""){
         PlayController.draw(PlayController.currentImg); 
       } else {

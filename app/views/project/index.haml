@@ -13,11 +13,8 @@
   %body{onload: "Fabnavi.run()"}
     #projectList
       =@projects
-      #buttons
-        %input#editButton{type: "button", value: "Edit"}/
-        %input#makeButton{type: "button", value: "Make!"}/
       %ul#project-list
-      %li#newProject New Project
+      %li#__newProject__ New Project
     #contents
       %img#photo{height: "3715", width: "4928", crossorigin:"anonymous"}/
       %canvas#cvs
@@ -37,12 +34,25 @@
         %br/
       #panel
         #param
-          %input#zoomIn{type:"button",value:"+"}/
-          %input#zoomOut{type:"button",value:"-"}/
-          %input#aspectShift{type:"button",value:"change Aspect Ratio"}/
+          #tab.tab_block 
+            %div#property_tab.tab Property
+            %div#edit_tab.tab Edit Project
+            %div#calibrate_tab.tab Calibration
+          #property.show
+            %div#projectName TEST_PROJECT
+            %div#projectDiscription TEST_DISCRIPTION
+            %div#author TEST_AUTHOR
+          #editProject.hide
+            %input#takePicture{type:"button",value:"takePicture"}/
+            %input#shootMode{type:"button",value:"shootMode"}/
+            %input#setThumbnail{type:"button",value:"set this Slide as Tumbnail"}/
+            %input#savePlaylist{type: "button", value: "save PlayList"}/
+            %input#delete{type: "button", value: "delete slide"}/
+          #calibrate.hide
+            %input#zoomIn{type:"button",value:"+"}/
+            %input#zoomOut{type:"button",value:"-"}/
+            %input#aspectShift{type:"button",value:"change Aspect Ratio"}/
+            %input#save{type: "button", value: "save config"}/
         #info
-          %input#save{type: "button", value: "save config"}/
-          %input#savePlaylist{type: "button", value: "save PlayList"}/
-          %input#delete{type: "button", value: "delete slide"}/
         %img#note{alt: ""}/
         %ul#processes

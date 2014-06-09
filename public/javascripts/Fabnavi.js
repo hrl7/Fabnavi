@@ -1,3 +1,4 @@
+__DEBUG__ = true;
 var Fabnavi = {
   run:function () {
     queue = new WorkQueue();

@@ -90,11 +90,7 @@ var Ca = {
              }
             }
           };
-          Ca.cvs = document.getElementById('cvs');
-          Ca.ctx = Ca.cvs.getContext('2d');
           Ca.image = document.getElementById('photo');
-          Ca.cvs.height = screen.height;
-          Ca.cvs.width = screen.width;
           $("#save").click(Ca.saveConfig);
           Ca.updatePhoto();
         },
