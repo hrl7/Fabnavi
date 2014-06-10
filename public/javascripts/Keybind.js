@@ -135,22 +135,6 @@ var Keys = {
                                      break;
                                    }
                                    // Common Key Bind
-                         case 88:{
-                                   document.getElementById('x').focus();
-                                   break;
-                                 }
-                         case 89:{
-                                   document.getElementById('y').focus();
-                                   break;
-                                 }
-                         case 87:{
-                                   document.getElementById('w').focus();
-                                   break;
-                                 }
-                         case 72:{
-                                   document.getElementById('h').focus();
-                                   break;
-                                 }
                          case 219:{
                                     if(e.ctrlKey)document.activeElement.blur();
                                     break;

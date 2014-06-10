@@ -8,6 +8,7 @@ var RecordController = {
     $('#projectList').hide();
     PlayConfig.init();
     Ca.initProject("  ");
+    Keys.recorderKeyBind(); 
     CommonController.getJSON("/project/new", function(result, error) {
       if (error) {
         alert(error);
@@ -33,8 +34,6 @@ var RecordController = {
         }
         queue.push(PlayConfig.projectName,url,PlayConfig.index);
         queue.fire();
-
-
         $('#shoot').show();
         $('#contents').show();
       });

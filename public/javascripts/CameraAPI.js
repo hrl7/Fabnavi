@@ -25,7 +25,6 @@ var CameraAPI = {
     var listener = 
       function (url,res) {
         d.resolve(url);
-
       };
     document.sonycameracontroller.take(listener);
     return d.promise();

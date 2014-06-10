@@ -4,10 +4,10 @@
 var PlayController = {
   currentURL:"",
   currentImg:"",
+
   init: function() {
     PlayController.defaultInit();
     Ca.init();
-
     $('#panel').hide();
     $('#contents').show();
     PlayController.photoList = new PhotoList();

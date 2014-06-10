@@ -3,7 +3,6 @@ var Fabnavi = {
   run:function () {
     queue = new WorkQueue();
     PlayController.init(); 
-    CameraAPI.init();
     PlayController.play();
   },
 
@@ -11,8 +10,11 @@ var Fabnavi = {
     ProjectList.load();
   },
 
-  showProject:function (id) {
 
+  newProject:function (id) {
+    CameraAPI.init();
+    queue = new WorkQueue();
+    PlayController.init(); 
+    RecordController.newProject();
   }
-
 };

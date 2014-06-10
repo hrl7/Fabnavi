@@ -73,6 +73,8 @@ WorkQueue.prototype = {
             RecordController.updateList();
             PlayController.next();
             PlayController.show(PlayConfig.index,true);
+            this.index++; 
+            return this.fire();
           }
         }
 };
