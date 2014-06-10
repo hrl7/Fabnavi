@@ -1,7 +1,6 @@
 /* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this file,
  * You can obtain one at http://mozilla.org/MPL/2.0/. */
-ID = "";
 var PlayController = {
   currentURL:"",
   currentImg:"",
@@ -9,15 +8,11 @@ var PlayController = {
     PlayController.defaultInit();
     Ca.init();
 
-    ProjectList.load();
     $('#panel').hide();
-    $('#projectList').show();
-    $('#contents').hide();
+    $('#contents').show();
     PlayController.photoList = new PhotoList();
     PlayController.configList = new ConfigList();
-    window.setTimeout(function () {
-      $('.help').fadeOut(3000);
-    },3000);
+    Keys.playerKeyBind();
   },
 
   defaultInit : function () {
@@ -118,9 +113,8 @@ var PlayController = {
     if(CommonController.localConfig == ""){
       CommonController.localConfig = {x:0,y:0,w:$('#photo').width(),h:$('#photo').height()};
     }
-    PlayConfig.initProject(id).then(function(){
-      PlayController.playSlide(id);
-    });
+    PlayConfig.initProject(id);
+    PlayController.playSlide(id);
   },
 
   playSlide : function(id){
@@ -204,7 +198,6 @@ var PlayController = {
       };
       $("#photo").attr("src",url); 
     } else if(force) {
-     console.log(force,PlayController.currentURL,PlayController.currentImg);
       if(PlayController.currentImg != ""){
         PlayController.draw(PlayController.currentImg); 
       } else {

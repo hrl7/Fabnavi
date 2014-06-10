@@ -87,20 +87,7 @@ var PlayConfig = {
 
   initProject: function(id,configFile){
                  PlayConfig.init(id);
-                 var d = new $.Deferred();
-                 CommonController.getJSON("project/getProject?project_id="+id,
-                     function(result, error) {
-                       if (error) {
-                         alert(error);
-                         return;
-                       }
-
-                       PlayConfig.parse(result.body);
-                       d.resolve();
-//                       PlayConfig.postConfig();
-                     }
-                     ); 
-                 return d.promise();
+                 PlayConfig.parse(PROJECT_DATA.body);
                },
 
   parse: function(xml){ //called once when project loaded
@@ -133,7 +120,7 @@ var PlayConfig = {
   getConfigList : function () {
                     var d = new $.Deferred();
                     $.ajax({
-                      url:"project/getConfigFiles?project_id=" + PlayConfig.projectName,
+                      url:"/project/getConfigFiles?project_id=" + PlayConfig.projectName,
                       success:function (res,err) {
                         PlayConfig.configFileList = JSON.parse(res); 
                         d.resolve();

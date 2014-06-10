@@ -4,8 +4,6 @@
 
 var CommonController = {
   localConfig:"",
-
-
   getParametersFromQuery: function() {
     var parameters = {};
     var url = window.location.href;
@@ -38,9 +36,7 @@ var CommonController = {
 
   getContents: function(url) {
     var parameter = {url: url, type:"GET"};
-
     var deferred = new $.Deferred();
-
     parameter.cache = false;
 
     parameter.success = function(result) {
@@ -80,7 +76,6 @@ var CommonController = {
     } else {
       CommonController.localConfig = res;
     }
-
   },
 
   setLocalConfig: function(id){

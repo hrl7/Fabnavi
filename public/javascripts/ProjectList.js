@@ -18,14 +18,12 @@ var ProjectList = {
             var projectList = $("#projectList");
             var newProject = document.getElementById('__newProject__');
             newProject.ondblclick = function(){
-              PlayConfig.fastDraw = true;
               Keys.recorderKeyBind();
               RecordController.newProject();
-              PlayController.info();
             };
             for (var i = 0, n = result.length; i < n; i++) {
               var project = result[i];
-              var id = project.id;
+              var id = project.user +"/"+project.id;
               if(project.thumbnail == null)var thumbnail = "";
               else var thumbnail = project.thumbnail;
 
@@ -64,19 +62,18 @@ var ProjectList = {
             var makeButtons = document.getElementsByClassName('makeButton');
             for (var i = 0; i < makeButtons.length;i++){
               makeButtons[i].onclick = function(e){ 
-                PlayConfig.fastDraw = false;
                 Keys.playerKeyBind();
-                PlayController.play(e.originalTarget.parentElement.id);
+                ProjectList.selectedId = e.originalTarget.parentElement.id;
+                ProjectList.play();
               };
             }
 
             var editButtons = document.getElementsByClassName('editButton');
             for (var i = 0; i < editButtons.length;i++){
               editButtons[i].onclick = function(e){
-                PlayConfig.fastDraw = true;
                 Keys.recorderKeyBind();
-                PlayController.play(e.originalTarget.parentElement.id);
-                PlayController.info();
+                ProjectList.selectedId = e.originalTarget.parentElement.id;
+                ProjectList.play();
               }
             }
           });
@@ -114,6 +111,7 @@ var ProjectList = {
              return 0;
            }
            Keys.playerKeyBind();
-           PlayController.play(ProjectList.selectedId);
+           console.log(ProjectList.selectedId);
+           window.location += "project/"+ProjectList.selectedId;
          }
 };

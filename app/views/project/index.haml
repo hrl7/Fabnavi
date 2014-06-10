@@ -8,51 +8,10 @@
     %meta{charset: "utf-8"}/
     %title{"data-l10n-id" => "title"} PlayController : FabNavi
     = stylesheet_link_tag 'common', 'play','record'
-    = javascript_include_tag 'jquery', 'common', 'Analyzer','Keybind','WorkQueue','PlayConfig','ProjectList','Player','Calibrator','Note','Recorder','CameraAPI','list','PhotoList','ConfigList','Auth', 'Fabnavi'
+    = javascript_include_tag 'jquery', 'common','Keybind','WorkQueue','ProjectList','CameraAPI','Auth', 'Fabnavi'
     %meta{content: "width=device-width, user-scalable=no", name: "viewport"}/
-  %body{onload: "Fabnavi.run()"}
+  %body{onload: "Fabnavi.showProjectList()"}
     #projectList
       =@projects
       %ul#project-list
       %li#__newProject__ New Project
-    #contents
-      %img#photo{height: "3715", width: "4928", crossorigin:"anonymous"}/
-      %canvas#cvs
-      #counter
-      #arrow ▶
-      .help
-        %br/
-        ← →: ページを移動します。
-        %br/
-        i : zoom in
-        %br/
-        o : zoom out 
-        %br/
-        q : プロジェクト選択画面に戻ります
-        %br/
-        v : 設定画面を表示/非表示
-        %br/
-      #panel
-        #param
-          #tab.tab_block 
-            %div#property_tab.tab Property
-            %div#edit_tab.tab Edit Project
-            %div#calibrate_tab.tab Calibration
-          #property.show
-            %div#projectName TEST_PROJECT
-            %div#projectDiscription TEST_DISCRIPTION
-            %div#author TEST_AUTHOR
-          #editProject.hide
-            %input#takePicture{type:"button",value:"takePicture"}/
-            %input#shootMode{type:"button",value:"shootMode"}/
-            %input#setThumbnail{type:"button",value:"set this Slide as Tumbnail"}/
-            %input#savePlaylist{type: "button", value: "save PlayList"}/
-            %input#delete{type: "button", value: "delete slide"}/
-          #calibrate.hide
-            %input#zoomIn{type:"button",value:"+"}/
-            %input#zoomOut{type:"button",value:"-"}/
-            %input#aspectShift{type:"button",value:"change Aspect Ratio"}/
-            %input#save{type: "button", value: "save config"}/
-        #info
-        %img#note{alt: ""}/
-        %ul#processes

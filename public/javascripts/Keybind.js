@@ -3,18 +3,10 @@
  * You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 var Keys = {
-  /*
-   * Key.isActive() はx,y,w,hの Key が選択されているとき、ページを送らないように
-   * するために必要です。
-   *
-   */
   projectListKeyBind: function () {
                         window.onkeydown = function(e) {
                           console.log(e.keyCode);
                           switch (e.keyCode) {
-                            case 81 :
-                            case 27 : {
-                                      }
                             case 37 :
                             case 97 : {
                                         ProjectList.prev();
@@ -39,20 +31,6 @@ var Keys = {
                    window.onkeydown = function(e) {
                      console.log(e.keyCode);
                      switch (e.keyCode) {
-                       case 81 :
-                       case 103:
-                       case 27 : {
-                                   PlayController.exitProject();
-                                   PlayController.configList.clear();
-                                   PlayConfig.initProject();
-                                   CommonController.localConfig = "";
-                                   $('#projectList').show();
-                                   $('#contents').hide();
-                                   document.title = "Play: FabNavi";
-                                   Keys.projectListKeyBind();
-
-                                   break;
-                                 }
                        case 37 :
                        case 97 : {
                                    if(!Keys.isActive())PlayController.previous();
@@ -135,18 +113,6 @@ var Keys = {
                      window.onkeydown = function(e) {
                        console.log(e.keyCode);
                        switch (e.keyCode) {
-                         case 81 :
-                         case 103:
-                         case 27 : {
-                                     PlayController.photoList.clear();
-                                     PlayConfig.initProject();
-                                     CommonController.localConfig = "";
-                                     $('#projectList').show();
-                                     $('#contents').hide();
-                                     document.title = "Play: FabNavi";
-                                     Keys.projectListKeyBind();
-                                     break;
-                                   }
                          case 37:
                          case 97:
                          case 52 : {

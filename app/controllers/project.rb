@@ -5,7 +5,7 @@ Gdworker::App.controllers :project do
     res = []
     all = Playlist.all(:order => 'updated_at desc')
     all.each{|p|
-      res.push({:id=>p.projectName,:thumbnail=> p.thumbnail})
+      res.push({:id=>p.projectName,:user=>p.author,:thumbnail=> p.thumbnail})
     }
     res.to_json
   end
