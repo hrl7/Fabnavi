@@ -15,5 +15,6 @@ var Fabnavi = {
     queue = new WorkQueue();
     PlayController.init(); 
     RecordController.newProject();
+    Ca.addMouseEvent();
   }
 };

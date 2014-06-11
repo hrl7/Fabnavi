@@ -31,13 +31,6 @@ var Ca = {
           var zoomOutBtn = document.getElementById('zoomOut');
           var zoomInBtn = document.getElementById('zoomIn');
           var aspBtn = document.getElementById('aspectShift');
-          window.onwheel = function(e){
-            e.preventDefault();
-            var y = e.deltaY;
-            if(y>0)Ca.zoomOut(y);
-            else Ca.zoomIn(-y);
-          };
-
           zoomInBtn.onmousedown = function(){
             Ca.zi = true;
           };
@@ -65,35 +58,51 @@ var Ca = {
             if(Ca.zi)Ca.zoomIn();
             if(Ca.zo)Ca.zoomOut();
           },50);
-
-          var cvs = document.getElementById('cvs');
-          cvs.onmousedown = function (e) {
-            Ca.drag = true;
-            Ca.lx = e.clientX;
-            Ca.ly = e.clientY;
-          };
-          cvs.onmouseup = function (e){
-            Ca.drag = false;
-          };
-          cvs.onmousemove= function (e){
-            if(Ca.drag){
-              if(Ca.aspShift){
-                Ca.w += Ca.lx - e.clientX;
-                Ca.update();
-                Ca.updateXYFromWH();
-              }else {
-                Ca.cx -= Ca.lx - e.clientX;
-                Ca.cy += e.clientY - Ca.ly; 
-                Ca.lx =  e.clientX;
-                Ca.ly =  e.clientY;
-                Ca.update();
-              }
-            }
-          };
           Ca.image = document.getElementById('photo');
           $("#save").click(Ca.saveConfig);
           Ca.updateXYFromWH();
         },
+
+  addMouseEvent:function(){
+               var cvs = document.getElementById('cvs');
+               window.onwheel = function(e){
+                 e.preventDefault();
+                 var y = e.deltaY;
+                 if(y>0)Ca.zoomOut(y);
+                 else Ca.zoomIn(-y);
+               };
+               cvs.onmousedown = function (e) {
+                 Ca.drag = true;
+                 Ca.lx = e.clientX;
+                 Ca.ly = e.clientY;
+               };
+               cvs.onmouseup = function (e){
+                 Ca.drag = false;
+               };
+               cvs.onmousemove= function (e){
+                 if(Ca.drag){
+                   if(Ca.aspShift){
+                     Ca.w += Ca.lx - e.clientX;
+                     Ca.update();
+                     Ca.updateXYFromWH();
+                   }else {
+                     Ca.cx -= Ca.lx - e.clientX;
+                     Ca.cy += e.clientY - Ca.ly; 
+                     Ca.lx =  e.clientX;
+                     Ca.ly =  e.clientY;
+                     Ca.update();
+                   }
+                 }
+               };
+             },
+
+  removeMouseEvent:function(){
+                  var cvs = document.getElementById('cvs');
+                  window.onwheel = "";
+                  cvs.onmousedown = "";
+                  cvs.onmouseup = "";
+                  cvs.onmousemove= "";
+                },
 
   updateXYFromWH:function () {
                    Ca.as = Ca.h/Ca.w;
@@ -102,9 +111,9 @@ var Ca = {
                  },
 
   updateXYFromCenter:function(){
-                 Ca.x = Ca.cx - Math.floor(Ca.w/2);
-                 Ca.y = Ca.cy - Math.floor(Ca.h/2);
-               },
+                       Ca.x = Ca.cx - Math.floor(Ca.w/2);
+                       Ca.y = Ca.cy - Math.floor(Ca.h/2);
+                     },
 
   updateLocalConfig:function(){
                       CommonController.localConfig = {

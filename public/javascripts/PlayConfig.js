@@ -65,24 +65,26 @@ var PlayConfig = {
     
     };
     document.getElementById('setThumbnail').onclick = function(){
-      PlayConfig.setThumbnail(PlayConfig.imgURLs[PlayConfig.index]); 
+      PlayConfig.setThumbnail(PlayConfig.imgURLs.get(PlayConfig.index).globalURL); 
     };
   
     document.getElementById('property_tab').onclick = function(){
       propertyContents.className = "show"; 
       editContents.className = "hide";
       calibrateContents.className = "hide";
+      Ca.removeMouseEvent();
     };
     document.getElementById('edit_tab').onclick = function(){
       propertyContents.className = "hide"; 
       editContents.className = "show";
       calibrateContents.className = "hide";
+      Ca.removeMouseEvent();
     };
     document.getElementById('calibrate_tab').onclick = function(){
       propertyContents.className = "hide"; 
       editContents.className = "hide";
       calibrateContents.className = "show";
-    
+      Ca.addMouseEvent();
     };
   },
 
@@ -237,6 +239,7 @@ var PlayConfig = {
                 $.post("/project/setThumbnail",
                     {
                      project_id:PlayConfig.projectName,
+                     author:PROJECT_DATA.author,
                      thumbnail:thumbnailURL
                     },
                     function(){},

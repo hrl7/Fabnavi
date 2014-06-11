@@ -64,8 +64,9 @@ Gdworker::App.controllers :project do
 
   post "/setThumbnail" do
     thumbnailUrl = params[:thumbnail]
+    author = params[:author]
     id = params[:project_id]
-    proj = Playlist.find_by(:projectName => id)
+    proj = Playlist.find_by(:projectName => id,:author => author)
     proj.thumbnail = thumbnailUrl
     proj.save
   end 

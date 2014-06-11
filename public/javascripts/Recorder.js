@@ -17,6 +17,7 @@ var RecordController = {
       }
       var id = result["id"];
       PlayConfig.projectName = id;
+      PROJECT_DATA = {projectName:id,author:"NO_NAME"};
       document.title = "Play: " +id;
     });
   },
@@ -26,6 +27,7 @@ var RecordController = {
     $('#projectList').hide();
     $('#contents').hide();
     clearTimeout(RecordController.timer);
+    console.log("index : "+PlayConfig.index);
     RecordController.timer = setTimeout(function() {
       var p = CameraAPI.shoot();
       p.then(function(url, error) {
@@ -36,6 +38,7 @@ var RecordController = {
         PlayConfig.imgURLs.splice(PlayConfig.index+1,0,{localURL:url});
         RecordController.updateList();
         PlayController.next();
+        if(PlayConfig.index > 0)Ca.removeMouseEvent();
         PlayController.show(PlayConfig.index,true);
         queue.push(PlayConfig.projectName,url,PlayConfig.index);
         queue.fire();
