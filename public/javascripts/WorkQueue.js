@@ -65,7 +65,7 @@ WorkQueue.prototype = {
                   function(res,error){
                     console.log("post result :"+res);
                     res = res.replace("\"","","g");
-                    PlayConfig.imgURLs.splice(PlayConfig.index+1,0,res);
+                    PlayConfig.imgURLs.addGlobalURLFromLocalURL(res,url);
                     RecordController.updateList();
                     PlayController.next();
                     PlayController.show(PlayConfig.index,true);

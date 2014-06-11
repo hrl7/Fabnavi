@@ -47,6 +47,7 @@ var PlayConfig = {
 
   init : function(id){
     PlayConfig.projectName = id;
+    PlayConfig.author = "NO_NAME";
     PlayConfig.index = -1;
     PlayConfig.imgURLs = new CachedImageList();
     PlayConfig.annotations = [];
@@ -245,7 +246,11 @@ var PlayConfig = {
   postConfig: function(){
                 PlayConfig.setXMLFromObjects();
                 $.post("project/postConfig",
-                    {project_id:PlayConfig.projectName,data:PlayConfig.xml},
+                    {
+                     project_id:PlayConfig.projectName,
+                     data:PlayConfig.xml,
+                     author:PlayConfig.author
+                    },
                     function(){},
                     "json");
               }

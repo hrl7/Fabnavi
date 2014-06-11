@@ -18,6 +18,17 @@ CachedImageList.prototype = {
       console.log("No URL,: " + res);
       return false;
          },
+  getIndexFromLocalURL:function(url){
+    for(i in this.list){
+      if(this.list[i].localURL == url)return i;
+    }
+    return -1;
+                       },
+  addGlobalURLFromLocalURL:function(globalUrl,localUrl){
+    var i = this.getIndexFromLocalURL(localUrl);
+    if(i == -1)return -1;
+    this.list[i].globalURL = globalUrl;
+                           },
   init:function(){
     this.list = [];
     this.length = 0;

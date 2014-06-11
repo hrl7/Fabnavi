@@ -15,8 +15,8 @@ PhotoList.prototype.append = function (data) {
 PhotoList.prototype.rowClicked = function(e){
   if(this.selectedLast() == e.currentTarget.id){ // clicked
     this.select(e.currentTarget.id);
-    for(i in PlayConfig.imgURLs){
-      if(PlayConfig.imgURLs[i].indexOf(e.currentTarget.id) != -1){
+    for(i in PlayConfig.imgURLs.list){
+      if(PlayConfig.imgURLs.getURL(i).indexOf(e.currentTarget.id) != -1){
         PlayConfig.index = i;
         PlayController.show(i);
         break;

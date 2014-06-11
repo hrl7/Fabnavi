@@ -57,14 +57,13 @@ Gdworker::App.controllers :project do
     Playlist.new do |ls|
      ls.projectName = id
      ls.body = data
+     ls.author = author
      ls.save
     end
   end
 
   post "/setThumbnail" do
     thumbnailUrl = params[:thumbnail]
-    puts "========="
-    puts params.to_s
     id = params[:project_id]
     proj = Playlist.find_by(:projectName => id)
     proj.thumbnail = thumbnailUrl

@@ -33,6 +33,10 @@ var RecordController = {
           alert(error);
           return;
         }
+        PlayConfig.imgURLs.splice(PlayConfig.index+1,0,{localURL:url});
+        RecordController.updateList();
+        PlayController.next();
+        PlayController.show(PlayConfig.index,true);
         queue.push(PlayConfig.projectName,url,PlayConfig.index);
         queue.fire();
         $('#shoot').show();
@@ -43,7 +47,7 @@ var RecordController = {
   updateList: function () {
     PlayController.photoList.clear();
     for(key in PlayConfig.imgURLs.list){
-      PlayController.photoList.append(PlayConfig.imgURLs.get(key).globalURL);
+      PlayController.photoList.append(PlayConfig.imgURLs.getURL(key));
     }
   }
 };
