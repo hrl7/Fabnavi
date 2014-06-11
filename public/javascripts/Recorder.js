@@ -42,8 +42,8 @@ var RecordController = {
   },
   updateList: function () {
     PlayController.photoList.clear();
-    for(key in PlayConfig.imgURLs){
-      PlayController.photoList.append(PlayConfig.imgURLs[key]);
+    for(key in PlayConfig.imgURLs.list){
+      PlayController.photoList.append(PlayConfig.imgURLs.get(key).globalURL);
     }
   }
 };

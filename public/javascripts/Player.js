@@ -196,7 +196,7 @@ var PlayController = {
         },
 
   setPhoto: function(index,force,freezeAspect) {
-              var url = PlayConfig.imgURLs[index];
+              var url = PlayConfig.imgURLs.getURL(index);
               if(url != PlayController.currentURL){
                 var img = new Image();
                 img.src = url;

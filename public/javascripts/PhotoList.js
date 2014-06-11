@@ -5,6 +5,7 @@ function PhotoList() {
 PhotoList.prototype = new ListController("photoList");
 
 PhotoList.prototype.append = function (data) {
+ console.log(data);
   var a = data.split('/');
   var str = a[a.length-1];
   var id = str.split('.')[0];
@@ -63,7 +64,7 @@ PhotoList.prototype.insert = function (id1,id2) {
 }
 
 PhotoList.prototype.update = function () {
-  for(i in PlayConfig.imgURLs){
-    this.append.call(this,PlayConfig.imgURLs[i]);
+  for(i in PlayConfig.imgURLs.list){
+    this.append.call(this,PlayConfig.imgURLs.getURL(i));
   }
 }

@@ -1,8 +1,3 @@
-
-R = 255;
-G = 255;
-B = 0;
-A = 1.0;
 var ProjectList = {
   init : function () {
 
@@ -17,7 +12,7 @@ var ProjectList = {
             }
             var projectList = $("#projectList");
             var newProject = document.getElementById('__newProject__');
-            newProject.ondblclick = function(){
+            newProject.onclick = function(){
               Keys.recorderKeyBind();
               window.location = "/new";
             };
@@ -68,6 +63,19 @@ var ProjectList = {
               };
             }
 
+            var deleteButtons = document.getElementsByClassName('deleteButton');
+            for (var i = 0; i < deleteButtons.length;i++){
+              deleteButtons[i].onclick = function(e){
+                Keys.recorderKeyBind();
+                ProjectList.selectedId = e.originalTarget.parentElement.id;
+                console.log("delete :",ProjectList.selectedId);
+                if(confirm("are you sure to delete project :" + ProjectList.selectedId)){
+                  e.originalTarget.parentElement.remove();
+                  $.get("/project/delete?project_id="+ProjectList.selectedId);
+                }
+
+              }
+            }
             var editButtons = document.getElementsByClassName('editButton');
             for (var i = 0; i < editButtons.length;i++){
               editButtons[i].onclick = function(e){

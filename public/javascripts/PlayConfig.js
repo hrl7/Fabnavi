@@ -48,7 +48,7 @@ var PlayConfig = {
   init : function(id){
     PlayConfig.projectName = id;
     PlayConfig.index = -1;
-    PlayConfig.imgURLs = [];
+    PlayConfig.imgURLs = new CachedImageList();
     PlayConfig.annotations = [];
     PlayConfig.animations = [];
     PlayConfig.index = 0;
@@ -113,7 +113,7 @@ var PlayConfig = {
            }
 
            for(i in imgurls){
-             PlayConfig.imgURLs.push(imgurls[i].url);
+             PlayConfig.imgURLs.push({globalURL:imgurls[i].url});
            }
          },
 
@@ -210,8 +210,8 @@ var PlayConfig = {
                        for(i in PlayConfig.animations){
                          animations.appendChild(PlayConfig.createAnimationElem(PlayConfig.animations[i]));
                        }
-                       for(i in PlayConfig.imgURLs){ 
-                         imgURLs.appendChild(PlayConfig.createImgURLElem(i,PlayConfig.imgURLs[i]));
+                       for(i in PlayConfig.imgURLs.list){ 
+                         imgURLs.appendChild(PlayConfig.createImgURLElem(i,PlayConfig.imgURLs.get(i).globalURL));
                        } 
                        doc.appendChild(notes);
                        doc.appendChild(annotations);
@@ -221,22 +221,24 @@ var PlayConfig = {
                      },
 
   insertIndex: function(src,dst){
-                 var srcImg = PlayConfig.imgURLs[src];
+                 var srcImg = PlayConfig.imgURLs.getURL(src);
                  PlayConfig.imgURLs.splice(src,1);
                  if (src > dst){
                    dst++;
                  }
-                 PlayConfig.imgURLs.splice(dst,0,srcImg);
+                 PlayConfig.imgURLs.splice(dst,0,{globalURL:srcImg});
                },
 
   removeIndex: function(index){
                  PlayConfig.imgURLs.splice(index,1);
                },
   setThumbnail: function(thumbnailURL){
-                $.post("project/setThumbnail",
-                    {project_id:PlayConfig.projectName,
+                $.post("/project/setThumbnail",
+                    {
+                     project_id:PlayConfig.projectName,
                      thumbnail:thumbnailURL
-                    },function(){},
+                    },
+                    function(){},
                     "jsonp");
                 },
 

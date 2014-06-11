@@ -25,6 +25,12 @@ WorkQueue.prototype = {
           },
 
   fire: function () {
+/*          if(this.runninng){
+            setTimeout(this.fire,1000);
+            return 0;
+          }
+          */
+         console.log("run");
           this.runninng = true;
           if (this.index == this.queue.length) {
             this.clear();
@@ -41,22 +47,23 @@ WorkQueue.prototype = {
               var bimg = document.createElement("img");
               bimg.crossOrigin = "anonymous";
               bimg.src =  url;
-
               bufCvs = document.createElement("canvas");
               bufCtx = bufCvs.getContext('2d');
+              console.log(url);
               bimg.onload = function(){
+                console.log("image loaded");
                 bufCvs.width = bimg.naturalWidth;
                 bufCvs.height = bimg.naturalHeight;
                 bufCtx.drawImage(bimg,0,0);
                 var pict = bufCvs.toDataURL("image/jpeg").substring(23);
-
                 $.post("/project/postPicture",
                   { 
                     data:pict,
-                  project_id:id,
-                  url:url
+                    project_id:id,
+                    url:url
                   },
                   function(res,error){
+                    console.log("post result :"+res);
                     res = res.replace("\"","","g");
                     PlayConfig.imgURLs.splice(PlayConfig.index+1,0,res);
                     RecordController.updateList();
@@ -66,6 +73,7 @@ WorkQueue.prototype = {
                     this.index++; 
                     return this.fire();
                   }.bind(this));
+                console.log("picture posted");
               }.bind(this);
             }.bind(this),0);
           } else {
