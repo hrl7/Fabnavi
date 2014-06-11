@@ -8,7 +8,7 @@
     %meta{charset: "utf-8"}/
     %title{"data-l10n-id" => "title"} PlayController : FabNavi
     = stylesheet_link_tag 'common', 'play','record'
-    = javascript_include_tag 'jquery', 'common', 'Keybind','WorkQueue','PlayConfig','Player','Calibrator','Recorder','CameraAPI','list','PhotoList','ConfigList', 'Fabnavi'
+    = javascript_include_tag 'jquery', 'common', 'Keybind','CachedImageList','WorkQueue','PlayConfig','Player','Calibrator','Recorder','CameraAPI','list','PhotoList','ConfigList', 'Fabnavi'
     %meta{content: "width=device-width, user-scalable=no", name: "viewport"}/
     :javascript 
       PROJECT_DATA = #{@projectData.to_json}

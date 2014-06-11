@@ -1,15 +1,14 @@
-__DEBUG__ = true;
+__DEBUG__ = false;
 var Fabnavi = {
   run:function () {
     queue = new WorkQueue();
     PlayController.init(); 
-    PlayController.play();
+    PlayController.play(PROJECT_DATA.projectName);
   },
 
   showProjectList:function () {
     ProjectList.load();
   },
-
 
   newProject:function (id) {
     CameraAPI.init();

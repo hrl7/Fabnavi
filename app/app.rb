@@ -37,6 +37,8 @@ module Gdworker
     end
 
     get "/project/:user/:project/" do
+      puts "============"
+      puts params
       @projectData = Playlist.find_by(:projectName => params[:project],:author=>params[:user])
       if @projectData == nil then
         render 'errors/404'

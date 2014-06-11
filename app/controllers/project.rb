@@ -42,6 +42,8 @@ Gdworker::App.controllers :project do
 
   post "/postConfig" do
     id = params[:project_id]
+    author = params[:author]
+    if author == nil then author = "NO_NAME" end
     prev = Playlist.find_by(:projectName => id)
     if not prev == nil then
       Backup.new do |b|
@@ -61,6 +63,8 @@ Gdworker::App.controllers :project do
 
   post "/setThumbnail" do
     thumbnailUrl = params[:thumbnail]
+    puts "========="
+    puts params.to_s
     id = params[:project_id]
     proj = Playlist.find_by(:projectName => id)
     proj.thumbnail = thumbnailUrl
