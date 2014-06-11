@@ -12,7 +12,7 @@
     %meta{content: "width=device-width, user-scalable=no", name: "viewport"}/
     :javascript 
       PROJECT_DATA = #{@projectData.to_json}
-  %body{onload: "Fabnavi.play()"}
+  %body{onload: "Fabnavi.update()"}
     #contents
       %img#photo{height: "3715", width: "4928", crossorigin:"anonymous"}/
       %canvas#cvs
@@ -21,11 +21,18 @@
         #param
           #tab.tab_block 
             %div#property_tab.tab Property
+            %div#edit_tab.tab Edit Project
             %div#calibrate_tab.tab Calibration
           #property.show
             %div#projectName TEST_PROJECT
             %div#projectDiscription TEST_DISCRIPTION
             %div#author TEST_AUTHOR
+          #editProject.hide
+            %input#takePicture{type:"button",value:"takePicture"}/
+            %input#shootMode{type:"button",value:"shootMode"}/
+            %input#setThumbnail{type:"button",value:"set this Slide as Tumbnail"}/
+            %input#savePlaylist{type: "button", value: "save PlayList"}/
+            %input#delete{type: "button", value: "delete slide"}/
           #calibrate.hide
             %input#zoomIn{type:"button",value:"+"}/
             %input#zoomOut{type:"button",value:"-"}/

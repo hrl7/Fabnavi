@@ -57,7 +57,6 @@ var ProjectList = {
             var makeButtons = document.getElementsByClassName('makeButton');
             for (var i = 0; i < makeButtons.length;i++){
               makeButtons[i].onclick = function(e){ 
-                Keys.playerKeyBind();
                 ProjectList.selectedId = e.originalTarget.parentElement.id;
                 ProjectList.play();
               };
@@ -66,9 +65,7 @@ var ProjectList = {
             var deleteButtons = document.getElementsByClassName('deleteButton');
             for (var i = 0; i < deleteButtons.length;i++){
               deleteButtons[i].onclick = function(e){
-                Keys.recorderKeyBind();
                 ProjectList.selectedId = e.originalTarget.parentElement.id;
-                console.log("delete :",ProjectList.selectedId);
                 if(confirm("are you sure to delete project :" + ProjectList.selectedId)){
                   e.originalTarget.parentElement.remove();
                   var data = ProjectList.selectedId.split('/');
@@ -80,9 +77,8 @@ var ProjectList = {
             var editButtons = document.getElementsByClassName('editButton');
             for (var i = 0; i < editButtons.length;i++){
               editButtons[i].onclick = function(e){
-                Keys.recorderKeyBind();
                 ProjectList.selectedId = e.originalTarget.parentElement.id;
-                ProjectList.play();
+                ProjectList.update();
               }
             }
           });
@@ -114,13 +110,19 @@ var ProjectList = {
            ProjectList.select(s); 
          },
 
+  update : function () {
+           if(ProjectList.selectedId == "")return 0;
+           alert("update");
+           if(ProjectList.selectedId == "newProject"){
+             return 0;
+           }
+           window.location += "update/"+ProjectList.selectedId;
+         },
   play : function () {
            if(ProjectList.selectedId == "")return 0;
            if(ProjectList.selectedId == "newProject"){
              return 0;
            }
-           Keys.playerKeyBind();
-           console.log(ProjectList.selectedId);
            window.location += "project/"+ProjectList.selectedId;
          }
 };
