@@ -16,15 +16,15 @@ var Ca = {
   as:1,
   aspShift:false,
   zoomIn :function (_shift) {
-   var shift = _shift | 10;
+    var shift = _shift | 10;
     Ca.w -= shift;
     Ca.h -= shift*Ca.as;
     Ca.update();
   },
   zoomOut:function (_shift) {
-   var shift = _shift | 10;
-    Ca.w += shift;
-    Ca.h += shift*Ca.as;
+            var shift = _shift | 10;
+            Ca.w += shift;
+            Ca.h += shift*Ca.as;
             Ca.update();
           },
   init: function(){
@@ -58,7 +58,7 @@ var Ca = {
           };
 
           aspBtn.onclick = function (e) {
-             Ca.aspShift = !Ca.aspShift;
+            Ca.aspShift = !Ca.aspShift;
           }
 
           setInterval(function(){
@@ -77,44 +77,48 @@ var Ca = {
           };
           cvs.onmousemove= function (e){
             if(Ca.drag){
-             if(Ca.aspShift){
-              Ca.w += Ca.lx - e.clientX;
-              Ca.update();
-              Ca.updatePhoto();
-             }else {
-              Ca.cx -= Ca.lx - e.clientX;
-              Ca.cy += e.clientY - Ca.ly; 
-              Ca.lx =  e.clientX;
-              Ca.ly =  e.clientY;
-              Ca.update();
-             }
+              if(Ca.aspShift){
+                Ca.w += Ca.lx - e.clientX;
+                Ca.update();
+                Ca.updateXYFromWH();
+              }else {
+                Ca.cx -= Ca.lx - e.clientX;
+                Ca.cy += e.clientY - Ca.ly; 
+                Ca.lx =  e.clientX;
+                Ca.ly =  e.clientY;
+                Ca.update();
+              }
             }
           };
           Ca.image = document.getElementById('photo');
           $("#save").click(Ca.saveConfig);
-          Ca.updatePhoto();
+          Ca.updateXYFromWH();
         },
 
-  updatePhoto:function () {
-               Ca.as = Ca.h/Ca.w;
-                Ca.cx = Math.floor(Ca.w/2) + Number(Ca.x);
-                Ca.cy = Math.floor(Ca.h/2) + Number(Ca.y);
-              },
+  updateXYFromWH:function () {
+                   Ca.as = Ca.h/Ca.w;
+                   Ca.cx = Math.floor(Ca.w/2) + Number(Ca.x);
+                   Ca.cy = Math.floor(Ca.h/2) + Number(Ca.y);
+                 },
 
-  updateConfig:function(){
+  updateXYFromCenter:function(){
                  Ca.x = Ca.cx - Math.floor(Ca.w/2);
                  Ca.y = Ca.cy - Math.floor(Ca.h/2);
-                 CommonController.localConfig = {
-                   x:Ca.x,y:Ca.y,w:Ca.w,h:Ca.h
-                 };
                },
+
+  updateLocalConfig:function(){
+                      CommonController.localConfig = {
+                        x:Ca.x,y:Ca.y,w:Ca.w,h:Ca.h
+                      };
+                    },
 
   saveConfig : function(){
                  if(CommonController.localConfig != "")CommonController.setLocalConfig(PlayConfig.projectName);
                },
 
   update : function(){
-             Ca.updateConfig();
+             Ca.updateXYFromCenter();
+             Ca.updateLocalConfig();
              PlayController.show(PlayConfig.index,true);
            },
 

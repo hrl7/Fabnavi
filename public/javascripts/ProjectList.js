@@ -19,7 +19,7 @@ var ProjectList = {
             var newProject = document.getElementById('__newProject__');
             newProject.ondblclick = function(){
               Keys.recorderKeyBind();
-              RecordController.newProject();
+              window.location = "/new";
             };
             for (var i = 0, n = result.length; i < n; i++) {
               var project = result[i];

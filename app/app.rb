@@ -38,11 +38,24 @@ module Gdworker
 
     get "/project/:user/:project/" do
       @projectData = Playlist.find_by(:projectName => params[:project],:author=>params[:user])
-      render 'project/project'
+      if @projectData == nil then
+        render 'errors/404'
+      else 
+        render 'project/project'
+      end
+    end
+
+    get "/new" do
+      render 'project/new'
     end
 
     get '/test' do
       render 'project/test'
     end
+
+    error 404 do
+      render 'errors/404'
+    end
+
   end
 end

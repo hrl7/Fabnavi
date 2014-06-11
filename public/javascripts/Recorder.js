@@ -7,7 +7,8 @@ var RecordController = {
     $("#start").hide();
     $('#projectList').hide();
     PlayConfig.init();
-    Ca.initProject("  ");
+//    Ca.initProject("  ");
+    
     Keys.recorderKeyBind(); 
     CommonController.getJSON("/project/new", function(result, error) {
       if (error) {
