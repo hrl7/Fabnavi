@@ -62,6 +62,11 @@ Gdworker::App.controllers :project do
     end
   end
 
+  get "/delete" do
+   res = Playlist.find_by(:projectName=>params[:project_id],:author=>params[:author])
+   res.delete
+  end
+
   post "/setThumbnail" do
     thumbnailUrl = params[:thumbnail]
     author = params[:author]

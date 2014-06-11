@@ -71,7 +71,8 @@ var ProjectList = {
                 console.log("delete :",ProjectList.selectedId);
                 if(confirm("are you sure to delete project :" + ProjectList.selectedId)){
                   e.originalTarget.parentElement.remove();
-                  $.get("/project/delete?project_id="+ProjectList.selectedId);
+                  var data = ProjectList.selectedId.split('/');
+                  $.get("/project/delete?project_id="+data[1]+"&author="+data[0]);
                 }
 
               }
