@@ -32,12 +32,12 @@ module Gdworker
     Resque.redis = Redis.new
 
     get '/' do
-     @playlists = Playlist.all(:order => 'updated_at desc')
+     @projects= Project.all(:order => 'updated_at desc')
      render 'project/index' 
     end
 
-    get "/project/:user/:project/" do
-      @projectData = Playlist.find_by(:projectName => params[:project],:author=>params[:user])
+    get "/project/:author/:project/" do
+      @projectData = Project.find_by(:projectName => params[:project],:author=>params[:author])
       if @projectData == nil then
         render 'errors/404'
       else 
@@ -45,8 +45,8 @@ module Gdworker
       end
     end
 
-    get "/update/:user/:project/" do
-      @projectData = Playlist.find_by(:projectName => params[:project],:author=>params[:user])
+    get "/update/:author/:project/" do
+      @projectData = Project.find_by(:projectName => params[:project],:author=>params[:author])
       if @projectData == nil then
         render 'errors/404'
       else 

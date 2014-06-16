@@ -1,4 +1,4 @@
-Gdworker::App.controllers :user do
+Gdworker::App.controllers :author do
   
   # get :index, :map => '/foo/bar' do
   #   session[:foo] = 'bar'
@@ -19,16 +19,5 @@ Gdworker::App.controllers :user do
   #   'Hello world!'
   # end
   
-  get '/auth/callback' do
-    puts params
-    puts @env
-    puts request.env
-    redirect '/'
-   
-  end
-
-  get :logout do
-
-  end
 
 end
