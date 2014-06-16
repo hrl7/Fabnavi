@@ -33,8 +33,10 @@ module Gdworker
     end
 
     access_control.roles_for :admin do |role|
-      role.project_module :playlists, '/playlists'
-      role.project_module :backups, '/backups'
+      role.project_module :authors, '/authors'
+      role.project_module :annotations, '/annotations'
+      role.project_module :projects, '/projects'
+      role.project_module :pictures, '/pictures'
       role.project_module :accounts, '/accounts'
     end
 

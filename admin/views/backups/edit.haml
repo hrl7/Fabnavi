@@ -1,8 +1,0 @@
-%ul.nav.nav-tabs
-  %li=link_to tag_icon(:list, pat(:list)), url(:backups, :index)
-  %li=link_to tag_icon(:plus, pat(:new)), url(:backups, :new)
-  %li.active=link_to tag_icon(:edit, pat(:edit)), url(:backups, :edit, :id => @backup.id)
-
-.tabs-content
-  = form_for :backup, url(:backups, :update, :id => @backup.id), :method => :put, :class => 'form-horizontal' do |f|
-    =partial 'backups/form', :locals => { :f => f }

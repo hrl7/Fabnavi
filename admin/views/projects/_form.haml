@@ -1,21 +1,27 @@
-- error = @project.errors.include?(:title)
+- error = @project.errors.include?(:project_name)
 %fieldset.control-group{:class => error ? 'has-error' : ''}
-  =f.label :title, :class => 'control-label'
+  =f.label :project_name, :class => 'control-label'
   .controls
-    =f.text_field :title, :class => 'form-control input-large input-with-feedback', :autofocus => true
-    %span.help-inline=error ? f.error_message_on(:title, :class => 'text-error') : pat(:example)
-- error = @project.errors.include?(:contents)
+    =f.text_field :project_name, :class => 'form-control input-large input-with-feedback', :autofocus => true
+    %span.help-inline=error ? f.error_message_on(:project_name, :class => 'text-error') : pat(:example)
+- error = @project.errors.include?(:thumbnail_picture_id)
 %fieldset.control-group{:class => error ? 'has-error' : ''}
-  =f.label :contents, :class => 'control-label'
+  =f.label :thumbnail_picture_id, :class => 'control-label'
   .controls
-    =f.text_field :contents, :class => 'form-control input-large input-with-feedback'
-    %span.help-inline=error ? f.error_message_on(:contents, :class => 'text-error') : pat(:example)
-- error = @project.errors.include?(:author)
+    =f.text_field :thumbnail_picture_id, :class => 'form-control input-large input-with-feedback'
+    %span.help-inline=error ? f.error_message_on(:thumbnail_picture_id, :class => 'text-error') : pat(:example)
+- error = @project.errors.include?(:author_id)
 %fieldset.control-group{:class => error ? 'has-error' : ''}
-  =f.label :author, :class => 'control-label'
+  =f.label :author_id, :class => 'control-label'
   .controls
-    =f.text_field :author, :class => 'form-control input-large input-with-feedback'
-    %span.help-inline=error ? f.error_message_on(:author, :class => 'text-error') : pat(:example)
+    =f.text_field :author_id, :class => 'form-control input-large input-with-feedback'
+    %span.help-inline=error ? f.error_message_on(:author_id, :class => 'text-error') : pat(:example)
+- error = @project.errors.include?(:status)
+%fieldset.control-group{:class => error ? 'has-error' : ''}
+  =f.label :status, :class => 'control-label'
+  .controls
+    =f.text_field :status, :class => 'form-control input-large input-with-feedback'
+    %span.help-inline=error ? f.error_message_on(:status, :class => 'text-error') : pat(:example)
 
 .form-actions
   =f.submit pat(:save), :class => 'btn btn-primary'
