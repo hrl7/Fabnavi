@@ -3,9 +3,10 @@ Gdworker::App.controllers :project do
 
   get "/getList" do 
     res = []
-    all = Project.joins(:picture,:author).all(:order => 'updated_at desc')
+    all = Project.joins(:author).all(:order => 'updated_at desc')
     all.each{|p|
-      res.push({:id=>p.project_name,:user=>p.author.name,:thumbnail=> p.picture[p.thumbnail_picture_id].thumbnail_url.to_s})
+      thumbnail = Picture.where(:project_id => p.id, :order_in_project => p.thumbnail_picture_id).first 
+      res.push({:id=>p.project_name,:user=>p.author.name,:thumbnail=> thumbnail.thumbnail_url})
     }
     res.to_json
   end
@@ -30,16 +31,16 @@ Gdworker::App.controllers :project do
   end
 
   post "/postConfig" do
-    id = params[:project_id]
-    author = params[:author]
-    if author == nil then author = "NO_NAME" end
     data = params[:data]
-    Project.new do |ls|
-     ls.project_name = id
-     ls.body = data
-     ls.author = author
-     ls.save
+    imgURLs = JSON.parse data
+    id = Project.joins(:author).where(:project_name => params[:project_id],:authors => {:name => params[:author]}).first.id
+    pictureURLs= Picture.all.where(:project_id => id).order(":order_in_project desc")
+    imgURLs.each_with_index do |url,i|
+      pict = pictureURLs.find_by(:url => imgURLs[i]["globalURL"])
+      pict.order_in_project = i+1
+      pict.save
     end
+    "hoge"
   end
 
   get "/delete" do

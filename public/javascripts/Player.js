@@ -11,7 +11,6 @@ var PlayController = {
     $('#panel').hide();
     $('#contents').show();
     PlayController.photoList = new PhotoList();
-    PlayController.configList = new ConfigList();
     Keys.playerKeyBind();
   },
 
@@ -129,8 +128,6 @@ var PlayController = {
   playSlide : function(id){
                 PlayController.photoList.update();
                 document.title = "Play: " +id;
-                PlayController.configList.load();
-
                 var parameters = PlayController.getParametersFromQuery();
                 var startIndex = 0;
                 if (parameters["s"]) {

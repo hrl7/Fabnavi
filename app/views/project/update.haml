@@ -11,6 +11,7 @@
     = javascript_include_tag 'jquery', 'common', 'Keybind','CachedImageList','WorkQueue','PlayConfig','Player','Calibrator','Recorder','CameraAPI','list','PhotoList','ConfigList', 'Fabnavi'
     %meta{content: "width=device-width, user-scalable=no", name: "viewport"}/
     :javascript 
+      PICTURES_DATA = #{@picturesData.to_json}
       PROJECT_DATA = #{@projectData.to_json}
   %body{onload: "Fabnavi.update()"}
     #contents

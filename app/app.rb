@@ -38,7 +38,8 @@ module Gdworker
 
     get "/project/:author/:project/" do
       id = Project.joins(:author).where(:project_name => params[:project],:authors => {:name => params[:author]}).first.id
-      @projectData = Picture.all.where(:project_id => id).order(":order_in_project desc")
+      @picturesData= Picture.order("order_in_project asc").where(:project_id => id)
+      @projectData = {:author=> params[:author],:projectName => params[:project]}
       if @projectData == nil then
         render 'errors/404'
       else 
@@ -48,13 +49,15 @@ module Gdworker
 
     get "/update/:author/:project/" do
       id = Project.joins(:author).where(:project_name => params[:project],:authors => {:name => params[:author]}).first.id
-      @projectData = Picture.all.where(:project_id => id).order(":order_in_project desc")
+      @picturesData= Picture.order("order_in_project asc").where(:project_id => id)
+      @projectData = {:author=> params[:author],:projectName => params[:project]}
       if @projectData == nil then
         render 'errors/404'
       else 
         render 'project/update'
       end
     end
+
 
     get "/new" do
       render 'project/new'

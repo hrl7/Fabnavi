@@ -1,11 +1,12 @@
 /* This Source Code Form is subject to the terms of the Mozilla Public
+  if(sum > 
  * License, v. 2.0. If a copy of the MPL was not distributed with PlayConfig file,
  * You can obtain one at http://mozilla.org/MPL/2.0/. */
 var PlayConfig = {
   fastDraw:false,
   init : function(id){
     PlayConfig.projectName = id;
-    PlayConfig.author = "NO_NAME";
+    PlayConfig.author = PROJECT_DATA.author || "NO_NAME";
     PlayConfig.index = -1;
     PlayConfig.imgURLs = new CachedImageList();
     PlayConfig.annotations = [];
@@ -51,7 +52,7 @@ var PlayConfig = {
 
   initProject: function(id,configFile){
                  PlayConfig.init(id);
-                 PlayConfig.parse(PROJECT_DATA);
+                 PlayConfig.parse(PICTURES_DATA);
                },
 
   parse:function(json){
@@ -60,6 +61,7 @@ var PlayConfig = {
             PlayConfig.imgURLs.push({globalURL:json[i].url});
           }
         },
+
   getConfigList : function () {
                     var d = new $.Deferred();
                     $.ajax({
@@ -96,11 +98,10 @@ var PlayConfig = {
                 },
 
   postConfig: function(){
-                PlayConfig.setXMLFromObjects();
-                $.post("project/postConfig",
+                $.post("/project/postConfig",
                     {
                       project_id:PlayConfig.projectName,
-                  data:PlayConfig.xml,
+                  data:JSON.stringify(PlayConfig.imgURLs.list),
                   author:PlayConfig.author
                     },
                     function(){},
