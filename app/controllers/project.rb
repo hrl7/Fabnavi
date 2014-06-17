@@ -3,39 +3,28 @@ Gdworker::App.controllers :project do
 
   get "/getList" do 
     res = []
-    all = Playlist.all(:order => 'updated_at desc')
+    all = Project.joins(:picture,:author).all(:order => 'updated_at desc')
     all.each{|p|
-      res.push({:id=>p.projectName,:user=>p.author,:thumbnail=> p.thumbnail})
+      res.push({:id=>p.project_name,:user=>p.author.name,:thumbnail=> p.picture[p.thumbnail_picture_id].thumbnail_url.to_s})
     }
     res.to_json
   end
 
   get "/getProject" do 
-    id = params[:project_id]
-    res = Playlist.find_by(:projectName=>id)
-    res.to_json
-  end
-
-  get "/getConfigFiles" do
-    id = params[:project_id]
-    res = Backup.where(projectName:id)
+    res = Project.joins(:author).where(:project_name => params[:project_id],:authors => {:name => params[:author]})
     res.to_json
   end
 
   get "/new" do
     id = params[:projectname]
     if id == nil then
-      puts "no given name"
       id = Time.now.strftime("%Y-%m-%d_%H-%M-%S")
     end
 
-    res = Playlist.find_by(:projectName => id)
+    res = Project.find_by(:project_name => id)
     if not res == nil then
-      puts id.to_s + " is already exist!"
       id = Time.now.strftime("%Y-%m-%d_%H-%M-%S")
     end
-
-    puts id.to_s + " is ok."
     res = id.to_s
     return {:id => res}.to_json
   end
@@ -44,18 +33,9 @@ Gdworker::App.controllers :project do
     id = params[:project_id]
     author = params[:author]
     if author == nil then author = "NO_NAME" end
-    prev = Playlist.find_by(:projectName => id)
-    if not prev == nil then
-      Backup.new do |b|
-       b.projectName = prev.projectName
-       b.body = prev.body
-       b.save
-      end
-      prev.delete
-    end
     data = params[:data]
-    Playlist.new do |ls|
-     ls.projectName = id
+    Project.new do |ls|
+     ls.project_name = id
      ls.body = data
      ls.author = author
      ls.save
@@ -63,7 +43,7 @@ Gdworker::App.controllers :project do
   end
 
   get "/delete" do
-   res = Playlist.find_by(:projectName=>params[:project_id],:author=>params[:author])
+   res = Project.joins(:author).where(:authors => {:name => params[:author]})
    res.delete
   end
 
@@ -71,7 +51,7 @@ Gdworker::App.controllers :project do
     thumbnailUrl = params[:thumbnail]
     author = params[:author]
     id = params[:project_id]
-    proj = Playlist.find_by(:projectName => id,:author => author)
+    proj = Project.find_by(:project_name => id,:author => author)
     proj.thumbnail = thumbnailUrl
     proj.save
   end 
