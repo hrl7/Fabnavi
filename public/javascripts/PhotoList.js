@@ -5,7 +5,6 @@ function PhotoList() {
 PhotoList.prototype = new ListController("photoList");
 
 PhotoList.prototype.append = function (data) {
- console.log(data);
   var a = data.split('/');
   var str = a[a.length-1];
   var id = str.split('.')[0];

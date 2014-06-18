@@ -49,11 +49,10 @@ Gdworker::App.controllers :project do
   end
 
   post "/setThumbnail" do
-    thumbnailUrl = params[:thumbnail]
-    author = params[:author]
-    id = params[:project_id]
-    proj = Project.find_by(:project_name => id,:author => author)
-    proj.thumbnail = thumbnailUrl
+    index = params[:thumbnail]
+    puts params.to_s
+    proj = Project.joins(:author).where(:project_name => params[:project_id],:authors => {:name => params[:author]}).readonly(false).first
+    proj.thumbnail_picture_id = index.to_i+1
     proj.save
   end 
 

@@ -70,7 +70,6 @@ var CommonController = {
   },
 
   getLocalConfig: function(id){
-    console.trace();
     var res = CommonController.getLocalData(id);
     if(!res){
       CommonController.localConfig = "";

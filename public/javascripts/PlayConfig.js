@@ -1,12 +1,11 @@
 /* This Source Code Form is subject to the terms of the Mozilla Public
-  if(sum > 
  * License, v. 2.0. If a copy of the MPL was not distributed with PlayConfig file,
  * You can obtain one at http://mozilla.org/MPL/2.0/. */
 var PlayConfig = {
   fastDraw:false,
   init : function(id){
     PlayConfig.projectName = id;
-    PlayConfig.author = PROJECT_DATA.author || "NO_NAME";
+    PlayConfig.author = "NO_NAME";
     PlayConfig.index = -1;
     PlayConfig.imgURLs = new CachedImageList();
     PlayConfig.annotations = [];
@@ -25,7 +24,7 @@ var PlayConfig = {
 
       };
       document.getElementById('setThumbnail').onclick = function(){
-        PlayConfig.setThumbnail(PlayConfig.imgURLs.get(PlayConfig.index).globalURL); 
+        PlayConfig.setThumbnail(PlayConfig.index);
       };
       document.getElementById('edit_tab').onclick = function(){
         propertyContents.className = "hide"; 
@@ -56,7 +55,6 @@ var PlayConfig = {
                },
 
   parse:function(json){
-          console.log(json); 
           for(i in json){
             PlayConfig.imgURLs.push({globalURL:json[i].url});
           }
@@ -86,12 +84,12 @@ var PlayConfig = {
   removeIndex: function(index){
                  PlayConfig.imgURLs.splice(index,1);
                },
-  setThumbnail: function(thumbnailURL){
+  setThumbnail: function(index){
                   $.post("/project/setThumbnail",
                       {
                         project_id:PlayConfig.projectName,
                   author:PROJECT_DATA.author,
-                  thumbnail:thumbnailURL
+                  thumbnail:index
                       },
                       function(){},
                       "jsonp");
