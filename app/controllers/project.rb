@@ -44,13 +44,14 @@ Gdworker::App.controllers :project do
   end
 
   get "/delete" do
-   res = Project.joins(:author).where(:authors => {:name => params[:author]})
+   res = Project.joins(:author).where(:authors => {:name => params[:author]}).first
+   puts "============"
+   puts res
    res.delete
   end
 
   post "/setThumbnail" do
     index = params[:thumbnail]
-    puts params.to_s
     proj = Project.joins(:author).where(:project_name => params[:project_id],:authors => {:name => params[:author]}).readonly(false).first
     proj.thumbnail_picture_id = index.to_i+1
     proj.save
