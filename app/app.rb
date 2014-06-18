@@ -37,9 +37,6 @@ module Gdworker
       if not @email == "null" then
         author = Author.find_by(:email => @email)
         @email = "\""+@email+"\""
-        puts "********"
-        puts @email
-        puts author 
         if author == nil then
           @name = "\"UNREGISTERED\""
         else
@@ -72,9 +69,8 @@ module Gdworker
       end
     end
 
-
     get "/new" do
-      render 'project/new'
+      render 'project/newProject'
     end
 
     get '/test' do

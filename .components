@@ -3,7 +3,7 @@
 :test: none
 :mock: none
 :script: jquery
-:renderer: haml
+:renderer: slim
 :stylesheet: sass
 :namespace: Gdworker
 :migration_format: number

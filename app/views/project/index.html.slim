@@ -1,0 +1,11 @@
+= partial 'layouts/header'
+script src="https://login.persona.org/include.js"
+= stylesheet_link_tag 'common', 'play','record'
+= javascript_include_tag 'jquery', 'common','Keybind','WorkQueue','ProjectList','CameraAPI','Auth', 'Fabnavi'
+
+meta content="width=device-width user-scalable=no" name="viewport"
+body onload="Fabnavi.showProjectList()"
+  = partial 'layouts/statusbar'
+  #projectList
+    ul#project-list
+      li#__newProject__ New Project
