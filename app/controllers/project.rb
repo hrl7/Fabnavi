@@ -45,8 +45,6 @@ Gdworker::App.controllers :project do
 
   get "/delete" do
    res = Project.joins(:author).where(:authors => {:name => params[:author]}).first
-   puts "============"
-   puts res
    res.delete
   end
 

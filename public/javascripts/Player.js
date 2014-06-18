@@ -198,6 +198,7 @@ var PlayController = {
                 var img = new Image();
                 img.src = url;
                 img.onload = function () {
+                  console.log("**********"+url);
                   if(freezeAspect){
                     CommonController.localConfig.w = img.naturalWidth; 
                     CommonController.localConfig.h = img.naturalHeight; 

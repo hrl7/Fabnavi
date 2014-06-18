@@ -26,14 +26,28 @@ module Gdworker
     register Padrino::Mailer
     register Padrino::Helpers
 
-    disable :sessions
-    disable :protect_from_csrf
+    enable:sessions
+    disable:protect_from_csrf
 
     Resque.redis = Redis.new
 
     get '/' do
-     @projects= Project.all(:order => 'updated_at desc')
-     render 'project/index' 
+      @email = session[:email] ||= "null"
+      @name = "null"
+      if not @email == "null" then
+        author = Author.find_by(:email => @email)
+        @email = "\""+@email+"\""
+        puts "********"
+        puts @email
+        puts author 
+        if author == nil then
+          @name = "\"UNREGISTERED\""
+        else
+          @name = "\""+author.name.to_s+"\""
+        end
+      end
+      @projects= Project.all(:order => 'updated_at desc')
+      render 'project/index' 
     end
 
     get "/project/:author/:project/" do

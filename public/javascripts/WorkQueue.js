@@ -49,7 +49,6 @@ WorkQueue.prototype = {
               bimg.src =  url;
               bufCvs = document.createElement("canvas");
               bufCtx = bufCvs.getContext('2d');
-              console.log(url);
               bimg.onload = function(){
                 console.log("image loaded");
                 bufCvs.width = bimg.naturalWidth;
