@@ -5,7 +5,6 @@ require "open-uri"
 require "uri"
 require "resque"
 require "redis"
-#require "gd2"
 require "camera_api"
 require "fabnavi_utils"
 require "base64"
@@ -43,13 +42,13 @@ module Gdworker
           @name = "\""+author.name.to_s+"\""
         end
       end
-      @projects= Project.all(:order => 'updated_at desc')
+      @projects= Project.project_list_LP
       render 'project/index' 
     end
 
     get "/project/:author/:project/" do
-      id = Project.joins(:author).where(:project_name => params[:project],:authors => {:name => params[:author]}).first.id
-      @picturesData= Picture.order("order_in_project asc").where(:project_id => id)
+      id = Project.find_project(params[:author],params[:project]).id
+      @picturesData= Picture.pictures_list(id)
       @projectData = {:author=> params[:author],:projectName => params[:project]}
       if @projectData == nil then
         render 'errors/404'
@@ -59,8 +58,8 @@ module Gdworker
     end
 
     get "/update/:author/:project/" do
-      id = Project.joins(:author).where(:project_name => params[:project],:authors => {:name => params[:author]}).first.id
-      @picturesData= Picture.order("order_in_project asc").where(:project_id => id)
+      id = Project.find_project(params[:author],params[:project]).id
+      @picturesData= Picture.pictures_list(id)
       @projectData = {:author=> params[:author],:projectName => params[:project]}
       if @projectData == nil then
         render 'errors/404'

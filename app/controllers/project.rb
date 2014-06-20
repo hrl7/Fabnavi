@@ -3,16 +3,11 @@ Gdworker::App.controllers :project do
 
   get "/getList" do 
     res = []
-    all = Project.joins(:author).all(:order => 'updated_at desc')
+    all = Project.project_list_LP
     all.each{|p|
       thumbnail = Picture.where(:project_id => p.id, :order_in_project => p.thumbnail_picture_id).first 
       res.push({:id=>p.project_name,:user=>p.author.name,:thumbnail=> thumbnail.thumbnail_url})
     }
-    res.to_json
-  end
-
-  get "/getProject" do 
-    res = Project.joins(:author).where(:project_name => params[:project_id],:authors => {:name => params[:author]})
     res.to_json
   end
 
@@ -33,8 +28,8 @@ Gdworker::App.controllers :project do
   post "/postConfig" do
     data = params[:data]
     imgURLs = JSON.parse data
-    id = Project.joins(:author).where(:project_name => params[:project_id],:authors => {:name => params[:author]}).first.id
-    pictureURLs= Picture.all.where(:project_id => id).order(":order_in_project desc")
+    id = find_project(params[:author],params[:project_id]).id
+    pictureURLs= Picture.pictures_list(id)
     imgURLs.each_with_index do |url,i|
       pict = pictureURLs.find_by(:url => imgURLs[i]["globalURL"])
       pict.order_in_project = i+1
@@ -44,13 +39,13 @@ Gdworker::App.controllers :project do
   end
 
   get "/delete" do
-   res = Project.joins(:author).where(:authors => {:name => params[:author]}).first
-   res.delete
+   res = Project.find_project(params[:author],params[:project_id])
+   res.try(:delete)
   end
 
   post "/setThumbnail" do
     index = params[:thumbnail]
-    proj = Project.joins(:author).where(:project_name => params[:project_id],:authors => {:name => params[:author]}).readonly(false).first
+    proj = Project.find_project(params[:author],params[:project_id]).readonly(false).first
     proj.thumbnail_picture_id = index.to_i+1
     proj.save
   end 
@@ -60,7 +55,7 @@ Gdworker::App.controllers :project do
     id = params[:project_id]
     url = params[:url]
     pict = Base64.decode64(data)
-    fileName =File.basename(/^http.*.JPG/.match(url)[0])
+    fileName = File.basename(/^http.*.JPG/.match(url)[0])
     filePath = id+'/'+fileName
     save_pict_S3(filePath,pict)
     res = "https://s3-ap-northeast-1.amazonaws.com/files.fabnavi/"+filePath
