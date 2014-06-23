@@ -72,10 +72,6 @@ module Gdworker
       render 'project/newProject'
     end
 
-    get '/test' do
-      render 'project/test'
-    end
-
     error 404 do
       render 'errors/404'
     end

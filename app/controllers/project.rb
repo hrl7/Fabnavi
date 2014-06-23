@@ -55,10 +55,9 @@ Gdworker::App.controllers :project do
     id = params[:project_id]
     url = params[:url]
     pict = Base64.decode64(data)
-    fileName = File.basename(/^http.*.JPG/.match(url)[0])
+    fileName =File.basename(/^http.*.JPG/.match(url)[0])
     filePath = id+'/'+fileName
     save_pict_S3(filePath,pict)
-    res = "https://s3-ap-northeast-1.amazonaws.com/files.fabnavi/"+filePath
-    return res
+    return "https://s3-ap-northeast-1.amazonaws.com/files.fabnavi/"+filePath
   end 
 end
