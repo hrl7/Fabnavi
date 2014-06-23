@@ -57,8 +57,14 @@ var Fabnavi = {
                    { type : 'POST',
                      url: '/auth/login',
                  data:{assertion:assertion},
-                 success:function(res,status,xhr){window.location.reload();},
-                 error:function(res,status,xhr){alert("login failure" + res);},
+                 success:function(res,status,xhr){
+                  console.log(res);
+                  window.location = res;
+                 },
+                 error:function(res,status,xhr){
+                        console.log(res);
+                        alert("login failure" + res);
+                },
                    });
                },
 

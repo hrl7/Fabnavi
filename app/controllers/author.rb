@@ -7,10 +7,12 @@ Gdworker::App.controllers :author do
     a = Author.new
     a.name = params[:username]
     a.email = session["email"]
+    #TODO check the name if duplicated 
     if a.save then 
-      return "ok"
+      redirect_to "/"
     else 
-      return [params,session].to_json
+      session.destroy
+      redirect_to "/"
     end  
   end
 

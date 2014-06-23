@@ -6,16 +6,20 @@ Gdworker::App.controllers :auth do
     https = Net::HTTP.new('verifier.login.persona.org',443)
     https.use_ssl = true
     data = "assertion="+params[:assertion]+"&audience=http://localhost:3000"
-    puts data
-    res = ""
+    resurl = ""
     https.start do
       res = https.post("/verify",data)
       result = JSON.parse res.body
       if result["status"] == "okay" then
         session[:email] = result["email"]
+        unless Author.exists? email: session[:email] then
+          resurl = "/author/register"
+        else  
+          resurl = "/"
+        end
       end
     end
-    res.body
+    resurl
   end
 
   post 'logout' do
