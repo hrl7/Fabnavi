@@ -122,7 +122,7 @@ var PlayController = {
             CommonController.localConfig = {x:0,y:0,w:$('#photo').width(),h:$('#photo').height()};
           }
           PlayConfig.initProject(id);
-          PlayController.playSlide(id);
+          if(PICTURES_DATA.length != 0) PlayController.playSlide(id);
         },
 
   playSlide : function(id){

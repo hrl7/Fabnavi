@@ -14,6 +14,7 @@ CachedImageList.prototype = {
       },
 
   getURL:function(n){
+           if(this.list.length == 0)return false;
            var res = this.list[n];
            if(res.localURL)return res.localURL;
            if(res.globalURL)return res.globalURL;

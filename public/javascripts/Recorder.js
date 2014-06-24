@@ -8,18 +8,7 @@ var RecordController = {
     $('#projectList').hide();
     PlayConfig.init();
 //    Ca.initProject("  ");
-    
     Keys.recorderKeyBind(); 
-    CommonController.getJSON("/project/new", function(result, error) {
-      if (error) {
-        alert(error);
-        return;
-      }
-      var id = result["id"];
-      PlayConfig.projectName = id;
-      PROJECT_DATA = {projectName:id,author:"NO_NAME"};
-      document.title = "Play: " +id;
-    });
   },
 
   shoot: function() {

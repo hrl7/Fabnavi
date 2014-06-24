@@ -9,7 +9,9 @@ var Fabnavi = {
   update:function(){
            __MODE__ = "update";
            queue = new WorkQueue();
+           CameraAPI.init();
            PlayController.init(); 
+           RecordController.newProject();
            PlayController.play(PROJECT_DATA.projectName);
          },
 

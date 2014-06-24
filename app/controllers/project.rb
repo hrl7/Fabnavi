@@ -1,27 +1,18 @@
 require "fabnavi_utils"
 Gdworker::App.controllers :project do
 
-  get "/new" do
-    id = params[:projectname]
-    if id == nil then
-      id = Time.now.strftime("%Y-%m-%d_%H-%M-%S")
-    end
-
-    res = Project.find_by(:project_name => id)
-    if not res == nil then
-      id = Time.now.strftime("%Y-%m-%d_%H-%M-%S")
-    end
-    res = id.to_s
-    return {:id => res}.to_json
-  end
-
   post "/postConfig" do
     data = params[:data]
     imgURLs = JSON.parse data
-    id = find_project(params[:author],params[:project_id]).id
-    pictureURLs= Picture.pictures_list(id)
+    puts params.to_json
+    proj = Project.find_project(params[:author],params[:project_id])
+    puts proj.to_json
+    pictureURLs= proj.picture
     imgURLs.each_with_index do |url,i|
-      pict = pictureURLs.find_by(:url => imgURLs[i]["globalURL"])
+      unless url = imgURLs[i]["globalURL"] then next end 
+      unless pict = pictureURLs.find_by(:url =>url) then
+        pict = Picture.new(:url => url ,:project => proj)
+      end
       pict.order_in_project = i+1
       pict.save
     end
@@ -35,7 +26,10 @@ Gdworker::App.controllers :project do
 
   post "/setThumbnail" do
     index = params[:thumbnail]
-    proj = Project.find_project(params[:author],params[:project_id]).readonly(false).first
+    project_name = params[:project_id]
+    author = params[:author]
+    proj = Project.joins(:author).readonly(false).where(:project_name => project_name, :authors => {:name => author}).first
+    puts proj.to_json
     proj.thumbnail_picture_id = index.to_i+1
     proj.save
   end 
@@ -49,7 +43,7 @@ Gdworker::App.controllers :project do
     fileName =File.basename(/^http.*.JPG/.match(url)[0])
     filePath = id+'/'+fileName
     save_pict_S3(filePath,pict)
-    return "https://s3-ap-northeast-1.amazonaws.com/files.fabnavi/"+filePath
+    "https://s3-ap-northeast-1.amazonaws.com/files.fabnavi/"+filePath
   end 
 
   post "/new" do

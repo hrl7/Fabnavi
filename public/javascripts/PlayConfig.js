@@ -5,7 +5,7 @@ var PlayConfig = {
   fastDraw:false,
   init : function(id){
     PlayConfig.projectName = id;
-    PlayConfig.author = "NO_NAME";
+    PlayConfig.author = PROJECT_DATA.author || "";
     PlayConfig.index = -1;
     PlayConfig.imgURLs = new CachedImageList();
     PlayConfig.annotations = [];
@@ -100,7 +100,7 @@ var PlayConfig = {
                   $.post("/project/setThumbnail",
                       {
                         project_id:PlayConfig.projectName,
-                  author:PROJECT_DATA.author,
+                  author:PlayConfig.author,
                   thumbnail:index
                       },
                       function(){},
