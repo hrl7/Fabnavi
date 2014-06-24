@@ -9,6 +9,7 @@ Gdworker::App.controllers :author do
     a.email = session["email"]
     #TODO check the name if duplicated 
     if a.save then 
+      session[:authorName] = a.name
       redirect_to "/"
     else 
       session.destroy

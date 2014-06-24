@@ -69,8 +69,13 @@ module Gdworker
     end
 
     get "/new" do
-      flash[:notice] = "Start"
-      render 'project/newProject'
+      if session[:authorName] == nil then
+        redirect_to "/"
+      else 
+        flash[:notice] = "Start"
+        @authorName = session[:authorName]
+        render 'project/newProject'
+      end
     end
 
     error 404 do

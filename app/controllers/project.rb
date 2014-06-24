@@ -51,6 +51,7 @@ Gdworker::App.controllers :project do
   end 
 
   post "/postPicture" do
+    #TODO check the header of pict
     data = params[:data]
     id = params[:project_id]
     url = params[:url]
@@ -60,4 +61,25 @@ Gdworker::App.controllers :project do
     save_pict_S3(filePath,pict)
     return "https://s3-ap-northeast-1.amazonaws.com/files.fabnavi/"+filePath
   end 
+
+  post "/new" do
+    @projectName = params[:ProjectName]
+    @authorName = session[:authorName]
+    proj = Project.joins(:author).find_by(:authors=>{name:@authorName},:project_name =>@projectName)
+    if proj == nil then
+      author = Author.find_by(:email => session[:email], :name => @authorName)
+      p = Project.new 
+      p.author = author
+      p.project_name = @projectName
+      if p.save then 
+        redirect_to "/update/"+@authorName+"/"+@projectName
+      else 
+        flash[:notice] = "Error Something."
+        render "project/newProject"
+      end 
+    else 
+      flash[:notice] = "Project name is Duplicated. Change project name"
+      render "project/newProject"
+    end
+  end
 end

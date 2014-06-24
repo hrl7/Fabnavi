@@ -12,9 +12,11 @@ Gdworker::App.controllers :auth do
       result = JSON.parse res.body
       if result["status"] == "okay" then
         session[:email] = result["email"]
-        unless Author.exists? email: session[:email] then
+        author = Author.find_by(:email => session[:email])
+        if author == nil then
           resurl = "/author/register"
         else  
+          session[:authorName] = author.name
           resurl = "/"
         end
       end
