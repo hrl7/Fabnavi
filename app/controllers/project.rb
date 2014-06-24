@@ -1,16 +1,6 @@
 require "fabnavi_utils"
 Gdworker::App.controllers :project do
 
-  get "/getList" do 
-    res = []
-    all = Project.project_list_LP
-    all.each{|p|
-      thumbnail = Picture.where(:project_id => p.id, :order_in_project => p.thumbnail_picture_id).first 
-      res.push({:id=>p.project_name,:user=>p.author.name,:thumbnail=> thumbnail.thumbnail_url})
-    }
-    res.to_json
-  end
-
   get "/new" do
     id = params[:projectname]
     if id == nil then

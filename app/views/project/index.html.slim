@@ -9,3 +9,6 @@ body onload="Fabnavi.showProjectList()"
   #projectList
     ul#project-list
       li#__newProject__ 'New Project'
+    - @projects.each do |p|
+      =partial 'layouts/project_thumbnail',:locals => {:project=>p}
+  

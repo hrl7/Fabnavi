@@ -1,0 +1,9 @@
+- path = project.author.name + '/' + project.project_name
+- id = project.thumbnail_picture_id
+- if id then  url = project.picture[id].thumbnail_url else url = "" end
+li id="#{{path}}"
+  img.thumbnail src="#{{url}}"
+  div #{{path}}
+  input type="button" class="makeButton" value="Play" 
+  input type="button" class="editButton" value="Update"
+  input type="button" class="deleteButton" value="Delete"
