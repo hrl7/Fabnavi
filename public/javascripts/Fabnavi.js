@@ -22,9 +22,11 @@ var Fabnavi = {
                __MODE__ = "new";
                CameraAPI.init();
                queue = new WorkQueue();
-               PlayController.init(); 
-               RecordController.newProject();
-               Ca.addMouseEvent();
+               PlayConfig.newProjectWizard().done(function(){
+                 PlayController.init(); 
+                 RecordController.newProject();
+                 Ca.addMouseEvent();
+               });
              },
 
   authInit:function(){

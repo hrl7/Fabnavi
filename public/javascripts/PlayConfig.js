@@ -49,6 +49,18 @@ var PlayConfig = {
     };
   },
 
+  newProjectWizard:function(){
+    var d = $.Deferred();
+    console.log("new");
+    $('#contents').hide();
+    $('#panel').hide();
+    document.getElementById('newButton').onclick = function (){
+      d.resolve();
+    }
+    return d.promise();
+
+                   },
+
   initProject: function(id,configFile){
                  PlayConfig.init(id);
                  PlayConfig.parse(PICTURES_DATA);

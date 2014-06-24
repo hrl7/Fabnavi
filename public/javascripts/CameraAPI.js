@@ -1,6 +1,11 @@
 var CameraAPI = {
 
   init:function () {
+    if(document.sonycameracontroller == undefined){
+      alert("Addon is not  installed");
+      //TODO : redirect to addon install page
+      return false;
+    }
     document.sonycameracontroller.setup({ipaddress: "10.0.0.1", port: 10000, version: "1.0"});
     document.sonycameracontroller.zoomIn();
     document.sonycameracontroller.zoomOut();

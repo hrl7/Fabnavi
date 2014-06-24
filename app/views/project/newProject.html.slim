@@ -1,4 +1,13 @@
 =partial 'layouts/header'
 =javascript_include_tag 'jquery', 'common', 'Keybind','CachedImageList','WorkQueue','PlayConfig','Player','Calibrator','Recorder','CameraAPI','list','PhotoList','ConfigList', 'Fabnavi'
 body onload="Fabnavi.newProject()"
-  =partial 'layouts/content'
+  #wizard
+    =form_tag '/project/create', :class => 'project-form', :method => 'POST' do
+      =flash_tag :notice
+      =field_set_tag do
+        p
+          =label_tag :ProjectName
+          =text_field_tag :ProjectName
+      =field_set_tag(:class => 'buttons') do
+        =submit_tag "Create Project",:id => "newButton"
+  =partial 'layouts/content', :locals => {:project => [],:pictures => []}

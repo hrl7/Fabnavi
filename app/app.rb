@@ -69,6 +69,7 @@ module Gdworker
     end
 
     get "/new" do
+      flash[:notice] = "Start"
       render 'project/newProject'
     end
 
