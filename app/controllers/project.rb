@@ -1,12 +1,15 @@
 require "fabnavi_utils"
 Gdworker::App.controllers :project do
-
+  before do
+    puts "***************"
+    puts params.to_json
+    puts "**************"
+  end
   post "/postConfig" do
+  
     data = params[:data]
     imgURLs = JSON.parse data
-    puts params.to_json
     proj = Project.find_project(params[:author],params[:project_id])
-    puts proj.to_json
     pictureURLs= proj.picture
     imgURLs.each_with_index do |url,i|
       unless url = imgURLs[i]["globalURL"] then next end 
@@ -29,7 +32,6 @@ Gdworker::App.controllers :project do
     project_name = params[:project_id]
     author = params[:author]
     proj = Project.joins(:author).readonly(false).where(:project_name => project_name, :authors => {:name => author}).first
-    puts proj.to_json
     proj.thumbnail_picture_id = index.to_i+1
     proj.save
   end 
@@ -55,6 +57,7 @@ Gdworker::App.controllers :project do
       p = Project.new 
       p.author = author
       p.project_name = @projectName
+      p.status = 0
       if p.save then 
         redirect_to "/update/"+@authorName+"/"+@projectName
       else 

@@ -8,7 +8,9 @@ body onload="Fabnavi.showProjectList()"
   =partial 'layouts/statusbar',:locals => {:email=>@email,:name=>@name}
   #projectList
     ul#project-list
-      li#__newProject__ 'New Project'
+    - if session[:authorName]
+      a href="/new"
+        li#__newProject__ New Project
     - @projects.each do |p|
       =partial 'layouts/project_thumbnail',:locals => {:project=>p}
   

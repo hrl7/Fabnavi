@@ -29,6 +29,17 @@ module Gdworker
     disable:protect_from_csrf
 
     Resque.redis = Redis.new
+    before do
+      @authorName = session[:authorName] ||= nil
+      @authorEmail = session[:email] ||= nil
+      @projectName = session[:projectName] ||= nil
+
+      puts "SESSION**********"
+      puts session.to_json
+      puts "PARAMETERS*********"
+      puts params.to_json
+      puts "******END******"
+    end
 
     get '/' do
       @email = session[:email] ||= "null"
@@ -42,7 +53,11 @@ module Gdworker
           @name = "\""+author.name.to_s+"\""
         end
       end
-      @projects= Project.project_list_LP
+      if @authorName then
+        @projects= Project.authenticated_project_list(@authorName)
+      else
+        @projects= Project.project_list_default
+      end
       render 'project/index' 
     end
 
