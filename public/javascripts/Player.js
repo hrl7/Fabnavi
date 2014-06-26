@@ -163,7 +163,6 @@
      }
    },
 
-
    next: function() {
      if (PlayConfig.index == PlayConfig.imgURLs.length-1) {
        PlayController.show(0);
@@ -178,7 +177,7 @@
      PlayController.setPhoto(Number(index),force,freezeAspect);
      $("#arrow").text("");
      clearTimeout(PlayController.timerid);
-     //---------Annotations
+     /* Annotations */
      $('.annotations').remove();
      for (var i=0; i<PlayConfig.annotations.length;i++){
        if(index == PlayConfig.annotations[i].index){
@@ -192,51 +191,61 @@
      PlayConfig.index = Number(index);
    },
 
-   setPhoto: function(index,force,freezeAspect) {
-     var url = PlayConfig.imgURLs.getURL(index);
-     if(url != PlayController.currentURL){
-       var img = new Image();
-       img.src = url;
-       img.onload = function () {
-         console.log("**********"+url);
-         if(freezeAspect){
-           CommonController.localConfig.w = img.naturalWidth; 
-           CommonController.localConfig.h = img.naturalHeight; 
-           CommonController.localConfig.x = 0;
-           CommonController.localConfig.y = 0;
-         }
+   setPhoto: function(index,force,freezeAspect) { /* force : force to reload image */
+     var data = PlayConfig.imgURLs.get(index);
+     var url = data.img.src;
+     var img = data.img;
+     data.loadedImg.done(function(){
          PlayController.ctx.clearRect(0,0,PlayController.cvs.width,PlayController.cvs.height);
          PlayController.draw(img);
          PlayController.currentImg = img;
          Ca.updateXYFromWH();
-       };
-       $("#photo").attr("src",url); 
-     } else if(force) {
-       if(PlayController.currentImg != ""){
-         PlayController.draw(PlayController.currentImg); 
-       } else {
-         var img = new Image();
-         img.src = url;
-         img.onload = function () {
-           if(freezeAspect){
-             CommonController.localConfig.w = img.naturalWidth; 
-             CommonController.localConfig.h = img.naturalHeight; 
-             CommonController.localConfig.x = 0;
-             CommonController.localConfig.y = 0;
-           }
-           Ca.updateXYFromCenter();
-           Ca.updateLocalConfig();
-           PlayController.ctx.clearRect(0,0,PlayController.cvs.width,PlayController.cvs.height);
-           PlayController.draw(img);
-           PlayController.currentimg = img;
-         };
-         $("#photo").attr("src",url); 
-       }
-     }
-     PlayController.currentURL = url;
-     PlayController.photoList.selectByName(url);
-     $("#counter").text((Number(index)+1)+"/"+PlayConfig.imgURLs.length);
-     $('#cvs').css('display','block');
+         PlayController.currentURL = url;
+         PlayController.photoList.selectByName(url);
+         $("#counter").text((Number(index)+1)+"/"+PlayConfig.imgURLs.length);
+         $('#cvs').css('display','block');
+     });
+     /*
+      var url = PlayConfig.imgURLs.getURL(index);
+      if(url != PlayController.currentURL){
+        var img = new Image();
+        img.src = url;
+        img.onload = function () {
+          if(freezeAspect){
+            CommonController.localConfig.w = img.naturalWidth; 
+            CommonController.localConfig.h = img.naturalHeight; 
+            CommonController.localConfig.x = 0;
+            CommonController.localConfig.y = 0;
+          }
+          PlayController.ctx.clearRect(0,0,PlayController.cvs.width,PlayController.cvs.height);
+          PlayController.draw(img);
+          PlayController.currentImg = img;
+          Ca.updateXYFromWH();
+        };
+        $("#photo").attr("src",url); 
+      } else if(force) {
+        if(PlayController.currentImg != ""){
+          PlayController.draw(PlayController.currentImg); 
+        } else {
+          var img = new Image();
+          img.src = url;
+          img.onload = function () {
+            if(freezeAspect){
+              CommonController.localConfig.w = img.naturalWidth; 
+              CommonController.localConfig.h = img.naturalHeight; 
+              CommonController.localConfig.x = 0;
+              CommonController.localConfig.y = 0;
+            }
+            Ca.updateXYFromCenter();
+            Ca.updateLocalConfig();
+            PlayController.ctx.clearRect(0,0,PlayController.cvs.width,PlayController.cvs.height);
+            PlayController.draw(img);
+            PlayController.currentimg = img;
+          };
+          $("#photo").attr("src",url); 
+        }
+      }
+      */
      $('#photo').css('display','none');
    },
 
