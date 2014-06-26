@@ -6,15 +6,15 @@ ListController.prototype = {
   selected:[],
   init : function (target) {
     this.elem = $(
-        '<tbody id="'+this.listId+'">\
-        <tr>\
-        <td>#</td>\
-        <td>'+this.listId+'</td>\
-        </tr>\
-        </tbody>');
+      '<tbody id="'+this.listId+'">\
+      <tr>\
+      <td>#</td>\
+      <td>'+this.listId+'</td>\
+      </tr>\
+      </tbody>');
     target.append(this.elem);
     $('#delete').click(function(){
-      this.remove(PlayConfig.index);
+        this.remove(PlayConfig.index);
     }.bind(this));
   },
 
@@ -86,7 +86,7 @@ ListController.prototype = {
   clear : function(){
     var ch = $("#"+this.listId).children();
     for(var i = 1; i< ch.length; ++i){
-     ch[i].remove();
+      ch[i].remove();
     }
   }
 };

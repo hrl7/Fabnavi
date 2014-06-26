@@ -37,7 +37,9 @@ module Gdworker
       puts "SESSION**********"
       puts session.to_json
       puts "PARAMETERS*********"
-      puts params.to_json
+      p = params
+      p["data"]  = "Picture Data"
+      puts p.to_json
       puts "******END******"
     end
 

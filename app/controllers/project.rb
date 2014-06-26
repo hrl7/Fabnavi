@@ -2,7 +2,9 @@ require "fabnavi_utils"
 Gdworker::App.controllers :project do
   before do
     puts "***************"
-    puts params.to_json
+    p = params
+    p["data"]  = "Picture Data"
+    puts p.to_json
     puts "**************"
   end
   post "/postConfig" do
