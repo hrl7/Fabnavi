@@ -5,7 +5,7 @@ Gdworker::App.controllers :auth do
   post 'login' do
     https = Net::HTTP.new('verifier.login.persona.org',443)
     https.use_ssl = true
-    data = "assertion="+params[:assertion]+"&audience=http://localhost:3000"
+    data = "assertion="+params[:assertion]+"&audience="+request.domain
     resurl = ""
     https.start do
       res = https.post("/verify",data)
