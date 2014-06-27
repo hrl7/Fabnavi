@@ -18,9 +18,20 @@
            break;
          }
          case 98 :
+         case 80 : 
          case 13: {
            ProjectList.play();
            break;
+         }
+         case 65 :/* Add */
+         {
+
+          break;
+         }
+         case 69 :/* Edit */
+         {
+
+          break;
          }
        }
      };

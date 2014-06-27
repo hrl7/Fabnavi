@@ -45,7 +45,7 @@ var ProjectList = {
 
   prev : function () {
     if(ProjectList.selectedId == "")return 0;
-    var s = $('#'+ProjectList.selectedId)[0].previousElementSibling;
+    var s = document.getElementById(ProjectList.selectedId).previousElementSibling;
     if(s == null)return 0;
     ProjectList.select(s); 
   },
@@ -55,7 +55,7 @@ var ProjectList = {
       ProjectList.select($("li")[0]);
       return 0;
     }
-    var s = $('#'+ProjectList.selectedId)[0].nextElementSibling;
+    var s = document.getElementById(ProjectList.selectedId).nextElementSibling;
     if(s == null)return 0;
     ProjectList.select(s); 
   },
@@ -69,9 +69,11 @@ var ProjectList = {
     window.location += "update/"+ProjectList.selectedId;
   },
   play : function () {
+   console.log(ProjectList.selectedId);
     if(ProjectList.selectedId == "")return 0;
-    if(ProjectList.selectedId == "newProject"){
-      return 0;
+    if(ProjectList.selectedId == "__newProject__"){
+     window.location = "/new";
+     return 0;
     }
     window.location += "project/"+ProjectList.selectedId;
   }
