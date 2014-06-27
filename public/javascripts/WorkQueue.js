@@ -7,11 +7,10 @@ function WorkQueue(){
 }
 
 WorkQueue.prototype = {
-  push : function (id,url,index) {
+  push : function (id,obj) {
     var data = {
       id:id,
-      url:url,
-      index:index
+      img:obj
     };
     this.queue.push(data);
   },
@@ -28,7 +27,6 @@ WorkQueue.prototype = {
 
   start : function(){
     this.timer = setInterval(function(){
-        console.log("Check the Queue... Works: "+this.queue.length );
         this.fire(); 
     }.bind(this),5000);
   },
@@ -39,78 +37,59 @@ WorkQueue.prototype = {
 
   fire: function () {
     if(this.runninng){
-      console.log("Queue is Running...");
       console.log(this.notice);
       return 0;
     }
-    console.log("run");
     this.runninng = true;
     if (this.queue.length < 1) {
       this.clear();
-      console.log("No Queue");
       this.runninng = false;
       return -1;
     }
     console.log(this.notice);
-    console.log("Status: "+this.queue[0].toSource()+ " run");
-    var data = this.queue[0];
-    var url = data.url;
-    var id = data.id;
-    var index = data.index;
-    if(!__DEBUG__){
-      var bimg = document.createElement("img");
-      bimg.crossOrigin = "anonymous";
-      bufCvs = document.createElement("canvas");
-      bufCtx = bufCvs.getContext('2d');
-      setTimeout(function () {
-          bimg.onerror = function(e){
-            this.notice = "ERROR : cannot load image";
-            this.runninng = false;
-            console.log(e);
-            console.log(e.originalTarget.complete);
-          }.bind(this);
-          bimg.onload = function(){
-            console.log("***********************************");
-            this.notice = "image loaded";
-            bufCvs.width = bimg.naturalWidth;
-            bufCvs.height = bimg.naturalHeight;
-            bufCtx.drawImage(bimg,0,0);
-            $('#shoot').show();
-            $('#contents').show();
-            var pict = bufCvs.toDataURL("image/jpeg").substring(23);
-            this.notice = "Image Posting...";
-            $.post("/project/postPicture",
-              { 
-                data:pict,
-                project_id:id,
-                url:url
-              },
-              function(res,error){
-                this.notice = "Image Posted!!!";
-                console.log("post result :"+res);
-                res = res.replace("\"","","g");
-                PlayConfig.imgURLs.addGlobalURLFromLocalURL(res,url);
-                RecordController.updateList();
-                PlayController.next();
-                PlayController.show(PlayConfig.index,true);
-                PlayConfig.postConfig();
-                this.index++; 
-                this.queue.splice(0,1);
-                this.runninng = false;
-                this.fire();
-            }.bind(this));
-            console.log("picture posted");
-          }.bind(this);
-          bimg.src =  url;
-      }.bind(this),100);
-    } else {
-      PlayConfig.imgURLs.splice(PlayConfig.index+1,0,url);
-      RecordController.updateList();
-      PlayController.next();
-      PlayController.show(PlayConfig.index,true);
-      $('#contents').show();
-      this.index++; 
-      return this.fire();
+    var cachedImage = this.queue[0].img;
+    var url = cachedImage.img.src;
+    if(cachedImage.hasOwnProperty("loadedImg")){
+      cachedImage.loadedImg.done(function(img){
+          var data = this.convertImgToDataURL(img);
+          this.postPicture(data,url);
+          this.queue.splice(0,1);
+      }.bind(this));
+    } else { 
+      this.runninng = false;
     }
+  },
+  convertImgToDataURL:function(img){
+    bufCvs = document.createElement("canvas");
+    bufCtx = bufCvs.getContext('2d');
+    this.notice = "image loaded";
+    bufCvs.width = img.naturalWidth;
+    bufCvs.height = img.naturalHeight;
+    bufCtx.drawImage(img,0,0);
+    return bufCvs.toDataURL("image/jpeg").substring(23);
+  },
+
+  postPicture:function(data,url){
+    $.post("/project/postPicture",
+      { 
+        data:data,
+        project_id:PlayConfig.projectName,
+        author:PlayConfig.author,
+        url:url
+      },
+      function(res,error){
+        if(error != "success"){
+          console.log(error);
+          this.runninng = false;
+          return;
+        }
+        this.notice = "Image Posted!!!";
+        res = res.replace("\"","","g");
+        PlayConfig.imgURLs.addGlobalURLFromLocalURL(res,url);
+        RecordController.updateList();
+        PlayConfig.postConfig();
+        this.queue.splice(0,1);
+        this.runninng = false;
+    }.bind(this));
   }
 };

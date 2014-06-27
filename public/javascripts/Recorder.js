@@ -24,12 +24,14 @@
                alert(error);
                return;
              }
-             PlayConfig.imgURLs.splice(PlayConfig.index+1,0,{localURL:url});
+             console.log("********SHOOT***********");
+             console.log(url);
+             var obj = PlayConfig.imgURLs.splice(PlayConfig.index+1,0,{localURL:url});
+             queue.push(PlayConfig.projectName,obj);
              RecordController.updateList();
              PlayController.next();
              if(PlayConfig.index > 0)Ca.removeMouseEvent();
              PlayController.show(PlayConfig.index,true);
-             queue.push(PlayConfig.projectName,url,PlayConfig.index);
          });
      }, 10);
    },

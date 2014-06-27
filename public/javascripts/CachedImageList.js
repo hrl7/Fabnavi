@@ -5,12 +5,20 @@ function CachedImageList(){
 
 CachedImageList.prototype = {
   push:function(obj){
+    var result = this.createObject(obj);
+    this.list.push(result);
+    this.update();
+    return result;
+  },
+
+  createObject:function(obj){
     /* if argObj has not img elem, 
      * add img elem and set src */
     if(!obj.hasOwnProperty("img")){
       obj.img = new Image();
       if(obj.hasOwnProperty("localURL")){
         var d = $.Deferred();
+        obj.img.crossOrigin = "anonymous";
         obj.img.onload = debugSuccessFn("local image Loaded",d,obj.img);
         obj.img.onerror = debugErrorFn("local Image cannot load",d);
         obj.img.src = obj.localURL;
@@ -23,12 +31,10 @@ CachedImageList.prototype = {
         obj.img.src = obj.globalURL;
         obj.loadedImg = d.promise();
       } else {
-        console.trace();
         console.log("no URL");
       }
     }
-    this.list.push(obj);
-    this.update();
+    return obj;
   },
 
   get:function(n){
@@ -37,10 +43,9 @@ CachedImageList.prototype = {
 
   getURL:function(n){
     if(this.list.length == 0)return false;
-    var res = this.list[n];
-    if(res.localURL)return res.localURL;
-    if(res.globalURL)return res.globalURL;
-    console.log("No URL,: " + res);
+    var res = this.list[n]
+    if(res.hasOwnProperty("localURL"))return res.localURL;
+    if(res.hasOwnProperty("globalURL"))return res.globalURL;
     return false;
   },
 
@@ -66,12 +71,15 @@ CachedImageList.prototype = {
   },
 
   splice:function(a,b,obj){
+   var result = null;
     if(obj == undefined){
       this.list.splice(a,b);
     }else {
-      this.list.splice(a,b,obj);
+      result = this.createObject(obj);
+      this.list.splice(a,b,result);
     }
     this.update();
+    return result;
   }
 }
 

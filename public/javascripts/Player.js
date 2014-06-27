@@ -204,6 +204,7 @@
          PlayController.photoList.selectByName(url);
          $("#counter").text((Number(index)+1)+"/"+PlayConfig.imgURLs.length);
          $('#cvs').css('display','block');
+         $('#contents').show();
      });
      /*
       var url = PlayConfig.imgURLs.getURL(index);
