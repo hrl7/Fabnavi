@@ -37,9 +37,6 @@ module Gdworker
       puts "SESSION**********"
       puts session.to_json
       puts "PARAMETERS*********"
-      p = params
-      p["data"]  = "Picture Data"
-      puts p.to_json
       puts "******END******"
     end
 
@@ -75,6 +72,7 @@ module Gdworker
     end
 
     get "/update/:author/:project/" do
+      unless session[:authorName] == params[:author] then redirect_to '/'; return end
       id = Project.find_project(params[:author],params[:project]).id
       @picturesData= Picture.pictures_list(id)
       @projectData = {:author=> params[:author],:projectName => params[:project]}

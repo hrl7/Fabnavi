@@ -1,18 +1,13 @@
 require "fabnavi_utils"
 Gdworker::App.controllers :project do
-  before do
-    puts "***************"
-    p = params
-    p["data"]  = "Picture Data"
-    puts p.to_json
-    puts "**************"
-  end
   post "/postConfig" do
-  
+    unless session[:authorName] == params[:author] then return end
     data = params[:data]
     imgURLs = JSON.parse data
     proj = Project.find_project(params[:author],params[:project_id])
     pictureURLs= proj.picture
+    puts "******"
+    puts params.to_json
     imgURLs.each_with_index do |url,i|
       unless url = imgURLs[i]["globalURL"] then next end 
       unless pict = pictureURLs.find_by(:url =>url) then
@@ -25,11 +20,13 @@ Gdworker::App.controllers :project do
   end
 
   get "/delete" do
-   res = Project.find_project(params[:author],params[:project_id])
-   res.try(:delete)
+    unless session[:authorName] == params[:author] then return end
+    res = Project.find_project(params[:author],params[:project_id])
+    res.try(:delete)
   end
 
   post "/setThumbnail" do
+    unless session[:authorName] == params[:author] then return end
     index = params[:thumbnail]
     project_name = params[:project_id]
     author = params[:author]
@@ -40,6 +37,9 @@ Gdworker::App.controllers :project do
 
   post "/postPicture" do
     #TODO check the header of pict
+    unless session[:authorName] == params[:author] then 
+     return 
+    end
     data = params[:data]
     id = params[:project_id]
     url = params[:url]
