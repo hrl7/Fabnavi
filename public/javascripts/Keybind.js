@@ -26,12 +26,24 @@
          case 65 :/* Add */
          {
 
-          break;
+           break;
          }
          case 69 :/* Edit */
          {
 
-          break;
+           break;
+         }
+         case 68 :/* delete */
+         case 46 :
+         {
+
+           break;
+         }
+         case 78 :/* New Proj*/
+         {
+           ProjectList.selectedId = "__newProject__";
+           ProjectList.play();
+           break;
          }
        }
      };

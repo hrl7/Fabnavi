@@ -25,11 +25,19 @@ var ProjectList = {
 
       }
     }
+    var addButtons = document.getElementsByClassName('addButton');
+    for (var i = 0; i < addButtons.length;i++){
+      addButtons[i].onclick = function(e){
+        ProjectList.selectedId = e.originalTarget.parentElement.id;
+        ProjectList.add();
+      }
+    }
+
     var editButtons = document.getElementsByClassName('editButton');
     for (var i = 0; i < editButtons.length;i++){
       editButtons[i].onclick = function(e){
         ProjectList.selectedId = e.originalTarget.parentElement.id;
-        ProjectList.update();
+        ProjectList.edit();
       }
     }
     ProjectList.select($('li')[0]);
@@ -60,21 +68,30 @@ var ProjectList = {
     ProjectList.select(s); 
   },
 
-  update : function () {
+  add : function () {
     if(ProjectList.selectedId == "")return 0;
-    alert("update");
+    alert("Add photo");
     if(ProjectList.selectedId == "newProject"){
       return 0;
     }
-    window.location += "update/"+ProjectList.selectedId;
+    window.location += "add/"+ProjectList.selectedId;
   },
+
   play : function () {
-   console.log(ProjectList.selectedId);
     if(ProjectList.selectedId == "")return 0;
     if(ProjectList.selectedId == "__newProject__"){
-     window.location = "/new";
-     return 0;
+      window.location = "/new";
+      return 0;
     }
     window.location += "project/"+ProjectList.selectedId;
+  },
+
+  edit : function () {
+    if(ProjectList.selectedId == "")return 0;
+    if(ProjectList.selectedId == "__newProject__"){
+      window.location = "/new";
+      return 0;
+    }
+    window.location += "edit/"+ProjectList.selectedId;
   }
 };
