@@ -52,9 +52,9 @@ module Gdworker
           @name = "\""+author.name.to_s+"\""
         end
       end
-      if @authorName then
+      begin 
         @projects= Project.authenticated_project_list(@authorName)
-      else
+      rescue
         @projects= Project.project_list_default
       end
       render 'project/index' 
