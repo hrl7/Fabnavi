@@ -1,7 +1,6 @@
 require "fabnavi_utils"
 Gdworker::App.controllers :project do
   post "/postConfig" do
-    unless session[:authorName] == params[:author] then return end
     data = params[:data]
     imgURLs = JSON.parse data
     proj = Project.find_project(params[:author],params[:project_id])
