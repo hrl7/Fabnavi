@@ -5,8 +5,6 @@ Gdworker::App.controllers :project do
     imgURLs = JSON.parse data
     proj = Project.find_project(params[:author],params[:project_id])
     pictureURLs= proj.picture
-    puts "******"
-    puts params.to_json
     imgURLs.each_with_index do |url,i|
       unless url = imgURLs[i]["globalURL"] then next end 
       unless pict = pictureURLs.find_by(:url =>url) then
@@ -63,7 +61,7 @@ Gdworker::App.controllers :project do
       p.project_name = @projectName
       p.status = 0
       if p.save then 
-        redirect_to "/update/"+@authorName+"/"+@projectName
+        redirect_to "/add/"+@authorName+"/"+@projectName
       else 
         flash[:notice] = "Error Something."
         render "project/newProject"
