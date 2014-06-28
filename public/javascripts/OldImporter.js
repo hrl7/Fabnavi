@@ -20,10 +20,12 @@ var OldImporter = {
         });
     });
     PlayConfig.author = AUTHOR_NAME;
+    console.log(this);
+    $("li").hide();
   },
   pushAllData:function(){
     for(i in PlayConfig.imgURLs.list){
-      queue.push(i,PlayConfig.imgURLs.list[i])
+      queue.push(PlayConfig.imgURLs.list[i])
    }
   },
   parse: function(xml){ //called once when project loaded
