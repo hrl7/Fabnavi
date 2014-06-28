@@ -31,6 +31,12 @@ var Fabnavi = {
     });
   },
 
+  importer:function(){
+   Fabnavi.authInit();
+   __MODE__ = "Import";
+   PROJECT_DATA = {};
+   PlayConfig.init("");
+  },
   authInit:function(){
     var signIn = document.getElementById('signin');
     var signOut= document.getElementById('signout');

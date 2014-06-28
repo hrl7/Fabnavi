@@ -74,7 +74,7 @@ WorkQueue.prototype = {
       { 
         data:data,
         project_id:PlayConfig.projectName,
-        author:PlayConfig.author,
+        author:AUTHOR_NAME,
         url:url
       },
       function(res,error){
@@ -86,7 +86,7 @@ WorkQueue.prototype = {
         this.notice = "Image Posted!!!";
         res = res.replace("\"","","g");
         PlayConfig.imgURLs.addGlobalURLFromLocalURL(res,url);
-        RecordController.updateList();
+        if(__MODE__ != "Import")RecordController.updateList();
         PlayConfig.postConfig();
         this.queue.splice(0,1);
         this.runninng = false;
