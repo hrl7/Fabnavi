@@ -33,11 +33,6 @@ module Gdworker
       @authorName = session[:authorName] ||= nil
       @authorEmail = session[:email] ||= nil
       @projectName = session[:projectName] ||= nil
-
-      puts "SESSION**********"
-      puts session.to_json
-      puts "PARAMETERS*********"
-      puts "******END******"
     end
 
     get '/' do

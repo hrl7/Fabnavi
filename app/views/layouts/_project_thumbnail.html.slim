@@ -1,6 +1,6 @@
 - path = project.author.name + '/' + project.project_name
 - id = project.thumbnail_picture_id
-- if id then  url = project.picture[id].thumbnail_url else url = "" end
+- if id then  url = project.picture[id].try(:thumbnail_url) else url = "" end
 li id="#{{path}}" class="project"
   img.thumbnail src="#{{url}}"
   div #{{path}}
