@@ -44,7 +44,7 @@ Gdworker::App.controllers :project do
     url = params[:url]
     pict = Base64.decode64(data)
     puts url
-    fileName =File.basename(/^http.*.JPG/.match(url)[0])
+    fileName =File.basename(/^http.*.(?i:JPG)/.match(url)[0])
     filePath = id+'/'+fileName
     puts "*/:/:/:/:/:/:/:/"
     puts filePath
