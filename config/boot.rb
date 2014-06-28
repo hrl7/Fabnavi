@@ -35,6 +35,11 @@ Bundler.require(:default, RACK_ENV)
 # Add your before (RE)load hooks here
 #
 Padrino.before_load do
+  if RACK_ENV == "development" then
+    ENV['HOST'] = "http://localhost:3000"
+  else 
+    ENV['HOST'] = "http://webservice.fabnavi.org"
+  end
 end
 
 ##
