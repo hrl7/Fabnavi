@@ -42,7 +42,6 @@
        Ca.removeMouseEvent();
      };
      document.getElementById('calibrate_tab').onclick = function(){
-       console.log("Click");
        propertyContents.className = "hide"; 
        if(__MODE__!="play")editContents.className = "hide";
        calibrateContents.className = "show";
@@ -52,7 +51,6 @@
 
    newProjectWizard:function(){
      var d = $.Deferred();
-     console.log("new");
      $('#contents').hide();
      $('#panel').hide();
      document.getElementById('newButton').onclick = function (){
@@ -69,7 +67,8 @@
 
    parse:function(json){
      for(i in json){
-       PlayConfig.imgURLs.push({globalURL:json[i].url});
+      var data = json[i];
+      PlayConfig.imgURLs.push({globalURL:data.url,thumbnailURL:data.thumbnail_url});
      }
    },
 

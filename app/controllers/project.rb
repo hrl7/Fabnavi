@@ -1,5 +1,8 @@
 require "fabnavi_utils"
 Gdworker::App.controllers :project do
+  before do
+  end
+
   post "/postConfig" do
     data = params[:data]
     imgURLs = JSON.parse data
@@ -11,6 +14,10 @@ Gdworker::App.controllers :project do
         pict = Picture.new(:url => url ,:project => proj)
       end
       pict.order_in_project = i+1
+
+      if thumbnail = imgURLs[i]["thumbnailURL"] then
+        pict.thumbnail_url = thumbnail
+      end
       pict.save
     end
     "hoge"
@@ -35,7 +42,7 @@ Gdworker::App.controllers :project do
   post "/postPicture" do
     #TODO check the header of pict
     unless session[:authorName] == params[:author] then 
-     return 
+      return 
     end
     data = params[:data]
     id = params[:project_id]

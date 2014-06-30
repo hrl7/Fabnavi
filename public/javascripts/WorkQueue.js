@@ -55,13 +55,13 @@ WorkQueue.prototype = {
               console.log(e.toSource());
           });
           /*
-          this.convertImgToDataURL(img,url,true)
-          .done(this.postPicture)
-          .done(this.updateURLList)
-          .fail(function(e){
-              console.log(e.toSource());
-          });
-          */
+           this.convertImgToDataURL(img,url,true)
+           .done(this.postPicture)
+           .done(this.updateURLList)
+           .fail(function(e){
+               console.log(e.toSource());
+           });
+           */
       }.bind(this));
     } else { 
       notice("There is no img");
@@ -84,7 +84,7 @@ WorkQueue.prototype = {
     }
     PlayController.drawImage(img,bufCvs)
     .done(function(){
-      d.resolve(bufCvs.toDataURL("image/jpeg").substring(23),url,isThumbnail);
+        d.resolve(bufCvs.toDataURL("image/jpeg").substring(23),url,isThumbnail);
     });
     return d.promise();
   },
@@ -93,7 +93,11 @@ WorkQueue.prototype = {
     var d = $.Deferred();
     notice("Image Posted!!!");
     res = res.replace("\"","","g");
-    PlayConfig.imgURLs.addGlobalURLFromLocalURL(res,url);
+    if(isThumbnail){
+      PlayConfig.imgURLs.addThumbnailURLFromLocalURL(res,url);
+    } else {
+      PlayConfig.imgURLs.addGlobalURLFromLocalURL(res,url);
+    }
     if(__MODE__ != "Import")RecordController.updateList();
     notice("Posting Playlist Files...");
     PlayConfig.postConfig();
@@ -121,7 +125,7 @@ WorkQueue.prototype = {
           this.runninng = false;
           d.reject(err);
         } else {
-         d.resolve(res,url,isThumbnail);
+          d.resolve(res,url,isThumbnail);
         }
     });
     return d.promise();
