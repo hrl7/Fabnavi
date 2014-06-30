@@ -60,6 +60,11 @@ CachedImageList.prototype = {
     if(i == -1)return -1;
     this.list[i].globalURL = globalUrl;
   },
+  addThumbnailURLFromLocalURL:function(thumbnailUrl,localUrl){
+    var i = this.getIndexFromLocalURL(localUrl);
+    if(i == -1)return -1;
+    this.list[i].thumbnailURL= thumbnailUrl;
+  },
 
   init:function(){
     this.list = [];

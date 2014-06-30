@@ -1,3 +1,6 @@
+THUMBNAIL_WIDTH = 320;
+THUMBNAIL_HEIGHT = 440;
+
 function WorkQueue(){
   this.queue = [];
   this.runninng=false;
@@ -47,9 +50,18 @@ WorkQueue.prototype = {
       cachedImage.loadedImg.done(function(img){
           this.convertImgToDataURL(img,url)
           .done(this.postPicture)
+          .done(this.updateURLList)
           .fail(function(e){
               console.log(e.toSource());
           });
+          /*
+          this.convertImgToDataURL(img,url,true)
+          .done(this.postPicture)
+          .done(this.updateURLList)
+          .fail(function(e){
+              console.log(e.toSource());
+          });
+          */
       }.bind(this));
     } else { 
       notice("There is no img");
@@ -57,46 +69,62 @@ WorkQueue.prototype = {
     }
   },
 
-  convertImgToDataURL:function(img,url){
+  convertImgToDataURL:function(img,url,isThumbnail){
     notice("Converting...");
+    isThumbnail = isThumbnail || false;
     var d = $.Deferred();
     var bufCvs = document.createElement("canvas");
-    bufCvs.width = screen.width;
-    bufCvs.height = screen.height;
+    if(isThumbnail){
+      bufCvs.width = THUMBNAIL_WIDTH;
+      bufCvs.height = THUMBNAIL_HEIGHT;
+      url = url.replace(/.JPG/,"_thumbnail.JPG");
+    } else {
+      bufCvs.width = screen.width;
+      bufCvs.height = screen.height;
+    }
     PlayController.drawImage(img,bufCvs)
     .done(function(){
-        d.resolve(bufCvs.toDataURL("image/jpeg").substring(23),url);
+      d.resolve(bufCvs.toDataURL("image/jpeg").substring(23),url,isThumbnail);
     });
     return d.promise();
   },
 
-  postPicture:function(data,url){
+  updateURLList:function(res,url,isThumbnail){
+    var d = $.Deferred();
+    notice("Image Posted!!!");
+    res = res.replace("\"","","g");
+    PlayConfig.imgURLs.addGlobalURLFromLocalURL(res,url);
+    if(__MODE__ != "Import")RecordController.updateList();
+    notice("Posting Playlist Files...");
+    PlayConfig.postConfig();
+    notice("Posted Playlist Files!!");
+    queue.queue.splice(0,1);
+    queue.runninng = false;
+    d.resolve();
+    return d.promise();
+  },
+
+  postPicture:function(data,url,isThumbnail){
     notice("Posting Picture....");
-    return $.post("/project/postPicture",
+    var d = $.Deferred();
+    $.post("/project/postPicture",
       { 
         data:data,
         project_id:PlayConfig.projectName,
         author:PlayConfig.author,
         url:url
-      },
-      function(res,error){
-        if(error != "success"){
-          console.log(error);
+      },function(res,err){
+        if(err != "success"){
+          console.log(res);
+          console.log(err);
           notice("Error to post picture");
           this.runninng = false;
-          return;
+          d.reject(err);
+        } else {
+         d.resolve(res,url,isThumbnail);
         }
-        console.log(res);
-        notice("Image Posted!!!");
-        res = res.replace("\"","","g");
-        PlayConfig.imgURLs.addGlobalURLFromLocalURL(res,url);
-        if(__MODE__ != "Import")RecordController.updateList();
-        notice("Posting Playlist Files...");
-        PlayConfig.postConfig();
-        notice("Posted Playlist Files!!");
-        this.queue.splice(0,1);
-        this.runninng = false;
-    }.bind(queue));
+    });
+    return d.promise();
   }
 };
 var notice = function(mes){
