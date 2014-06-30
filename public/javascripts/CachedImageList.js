@@ -1,6 +1,7 @@
 function CachedImageList(){
   this.list = [];
   this.length = 0;
+  this.waited = 0;
 }
 
 CachedImageList.prototype = {
@@ -90,20 +91,24 @@ CachedImageList.prototype = {
 
 function debugSuccessFn(mes,d,arg){
   return function(e){
+   /*
     console.log("Success-------------------");
     console.log(mes);
     console.log(e);
     console.log("-----------------------END");
+    */
     if(d != undefined)d.resolve(arg); 
   }
 }
 
 function debugErrorFn(mes,d){
   return function(e){
+   /*
     console.log("ERROR=================");
     console.log(mes);
     console.log(e);
     console.log("=================END");
+    */
     if(d != undefined)d.reject(e); 
   }
 }
