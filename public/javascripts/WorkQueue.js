@@ -2,7 +2,7 @@ function WorkQueue(){
   this.queue = [];
   this.runninng=false;
   this.start();
-  this.noticeElem = document.getElementById('notice'); 
+  noticeElem = document.getElementById('notice') ; 
 }
 
 WorkQueue.prototype = {
@@ -10,9 +10,6 @@ WorkQueue.prototype = {
     this.queue.push(obj);
   },
 
-  notice :function(mes){
-    if(this.noticeElem)this.noticeElem.textContent = mes + ". There're "+this.queue.length +" tasks.";
-  },
 
   getProgress : function () {
 
@@ -40,59 +37,70 @@ WorkQueue.prototype = {
     this.runninng = true;
     if (this.queue.length < 1) {
       this.runninng = false;
-      this.notice("No task");
+      notice("No task");
       return -1;
     }
     var cachedImage = this.queue[0];
     var url = cachedImage.img.src;
     if(cachedImage.hasOwnProperty("loadedImg")){
-      this.notice("Loading Image...");
+      notice("Loading Image...");
       cachedImage.loadedImg.done(function(img){
-          this.notice("Converting...");
-          var data = this.convertImgToDataURL(img);
-          this.notice("Posting Picture....");
-          this.postPicture(data,url);
+          this.convertImgToDataURL(img,url)
+          .done(this.postPicture)
+          .fail(function(e){
+              console.log(e.toSource());
+          });
       }.bind(this));
     } else { 
-      this.notice("There is not img");
+      notice("There is no img");
       this.runninng = false;
     }
   },
-  convertImgToDataURL:function(img){
-    bufCvs = document.createElement("canvas");
-    bufCtx = bufCvs.getContext('2d');
-    bufCvs.width = img.naturalWidth;
-    bufCvs.height = img.naturalHeight;
-    bufCtx.drawImage(img,0,0);
-    return bufCvs.toDataURL("image/jpeg").substring(23);
+
+  convertImgToDataURL:function(img,url){
+    notice("Converting...");
+    var d = $.Deferred();
+    var bufCvs = document.createElement("canvas");
+    bufCvs.width = screen.width;
+    bufCvs.height = screen.height;
+    PlayController.drawImage(img,bufCvs)
+    .done(function(){
+        d.resolve(bufCvs.toDataURL("image/jpeg").substring(23),url);
+    });
+    return d.promise();
   },
 
   postPicture:function(data,url){
-
-    $.post("/project/postPicture",
+    notice("Posting Picture....");
+    return $.post("/project/postPicture",
       { 
         data:data,
         project_id:PlayConfig.projectName,
-        author:AUTHOR_NAME,
+        author:PlayConfig.author,
         url:url
       },
       function(res,error){
         if(error != "success"){
           console.log(error);
-          this.notice("Error to post picture");
+          notice("Error to post picture");
           this.runninng = false;
           return;
         }
         console.log(res);
-        this.notice("Image Posted!!!");
+        notice("Image Posted!!!");
         res = res.replace("\"","","g");
         PlayConfig.imgURLs.addGlobalURLFromLocalURL(res,url);
         if(__MODE__ != "Import")RecordController.updateList();
-        this.notice("Posting Playlist Files...");
+        notice("Posting Playlist Files...");
         PlayConfig.postConfig();
-        this.notice("Posted Playlist Files!!");
+        notice("Posted Playlist Files!!");
         this.queue.splice(0,1);
         this.runninng = false;
-    }.bind(this));
+    }.bind(queue));
   }
 };
+var notice = function(mes){
+  var str = mes + ". There're "+queue.queue.length +" tasks.";
+  if(noticeElem)noticeElem.textContent = str;
+  else document.title =  str;
+}

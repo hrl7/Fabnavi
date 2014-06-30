@@ -53,16 +53,11 @@
        },150);
      }
    },
-
-   drawNote:function (noteURL){
-     var img = new Image();
-     img.src = noteURL;
-     img.onload = function(){
-       PlayController.drawImage(img);
-     };
-   },
-
-   drawImage:function(image){
+   drawImage:function(image,cvs){
+    var d = $.Deferred();
+     try{
+     var cvs = cvs || PlayController.cvs;
+     var ctx = cvs.getContext('2d');
      var sx = Number(CommonController.localConfig.x);
      var sy = Number(CommonController.localConfig.y);
      var sw = Number(CommonController.localConfig.w);
@@ -70,10 +65,10 @@
 
      var dx = 0;
      var dy = 0;
-     var dw = PlayController.cvs.width;
-     var dh = PlayController.cvs.height;
+     var dw = cvs.width;
+     var dh = cvs.height;
 
-     PlayController.ctx.fillStyle = "black"; 
+     ctx.fillStyle = "black"; 
 
      if(sy < 0){
        var StoDh = dh/sh; 
@@ -82,7 +77,7 @@
        sh += sy;
        sy = 0;
        dy *=-1;
-       PlayController.ctx.fillRect(0,0,PlayController.cvs.width,dy);
+       ctx.fillRect(0,0,cvs.width,dy);
      } 
 
      if(sx < 0){ 
@@ -92,27 +87,32 @@
        sw += sx;
        sx = 0;
        dx *= -1;
-       PlayController.ctx.fillRect(0,0,dx,PlayController.cvs.height);
+       ctx.fillRect(0,0,dx,cvs.height);
      }
 
      if(sx + sw > image.width){
        var StoDw = dw/sw;
        sw -= (sx + sw - image.width);
        dw = sw*StoDw;
-       PlayController.ctx.fillRect(dx+dw,0,PlayController.cvs.width-dx-dw,PlayController.cvs.height);
+       ctx.fillRect(dx+dw,0,cvs.width-dx-dw,cvs.height);
      }
 
      if(sy + sh > image.height){
        var StoDh = dh/sh;
        sh -= (sy + sh - image.height);
        dh = sh*StoDh;
-       PlayController.ctx.fillRect(0,dy+dh,PlayController.cvs.width,100);
+       ctx.fillRect(0,dy+dh,cvs.width,100);
      }
-     PlayController._drawImage(image,sx,sy,sw,sh,dx,dy,dw,dh);
+     PlayController._drawImage(ctx,image,sx,sy,sw,sh,dx,dy,dw,dh,d);
+    } catch (e){
+      d.reject(e);
+    }
+     return d.promise();
    },
 
-   _drawImage:function(image,sx,sy,sw,sh,dx,dy,dw,dh){
-     PlayController.ctx.drawImage(image,sx,sy,sw,sh,dx,dy,dw,dh);
+   _drawImage:function(ctx,image,sx,sy,sw,sh,dx,dy,dw,dh,d){
+     ctx.drawImage(image,sx,sy,sw,sh,dx,dy,dw,dh);
+     d.resolve();
    },
 
    play: function(id) {

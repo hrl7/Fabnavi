@@ -27,7 +27,7 @@
              console.log("********SHOOT***********");
              console.log(url);
              var obj = PlayConfig.imgURLs.splice(PlayConfig.index+1,0,{localURL:url});
-             queue.push(PlayConfig.projectName,obj);
+             queue.push(obj);
              RecordController.updateList();
              PlayController.next();
              if(PlayConfig.index > 0)Ca.removeMouseEvent();
