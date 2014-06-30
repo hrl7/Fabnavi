@@ -1,5 +1,5 @@
-THUMBNAIL_WIDTH = 320;
-THUMBNAIL_HEIGHT = 440;
+THUMBNAIL_WIDTH = 440;
+THUMBNAIL_HEIGHT = 320;
 
 function WorkQueue(){
   this.queue = [];
@@ -54,14 +54,12 @@ WorkQueue.prototype = {
           .fail(function(e){
               console.log(e.toSource());
           });
-          /*
            this.convertImgToDataURL(img,url,true)
-           .done(this.postPicture)
-           .done(this.updateURLList)
+           .then(this.postPicture)
+           .then(this.updateURLList)
            .fail(function(e){
                console.log(e.toSource());
            });
-           */
       }.bind(this));
     } else { 
       notice("There is no img");
@@ -93,7 +91,6 @@ WorkQueue.prototype = {
     var d = $.Deferred();
     notice("Image Posted!!!");
     var res = resultUrl.replace("\"","","g");
-    console.log(res);
     if(isThumbnail){
       PlayConfig.imgURLs.addThumbnailURLFromLocalURL(res,url);
     } else {
@@ -120,14 +117,11 @@ WorkQueue.prototype = {
         url:url
       },function(res,err){
         if(err != "success"){
-          console.log(res);
           console.log(err);
           notice("Error to post picture");
           this.runninng = false;
           d.reject(err);
         } else {
-         console.log(res);
-         console.log(url);
           d.resolve(res,url,isThumbnail);
         }
     });

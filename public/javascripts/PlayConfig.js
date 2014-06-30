@@ -13,7 +13,7 @@
      PlayConfig.index = 0;
      PlayConfig.notes = [];
      if(__MODE__ == "Import")return 0;
-     $('#savePlaylist').click(PlayConfig.postConfig);
+     document.getElementById('savePlaylist').onclick = PlayConfig.postConfig;
      var propertyContents = document.getElementById('property');
      var calibrateContents = document.getElementById('calibrate');
      if(__MODE__ != "play"){

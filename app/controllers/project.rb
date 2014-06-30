@@ -65,6 +65,7 @@ Gdworker::App.controllers :project do
       p.author = author
       p.project_name = @projectName
       p.status = 0
+      p.thumbnail_picture_id = 0
       if p.save then 
         redirect_to "/add/"+@authorName+"/"+@projectName
       else 

@@ -30,8 +30,6 @@ CachedImageList.prototype = {
         obj.img.onerror = debugErrorFn("Global Image cannot load",d);
         obj.img.src = obj.globalURL;
         obj.loadedImg = d.promise();
-      } else {
-        console.log("no URL");
       }
     }
     return obj;
@@ -61,7 +59,8 @@ CachedImageList.prototype = {
     this.list[i].globalURL = globalUrl;
   },
   addThumbnailURLFromLocalURL:function(thumbnailUrl,localUrl){
-    var i = this.getIndexFromLocalURL(localUrl);
+    url = localUrl.replace(/_thumbnail.JPG/,".JPG");
+    var i = this.getIndexFromLocalURL(url);
     if(i == -1)return -1;
     this.list[i].thumbnailURL= thumbnailUrl;
   },

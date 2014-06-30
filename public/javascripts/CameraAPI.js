@@ -7,6 +7,7 @@ var CameraAPI = {
       return false;
     }
     document.sonycameracontroller.setup({ipaddress: "10.0.0.1", port: 10000, version: "1.0"},false);
+    /*
     document.sonycameracontroller.zoomIn();
     document.sonycameracontroller.zoomOut();
     document.sonycameracontroller.zoomOutAll();
@@ -14,6 +15,7 @@ var CameraAPI = {
         CameraAPI.zoomOnce()
         .then(function(){return CameraAPI.zoomOnce()})
     },3000);
+    */
   },
   zoomOnce:function(){
     var d = $.Deferred();
