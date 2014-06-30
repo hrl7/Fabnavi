@@ -49,8 +49,8 @@ WorkQueue.prototype = {
       notice("Loading Image...");
       cachedImage.loadedImg.done(function(img){
           this.convertImgToDataURL(img,url)
-          .done(this.postPicture)
-          .done(this.updateURLList)
+          .then(this.postPicture)
+          .then(this.updateURLList)
           .fail(function(e){
               console.log(e.toSource());
           });
@@ -89,10 +89,11 @@ WorkQueue.prototype = {
     return d.promise();
   },
 
-  updateURLList:function(res,url,isThumbnail){
+  updateURLList:function(resultUrl,url,isThumbnail){
     var d = $.Deferred();
     notice("Image Posted!!!");
-    res = res.replace("\"","","g");
+    var res = resultUrl.replace("\"","","g");
+    console.log(res);
     if(isThumbnail){
       PlayConfig.imgURLs.addThumbnailURLFromLocalURL(res,url);
     } else {
@@ -125,6 +126,8 @@ WorkQueue.prototype = {
           this.runninng = false;
           d.reject(err);
         } else {
+         console.log(res);
+         console.log(url);
           d.resolve(res,url,isThumbnail);
         }
     });

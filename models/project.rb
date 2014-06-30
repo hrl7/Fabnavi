@@ -1,5 +1,6 @@
 class Project < ActiveRecord::Base
   validates_uniqueness_of :author, scope: :project_name
+  validates :project_name, length:{maximum:30,minimum:4}
   has_many :picture
   belongs_to :author
   
