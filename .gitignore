@@ -1,7 +1,8 @@
 .DS_Store
-.*.sass-cache
+.sass-cache
 */.sass-cache
 .*/.DS_Store
 db/development_database.db
 doc
 public/data
+public/stylesheets
