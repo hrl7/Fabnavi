@@ -19,10 +19,34 @@ button {
 body {
   padding: 0;
   margin: 0;
-  background-color: #eee;
+  background-color: #B0B0B0;
   font-family: 'Open Sans Light', Helvetica, sans-serif;  
   font-size : 14px;
   font-weight: 400;
+}
+#header {
+  width:280px;
+  height:50px;
+  background-color:#F0F0F0;
+  position:relative;
+  float:right;
+  top:150px;
+  #author_name {
+    text-align:center;
+  }
+  #author_email {
+    display:none;
+  }
+  #signin {
+    height:40px;
+    width:280px;
+    left:80%;
+  }
+  #signout {
+    height:40px;
+    width:280px;
+    left:80%;
+  }
 }
 
 .data {
