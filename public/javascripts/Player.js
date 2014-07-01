@@ -202,7 +202,7 @@
          Ca.updateXYFromWH();
          PlayController.currentURL = url;
          PlayController.photoList.selectByName(url);
-         $("#counter").text((Number(index)+1)+"/"+PlayConfig.imgURLs.length);
+         $("#counter").text((Number(index)+1)+"/"+PlayConfig.length);
          $('#cvs').css('display','block');
          $('#contents').show();
      });

@@ -5,7 +5,7 @@ function CachedImageList(){
 }
 
 CachedImageList.prototype = {
-  push:function(obj){
+ push:function(obj){
     var result = this.createObject(obj);
     this.list.push(result);
     this.update();

@@ -16,7 +16,6 @@
      $('#projectList').hide();
      $('#contents').hide();
      clearTimeout(RecordController.timer);
-     console.log("index : "+PlayConfig.index);
      RecordController.timer = setTimeout(function() {
          var p = CameraAPI.shoot();
          p.then(function(url, error) {
@@ -28,6 +27,7 @@
              console.log(url);
              var obj = PlayConfig.imgURLs.splice(PlayConfig.index+1,0,{localURL:url});
              queue.push(obj);
+             PlayConfig.length++;
              RecordController.updateList();
              PlayController.next();
              if(PlayConfig.index > 0)Ca.removeMouseEvent();

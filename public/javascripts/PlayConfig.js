@@ -11,6 +11,7 @@
      PlayConfig.annotations = [];
      PlayConfig.animations = [];
      PlayConfig.index = 0;
+     PlayConfig.length = PICTURES_DATA.length;
      PlayConfig.notes = [];
      if(__MODE__ == "Import")return 0;
      document.getElementById('savePlaylist').onclick = PlayConfig.postConfig;
@@ -62,59 +63,61 @@
 
    initProject: function(id,configFile){
      PlayConfig.init(id);
-     PlayConfig.parse(PICTURES_DATA);
+     PlayConfig.parse(PICTURES_DATA,0);
    },
 
-   parse:function(json){
-     for(i in json){
-      var data = json[i];
-      PlayConfig.imgURLs.push({globalURL:data.url,thumbnailURL:data.thumbnail_url});
-     }
-   },
+   parse:function(images,i){
+     if(i >= images.length)return 0;
+     var image = images[i];
+     var res = PlayConfig.imgURLs.push({globalURL:image.url,thumbnailURL:image.thumbnail_url});
+     res.loadedImg.then(function(){
+         this.parse(images,i+1);
+     }.bind(this));
+ },
 
-   getConfigList : function () {
-     var d = new $.Deferred();
-     $.ajax({
-         url:"/project/getConfigFiles?project_id=" + PlayConfig.projectName,
-         success:function (res,err) {
-           PlayConfig.configFileList = JSON.parse(res); 
-           d.resolve();
-         }
-     });
-     return d.promise();
-   },
+ getConfigList : function () {
+   var d = new $.Deferred();
+   $.ajax({
+       url:"/project/getConfigFiles?project_id=" + PlayConfig.projectName,
+       success:function (res,err) {
+         PlayConfig.configFileList = JSON.parse(res); 
+         d.resolve();
+       }
+   });
+   return d.promise();
+ },
 
-   insertIndex: function(src,dst){
-     var srcImg = PlayConfig.imgURLs.getURL(src);
-     PlayConfig.imgURLs.splice(src,1);
-     if (src > dst){
-       dst++;
-     }
-     PlayConfig.imgURLs.splice(dst,0,{globalURL:srcImg});
-   },
-
-   removeIndex: function(index){
-     PlayConfig.imgURLs.splice(index,1);
-   },
-   setThumbnail: function(index){
-     $.post("/project/setThumbnail",
-       {
-         project_id:PlayConfig.projectName,
-         author:PlayConfig.author,
-         thumbnail:index
-       },
-       function(){},
-       "jsonp");
-   },
-
-   postConfig: function(){
-     $.post("/project/postConfig",
-       {
-         project_id:PlayConfig.projectName,
-         data:JSON.stringify(PlayConfig.imgURLs.list),
-         author:PlayConfig.author
-       },
-       function(){},
-       "json");
+ insertIndex: function(src,dst){
+   var srcImg = PlayConfig.imgURLs.getURL(src);
+   PlayConfig.imgURLs.splice(src,1);
+   if (src > dst){
+     dst++;
    }
- };
+   PlayConfig.imgURLs.splice(dst,0,{globalURL:srcImg});
+ },
+
+ removeIndex: function(index){
+   PlayConfig.imgURLs.splice(index,1);
+ },
+ setThumbnail: function(index){
+   $.post("/project/setThumbnail",
+     {
+       project_id:PlayConfig.projectName,
+       author:PlayConfig.author,
+       thumbnail:index
+     },
+     function(){},
+     "jsonp");
+ },
+
+ postConfig: function(){
+   $.post("/project/postConfig",
+     {
+       project_id:PlayConfig.projectName,
+       data:JSON.stringify(PlayConfig.imgURLs.list),
+       author:PlayConfig.author
+     },
+     function(){},
+     "json");
+ }
+};
