@@ -24,13 +24,15 @@ body {
   font-size : 14px;
   font-weight: 400;
 }
+
 #header {
   width:280px;
   height:50px;
   background-color:#F0F0F0;
   position:relative;
+  top:100px;
+  right:200px;
   float:right;
-  top:150px;
   #author_name {
     text-align:center;
   }
@@ -40,13 +42,41 @@ body {
   #signin {
     height:40px;
     width:280px;
-    left:80%;
   }
   #signout {
     height:40px;
     width:280px;
-    left:80%;
   }
+}
+
+#project-list {
+  top:230px;
+  position:relative;
+  margin: {
+    left: 40px;
+    right:40px;
+  }
+  li {
+    width :280px;
+    height:210px;
+    float:left;
+    list-style-type:none;
+    margin:{
+      left:30px;
+      
+    }
+  }
+}
+li {
+ 
+}
+
+
+li {
+  border : 2px white solid;
+}
+.selectedItem{
+  border : 2px red solid;
 }
 
 .data {
