@@ -39,8 +39,8 @@
      ProjectList.load();
    },
 
-   draw: function(imgElem){
-     PlayController.drawImage(imgElem);
+   draw: function(imgElem,isRaw){
+    PlayController.drawImage(isRaw,imgElem);
      if(PlayConfig.fastDraw){
        for(i in PlayConfig.notes){
          if(PlayConfig.notes[i].index == PlayConfig.index)PlayController.drawNote(PlayConfig.notes[i].url);
@@ -53,60 +53,66 @@
        },150);
      }
    },
-   drawImage:function(image,cvs){
-    var d = $.Deferred();
+   drawImage:function(isRaw,image,cvs){
+     var d = $.Deferred();
      try{
-     var cvs = cvs || PlayController.cvs;
-     var ctx = cvs.getContext('2d');
-     var sx = Number(CommonController.localConfig.x);
-     var sy = Number(CommonController.localConfig.y);
-     var sw = Number(CommonController.localConfig.w);
-     var sh = Number(CommonController.localConfig.h);
+       isRaw = isRaw || IS_CALIBRATION;
+       var cvs = cvs || PlayController.cvs;
+       var ctx = cvs.getContext('2d');
+       if(isRaw){
+         var sx = Number(CommonController.localConfig.x);
+         var sy = Number(CommonController.localConfig.y);
+         var sw = Number(CommonController.localConfig.w);
+         var sh = Number(CommonController.localConfig.h);
 
-     var dx = 0;
-     var dy = 0;
-     var dw = cvs.width;
-     var dh = cvs.height;
+         var dx = 0;
+         var dy = 0;
+         var dw = cvs.width;
+         var dh = cvs.height;
 
-     ctx.fillStyle = "black"; 
+         ctx.fillStyle = "black"; 
 
-     if(sy < 0){
-       var StoDh = dh/sh; 
-       dy = sy*StoDh;
-       dh += dy;
-       sh += sy;
-       sy = 0;
-       dy *=-1;
-       ctx.fillRect(0,0,cvs.width,dy);
-     } 
+         if(sy < 0){
+           var StoDh = dh/sh; 
+           dy = sy*StoDh;
+           dh += dy;
+           sh += sy;
+           sy = 0;
+           dy *=-1;
+           ctx.fillRect(0,0,cvs.width,dy);
+         } 
 
-     if(sx < 0){ 
-       var StoDw = dw/sw;
-       dx = sx*StoDw;
-       dw += dx;
-       sw += sx;
-       sx = 0;
-       dx *= -1;
-       ctx.fillRect(0,0,dx,cvs.height);
+         if(sx < 0){ 
+           var StoDw = dw/sw;
+           dx = sx*StoDw;
+           dw += dx;
+           sw += sx;
+           sx = 0;
+           dx *= -1;
+           ctx.fillRect(0,0,dx,cvs.height);
+         }
+
+         if(sx + sw > image.width){
+           var StoDw = dw/sw;
+           sw -= (sx + sw - image.width);
+           dw = sw*StoDw;
+           ctx.fillRect(dx+dw,0,cvs.width-dx-dw,cvs.height);
+         }
+
+         if(sy + sh > image.height){
+           var StoDh = dh/sh;
+           sh -= (sy + sh - image.height);
+           dh = sh*StoDh;
+           ctx.fillRect(0,dy+dh,cvs.width,100);
+         }
+         PlayController._drawImage(ctx,image,sx,sy,sw,sh,dx,dy,dw,dh,d);
+       } else {
+         PlayController._drawImage(ctx,image,0,0,image.naturalWidth,image.naturalHeight,0,0,screen.width,screen.height,d);
+       }
+
+     } catch (e){
+       d.reject(e);
      }
-
-     if(sx + sw > image.width){
-       var StoDw = dw/sw;
-       sw -= (sx + sw - image.width);
-       dw = sw*StoDw;
-       ctx.fillRect(dx+dw,0,cvs.width-dx-dw,cvs.height);
-     }
-
-     if(sy + sh > image.height){
-       var StoDh = dh/sh;
-       sh -= (sy + sh - image.height);
-       dh = sh*StoDh;
-       ctx.fillRect(0,dy+dh,cvs.width,100);
-     }
-     PlayController._drawImage(ctx,image,sx,sy,sw,sh,dx,dy,dw,dh,d);
-    } catch (e){
-      d.reject(e);
-    }
      return d.promise();
    },
 
@@ -195,9 +201,10 @@
      var data = PlayConfig.imgURLs.get(index);
      var url = data.img.src;
      var img = data.img;
+     var isRaw = data.localURL ? true : false;
      data.loadedImg.done(function(){
          PlayController.ctx.clearRect(0,0,PlayController.cvs.width,PlayController.cvs.height);
-         PlayController.draw(img);
+         PlayController.draw(img,isRaw);
          PlayController.currentImg = img;
          Ca.updateXYFromWH();
          PlayController.currentURL = url;
@@ -206,47 +213,6 @@
          $('#cvs').css('display','block');
          $('#contents').show();
      });
-     /*
-      var url = PlayConfig.imgURLs.getURL(index);
-      if(url != PlayController.currentURL){
-        var img = new Image();
-        img.src = url;
-        img.onload = function () {
-          if(freezeAspect){
-            CommonController.localConfig.w = img.naturalWidth; 
-            CommonController.localConfig.h = img.naturalHeight; 
-            CommonController.localConfig.x = 0;
-            CommonController.localConfig.y = 0;
-          }
-          PlayController.ctx.clearRect(0,0,PlayController.cvs.width,PlayController.cvs.height);
-          PlayController.draw(img);
-          PlayController.currentImg = img;
-          Ca.updateXYFromWH();
-        };
-        $("#photo").attr("src",url); 
-      } else if(force) {
-        if(PlayController.currentImg != ""){
-          PlayController.draw(PlayController.currentImg); 
-        } else {
-          var img = new Image();
-          img.src = url;
-          img.onload = function () {
-            if(freezeAspect){
-              CommonController.localConfig.w = img.naturalWidth; 
-              CommonController.localConfig.h = img.naturalHeight; 
-              CommonController.localConfig.x = 0;
-              CommonController.localConfig.y = 0;
-            }
-            Ca.updateXYFromCenter();
-            Ca.updateLocalConfig();
-            PlayController.ctx.clearRect(0,0,PlayController.cvs.width,PlayController.cvs.height);
-            PlayController.draw(img);
-            PlayController.currentimg = img;
-          };
-          $("#photo").attr("src",url); 
-        }
-      }
-      */
      $('#photo').css('display','none');
    },
 

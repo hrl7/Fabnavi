@@ -80,7 +80,7 @@ WorkQueue.prototype = {
       bufCvs.width = screen.width;
       bufCvs.height = screen.height;
     }
-    PlayController.drawImage(img,bufCvs)
+    PlayController.drawImage(true,img,bufCvs)
     .done(function(){
         d.resolve(bufCvs.toDataURL("image/jpeg").substring(23),url,isThumbnail);
     });

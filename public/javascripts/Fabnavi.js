@@ -1,4 +1,5 @@
 __DEBUG__ = false;
+IS_CALIBRATION = false;
 var Fabnavi = {
   play:function () {
     __MODE__ = "play";
@@ -51,7 +52,6 @@ var Fabnavi = {
       author_email.textContent = "Plese sign in with Persona";
       signOut.style.display = "none";
     }
-
 
     if(signIn){
       signIn.onclick = function(){navigator.id.request();};

@@ -64,6 +64,7 @@
    },
 
    addMouseEvent:function(){
+    IS_CALIBRATION = true;
      var cvs = document.getElementById('cvs');
      window.onwheel = function(e){
        e.preventDefault();
@@ -97,6 +98,7 @@
    },
 
    removeMouseEvent:function(){
+    IS_CALIBRATION = false;
      var cvs = document.getElementById('cvs');
      window.onwheel = "";
      cvs.onmousedown = "";
