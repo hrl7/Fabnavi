@@ -1,17 +1,25 @@
 @mixin statusbar{
-  position:relative;
-  right:100px;
-  float:right;
+  position:absolute;
+  left:990px;
   background-color:#F0F0F0;
-  top:$offset-top-header;
-  height:50px;
+  top:$offset-top-header - 20px;
   
+  img {
+    position:absolute;
+    top:7px;
+    left:7px;
+  }
+
   font:{
     size:18pt;
   }
 
   #author_name {
+    $vertical:25px;
     text-align:center;
+    padding-top:$vertical;
+    width:280px;
+    height:75-$vertical;
   }
 
   #author_email {
@@ -25,9 +33,21 @@
     font-size:18pt;
   }
 
+
   #signout {
+   display:none;
     height:40px;
     width:280px;
     font-size:18pt;
   }
+  /*
+  #menu_button{
+    display:block;
+    border:0px solid white;
+    margin:0px;
+    height:0px;
+    width:0px;
+    padding:0px;
+  }
+  */
 }
