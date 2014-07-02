@@ -16,7 +16,7 @@ li img {
     right:40px;
   }
   li {
-    border : 2px white solid;
+    border : 3px white solid;
     width :280px;
     height:210px;
     background-color:white;
@@ -24,7 +24,7 @@ li img {
     list-style-type:none;
     margin:{
       right:30px;
-      bottom:50px;
+      bottom:70px;
     }
 
     input {
@@ -32,20 +32,19 @@ li img {
     }
 
     .project-name{
-      margin-top:-5px;
-      font-size:20pt;
+      margin-top:-3px;
+      font-size:18pt;
       color:white;
       font-family : Helvetica Neue;
     }
     .project-author {
-      margin-top:-5px;
+      margin-top:0px;
       font-size:11pt;
       color:white;
-        font-family : Helvetica Neue;
       }
     }
     .selectedItem{
-      border : 2px $base-selected-color solid;
+      border : 3px $base-selected-color solid;
       input[type="button"] {
         border:0px;
         display:inline;
@@ -63,7 +62,7 @@ li img {
         width:$menu_width;
         height:$menu_height;
       }
-      input[class$="selectedOp"]{
+      input.selectedOp{
         background-color:$base-selected-color;
       }
     $n:4;

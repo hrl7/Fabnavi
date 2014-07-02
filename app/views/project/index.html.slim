@@ -9,7 +9,10 @@ body onload="Fabnavi.showProjectList()"
   #projectList
     ul#project-list
       - if session[:authorName]
-        li#__newProject__ onclick="window.location='/new';" New Project
+        li#__newProject__ onclick="window.location='/new';" 
+          img src="images/newProject.gif"
+          .project-name Create New Project
+          .project-author #{session[:authorName]}
       - @projects.each do |p|
         =partial 'layouts/project_thumbnail',:locals => {:project=>p}
   

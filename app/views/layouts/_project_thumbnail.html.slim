@@ -1,6 +1,6 @@
 - path = project.author.name + '/' + project.project_name
 - id = project.thumbnail_picture_id
-- if id then  url = project.picture[id].try(:url) else url = "" end
+- if id then  url = project.picture[id].try(:url) else url = "images/noimage.gif" end
 li id="#{{path}}" class="project"
   img.thumbnail src="#{{url}}"
   input type="button" class="makeButton" value="Play" 
