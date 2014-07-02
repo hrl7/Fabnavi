@@ -1,7 +1,10 @@
-
+$thumbnail_width:280px;
+$thumbnail_height:210px;
+$menu_height:30px;
+$menu_width:160px;
 li img {
-  width :280px;
-  height:210px;
+  width :$thumbnail_width;
+  height:$thumbnail_height;
 }
 
 @mixin project_thumbnail{
@@ -14,31 +17,61 @@ li img {
   }
   li {
     border : 2px white solid;
-  }
-  .selectedItem{
-    border : 2px #FFFF00 solid;
-  }
-  li {
     width :280px;
     height:210px;
+    background-color:white;
     float:left;
     list-style-type:none;
     margin:{
       right:30px;
       bottom:50px;
     }
-  }
 
-  .project-name{
-    margin-top:-5px;
-    font-size:20pt;
-    color:white;
-    font-family : Helvetica Neue;
-  }
-  .project-author {
-    margin-top:-5px;
-    font-size:11pt;
-    color:white;
-    font-family : Helvetica Neue;
+    input {
+      display:none;
+    }
+
+    .project-name{
+      margin-top:-5px;
+      font-size:20pt;
+      color:white;
+      font-family : Helvetica Neue;
+    }
+    .project-author {
+      margin-top:-5px;
+      font-size:11pt;
+      color:white;
+        font-family : Helvetica Neue;
+      }
+    }
+    .selectedItem{
+      border : 2px $base-selected-color solid;
+      input[type="button"] {
+        border:0px;
+        display:inline;
+        position:absolute;
+        background-color:$base-gray-color;
+        color:white;
+        font:{
+          style:bold;
+          family : Helvetica Neue;
+          size:11pt;
+        }
+        margin:{
+          left:-$thumbnail_width+60px;
+        }
+        width:$menu_width;
+        height:$menu_height;
+      }
+      input[class$="selectedOp"]{
+        background-color:$base-selected-color;
+      }
+    $n:4;
+    @while $n > 0{
+      input:nth-of-type(#{$n}){
+        margin-top:$n*($menu_height+10px)-5px;
+        }
+      $n: $n - 1;
+   }
   }
 }

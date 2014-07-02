@@ -1,5 +1,7 @@
 $offset-top-header: 100px;
 $offset-left-contents:40px;
+$base-gray-color:#B0B0B0;
+$base-selected-color:#DDDD00;
 @import "statusbar";
 @import "project_thumbnail";
 
@@ -21,7 +23,7 @@ button {
 body {
   padding: 0;
   margin: 0;
-  background-color: #B0B0B0;
+  background-color:$base-gray-color;
   font-family: 'Open Sans Light', Helvetica, sans-serif;  
   font-size : 14px;
   font-weight: 400;
