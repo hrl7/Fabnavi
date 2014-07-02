@@ -1,0 +1,44 @@
+
+li img {
+  width :280px;
+  height:210px;
+}
+
+@mixin project_thumbnail{
+  top:90px;
+  left:-40px;
+  position:relative;
+  margin: {
+    left: 40px;
+    right:40px;
+  }
+  li {
+    border : 2px white solid;
+  }
+  .selectedItem{
+    border : 2px #FFFF00 solid;
+  }
+  li {
+    width :280px;
+    height:210px;
+    float:left;
+    list-style-type:none;
+    margin:{
+      right:30px;
+      bottom:50px;
+    }
+  }
+
+  .project-name{
+    margin-top:-5px;
+    font-size:20pt;
+    color:white;
+    font-family : Helvetica Neue;
+  }
+  .project-author {
+    margin-top:-5px;
+    font-size:11pt;
+    color:white;
+    font-family : Helvetica Neue;
+  }
+}

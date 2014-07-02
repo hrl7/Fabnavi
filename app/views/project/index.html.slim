@@ -5,8 +5,7 @@ script src="https://login.persona.org/include.js"
 meta content="width=device-width user-scalable=no" name="viewport"
 body onload="Fabnavi.showProjectList()"
   =partial 'layouts/statusbar',:locals => {:email=>@email,:name=>@name}
-  #title-logo Fabnavi
-  #
+  img#title-logo src="images/fabnaviLogo.gif"
   #projectList
     ul#project-list
       - if session[:authorName]

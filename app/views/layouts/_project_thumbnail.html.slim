@@ -3,7 +3,8 @@
 - if id then  url = project.picture[id].try(:url) else url = "" end
 li id="#{{path}}" class="project"
   img.thumbnail src="#{{url}}"
-  div #{{path}}
+  .project-name #{project.project_name}
+  .project-author #{project.author.name}
   input type="button" class="makeButton" value="Play" 
   - if project.author.name == session[:authorName] then
     input type="button" class="editButton" value="Edit"

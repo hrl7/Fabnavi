@@ -1,0 +1,33 @@
+@mixin statusbar{
+  position:relative;
+  right:100px;
+  float:right;
+  background-color:#F0F0F0;
+  top:$offset-top-header;
+  height:50px;
+  
+  font:{
+    size:18pt;
+  }
+
+  #author_name {
+    text-align:center;
+  }
+
+  #author_email {
+    display:none;
+  }
+  #signin {
+    height:40px;
+    width:225px;
+    left:950px;
+    top:100px;
+    font-size:18pt;
+  }
+
+  #signout {
+    height:40px;
+    width:280px;
+    font-size:18pt;
+  }
+}
