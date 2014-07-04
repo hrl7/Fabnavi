@@ -32,10 +32,10 @@ var Fabnavi = {
   },
 
   importer:function(){
-   Fabnavi.authInit();
-   __MODE__ = "Import";
-   PROJECT_DATA = {};
-   PlayConfig.init("");
+    Fabnavi.authInit();
+    __MODE__ = "Import";
+    PROJECT_DATA = {};
+    PlayConfig.init("");
   },
 
   authInit:function(){
@@ -44,17 +44,23 @@ var Fabnavi = {
     var author_name = document.getElementById('author_name');
     var author_email = document.getElementById('author_email');
     var avatar = document.getElementById('avatar');
+    var header = document.getElementById('header');
     if(AUTHOR_EMAIL != null){
       author_email.textContent = AUTHOR_EMAIL;
-      if(AUTHOR_NAME != null)author_name.textContent = AUTHOR_NAME;
-      signIn.style.display = "none";
-      author_name.onclick =function(){
-       if(signOut.className == ""){
-         signOut.className = "show";
-        } else {
-         signOut.className = "";
-        }
-      };
+      if(AUTHOR_NAME != null){
+        author_name.textContent = AUTHOR_NAME;
+        signIn.style.display = "none";
+        header.onclick = function(){
+         console.log("clicked");
+          if(signOut.className == ""){
+            signOut.className = "show";
+          } else {
+            signOut.className = "";
+          }
+        };
+      }else {
+        header.className = "";
+      }
 
     } else {
       author_email.textContent = "Plese sign in with Persona";
@@ -62,6 +68,7 @@ var Fabnavi = {
       author_name.className = "hide";
       author_email.className = "hide";
       avatar.className = "hide";
+      header.className = "hide";
     }
 
 
@@ -69,6 +76,7 @@ var Fabnavi = {
       signIn.onclick = function(){navigator.id.request();};
     }
     if(signOut){
+      author_name.onclick = null;
       signOut.onclick = function(){navigator.id.logout();};
     }
 

@@ -4,7 +4,8 @@
   background-color:#F0F0F0;
   top:$offset-top-header - 20px;
   height:80px;
-  
+  min-width:280px;
+  @include title-font;
   img {
     position:absolute;
     top:7px;
@@ -13,16 +14,15 @@
     width:65px;
   }
 
-  font:{
-    size:18pt;
-  }
 
   #author_name {
     $vertical:30px;
     text-align:center;
-    padding-top:$vertical;
-    width:280px;
-    z-index:1;
+    padding:{
+     top:$vertical;
+     left:75px;
+     right:5px;
+    }
   }
 
   #author_email {
@@ -31,29 +31,19 @@
 
 
   #signout {
-    z-index:-1;
-    height:40px;
-    width:280px;
+    height:50px;
+    width:100%;
     position:relative;
-    font-size:18pt;
     transition:0.3s ease-in-out;
-    top:-16px;
+    z-index:-1;
+    top:-30px;
+    @include head-font;
   }
 
   #signout.show {
-    top:25px;
-  }
-
-  .hide {
-    display:none;
+    top:15px;
+    display:block;
   }
 
 }
-  #signin {
-    position:fixed;
-    height:40px;
-    width:225px;
-    left:990px;
-    top:100px;
-    font-size:18pt;
-  }
+

@@ -1,0 +1,27 @@
+@import "common";
+
+#title {
+  text-align:center;
+  @include title-font;
+  font-size:30pt;
+  color:$title-color;
+  margin:{
+   top:100px;
+   bottom:50px;
+  }
+}
+
+body {
+  @include basic_body;
+}
+
+fieldset {
+  text-align:center;
+  border:0px;
+}
+
+input {
+  width:470px;
+  height:50px;
+  @include title-font;
+}

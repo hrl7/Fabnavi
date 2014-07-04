@@ -1,32 +1,27 @@
-$offset-top-header: 100px;
-$offset-left-contents:40px;
-$base-gray-color:#B0B0B0;
-$base-selected-color:#DDDD00;
+@import "common";
 @import "statusbar";
 @import "project_thumbnail";
 
-@font-face {
-  font: {
-    family : Helvetica Neue;
-    style: normal;
-    weight: normal;
-  }
-}
-
-
 button {
-  font-family: 'Open Sans Light', Helvetica, sans-serif;  
   opacity:0.4;
 }
 
 body {
-  padding: 0;
-  margin: 0;
-  background-color:$base-gray-color;
-  font-family: 'Open Sans Light', Helvetica, sans-serif;  
-  font-size : 14px;
-  font-weight: 400;
+  @include basic_body;
 }
+
+#signin {
+  position:fixed;
+  height:40px;
+  width:225px;
+  left:990px;
+  top:100px;
+}
+
+.hide {
+  display:none;
+}
+
 
 #header {
   @include statusbar;
