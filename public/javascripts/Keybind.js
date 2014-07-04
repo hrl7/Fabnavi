@@ -20,7 +20,7 @@
          case 98 :
          case 80 : 
          case 13: {
-           ProjectList.play();
+           ProjectList.fire();
            break;
          }
          case 65 :/* Add */

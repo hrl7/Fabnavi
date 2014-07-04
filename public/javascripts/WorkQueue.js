@@ -130,6 +130,6 @@ WorkQueue.prototype = {
 };
 var notice = function(mes){
   var str = mes + ". There're "+queue.queue.length +" tasks.";
-  if(noticeElem)noticeElem.textContent = str;
-  else document.title =  str;
+  if(__DEBUG__&&noticeElem)noticeElem.textContent = str;
+  else if(__DEBUG__)document.title =  str;
 }

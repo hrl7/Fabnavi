@@ -1,4 +1,5 @@
 var ProjectList = {
+  selectedOpIndex:0,
   init : function () {
 
   },
@@ -17,11 +18,6 @@ var ProjectList = {
     for (var i = 0; i < deleteButtons.length;i++){
       deleteButtons[i].onclick = function(e){
         ProjectList.selectedId = e.originalTarget.parentElement.id;
-        if(confirm("are you sure to delete project :" + ProjectList.selectedId)){
-          e.originalTarget.parentElement.remove();
-          var data = ProjectList.selectedId.split('/');
-          $.get("/project/delete?project_id="+data[1]+"&author="+data[0]);
-        }
 
       }
     }
@@ -49,6 +45,7 @@ var ProjectList = {
     $('li').removeClass('selectedItem');
     target.className = 'selectedItem';
     ProjectList.selectedId = target.id;
+    ProjectList.selectOp(0);
   },
 
   prev : function () {
@@ -69,15 +66,46 @@ var ProjectList = {
   },
 
   up :function(){
-    var lst = document.getElementById(ProjectList.selectedId).childNodes;
-    for(i in lst){
-      console.log(lst[i].tagName);
-    }
-
+    ProjectList.selectOp(ProjectList.selectedOpIndex - 1);
   },
 
   down :function(){
+    ProjectList.selectOp(ProjectList.selectedOpIndex + 1);
+  },
 
+  selectOp:function(maybeIndex){
+    if(!AUTHOR_NAME)return false;
+    if(maybeIndex < 0){
+      ProjectList.selectedOpIndex = 0;
+      return false;
+    } else if (maybeIndex > 3){
+      ProjectList.selectedOpIndex = 3;
+      return false;
+    }
+    /* TODO 
+     * Separate this function
+     *
+     */
+    var lst = document.getElementById(ProjectList.selectedId).childNodes;
+    var inputIndex = 0;
+    for(i in lst){
+      var li = lst[i];
+      if(li.tagName == "INPUT"){
+       console.log(i);
+       li.className = li.className.replace(/selectedOp/,"");
+        if(inputIndex == maybeIndex){
+         console.log(li);
+          li.className += " selectedOp";
+          ProjectList.selectedOpIndex = maybeIndex;
+        }
+        inputIndex++; 
+      }
+    }
+  },
+
+  fire:function(){
+    var lst = ['play','edit','add','del'];
+    ProjectList[lst[ProjectList.selectedOpIndex]]();
   },
 
   add : function () {
@@ -105,5 +133,13 @@ var ProjectList = {
       return 0;
     }
     window.location += "edit/"+ProjectList.selectedId;
+   },
+
+  del:function(){
+        if(confirm("are you sure to delete project :" + ProjectList.selectedId)){
+          e.originalTarget.parentElement.remove();
+          var data = ProjectList.selectedId.split('/');
+          $.get("/project/delete?project_id="+data[1]+"&author="+data[0]);
+        }
   }
 };
