@@ -73,5 +73,8 @@ li img {
         }
       $n: $n - 1;
    }
+   #onlyPlayBtn {
+    margin-top:$thumbnail_height/2-16px;
+   }
   }
 }
