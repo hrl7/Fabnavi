@@ -5,6 +5,7 @@ $menu_width:160px;
 li img {
   width :$thumbnail_width;
   height:$thumbnail_height;
+  transform:rotateZ(180deg);
 }
 
 @mixin project_thumbnail{
