@@ -25,7 +25,6 @@
          }
          case 65 :/* Add */
          {
-
            break;
          }
          case 69 :/* Edit */
@@ -33,10 +32,19 @@
 
            break;
          }
+         case 38:  /* up */
+         {
+          ProjectList.up();
+          break;
+         }
+         case 40:  /* up */
+         {
+          ProjectList.down();
+          break;
+         }
          case 68 :/* delete */
          case 46 :
          {
-
            break;
          }
          case 78 :/* New Proj*/
