@@ -16,8 +16,8 @@ var Fabnavi = {
   },
 
   showProjectList:function () {
-    Fabnavi.authInit(); 
     ProjectList.load();
+    Fabnavi.authInit(); 
   },
 
   newProject:function (id) {
@@ -37,19 +37,31 @@ var Fabnavi = {
    PROJECT_DATA = {};
    PlayConfig.init("");
   },
+
   authInit:function(){
     var signIn = document.getElementById('signin');
     var signOut= document.getElementById('signout');
     var author_name = document.getElementById('author_name');
     var author_email = document.getElementById('author_email');
+    var avatar = document.getElementById('avatar');
     if(AUTHOR_EMAIL != null){
       author_email.textContent = AUTHOR_EMAIL;
       if(AUTHOR_NAME != null)author_name.textContent = AUTHOR_NAME;
-      console.log(AUTHOR_NAME);
       signIn.style.display = "none";
+      author_name.onclick =function(){
+       if(signOut.className == ""){
+         signOut.className = "show";
+        } else {
+         signOut.className = "";
+        }
+      };
+
     } else {
       author_email.textContent = "Plese sign in with Persona";
       signOut.style.display = "none";
+      author_name.className = "hide";
+      author_email.className = "hide";
+      avatar.className = "hide";
     }
 
 

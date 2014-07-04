@@ -3,11 +3,14 @@
   left:990px;
   background-color:#F0F0F0;
   top:$offset-top-header - 20px;
+  height:80px;
   
   img {
     position:absolute;
     top:7px;
     left:7px;
+    height:65px;
+    width:65px;
   }
 
   font:{
@@ -15,39 +18,42 @@
   }
 
   #author_name {
-    $vertical:25px;
+    $vertical:30px;
     text-align:center;
     padding-top:$vertical;
     width:280px;
-    height:75-$vertical;
+    z-index:1;
   }
 
   #author_email {
     display:none;
   }
-  #signin {
-    height:40px;
-    width:225px;
-    left:950px;
-    top:100px;
-    font-size:18pt;
-  }
 
 
   #signout {
-   display:none;
+    z-index:-1;
     height:40px;
     width:280px;
+    position:relative;
+    font-size:18pt;
+    transition:0.3s ease-in-out;
+    top:-16px;
+  }
+
+  #signout.show {
+    top:25px;
+  }
+
+  .hide {
+    display:none;
+  }
+
+}
+  #signin {
+    position:fixed;
+    height:40px;
+    width:225px;
+    left:990px;
+    top:100px;
     font-size:18pt;
   }
-  /*
-  #menu_button{
-    display:block;
-    border:0px solid white;
-    margin:0px;
-    height:0px;
-    width:0px;
-    padding:0px;
-  }
-  */
-}
