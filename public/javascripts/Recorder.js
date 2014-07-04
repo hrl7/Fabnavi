@@ -7,7 +7,6 @@
      $("#start").hide();
      $('#projectList').hide();
      PlayConfig.init();
-     //    Ca.initProject("  ");
      Keys.recorderKeyBind(); 
    },
 

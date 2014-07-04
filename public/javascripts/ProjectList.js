@@ -68,6 +68,18 @@ var ProjectList = {
     ProjectList.select(s); 
   },
 
+  up :function(){
+    var lst = document.getElementById(ProjectList.selectedId).childNodes;
+    for(i in lst){
+      console.log(lst[i].tagName);
+    }
+
+  },
+
+  down :function(){
+
+  },
+
   add : function () {
     if(ProjectList.selectedId == "")return 0;
     alert("Add photo");

@@ -58,7 +58,6 @@
        d.resolve();
      }
      return d.promise();
-
    },
 
    initProject: function(id,configFile){
@@ -99,6 +98,7 @@
  removeIndex: function(index){
    PlayConfig.imgURLs.splice(index,1);
  },
+
  setThumbnail: function(index){
    $.post("/project/setThumbnail",
      {
