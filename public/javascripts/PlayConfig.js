@@ -125,7 +125,8 @@
 
  function returnToIndex(){
      if(confirm("Are you sure to exit this page?")){
-       window.location.assign("/");
+     //  window.location.assign("/");
+      history.back();
      }
 
  }
