@@ -62,6 +62,10 @@
      window.onkeydown = function(e) {
        console.log(e.keyCode);
        switch (e.keyCode) {
+        case 27 :{
+         PlayConfig.returnIndexPage(); 
+         break;
+        }
          case 37 :
          case 97 : {
            if(!Keys.isActive())PlayController.previous();
@@ -144,6 +148,10 @@
      window.onkeydown = function(e) {
        console.log(e.keyCode);
        switch (e.keyCode) {
+        case 27 :{
+         PlayConfig.returnIndexPage(); 
+         break;
+        }
          case 37:
          case 97:
          case 52 : {

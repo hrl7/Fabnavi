@@ -91,10 +91,8 @@ var ProjectList = {
     for(i in lst){
       var li = lst[i];
       if(li.tagName == "INPUT"){
-       console.log(i);
        li.className = li.className.replace(/selectedOp/,"");
         if(inputIndex == maybeIndex){
-         console.log(li);
           li.className += " selectedOp";
           ProjectList.selectedOpIndex = maybeIndex;
         }

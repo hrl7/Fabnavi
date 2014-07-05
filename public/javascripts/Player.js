@@ -23,23 +23,23 @@
    },
 
    showCalibrateLine : function (){
-    if(__MODE__ == "play"){
-     console.log("Now loading");
-     PlayController.ctx.fillStyle = "black";
-     PlayController.ctx.font = "100px san-serif";
-     PlayController.ctx.rotate(Math.PI);
-     PlayController.ctx.translate(-1500,-800);
-     PlayController.ctx.fillText("Now loading...",400,400);
-     PlayController.ctx.translate(1500,800);
-     PlayController.ctx.rotate(-Math.PI);
-    } else {
-     PlayController.ctx.beginPath();
-     PlayController.ctx.moveTo(0,PlayController.cvs.height/2);
-     PlayController.ctx.lineTo(PlayController.cvs.width,PlayController.cvs.height/2);
-     PlayController.ctx.moveTo(PlayController.cvs.width/2,0);
-     PlayController.ctx.lineTo(PlayController.cvs.width/2,PlayController.cvs.height);
-     PlayController.ctx.stroke();
-    }
+     if(__MODE__ == "play"){
+       console.log("Now loading");
+       PlayController.ctx.fillStyle = "black";
+       PlayController.ctx.font = "100px san-serif";
+       PlayController.ctx.rotate(Math.PI);
+       PlayController.ctx.translate(-1500,-800);
+       PlayController.ctx.fillText("Now loading...",400,400);
+       PlayController.ctx.translate(1500,800);
+       PlayController.ctx.rotate(-Math.PI);
+     } else {
+       PlayController.ctx.beginPath();
+       PlayController.ctx.moveTo(0,PlayController.cvs.height/2);
+       PlayController.ctx.lineTo(PlayController.cvs.width,PlayController.cvs.height/2);
+       PlayController.ctx.moveTo(PlayController.cvs.width/2,0);
+       PlayController.ctx.lineTo(PlayController.cvs.width/2,PlayController.cvs.height);
+       PlayController.ctx.stroke();
+     }
    },
 
    exitProject : function(){
@@ -51,7 +51,7 @@
    },
 
    draw: function(imgElem,isRaw){
-    PlayController.drawImage(isRaw,imgElem);
+     PlayController.drawImage(isRaw,imgElem);
      if(PlayConfig.fastDraw){
        for(i in PlayConfig.notes){
          if(PlayConfig.notes[i].index == PlayConfig.index)PlayController.drawNote(PlayConfig.notes[i].url);

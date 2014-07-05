@@ -72,52 +72,58 @@
      res.loadedImg.then(function(){
          this.parse(images,i+1);
      }.bind(this));
- },
+   },
 
- getConfigList : function () {
-   var d = new $.Deferred();
-   $.ajax({
-       url:"/project/getConfigFiles?project_id=" + PlayConfig.projectName,
-       success:function (res,err) {
-         PlayConfig.configFileList = JSON.parse(res); 
-         d.resolve();
-       }
-   });
-   return d.promise();
- },
+   getConfigList : function () {
+     var d = new $.Deferred();
+     $.ajax({
+         url:"/project/getConfigFiles?project_id=" + PlayConfig.projectName,
+         success:function (res,err) {
+           PlayConfig.configFileList = JSON.parse(res); 
+           d.resolve();
+         }
+     });
+     return d.promise();
+   },
 
- insertIndex: function(src,dst){
-   var srcImg = PlayConfig.imgURLs.getURL(src);
-   PlayConfig.imgURLs.splice(src,1);
-   if (src > dst){
-     dst++;
-   }
-   PlayConfig.imgURLs.splice(dst,0,{globalURL:srcImg});
- },
+   insertIndex: function(src,dst){
+     var srcImg = PlayConfig.imgURLs.getURL(src);
+     PlayConfig.imgURLs.splice(src,1);
+     if (src > dst){
+       dst++;
+     }
+     PlayConfig.imgURLs.splice(dst,0,{globalURL:srcImg});
+   },
 
- removeIndex: function(index){
-   PlayConfig.imgURLs.splice(index,1);
- },
+   removeIndex: function(index){
+     PlayConfig.imgURLs.splice(index,1);
+   },
 
- setThumbnail: function(index){
-   $.post("/project/setThumbnail",
-     {
-       project_id:PlayConfig.projectName,
-       author:PlayConfig.author,
-       thumbnail:index
+   setThumbnail: function(index){
+     $.post("/project/setThumbnail",
+       {
+         project_id:PlayConfig.projectName,
+         author:PlayConfig.author,
+         thumbnail:index
+       },
+       function(){},
+       "jsonp");
+   },
+
+   postConfig: function(){
+     $.post("/project/postConfig",
+       {
+         project_id:PlayConfig.projectName,
+         data:JSON.stringify(PlayConfig.imgURLs.list),
+         author:PlayConfig.author
+       },
+       function(){},
+       "json");
      },
-     function(){},
-     "jsonp");
- },
+    returnIndexPage: function(){
+     if(confirm("Are you sure to exit this page?")){
+        window.location = "/";
+     }
+    }
 
- postConfig: function(){
-   $.post("/project/postConfig",
-     {
-       project_id:PlayConfig.projectName,
-       data:JSON.stringify(PlayConfig.imgURLs.list),
-       author:PlayConfig.author
-     },
-     function(){},
-     "json");
- }
-};
+ };

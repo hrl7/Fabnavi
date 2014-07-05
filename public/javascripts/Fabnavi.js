@@ -52,7 +52,6 @@ var Fabnavi = {
         author_name.textContent = AUTHOR_NAME;
         signIn.style.display = "none";
         header.onclick = function(){
-         console.log("clicked");
           if(signOut.className == ""){
             signOut.className = "show";
           } else {
@@ -88,7 +87,6 @@ var Fabnavi = {
               url: '/auth/login',
               data:{assertion:assertion},
               success:function(res,status,xhr){
-                console.log(res);
                 window.location = res;
               },
               error:function(res,status,xhr){
