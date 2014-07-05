@@ -63,7 +63,7 @@
        console.log(e.keyCode);
        switch (e.keyCode) {
         case 27 :{
-         PlayConfig.returnIndexPage(); 
+         returnToIndex(); 
          break;
         }
          case 37 :
@@ -149,7 +149,7 @@
        console.log(e.keyCode);
        switch (e.keyCode) {
         case 27 :{
-         PlayConfig.returnIndexPage(); 
+         returnToIndex(); 
          break;
         }
          case 37:

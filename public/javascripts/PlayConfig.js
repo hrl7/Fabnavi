@@ -120,11 +120,12 @@
        function(){},
        "json");
    },
-   returnIndexPage: function(){
 
+ };
+
+ function returnToIndex(){
      if(confirm("Are you sure to exit this page?")){
        window.location.assign("/");
      }
-   }
 
- };
+ }
