@@ -17,7 +17,6 @@
            ProjectList.next();
            break;
          }
-         case 98 :
          case 80 : 
          case 13: {
            ProjectList.fire();
@@ -32,15 +31,17 @@
 
            break;
          }
+         case 104:
          case 38:  /* up */
          {
-          ProjectList.up();
-          break;
+           ProjectList.up();
+           break;
          }
-         case 40:  /* up */
+         case 98:
+         case 40:  /* down */
          {
-          ProjectList.down();
-          break;
+           ProjectList.down();
+           break;
          }
          case 68 :/* delete */
          case 46 :
@@ -62,10 +63,15 @@
      window.onkeydown = function(e) {
        console.log(e.keyCode);
        switch (e.keyCode) {
-        case 27 :{
-         returnToIndex(); 
-         break;
-        }
+         /* escape */
+         case 103:
+         case 27 : 
+         {
+          if(confirm("Are you sure to exit this page")){
+           window.location =  "/";
+          }
+           break;
+         }
          case 37 :
          case 97 : {
            if(!Keys.isActive())PlayController.previous();
@@ -87,30 +93,6 @@
            break;
          }
          // Common Key Bind
-         case 88:{
-           document.getElementById('x').focus();
-           break;
-         }
-         case 89:{
-           document.getElementById('y').focus();
-           break;
-         }
-         case 87:{
-           document.getElementById('w').focus();
-           break;
-         }
-         case 72:{
-           document.getElementById('h').focus();
-           break;
-         }
-         case 104: 
-         case 191 : {
-           $('.help').fadeIn(1000);
-           window.setTimeout(function () {
-               $('.help').fadeOut(3000);
-           },10000);
-           break;
-         }
          case 219:{
            if(e.ctrlKey)document.activeElement.blur();
            break;
@@ -148,10 +130,13 @@
      window.onkeydown = function(e) {
        console.log(e.keyCode);
        switch (e.keyCode) {
-        case 27 :{
-         returnToIndex(); 
-         break;
-        }
+         case 103:
+         case 27 : 
+         {
+           //         returnToIndex(); 
+           window.location= "/";
+           break;
+         }
          case 37:
          case 97:
          case 52 : {
