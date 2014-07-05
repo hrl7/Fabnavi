@@ -125,8 +125,7 @@
 
  function returnToIndex(){
      if(confirm("Are you sure to exit this page?")){
-     //  window.location.assign("/");
-      history.back();
+     window.location.assign("http://webservice.fabnavi.org/");
      }
 
  }
