@@ -67,9 +67,7 @@
          case 103:
          case 27 : 
          {
-          if(confirm("Are you sure to exit this page")){
-           window.location =  "/";
-          }
+          returnToIndex();
            break;
          }
          case 37 :

@@ -124,8 +124,11 @@
  };
 
  function returnToIndex(){
-     if(confirm("Are you sure to exit this page?")){
-     window.location.assign("http://webservice.fabnavi.org/");
-     }
+   if(confirm("Are you sure to exit this page?")){
+     console.log(window);
+     setTimeout(function(){
+         window.location.pathname = "/";
+     },10);
+   }
 
  }
