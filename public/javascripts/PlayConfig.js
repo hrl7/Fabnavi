@@ -121,9 +121,16 @@
        "json");
      },
     returnIndexPage: function(){
+      
      if(confirm("Are you sure to exit this page?")){
+      console.log("Confirmed");
+      console.log(window.location);
         window.location = "/";
-     }
+       }else {
+        console.log("hogehoge");
+        console.log(window.location);
+
+       }
     }
 
  };
