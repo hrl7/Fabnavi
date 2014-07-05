@@ -11,7 +11,7 @@ $title-color:#DDDD00;
 @mixin title-font{
   font: {
     style: normal;
-    family: 'Open Sans Light', Helvetica, sans-serif;  
+    family: 'Open Sans Light',  sans-serif;  
     weight: normal;
     size:23pt;
   }
@@ -20,7 +20,7 @@ $title-color:#DDDD00;
 @mixin head-font {
   font: {
     style: normal;
-    family: 'Open Sans Light', Helvetica, sans-serif;  
+    family: 'Open Sans Light',  sans-serif;  
     weight: normal;
     size:17pt;
   }

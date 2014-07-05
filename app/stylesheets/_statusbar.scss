@@ -5,6 +5,7 @@
   top:$offset-top-header - 20px;
   height:80px;
   min-width:280px;
+
   @include title-font;
   img {
     position:absolute;
