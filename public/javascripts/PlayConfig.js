@@ -119,12 +119,12 @@
        },
        function(){},
        "json");
-     },
-    returnIndexPage: function(){
-      
+   },
+   returnIndexPage: function(){
+
      if(confirm("Are you sure to exit this page?")){
-        window.location.href = "/";
-       }
-    }
+       window.location.assign("/");
+     }
+   }
 
  };
