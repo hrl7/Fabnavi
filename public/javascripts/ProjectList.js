@@ -131,12 +131,12 @@ var ProjectList = {
   },
 
   play : function () {
-    if(document.getElementById(ProjectList.selectedId).getElementsByClassName('makeButton').length == 0)return 0;
-    ProjectList.selectOp(0);
     if(ProjectList.selectedId == "__newProject__"){
       window.location = "/new";
       return 0;
     }
+    if(document.getElementById(ProjectList.selectedId).getElementsByClassName('makeButton').length == 0)return 0;
+    ProjectList.selectOp(0);
     window.location += "project/"+ProjectList.selectedId;
   },
 
