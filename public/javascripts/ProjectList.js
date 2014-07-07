@@ -50,6 +50,14 @@ var ProjectList = {
         ProjectList.select(target);
       }
     }
+    var newProject;
+    if(newProject = document.getElementById('__newProject__')){
+      newProject.onclick = function(){
+        ProjectList.selectedId = "__newProject__";
+        ProjectList.play();
+      }
+    }
+
     ProjectList.select($('li')[0]);
     Keys.projectListKeyBind();
   },
@@ -96,10 +104,6 @@ var ProjectList = {
       ProjectList.selectedOpIndex = 3;
       return false;
     }
-    /* TODO 
-     * Separate this function
-     *
-     */
     var lst = document.getElementById(ProjectList.selectedId).childNodes;
     var inputIndex = 0;
     for(i in lst){
