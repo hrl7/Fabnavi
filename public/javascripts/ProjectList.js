@@ -91,7 +91,7 @@ var ProjectList = {
     for(i in lst){
       var li = lst[i];
       if(li.tagName == "INPUT"){
-       li.className = li.className.replace(/selectedOp/,"");
+        li.className = li.className.replace(/selectedOp/,"");
         if(inputIndex == maybeIndex){
           li.className += " selectedOp";
           ProjectList.selectedOpIndex = maybeIndex;
@@ -107,7 +107,8 @@ var ProjectList = {
   },
 
   add : function () {
-    if(ProjectList.selectedId == "")return 0;
+    if(document.getElementById(ProjectList.selectedId).getElementsByClassName('addButton').length == 0)return 0;
+    ProjectList.selectOp(2);
     alert("Add photo");
     if(ProjectList.selectedId == "newProject"){
       return 0;
@@ -116,7 +117,8 @@ var ProjectList = {
   },
 
   play : function () {
-    if(ProjectList.selectedId == "")return 0;
+    if(document.getElementById(ProjectList.selectedId).getElementsByClassName('makeButton').length == 0)return 0;
+    ProjectList.selectOp(0);
     if(ProjectList.selectedId == "__newProject__"){
       window.location = "/new";
       return 0;
@@ -125,19 +127,22 @@ var ProjectList = {
   },
 
   edit : function () {
-    if(ProjectList.selectedId == "")return 0;
+    if(document.getElementById(ProjectList.selectedId).getElementsByClassName('editButton').length == 0)return 0;
+    ProjectList.selectOp(1);
     if(ProjectList.selectedId == "__newProject__"){
       window.location = "/new";
       return 0;
     }
     window.location += "edit/"+ProjectList.selectedId;
-   },
+  },
 
   del:function(){
-        if(confirm("are you sure to delete project :" + ProjectList.selectedId)){
-          e.originalTarget.parentElement.remove();
-          var data = ProjectList.selectedId.split('/');
-          $.get("/project/delete?project_id="+data[1]+"&author="+data[0]);
-        }
+    if(document.getElementById(ProjectList.selectedId).getElementsByClassName('deleteButton').length == 0)return 0;
+    ProjectList.selectOp(3);
+    if(confirm("are you sure to delete project :" + ProjectList.selectedId)){
+      e.originalTarget.parentElement.remove();
+      var data = ProjectList.selectedId.split('/');
+      $.get("/project/delete?project_id="+data[1]+"&author="+data[0]);
+    }
   }
 };
