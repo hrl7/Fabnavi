@@ -3,7 +3,6 @@ IS_CALIBRATION = false;
 var Fabnavi = {
   play:function () {
     __MODE__ = "play";
-    queue = new WorkQueue();
     PlayController.init(); 
     PlayController.play(PROJECT_DATA.projectName);
   },
