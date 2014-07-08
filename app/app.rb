@@ -100,9 +100,12 @@ module Gdworker
     end
 
     get "/status/:author/:project" do
-     render 'project/status'
+      unless @authorName == params[:author] then return 0; end
+      if Project.find_project(@authorName,params[:project]).class == Project then
+        session[:projectName] = params[:project]
+      end 
+      render 'project/status'
     end
-
 
     error 404 do
       render 'errors/404'

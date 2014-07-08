@@ -16,6 +16,11 @@ class Project < ActiveRecord::Base
   }
 
   scope :find_project, -> (author,project_name){
+    joins(:author).readonly(false).find_by(:project_name => project_name,
+                         :authors => {:name => author})
+  }
+
+  scope :find_project_readonly, -> (author,project_name){
     joins(:author).find_by(:project_name => project_name,
                          :authors => {:name => author})
   }
