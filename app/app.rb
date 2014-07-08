@@ -103,6 +103,7 @@ module Gdworker
       unless @authorName == params[:author] then return 0; end
       if Project.find_project(@authorName,params[:project]).class == Project then
         session[:projectName] = params[:project]
+        @projectName = params[:project]
       end 
       render 'project/status'
     end

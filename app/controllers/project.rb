@@ -85,8 +85,11 @@ Gdworker::App.controllers :project do
       proj.status = 0
       proj.status = 1 if params[:status] == "Public"
       proj.project_name = params[:ProjectName] unless params[:ProjectName] == session[:projectName]
-      proj.save 
+      if proj.save then
+        redirect_to "/"
+      else 
+        redirect_to "/status/"+session[:authorName] + "/" + session[:projectName]
+      end 
     end 
-    params.to_json
   end
 end

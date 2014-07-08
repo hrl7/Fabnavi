@@ -162,6 +162,14 @@
            PlayController.info();
            break;
          }
+         case 81 :{
+          if(confirm("Finish?")){
+            setTimeout(function(){
+              window.location.href = "/status/" + PlayConfig.author + "/" + PlayConfig.projectName;
+             },10);
+          }
+          break;
+         }
          // Common Key Bind
          case 219:{
            if(e.ctrlKey)document.activeElement.blur();
