@@ -36,6 +36,7 @@ module Gdworker
     end
 
     get '/' do
+      session[:projectName] = nil
       @email = session[:email] ||= "null"
       @name = "null"
       if not @email == "null" then
@@ -89,7 +90,9 @@ module Gdworker
         render 'project/update'
       end
     end
+
     get "/new" do
+      session[:projectName] = nil
       if session[:authorName] == nil then
         redirect_to "/"
       else 
