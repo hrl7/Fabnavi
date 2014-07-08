@@ -77,4 +77,9 @@ Gdworker::App.controllers :project do
       render "project/newProject"
     end
   end
+
+  post "/status" do
+    puts params.to_json
+    params.to_json
+  end
 end

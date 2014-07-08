@@ -99,6 +99,11 @@ module Gdworker
       end
     end
 
+    get "/status/:author/:project" do
+     render 'project/status'
+    end
+
+
     error 404 do
       render 'errors/404'
     end
