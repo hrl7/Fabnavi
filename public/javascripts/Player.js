@@ -174,7 +174,7 @@
    },
 
    previous: function(forceChange) {
-    forceChange = forceChange || false;
+     forceChange = forceChange || false;
      if(IS_TESTABLE && PlayConfig.isTestShoot && forceChange){
        if (RecordController.index == 0) {
          PlayController.show(RecordController.imgURLs.length-1);
@@ -191,7 +191,7 @@
    },
 
    next: function(forceChange) {
-    forceChange = forceChange || false;
+     forceChange = forceChange || false;
      if(IS_TESTABLE && PlayConfig.isTestShoot && forceChange){
        if (RecordController.index == RecordController.imgURLs.length-1) {
          PlayController.show(0);

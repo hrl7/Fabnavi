@@ -19,6 +19,7 @@
      document.getElementById('savePlaylist').onclick = PlayConfig.postConfig;
      var propertyContents = document.getElementById('property');
      var calibrateContents = document.getElementById('calibrate');
+
      if(__MODE__ != "play"){
        var editContents = document.getElementById('editProject');
        document.getElementById('takePicture').onclick = function(){
@@ -31,7 +32,7 @@
          PlayConfig.setThumbnail(PlayConfig.index);
        };
        document.getElementById('edit_tab').onclick = function(){
-        PlayConfig.isTestShoot = false;
+         PlayConfig.isTestShoot = false;
          propertyContents.className = "hide"; 
          editContents.className = "show";
          calibrateContents.className = "hide";
@@ -42,17 +43,26 @@
      document.getElementById('property_tab').onclick = function(){
        propertyContents.className = "show"; 
        calibrateContents.className = "hide";
-        PlayConfig.isTestShoot = false;
+       PlayConfig.isTestShoot = false;
        if(__MODE__!="play")editContents.className = "hide";
        Ca.removeMouseEvent();
      };
+
      document.getElementById('calibrate_tab').onclick = function(){
-        PlayConfig.isTestShoot = true;
+       PlayConfig.isTestShoot = true;
        propertyContents.className = "hide"; 
        if(__MODE__!="play")editContents.className = "hide";
        calibrateContents.className = "show";
        Ca.addMouseEvent();
      };
+
+     if(__MODE__ != "play" && !CommonController.getLocalData(PlayConfig.projectName)){
+       PlayConfig.isTestShoot = true;
+       propertyContents.className = "hide"; 
+       if(__MODE__!="play")editContents.className = "hide";
+       calibrateContents.className = "show";
+       Ca.addMouseEvent();
+     }
    },
 
    newProjectWizard:function(){

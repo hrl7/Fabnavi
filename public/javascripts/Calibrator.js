@@ -15,18 +15,21 @@
    zo:false,
    as:1,
    aspShift:false,
+
    zoomIn :function (_shift) {
      var shift = _shift | 10;
      Ca.w -= shift;
      Ca.h -= shift*Ca.as;
      Ca.update();
    },
+
    zoomOut:function (_shift) {
      var shift = _shift | 10;
      Ca.w += shift;
      Ca.h += shift*Ca.as;
      Ca.update();
    },
+
    init: function(){
      var zoomOutBtn = document.getElementById('zoomOut');
      var zoomInBtn = document.getElementById('zoomIn');
@@ -64,7 +67,7 @@
    },
 
    addMouseEvent:function(){
-    IS_CALIBRATION = true;
+     IS_CALIBRATION = true;
      var cvs = document.getElementById('cvs');
      window.onwheel = function(e){
        e.preventDefault();
@@ -98,7 +101,7 @@
    },
 
    removeMouseEvent:function(){
-    IS_CALIBRATION = false;
+     IS_CALIBRATION = false;
      var cvs = document.getElementById('cvs');
      window.onwheel = "";
      cvs.onmousedown = "";
@@ -124,26 +127,35 @@
    },
 
    saveConfig : function(){
-    if(CommonController.localConfig != "")CommonController.setLocalConfig(PlayConfig.projectName,__MODE__ == "play");
+     if(CommonController.localConfig != "")CommonController.setLocalConfig(PlayConfig.projectName,__MODE__ == "play");
    },
 
    update : function(){
      Ca.updateXYFromCenter();
      Ca.updateLocalConfig();
      if(IS_TESTABLE&&PlayConfig.isTestShoot){
-      PlayController.show(RecordController.index,true);
+       PlayController.show(RecordController.index,true);
      } else {
-     PlayController.show(PlayConfig.index,true);
-    }
+       PlayController.show(PlayConfig.index,true);
+     }
    },
 
    initProject: function(id) {
+     console.trace();
      CommonController.getLocalConfig(id);
      if(CommonController.localConfig != ""){
        Ca.x = Number(CommonController.localConfig.x);
        Ca.y = Number(CommonController.localConfig.y);
        Ca.w = Number(CommonController.localConfig.w);
        Ca.h = Number(CommonController.localConfig.h);
+       /*     } else if(__MODE__ != "play") {
+      console.log("Change to CalibrateMode");
+       PlayConfig.isTestShoot = true;
+       document.getElementById('property').className = "hide"; 
+       document.getElementById('editProject').className = "hide";
+       document.getElementById('calibrate').className = "show";
+       Ca.addMouseEvent();
+       */
      }
    }
  }

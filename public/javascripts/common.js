@@ -57,11 +57,11 @@
        data["add"] = jsonData;
        var res = CommonController.getLocalData(key);
        console.log(res);
-       if(res.hasOwnProperty("play"))data["play"] = res.play;
+       if(res && res.hasOwnProperty("play"))data["play"] = res.play;
      } else {
        data["play"] = jsonData;
        var res = CommonController.getLocalData(key);
-       if(res.hasOwnProperty("add"))data["add"] = res.add;
+       if(res && res.hasOwnProperty("add"))data["add"] = res.add;
      }
      var d = data.toSource();
 
@@ -77,12 +77,11 @@
    getLocalConfig: function(id){
      var res = CommonController.getLocalData(id);
      res = res || "";
-     if(__MODE__ != "play"){
-       res = res.play || "";
+     if(__MODE__ == "play"){
+       CommonController.localConfig = res.play || "";
      } else {
-       res = res.add || "";
+       CommonController.localConfig = res.add || "";
       }
-     CommonController.localConfig = res || "";
    },
 
    setLocalConfig: function(id){
