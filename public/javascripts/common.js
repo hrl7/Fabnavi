@@ -56,6 +56,7 @@
      if(isAddMode){
        data["add"] = jsonData;
        var res = CommonController.getLocalData(key);
+       console.log(res);
        if(res.hasOwnProperty("play"))data["play"] = res.play;
      } else {
        data["play"] = jsonData;

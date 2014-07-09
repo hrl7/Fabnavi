@@ -13,7 +13,6 @@ WorkQueue.prototype = {
     this.queue.push(obj);
   },
 
-
   getProgress : function () {
 
   },

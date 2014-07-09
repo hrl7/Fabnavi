@@ -236,7 +236,6 @@
    },
 
    setTestPhoto : function(index ) {
-    console.trace();
      var data = RecordController.imgURLs.get(index);
      var url = data.img.src;
      var img = data.img;
