@@ -64,13 +64,14 @@
        },150);
      }
    },
+
    drawImage:function(isRaw,image,cvs){
      var d = $.Deferred();
      try{
        isRaw = isRaw || IS_CALIBRATION;
        var cvs = cvs || PlayController.cvs;
        var ctx = cvs.getContext('2d');
-       if(isRaw){
+       if(isRaw || (__MODE__ == "play" && CommonController.localConfig != "")){
          var sx = Number(CommonController.localConfig.x);
          var sy = Number(CommonController.localConfig.y);
          var sw = Number(CommonController.localConfig.w);
