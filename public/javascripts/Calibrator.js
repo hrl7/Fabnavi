@@ -124,13 +124,13 @@
    },
 
    saveConfig : function(){
-     if(CommonController.localConfig != "")CommonController.setLocalConfig(PlayConfig.projectName);
+    if(CommonController.localConfig != "")CommonController.setLocalConfig(PlayConfig.projectName,__MODE__ == "play");
    },
 
    update : function(){
      Ca.updateXYFromCenter();
      Ca.updateLocalConfig();
-     if(PlayConfig.isTestShoot){
+     if(IS_TESTABLE&&PlayConfig.isTestShoot){
       PlayController.show(RecordController.index,true);
      } else {
      PlayController.show(PlayConfig.index,true);

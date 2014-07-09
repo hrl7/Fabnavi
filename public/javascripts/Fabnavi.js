@@ -1,5 +1,6 @@
 __DEBUG__ = false;
 IS_CALIBRATION = false;
+IS_TESTABLE = false;
 var Fabnavi = {
   play:function () {
     __MODE__ = "play";

@@ -31,6 +31,7 @@
              console.log(url);
 
              if(isTest){
+              IS_TESTABLE = true;
                RecordController.imgURLs.push({localURL:url});
                PlayController.next(true);
              } else {

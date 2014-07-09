@@ -174,7 +174,7 @@
 
    previous: function(forceChange) {
     forceChange = forceChange || false;
-     if(PlayConfig.isTestShoot && forceChange){
+     if(IS_TESTABLE && PlayConfig.isTestShoot && forceChange){
        if (RecordController.index == 0) {
          PlayController.show(RecordController.imgURLs.length-1);
        } else {
@@ -191,7 +191,7 @@
 
    next: function(forceChange) {
     forceChange = forceChange || false;
-     if(PlayConfig.isTestShoot && forceChange){
+     if(IS_TESTABLE && PlayConfig.isTestShoot && forceChange){
        if (RecordController.index == RecordController.imgURLs.length-1) {
          PlayController.show(0);
        } else {
@@ -209,7 +209,7 @@
    show: function(index,force,freezeAspect) {
      if(force == undefined)force = false; 
      if(freezeAspect == undefined)freezeAspect = false;
-     if(PlayConfig.isTestShoot){
+     if(IS_TESTABLE && PlayConfig.isTestShoot){
        PlayController.setTestPhoto(Number(index));
      }else {
        PlayController.setPhoto(Number(index),force,freezeAspect);
@@ -227,7 +227,7 @@
        }
      }
      PlayController.current_animation = null;
-     if(PlayConfig.isTestShoot){
+     if(IS_TESTABLE && PlayConfig.isTestShoot){
        RecordController.index = Number(index);
      } else {
        PlayConfig.index = Number(index);
@@ -235,6 +235,7 @@
    },
 
    setTestPhoto : function(index ) {
+    console.trace();
      var data = RecordController.imgURLs.get(index);
      var url = data.img.src;
      var img = data.img;
