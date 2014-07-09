@@ -130,7 +130,11 @@
    update : function(){
      Ca.updateXYFromCenter();
      Ca.updateLocalConfig();
+     if(PlayConfig.isTestShoot){
+      PlayController.show(RecordController.index,true);
+     } else {
      PlayController.show(PlayConfig.index,true);
+    }
    },
 
    initProject: function(id) {

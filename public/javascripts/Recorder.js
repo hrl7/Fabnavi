@@ -2,6 +2,10 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this file,
  * You can obtain one at http://mozilla.org/MPL/2.0/. */
  var RecordController = {
+   init : function(){
+     RecordController.imgURLs= new CachedImageList();
+     RecordController.index = 0;
+   },
 
    newProject : function() {
      $("#start").hide();
@@ -11,6 +15,7 @@
    },
 
    shoot: function() {
+     isTest = PlayConfig.isTestShoot;
      $('#shoot').hide();
      $('#projectList').hide();
      $('#contents').hide();
@@ -24,13 +29,19 @@
              }
              console.log("********SHOOT***********");
              console.log(url);
-             var obj = PlayConfig.imgURLs.splice(PlayConfig.index+1,0,{localURL:url});
-             queue.push(obj);
-             PlayConfig.length++;
-             RecordController.updateList();
-             PlayController.next();
-             if(PlayConfig.index > 0)Ca.removeMouseEvent();
-             PlayController.show(PlayConfig.index,true);
+
+             if(isTest){
+               RecordController.imgURLs.push({localURL:url});
+               PlayController.next(true);
+             } else {
+               var obj = PlayConfig.imgURLs.splice(PlayConfig.index+1,0,{localURL:url});
+               queue.push(obj);
+               PlayConfig.length++;
+               RecordController.updateList();
+               PlayController.next();
+               if(PlayConfig.index > 0)Ca.removeMouseEvent();
+               PlayController.show(PlayConfig.index,true);
+             }
          });
      }, 10);
    },

@@ -11,7 +11,9 @@
      PlayConfig.annotations = [];
      PlayConfig.animations = [];
      PlayConfig.index = 0;
+     PlayConfig.testIndex = 0;
      PlayConfig.length = PICTURES_DATA.length;
+     PlayConfig.isTestShoot = false;
      PlayConfig.notes = [];
      if(__MODE__ == "Import")return 0;
      document.getElementById('savePlaylist').onclick = PlayConfig.postConfig;
@@ -29,6 +31,7 @@
          PlayConfig.setThumbnail(PlayConfig.index);
        };
        document.getElementById('edit_tab').onclick = function(){
+        PlayConfig.isTestShoot = false;
          propertyContents.className = "hide"; 
          editContents.className = "show";
          calibrateContents.className = "hide";
@@ -39,10 +42,12 @@
      document.getElementById('property_tab').onclick = function(){
        propertyContents.className = "show"; 
        calibrateContents.className = "hide";
+        PlayConfig.isTestShoot = false;
        if(__MODE__!="play")editContents.className = "hide";
        Ca.removeMouseEvent();
      };
      document.getElementById('calibrate_tab').onclick = function(){
+        PlayConfig.isTestShoot = true;
        propertyContents.className = "hide"; 
        if(__MODE__!="play")editContents.className = "hide";
        calibrateContents.className = "show";

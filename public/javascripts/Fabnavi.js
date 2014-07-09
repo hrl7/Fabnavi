@@ -10,6 +10,7 @@ var Fabnavi = {
     __MODE__ = "update";
     queue = new WorkQueue();
     CameraAPI.init();
+    RecordController.init();
     PlayController.init(); 
     RecordController.newProject();
     PlayController.play(PROJECT_DATA.projectName);

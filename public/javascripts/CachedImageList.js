@@ -5,7 +5,7 @@ function CachedImageList(){
 }
 
 CachedImageList.prototype = {
- push:function(obj){
+  push:function(obj){
     var result = this.createObject(obj);
     this.list.push(result);
     this.update();
@@ -76,7 +76,7 @@ CachedImageList.prototype = {
   },
 
   splice:function(a,b,obj){
-   var result = null;
+    var result = null;
     if(obj == undefined){
       this.list.splice(a,b);
     }else {
@@ -91,24 +91,24 @@ CachedImageList.prototype = {
 
 function debugSuccessFn(mes,d,arg){
   return function(e){
-   /*
-    console.log("Success-------------------");
-    console.log(mes);
-    console.log(e);
-    console.log("-----------------------END");
-    */
+    /*
+     console.log("Success-------------------");
+     console.log(mes);
+     console.log(e);
+     console.log("-----------------------END");
+     */
     if(d != undefined)d.resolve(arg); 
   }
 }
 
 function debugErrorFn(mes,d){
   return function(e){
-   /*
-    console.log("ERROR=================");
-    console.log(mes);
-    console.log(e);
-    console.log("=================END");
-    */
+    /*
+     console.log("ERROR=================");
+     console.log(mes);
+     console.log(e);
+     console.log("=================END");
+     */
     if(d != undefined)d.reject(e); 
   }
 }
