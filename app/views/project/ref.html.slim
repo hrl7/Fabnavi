@@ -1,0 +1,10 @@
+= partial 'layouts/header'
+=stylesheet_link_tag 'play','common'
+=javascript_include_tag 'jquery',
+  'refactored/imageConverter',
+  'refactored/director',
+  'refactored/mainView',
+  'refactored/fabnavi'
+body onload="Fabnavi.run()"
+  = partial 'layouts/content',:locals=> {:project => @projectData,:pictures=>@picturesData}
+

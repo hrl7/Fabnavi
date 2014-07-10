@@ -79,6 +79,18 @@ module Gdworker
       end
     end
 
+    get "/ref/:author/:project/" do
+      unless session[:authorName] == params[:author] then redirect_to '/'; return end
+      id = Project.find_project(params[:author],params[:project]).id
+      @picturesData= Picture.pictures_list(id)
+      @projectData = {:author=> params[:author],:projectName => params[:project]}
+      if @projectData == nil then
+        render 'errors/404'
+      else 
+        render 'project/ref'
+      end
+    end
+
     get "/edit/:author/:project/" do
       unless session[:authorName] == params[:author] then redirect_to '/'; return end
       id = Project.find_project(params[:author],params[:project]).id
