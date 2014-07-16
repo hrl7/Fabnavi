@@ -1,14 +1,14 @@
 var ImageConverter = function(){
 
-  function projectImgToCanvas(img,cvs){
+  function projectImgToCanvas(img,cvs,conf){
 
     var ctx = cvs.getContext('2d');
 
     /* set cropping area on image  */
-    var sx = Number(CommonController.localConfig.x);
-    var sy = Number(CommonController.localConfig.y);
-    var sw = Number(CommonController.localConfig.w);
-    var sh = Number(CommonController.localConfig.h);
+    var sx = Number(conf.x);
+    var sy = Number(conf.y);
+    var sw = Number(conf.w);
+    var sh = Number(conf.h);
 
     /* set project area */ 
     var dx = 0;
@@ -51,10 +51,11 @@ var ImageConverter = function(){
       dh = sh*StoDh;
       ctx.fillRect(0,dy+dh,cvs.width,100);
     }
-    ctx.drawImage(img,sx,sy,sw,sh,dx,dy,dw,dh,d);
-
+    ctx.drawImage(img,sx,sy,sw,sh,dx,dy,dw,dh);
   }
+
   return {
-    
+    drawImage:projectImgToCanvas,
+
   };
 }();

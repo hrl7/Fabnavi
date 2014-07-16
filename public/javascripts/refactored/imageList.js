@@ -1,11 +1,30 @@
 var ImageList = function (){
-var list = [],
-    length = 0,
-    waited = 0,
+  var list = [],
+      length = 0,
+      waited = 0;
 
   function init(){
-
+    if(Director.mode == 0){
+      pushImageUrlRecursively(PICTURES_DATA);
+    }
   }
+
+  function pushImageURL(obj){
+    var res = createObject(obj);
+    list.push(res);
+    return res;
+  }
+
+  function pushImageUrlRecursively(images,i){
+    i = i || 0;
+    if(i >= images.length)return 0;
+    var image = images[i];
+    var res = pushImageURL({globalURL:image.url,thumbnailURL:image.thumbnail_url});
+    res.loadedImg.then(function(){
+        pushImageUrlRecursively(images,i+1);
+    });
+  }
+
 
   function get(n){
     return list[n];
@@ -18,6 +37,7 @@ var list = [],
     if(res.hasOwnProperty("globalURL"))return res.globalURL;
     return false;
   }
+
 
   function  getIndexFromLocalURL(url){
     for(i in list){
@@ -64,8 +84,33 @@ var list = [],
   }
 
 
+  function debugSuccessFn(mes,d,arg){
+    return function(e){
+      /*
+       console.log("Success-------------------");
+       console.log(mes);
+       console.log(e);
+       console.log("-----------------------END");
+       */
+      if(d != undefined)d.resolve(arg);
+    }
+  }
+
+  function debugErrorFn(mes,d){
+    return function(e){
+      /*
+       console.log("ERROR=================");
+       console.log(mes);
+       console.log(e);
+       console.log("=================END");
+       */
+      if(d != undefined)d.reject(e);
+    }
+  }
+
   return {
     init:init,
+    list:list,
   };
 
   }();

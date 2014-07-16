@@ -34,8 +34,8 @@ var MainView = function(){
     ctx.rotate(-Math.PI);
   }
 
-  function draw(){
-
+  function draw(image){
+   ImageConverter.drawImage(image,cvs,ViewConfig.conf());
   }
 
   return {

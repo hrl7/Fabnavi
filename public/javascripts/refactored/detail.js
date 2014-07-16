@@ -4,12 +4,29 @@ var Detail = function(){
       projectURL = "",
       thumbnailURL = "";
 
-    
+  function init(){
+    projectName = PROJECT_DATA.projectName;
+    author = PROJECT_DATA.author;
+  }
+
+  function getProjectName(){
+    return projectName;
+  }
+
+  function getAuthor(){
+    return author;
+   }
+
+   function getProjectURL(){
+    return projectURL;
+   }
+
   return {
-    author:author,
-    projectName:projectName,
-    projectURL:projectURL,
+    init : init,
+    author:getAuthor,
+    projectName:getProjectName,
+    projectURL:getProjectURL,
     thumbnailURL:thumbnailURL,
   };
 
-}();
+  }();
