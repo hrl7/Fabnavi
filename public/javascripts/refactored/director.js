@@ -4,7 +4,7 @@ var Director = function(){
   viewStatus= 0,
   pageIndex = 0,
   pageLength = 0,
-  modeList = ["Play","Add","Edit"],
+  modeList = ["play","add","edit"],
   mode = 0;
 
   function getViewStatus (){
@@ -16,11 +16,31 @@ var Director = function(){
   }
 
   function nextPage(){
-
+    viewStatus = 1;
+    if(pageIndex < pageLength){
+      pageIndex++;  
+    } else {
+      pageIndex = 0;
+    }
+    showPage();
   }
 
   function prevPage(){
+    viewStatus = 1;
+    if(pageIndex > 0) { 
+      pageIndex--;  
+    } else {
+      pageIndex = pageLength -1;
+    }
+    showPage();
+  }
 
+  function showPage(){
+    var deferredImage = ImageList.list[pageIndex].loadedImg;
+    deferredImage.then(function(img){
+        MainView.draw(img);
+        viewStatus = 2;
+    });
   }
 
   function init (){
@@ -28,14 +48,15 @@ var Director = function(){
     Detail.init();
     ImageList.init();
     ViewConfig.init();
+    KeyBind[modeList[mode]]();
+
+    /*   TODO : branch process with mode */
+    pageLength = PICTURES_DATA.length;  
 
     /* Finish Initializing */
     viewStatus = 1;
+    showPage();
 
-    var deferredImage = ImageList.list[0].loadedImg;
-    deferredImage.then(function(img){
-      MainView.draw(img);
-    });
 
   }
 
@@ -44,7 +65,7 @@ var Director = function(){
     mode:mode,
     getMode:getMode,
     getViewStatus:getViewStatus,
-    s:viewStatus,
-
+    nextPage:nextPage,
+    prevPage:prevPage,
   };
-}();
+  }();
