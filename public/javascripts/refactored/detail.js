@@ -4,8 +4,12 @@ var Detail = function(){
       projectURL = "",
       thumbnailURL = "";
 
+    
   return {
-
+    author:author,
+    projectName:projectName,
+    projectURL:projectURL,
+    thumbnailURL:thumbnailURL,
   };
 
 }();
