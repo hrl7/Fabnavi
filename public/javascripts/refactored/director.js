@@ -65,6 +65,7 @@ function prevPage(){
 
 function showPage(){
   var deferredImage = ImageList.list()[pageIndex].loadedImg;
+  MainView.showWaitMessage();
   deferredImage.then(function(img){
       MainView.draw(img);
       viewStatus = 2;

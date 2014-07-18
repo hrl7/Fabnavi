@@ -7,7 +7,6 @@ var MainView = function(){
 
 function init (){
   initCanvas();
-  drawCalibrateLine();
 }
 
 function initCanvas(){
