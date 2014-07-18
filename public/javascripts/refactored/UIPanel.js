@@ -3,9 +3,12 @@ var UIPanel =  function () {
       propertyContents,
       calibrateContents,
       mainPanel,
+
+  /* Buttons  */
       zoomInBtn,
       zoomOutBtn,
       aspBtn,
+      saveConfigBtn,
       isShowPanel
   ;
 
@@ -69,6 +72,11 @@ function initCalibrateButtons(){
   zoomOutBtn = document.getElementById('zoomOut');
   zoomInBtn = document.getElementById('zoomIn');
   aspBtn = document.getElementById('aspectShift');
+  saveConfigBtn = document.getElementById('save');
+
+  saveConfigBtn.onclick = ViewConfig.save;
+  zoomInBtn.onclick = CalibrateController.zoomIn;
+  zoomOutBtn.onclick = CalibrateController.zoomOut;
   aspBtn.onclick = CalibrateController.toggleAspBtn;
 }
 
