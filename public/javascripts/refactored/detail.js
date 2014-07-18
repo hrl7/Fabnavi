@@ -2,31 +2,32 @@ var Detail = function(){
   var author = "",
       projectName = "",
       projectURL = "",
-      thumbnailURL = "";
+      thumbnailURL = ""
+  ;
 
-  function init(){
-    projectName = PROJECT_DATA.projectName;
-    author = PROJECT_DATA.author;
-  }
+function init(){
+  projectName = PROJECT_DATA.projectName;
+  author = PROJECT_DATA.author;
+}
 
-  function getProjectName(){
-    return projectName;
-  }
+function getProjectName(){
+  return projectName;
+}
 
-  function getAuthor(){
-    return author;
-   }
+function getAuthor(){
+  return author;
+}
 
-   function getProjectURL(){
-    return projectURL;
-   }
+function getProjectURL(){
+  return projectURL;
+}
 
-  return {
-    init : init,
-    author:getAuthor,
-    projectName:getProjectName,
-    projectURL:getProjectURL,
-    thumbnailURL:thumbnailURL,
-  };
+return {
+  init : init,
+  author:getAuthor,
+  projectName:getProjectName,
+  projectURL:getProjectURL,
+  thumbnailURL:thumbnailURL,
+};
 
-  }();
+}();
