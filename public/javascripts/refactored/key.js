@@ -17,6 +17,7 @@ var KeyBind = function () {
     keyMap[97] = Director.nextPage;
     keyMap[37] = Director.prevPage;
     keyMap[99] = Director.prevPage;
+    keyMap[68] = UIPanel.toggle;
     setKeyMap();
   }
 
@@ -26,6 +27,10 @@ var KeyBind = function () {
 
   function editMode(){
 
+  }
+
+  function clearKeyMap(){
+    keyMap = [];
   }
 
   function showKeyMap(){

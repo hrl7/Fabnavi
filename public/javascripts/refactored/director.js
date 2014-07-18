@@ -48,6 +48,8 @@ var Director = function(){
     Detail.init();
     ImageList.init();
     ViewConfig.init();
+    UIPanel.init();
+
     KeyBind[modeList[mode]]();
 
     /*   TODO : branch process with mode */
