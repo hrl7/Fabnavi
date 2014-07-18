@@ -5,8 +5,8 @@ var CalibrateController = function () {
       h = 1000,
       cx = 0,
       cy = 0,
-      lx = 0,
-      ly = 0,
+      lx,
+      ly,
       drag = false,
       zi = false,
       zo = false,
@@ -65,11 +65,9 @@ var CalibrateController = function () {
     },50);
     loadFromViewConfig();
     updateXYFromWH();
-    addMouseEvent();
   }
 
   function toggleAspectShiftMode(){
-    console.log(aspShift);
     aspShift = !aspShift;
   }
 
@@ -122,13 +120,6 @@ var CalibrateController = function () {
     y = cy - Math.floor(h/2);
   }
 
-  function updateLocalConfig (){
-  }
-
-  function saveConfig (){
-    ViewConfig.saveConfig();
-  }
-
   function update (){
     updateXYFromCenter();
     ViewConfig.setConf({x:x,y:y,w:w,h:h});
@@ -137,6 +128,8 @@ var CalibrateController = function () {
 
   return {
     init:init,
+    addMouseEvent:addMouseEvent,
+    removeMouseEvent:removeMouseEvent,
     toggleAspBtn:toggleAspectShiftMode,
   };
   } ();
