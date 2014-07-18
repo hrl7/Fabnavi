@@ -1,11 +1,30 @@
 var Director = function(){
 
-  var viewStatusList =  ["Initializing","loadingImage","showing"]
-  viewStatus= 0,
-  pageIndex = 0,
-  pageLength = 0,
-  modeList = ["play","add","edit"],
-  mode = 0;
+  var viewStatusList = ["Initializing","loadingImage","showing"],
+      viewStatus= 0,
+      pageIndex = 0,
+      pageLength = 0,
+      modeList = ["play","add","edit"],
+      mode = 0,
+      currentImage;
+
+  function init (){
+    MainView.init();
+    Detail.init();
+    ImageList.init();
+    ViewConfig.init();
+    UIPanel.init();
+    CalibrateController.init();
+
+    KeyBind[modeList[mode]]();
+
+    /*   TODO : branch process with mode */
+    pageLength = PICTURES_DATA.length;  
+
+    /* Finish Initializing */
+    viewStatus = 1;
+    showPage();
+  }
 
   function getViewStatus (){
     return viewStatusList[viewStatus];
@@ -40,27 +59,15 @@ var Director = function(){
     deferredImage.then(function(img){
         MainView.draw(img);
         viewStatus = 2;
+        currentImage = img;
     });
   }
 
-  function init (){
-    MainView.init();
-    Detail.init();
-    ImageList.init();
-    ViewConfig.init();
-    UIPanel.init();
-
-    KeyBind[modeList[mode]]();
-
-    /*   TODO : branch process with mode */
-    pageLength = PICTURES_DATA.length;  
-
-    /* Finish Initializing */
-    viewStatus = 1;
-    showPage();
-
-
+  function redraw(){
+      MainView.draw(currentImage);
+      viewStatus = 2;
   }
+
 
   return {
     init:init,
@@ -69,5 +76,6 @@ var Director = function(){
     getViewStatus:getViewStatus,
     nextPage:nextPage,
     prevPage:prevPage,
+    redraw:redraw,
   };
   }();

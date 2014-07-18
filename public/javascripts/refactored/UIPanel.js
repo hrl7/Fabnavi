@@ -3,6 +3,9 @@ var UIPanel =  function () {
       propertyContents,
       calibrateContents,
       mainPanel,
+      zoomInBtn,
+      zoomOutBtn,
+      aspBtn,
       isShowPanel;
 
   function init(){
@@ -20,6 +23,8 @@ var UIPanel =  function () {
     document.getElementById('edit_tab').onclick = setEditMode;
     document.getElementById('property_tab').onclick = setNormalMode;
     document.getElementById('calibrate_tab').onclick = setCalibrateMode;
+
+    initCalibrateButtons();
     setEditMode();
   }
 
@@ -54,6 +59,13 @@ var UIPanel =  function () {
   function togglePanel(){
     if(isShowPanel) hideUIPanel();
     else showUIPanel();
+  }
+
+  function initCalibrateButtons(){
+    zoomOutBtn = document.getElementById('zoomOut');
+    zoomInBtn = document.getElementById('zoomIn');
+    aspBtn = document.getElementById('aspectShift');
+    aspBtn.onclick = CalibrateController.toggleAspBtn;
   }
 
   return {
