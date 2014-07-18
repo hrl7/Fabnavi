@@ -1,4 +1,5 @@
 var KeyBind = function () {
+
   var keyMap = []
   ;
 
