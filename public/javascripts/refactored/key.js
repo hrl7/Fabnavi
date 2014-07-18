@@ -15,11 +15,8 @@ function setKeyMap(){
 }
 
 function playMode(){
-  keyMap[39] = Director.nextPage;
-  keyMap[97] = Director.nextPage;
-  keyMap[37] = Director.prevPage;
-  keyMap[99] = Director.prevPage;
-  keyMap[68] = UIPanel.toggle;
+  clearKeyMap();
+  commonKeyMap();
   setKeyMap();
 }
 
@@ -33,6 +30,14 @@ function editMode(){
 
 function clearKeyMap(){
   keyMap = [];
+}
+
+function commonKeyMap() {
+  keyMap[39] = Director.nextPage;
+  keyMap[97] = Director.nextPage;
+  keyMap[37] = Director.prevPage;
+  keyMap[99] = Director.prevPage;
+  keyMap[68] = UIPanel.toggle;
 }
 
 function showKeyMap(){
