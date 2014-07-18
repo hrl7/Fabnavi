@@ -9,9 +9,9 @@ function init(){
   getLocalConfig();
 }
 
-function setLocalData(key,jsonData,isAddMode) {
+function setLocalData(key,jsonData) {
   var data = {};
-  if(isAddMode){
+  if(Director.mode() == 1){
     data["add"] = jsonData;
     var res = getLocalData(key);
     if(res && res.hasOwnProperty("play"))data["play"] = res.play;
@@ -33,7 +33,8 @@ function getLocalConfig() {
   var id = Detail.projectName();
   var res = getLocalData(id);
   res = res || "";
-  if(Director.mode == 0){
+
+  if(Director.mode() == 0){
     _conf = res.play || "";
   } else {
     _conf = res.add || "";
@@ -45,21 +46,26 @@ function setLocalConfig(id) {
     alert("there is no config");
     return false;
   }
-  setLocalData(id,localConfig,Director.mode != 0);
+  setLocalData(id,_conf);
 }
 
 function getConfig(){
   return _conf;
 }
 
+function saveConfig(){
+  setLocalConfig(Detail.projectName());
+}
+
 function setConfig(conf){
- _conf = conf;
+  _conf = conf;
 }
 
 return {
   init : init,
   conf:getConfig,
   setConf:setConfig,
+  save:saveConfig,
 };
 
 }();

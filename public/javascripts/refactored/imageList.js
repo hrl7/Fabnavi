@@ -4,9 +4,14 @@ var ImageList = function (){
       waited = 0;
 
   function init(){
-    if(Director.mode == 0){
+   if(Director.mode() == 0){
       pushImageUrlRecursively(PICTURES_DATA);
+      console.log(list);
     }
+  }
+
+  function getList() {
+   return list;
   }
 
   function pushImageURL(obj){
@@ -110,7 +115,7 @@ var ImageList = function (){
 
   return {
     init:init,
-    list:list,
+    list:getList,
   };
 
   }();

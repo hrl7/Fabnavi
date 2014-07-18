@@ -13,8 +13,9 @@ var Director = function(){
     Detail.init();
     ImageList.init();
     ViewConfig.init();
-    UIPanel.init();
     CalibrateController.init();
+
+    UIPanel.init();
 
     KeyBind[modeList[mode]]();
 
@@ -24,6 +25,14 @@ var Director = function(){
     /* Finish Initializing */
     viewStatus = 1;
     showPage();
+  }
+
+  function getModeInt(){
+    return mode;
+  }
+
+  function getViewStatusInt(){
+    return viewStatus;
   }
 
   function getViewStatus (){
@@ -55,7 +64,7 @@ var Director = function(){
   }
 
   function showPage(){
-    var deferredImage = ImageList.list[pageIndex].loadedImg;
+    var deferredImage = ImageList.list()[pageIndex].loadedImg;
     deferredImage.then(function(img){
         MainView.draw(img);
         viewStatus = 2;
@@ -64,14 +73,14 @@ var Director = function(){
   }
 
   function redraw(){
-      MainView.draw(currentImage);
-      viewStatus = 2;
+    MainView.draw(currentImage);
+    viewStatus = 2;
   }
-
 
   return {
     init:init,
-    mode:mode,
+    mode:getModeInt,
+    viewStatus:getViewStatusInt,
     getMode:getMode,
     getViewStatus:getViewStatus,
     nextPage:nextPage,

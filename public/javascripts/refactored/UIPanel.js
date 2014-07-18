@@ -25,25 +25,28 @@ var UIPanel =  function () {
     document.getElementById('calibrate_tab').onclick = setCalibrateMode;
 
     initCalibrateButtons();
-    setEditMode();
+    setCalibrateMode();
   }
 
   function setCalibrateMode(){
       propertyContents.className = "hide"; 
       editContents.className = "hide";
       calibrateContents.className = "show";
+      CalibrateController.addMouseEvent();
   }
 
   function setEditMode(){
       propertyContents.className = "hide"; 
       editContents.className = "show";
       calibrateContents.className = "hide";
+      CalibrateController.removeMouseEvent();
   }
 
   function setNormalMode(){
       propertyContents.className = "show"; 
       calibrateContents.className = "hide";
       editContents.className = "hide";
+      CalibrateController.removeMouseEvent();
   }
 
   function hideUIPanel(){
