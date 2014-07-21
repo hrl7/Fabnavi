@@ -21,11 +21,16 @@ function playMode(){
 }
 
 function addMode(){
-
+  clearKeyMap();
+  keyMap[13] = Director.shoot;
+  commonKeyMap();
+  setKeyMap();
 }
 
 function editMode(){
-
+  clearKeyMap();
+  commonKeyMap();
+  setKeyMap();
 }
 
 function clearKeyMap(){
@@ -37,7 +42,7 @@ function commonKeyMap() {
   keyMap[97] = Director.nextPage;
   keyMap[37] = Director.prevPage;
   keyMap[99] = Director.prevPage;
-  keyMap[68] = UIPanel.toggle;
+  keyMap[68] = Director.toggleConsole;
 }
 
 function showKeyMap(){

@@ -1,14 +1,10 @@
-var ImageList = function (){
+ function CachableImageList(){
   var list = [],
-      length = 0,
       waited = 0
   ;
 
-function init(){
-  if(Director.mode() == 0){
-    pushImageUrlRecursively(PICTURES_DATA);
-    console.log(list);
-  }
+function initWithURLArray(array){
+    pushImageUrlRecursively(array);
 }
 
 function getList() {
@@ -73,15 +69,15 @@ function createObject(obj){
     if(obj.hasOwnProperty("localURL")){
       var d = $.Deferred();
       obj.img.crossOrigin = "anonymous";
-      obj.img.onload = debugSuccessFn("local image Loaded",d,obj.img);
-      obj.img.onerror = debugErrorFn("local Image cannot load",d);
+      obj.img.onload = debugSuccessFn(d,obj.img);
+      obj.img.onerror = debugErrorFn(d);
       obj.img.src = obj.localURL;
       obj.loadedImg = d.promise();
     } else if(obj.hasOwnProperty("globalURL")){
       obj.img.src = obj.globalURL;
       var d = $.Deferred();
-      obj.img.onload = debugSuccessFn("Global image Loaded",d,obj.img);
-      obj.img.onerror = debugErrorFn("Global Image cannot load",d);
+      obj.img.onload = debugSuccessFn(d,obj.img);
+      obj.img.onerror = debugErrorFn(d);
       obj.img.src = obj.globalURL;
       obj.loadedImg = d.promise();
     }
@@ -90,33 +86,30 @@ function createObject(obj){
 }
 
 
-function debugSuccessFn(mes,d,arg){
+function debugSuccessFn(d,arg){
   return function(e){
-    /*
-     console.log("Success-------------------");
-     console.log(mes);
-     console.log(e);
-     console.log("-----------------------END");
-     */
     if(d != undefined)d.resolve(arg);
   }
 }
 
-function debugErrorFn(mes,d){
+function debugErrorFn(d){
   return function(e){
-    /*
-     console.log("ERROR=================");
-     console.log(mes);
-     console.log(e);
-     console.log("=================END");
-     */
     if(d != undefined)d.reject(e);
   }
 }
 
+function getLength(){
+  return list.length;
+}
+
+function getProgress(){
+}
+
 return {
-  init:init,
+  initWithURLArray:initWithURLArray,
   list:getList,
+  length:getLength,
 };
 
-}();
+};
+
