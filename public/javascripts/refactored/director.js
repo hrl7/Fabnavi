@@ -2,11 +2,11 @@ var Director = function(){
 
   var viewStatusList = ["Initializing","loadingImage","showing"],
       viewStatus= 0,
-      pageIndex = 0,
-      pageLength = 0,
       modeList = ["play","add","edit"],
       ImageList,
       localImageList,
+      showingImageList,
+      queueingImageList,
       mode = 1
   ;
 
@@ -15,15 +15,15 @@ function init (){
   MainView.init();
   Detail.init();
   ImageList.initWithURLArray(PICTURES_DATA);
+  showingImageList = ImageList;
   ViewConfig.init();
   CalibrateController.init();
+
+  if(mode == 1)initForAddMode();
 
   UIPanel.init();
 
   KeyBind[modeList[mode]]();
-
-  /*   TODO : branch process with mode */
-  pageLength = PICTURES_DATA.length;
 
   /* Finish Initializing */
   viewStatus = 1;
@@ -49,31 +49,19 @@ function getMode(){
 }
 
 function nextPage(){
- console.log(ImageList.length());
-  if(pageLength == 0)return false;
   viewStatus = 1;
-  if(pageIndex < pageLength-1){
-    pageIndex++;  
-  } else {
-    pageIndex = 0;
-  }
+  showingImageList.next();
   showPage();
 }
 
 function prevPage(){
-  if(pageLength == 0)return false;
   viewStatus = 1;
-  if(pageIndex > 0) { 
-    pageIndex--;  
-  } else {
-    pageIndex = pageLength -1;
-  }
+  showingImageList.prev();
   showPage();
 }
 
 function showPage(){
-  if(pageLength == 0)return false;
-  var deferredImage = ImageList.list()[pageIndex].loadedImg;
+  var deferredImage = showingImageList.getDeferredImage();
   MainView.showWaitMessage();
   deferredImage.then(function(img){
       MainView.draw(img);
@@ -82,6 +70,7 @@ function showPage(){
 }
 
 function redraw(){
+  viewStatus = 1;
   MainView.redraw();
   viewStatus = 2;
 }
@@ -92,15 +81,18 @@ function toggleConsole(){
 
 /* recorder interface */
 function initForAddMode(){
+  Camera.init();
   localImageList = CachableImageList();
 }
 
 function shoot(){
   console.log("shoot");
+  Camera.shoot().then(function(url){localImageList.push(url)});
+
 }
 
 function shootAndGetURLWithDeferred(){
-  
+
 }
 
 return {

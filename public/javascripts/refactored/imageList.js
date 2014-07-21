@@ -1,10 +1,11 @@
- function CachableImageList(){
+function CachableImageList(){
   var list = [],
-      waited = 0
+      waited = 0,
+      index = 0
   ;
 
 function initWithURLArray(array){
-    pushImageUrlRecursively(array);
+  pushImageUrlRecursively(array);
 }
 
 function getList() {
@@ -15,6 +16,10 @@ function pushImageURL(obj){
   var res = createObject(obj);
   list.push(res);
   return res;
+}
+
+function pushLocalImageWithURL(url){
+  pushImageURL({localURL:url});
 }
 
 function pushImageUrlRecursively(images,i){
@@ -105,10 +110,38 @@ function getLength(){
 function getProgress(){
 }
 
+function nextPage(){
+  if(list.length == 0)return index;
+  if(index < list.length-1){
+    index++;  
+  } else {
+    index = 0;
+  }
+  return index;
+}
+
+function prevPage(){
+  if(list.length == 0)return index;
+  if(index > 0) { 
+    index--;  
+  } else {
+    index = list.length -1;
+  }
+  return index;
+}
+
+function loadImage(){
+  return list[index].loadedImg;
+}
+
 return {
   initWithURLArray:initWithURLArray,
   list:getList,
   length:getLength,
+  push:pushLocalImageWithURL,
+  next:nextPage,
+  prev:prevPage,
+  getDeferredImage:loadImage,
 };
 
 };
