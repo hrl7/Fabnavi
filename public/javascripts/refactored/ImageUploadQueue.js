@@ -12,7 +12,6 @@ function push (obj) {
   queue.push(obj);
 }
 
-
 function clear () {
   queue = [];
   runninng = false;
@@ -46,44 +45,47 @@ function fire () {
    */
   if(cachedImage.hasOwnProperty("loadedImg")){
     notice("Loading Image...");
-    cachedImage.loadedImg.done(function(img){
-        convertImgToDataURL(img,url)
-        .then(postPicture)
-        .then(updateURLList)
-        .fail(function(e){
-            console.log(e.toSource());
-        });
-        convertImgToDataURL(img,url,true)
-        .then(postPicture)
-        .then(updateURLList)
-        .fail(function(e){
-            console.log(e.toSource());
-        });
+    cachedImage.loadedImg
+    .then(cropAndConvertImageToDataURLDeferred)
+    .then(postPicture)
+    .fail(function(e){
+        console.log(e.toSource());
     });
-  } else { 
-    notice("There is no img");
-    this.runninng = false;
   }
+  notice("There is no img");
+  this.runninng = false;
 }
 
-function convertImgToDataURL(img,url,isThumbnail){
-  notice("Converting...");
-  isThumbnail = isThumbnail || false;
+/**
+ * cropping image with view config area 
+ * and convert it to DataURL
+ * @params img {Image}
+ * @return {String (Deferred)}
+ */
+
+function cropAndConvertImageToDataURLDeferred(img) {
+  var cvs = document.createElement('canvas');
   var d = $.Deferred();
-  var bufCvs = document.createElement("canvas");
-  if(isThumbnail){
-    bufCvs.width = THUMBNAIL_WIDTH;
-    bufCvs.height = THUMBNAIL_HEIGHT;
-    url = url.replace(/.JPG/,"_thumbnail.JPG");
-  } else {
-    bufCvs.width = screen.width;
-    bufCvs.height = screen.height;
-  }
-  PlayController.drawImage(true,img,bufCvs)
-  .done(function(){
-      d.resolve(bufCvs.toDataURL("image/jpeg").substring(23),url,isThumbnail);
-  });
+  cvs.width = width;
+  cvs.height = height;
+  ImageConverter.drawImage(img,cvs,ViewConfig.conf());
+  d.resolve(convertImgToDataURL(cvs));
   return d.promise();
+}
+
+/**
+ * @params cvs {HTMLCanvas2d}
+ * @return {String} DataURL format
+ *
+ */
+function convertImgToDataURL(cvs){
+  notice("Converting...");
+  var ctx = cvs.getContext('2d');
+  return ctx.toDataURL("image/jpeg").substring(23));
+}
+
+function generateThumbnailURL(url){
+  return url.replace(/.JPG/,"_thumbnail.JPG");
 }
 
 function updateURLList(resultUrl,url,isThumbnail){
@@ -97,7 +99,7 @@ function updateURLList(resultUrl,url,isThumbnail){
   }
   if(__MODE__ != "Import")RecordController.updateList();
   notice("Posting Playlist Files...");
-  PlayConfig.postConfig();
+  Server.savePlaylist();
   notice("Posted Playlist Files!!");
   queue.queue.splice(0,1);
   queue.runninng = false;
@@ -105,28 +107,39 @@ function updateURLList(resultUrl,url,isThumbnail){
   return d.promise();
 }
 
-function postPicture(data,url,isThumbnail){
+/** 
+ * PostPicture
+ *
+ *  @params data {String} dataURL format
+ *  @params localImageURL {String}
+ *  @return {Deferred}
+ */
+function postPicture(data,localImageURL){
   notice("Posting Picture....");
   var d = $.Deferred();
   $.post("/project/postPicture",
     { 
       data:data,
-      project_id:PlayConfig.projectName,
-      author:PlayConfig.author,
-      url:url
+      project_id:Detail.projectName(),
+      author:Detail.author(),
+      url:localImageURL
     },function(res,err){
       if(err != "success"){
         console.log(err);
         notice("Error to post picture");
-        this.runninng = false;
+        runninng = false;
         d.reject(err);
       } else {
-        d.resolve(res,url,isThumbnail);
+        d.resolve(res,localImageURL);
       }
   });
   return d.promise();
 }
+
+return {
+
 };
+}();
 var notice = function(mes){
   noticeElem = document.getElementById('notice') ; 
   var str = mes + ". There're "+queue.queue.length +" tasks.";
