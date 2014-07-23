@@ -30,7 +30,6 @@ function init (){
   showPage();
 }
 
-
 /* Common fabnavi methods*/
 function getModeInt(){
   return mode;
@@ -80,14 +79,28 @@ function toggleConsole(){
 }
 
 /* recorder interface */
+function switchShoingList(){
+  if(showingImageList == ImageList){
+    showingImageList = localImageList;
+  } else {
+    showingImageList = ImageList;
+  }
+  showPage();
+}
+
 function initForAddMode(){
   Camera.init();
   localImageList = CachableImageList();
+  queueingImageList = localImageList;
+  showingImageList = localImageList;
 }
 
 function shoot(){
   console.log("shoot");
-  Camera.shoot().then(function(url){localImageList.push(url)});
+  Camera.shoot().then(function(url){
+    queueingImageList.push(url);
+    nextPage();
+  });
 
 }
 
@@ -106,5 +119,6 @@ return {
   redraw:redraw,
   toggleConsole:toggleConsole,
   shoot:shoot,
+  toggleShowingList:switchShoingList,
 };
 }();

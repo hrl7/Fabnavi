@@ -38,7 +38,7 @@ function get(n){
 }
 
 function getURL(n){
-  if(list.length == 0)return false;
+  if(list.length === 0)return false;
   var res = list[n]
   if(res.hasOwnProperty("localURL"))return res.localURL;
   if(res.hasOwnProperty("globalURL"))return res.globalURL;
@@ -111,7 +111,7 @@ function getProgress(){
 }
 
 function nextPage(){
-  if(list.length == 0)return index;
+  if(list.length === 0)return index;
   if(index < list.length-1){
     index++;  
   } else {
@@ -121,7 +121,7 @@ function nextPage(){
 }
 
 function prevPage(){
-  if(list.length == 0)return index;
+  if(list.length === 0)return index;
   if(index > 0) { 
     index--;  
   } else {
