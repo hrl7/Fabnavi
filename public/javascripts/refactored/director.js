@@ -7,10 +7,15 @@ var Director = function(){
       localImageList,
       showingImageList,
       queueingImageList,
-      mode = 1
+      mode = null
   ;
 
-function init (){
+function init (_mode){
+  mode = modeList.indexOf(_mode);
+  if(mode == -1){
+    new Error("mode is invalid");
+  }
+
   ImageList = CachableImageList();
   MainView.init();
   Detail.init();
