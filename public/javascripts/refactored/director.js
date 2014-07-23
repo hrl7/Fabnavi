@@ -24,7 +24,15 @@ function init (_mode){
   ViewConfig.init();
   CalibrateController.init();
 
-  if(mode == 1)initForAddMode();
+  ThumbnailViewer.init(ImageList.list());
+
+  /*
+   * mdoe initilize
+   */
+  if(mode == 1){
+    initForAddMode();
+  }
+
 
   UIPanel.init();
 
@@ -62,6 +70,13 @@ function prevPage(){
   viewStatus = 1;
   showingImageList.prev();
   showPage();
+}
+
+function setPage(i){
+  if(showingImageList.setPage(i)){
+    viewStatus = 1;
+    showPage(); 
+  }
 }
 
 function showPage(){
@@ -103,14 +118,18 @@ function initForAddMode(){
 function shoot(){
   console.log("shoot");
   Camera.shoot().then(function(url){
-    queueingImageList.push(url);
-    nextPage();
+      queueingImageList.push(url);
+      nextPage();
   });
 
 }
 
 function shootAndGetURLWithDeferred(){
 
+}
+
+function getShowingImageList(){
+  return showingImageList;
 }
 
 return {
@@ -121,9 +140,11 @@ return {
   getViewStatus:getViewStatus,
   nextPage:nextPage,
   prevPage:prevPage,
+  setPage:setPage,
   redraw:redraw,
   toggleConsole:toggleConsole,
   shoot:shoot,
   toggleShowingList:switchShoingList,
+  list:getShowingImageList,
 };
 }();

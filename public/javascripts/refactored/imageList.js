@@ -120,6 +120,12 @@ function nextPage(){
   return index;
 }
 
+function setPage(i){
+  if(i >= 0 && i < list.length) return false;
+  index = i;
+  return index;
+}
+
 function prevPage(){
   if(list.length === 0)return index;
   if(index > 0) { 
@@ -134,6 +140,10 @@ function loadImage(){
   return list[index].loadedImg;
 }
 
+function splice(a,b){
+  list.splice(a,b); 
+}
+
 return {
   initWithURLArray:initWithURLArray,
   list:getList,
@@ -141,7 +151,9 @@ return {
   push:pushLocalImageWithURL,
   next:nextPage,
   prev:prevPage,
+  setPage:setPage,
   getDeferredImage:loadImage,
+  splice:splice,
 };
 
 };
