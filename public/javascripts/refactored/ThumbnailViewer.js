@@ -5,12 +5,12 @@ var ThumbnailViewer = function(){
       scroll = 0,
       thumbnailWidth = 320,
       thumbnailHeight = 240,
-      /** 
-   * @params obj.img {Image}
-   */
-  list = [],
-  lastChanged = -1,
-  root
+      scrollMinLimit = -300,
+      list = [],
+      lastChanged = -1,
+      selected,
+      _index = 0,
+      root
   ;  
 
 
@@ -19,10 +19,16 @@ function init(imageList){
   root = document.getElementById("editor");
   root.onwheel = function(e){
     e.preventDefault();
-    scroll += e.deltaX;
-    root.style.transform = "translateX("+scroll+"px)";
+    var d = e.deltaX;
+    if((scroll < 500 && scroll > scrollMinLimit) || 
+      (scroll > 500 && d < 0)  ||
+      (scroll < scrollMinLimit && d > 0)){
+      scroll += d;
+      root.childNodes[0].style.transform = "translateX("+scroll+"px)";
+    }
   }
   updateDocumentTree();
+  scrollMinLimit = -320 * list.length;
 }
 
 function updateDocumentTree(){
@@ -47,12 +53,44 @@ function generateNode(index){
   thumb.width = thumbnailWidth;
   thumb.height = thumbnailHeight;
   node.onclick = function(e){
-
-    Director.setPage(
-      getIndex(e.originalTarget,e.originalTarget.parentElement.parentElement));
+    var parent = e.originalTarget.parentElement;
+    var index = getIndex(e.originalTarget,parent.parentElement);
+    Director.setPage(index);
+    select(index);
   };
   node.appendChild(thumb);
   return node;
+}
+
+function select(index){
+  var ul = document.getElementById("thumbnailList");
+  if(selected)selected.className = "";
+  console.log(selected);
+  ul.children[index].className = "selected";
+  selected = ul.children[index];
+  _index = index;
+}
+
+function nextPage(){
+  if(list.length === 0)return _index;
+  if(_index < list.length-1){
+    _index++;  
+  } else {
+    _index = 0;
+  }
+  select(_index);
+  return _index;
+}
+
+function prevPage(){
+  if(list.length === 0)return _index;
+  if(_index > 0) { 
+    _index--;  
+  } else {
+   _index = list.length -1;
+  }
+  select(_index);
+  return _index;
 }
 
 /** get index 
@@ -96,5 +134,7 @@ return {
   hide:hide,
   append:append,
   list:getList,
+  next:nextPage,
+  prev:prevPage,
 };
 }();

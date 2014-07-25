@@ -64,17 +64,19 @@ function getMode(){
 function nextPage(){
   viewStatus = 1;
   showingImageList.next();
+  ThumbnailViewer.next();
   showPage();
 }
 
 function prevPage(){
   viewStatus = 1;
   showingImageList.prev();
+  ThumbnailViewer.prev();
   showPage();
 }
 
 function setPage(i){
-  if(showingImageList.setPage(i)){
+  if(showingImageList.setPage(i) !== false){
     viewStatus = 1;
     showPage(); 
   }

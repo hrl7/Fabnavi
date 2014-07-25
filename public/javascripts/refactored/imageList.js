@@ -128,7 +128,7 @@ function nextPage(){
 }
 
 function setPage(i){
-  if(i <= 0 || i >= list.length) return false;
+  if(i < 0 || i >= list.length) return false;
   index = i;
   return index;
 }

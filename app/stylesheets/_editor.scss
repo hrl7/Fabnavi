@@ -1,21 +1,27 @@
 
 @mixin editor {
- div#editor {
-  z-index : 2;
-  top : 50px;
-  height: 350px;
-  width : 5000px;
-  position : fixed;
-  background-color:black;
-  opacity:0.5;
+  div#editor {
+    z-index : 2;
+    top : 0px;
+    width : 5000px;
+    position : fixed;
+    background-color:rgba(0,0,0,0.6);
 
-  li {
-    float:left;
-    opacity:1.0;
-    margin {
-      left:10px;
+    li {
+      float:left;
+      border: white 1px solid;
+      list-style:none;
+      margin: {
+        left:30px;
+        top:20px;
+        bottom:20px;
+      }
+      img {
+        transform:rotateZ(180deg);
+      }
+    }
+    .selected {
+      border: yellow 1px solid;
     }
   }
- }
-
 }
