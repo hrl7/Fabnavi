@@ -24,7 +24,8 @@ function init (_mode){
   ViewConfig.init();
   CalibrateController.init();
 
-  ThumbnailViewer.init(ImageList.list());
+  ImageList.getListDeferred().then(ThumbnailViewer.init);
+
 
   /*
    * mdoe initilize

@@ -1,0 +1,21 @@
+
+@mixin editor {
+ div#editor {
+  z-index : 2;
+  top : 50px;
+  height: 350px;
+  width : 5000px;
+  position : fixed;
+  background-color:black;
+  opacity:0.5;
+
+  li {
+    float:left;
+    opacity:1.0;
+    margin {
+      left:10px;
+    }
+  }
+ }
+
+}

@@ -1,8 +1,12 @@
 function CachableImageList(){
+
   var list = [],
       waited = 0,
-      index = 0
+      index = 0,
+      d
   ;
+
+d = $.Deferred();
 
 function initWithURLArray(array){
   pushImageUrlRecursively(array);
@@ -24,7 +28,10 @@ function pushLocalImageWithURL(url){
 
 function pushImageUrlRecursively(images,i){
   i = i || 0;
-  if(i >= images.length)return 0;
+  if(i >= images.length){
+   d.resolve(list);
+    return 0;
+  }
   var image = images[i];
   var res = pushImageURL({globalURL:image.url,thumbnailURL:image.thumbnail_url});
   res.loadedImg.then(function(){
@@ -121,7 +128,7 @@ function nextPage(){
 }
 
 function setPage(i){
-  if(i >= 0 && i < list.length) return false;
+  if(i <= 0 || i >= list.length) return false;
   index = i;
   return index;
 }
@@ -144,9 +151,14 @@ function splice(a,b){
   list.splice(a,b); 
 }
 
+function getListDeferred(){
+   return d.promise();
+}
+
 return {
   initWithURLArray:initWithURLArray,
   list:getList,
+  getListDeferred:getListDeferred,
   length:getLength,
   push:pushLocalImageWithURL,
   next:nextPage,
