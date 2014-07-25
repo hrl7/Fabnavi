@@ -80,7 +80,6 @@ module Gdworker
     end
 
     get "/ref/:author/:project/" do
-      unless session[:authorName] == params[:author] then redirect_to '/'; return end
       id = Project.find_project(params[:author],params[:project]).id
       @picturesData= Picture.pictures_list(id)
       @projectData = {:author=> params[:author],:projectName => params[:project]}
