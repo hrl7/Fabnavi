@@ -27,6 +27,7 @@ function init(imageList){
       root.childNodes[0].style.transform = "translateX("+scroll+"px)";
     }
   }
+
   updateDocumentTree();
   scrollMinLimit = -320 * list.length;
 }
@@ -52,20 +53,67 @@ function generateNode(index){
   thumb.src = list[index].thumbnailURL || list[index].globalURL || list[index].localURL;
   thumb.width = thumbnailWidth;
   thumb.height = thumbnailHeight;
-  node.onclick = function(e){
+  node.draggable = false;
+  thumb.draggable = false;
+  //setMouseEvent(thumb);
+  node.appendChild(thumb);
+  return node;
+}
+
+function setMouseEvent(elem){
+  var deltaX = 0;
+  var lastX = 0;
+  var clicked = false;
+
+  elem.onclick = function (e){
+    e.preventDefault();
+    clicked = true;
     var parent = e.originalTarget.parentElement;
     var index = getIndex(e.originalTarget,parent.parentElement);
     Director.setPage(index);
     select(index);
-  };
-  node.appendChild(thumb);
-  return node;
+  }
+
+  elem.onmouseup = function(e){
+    e.preventDefault();
+    clicked = false;
+    e.originalTarget.style.transform = "translateY(0px)";
+  }
+
+  elem.onmouseenter = function(e){
+   e.preventDefault();
+  if(e.bubbles)return e.stopPropagation();
+    e.originalTarget.style.transform = "translateY(-20px)";
+  }
+
+  elem.onmouseleave = function(e){
+    e.preventDefault();
+    e.originalTarget.style.transform = "translateY(0px)";
+    clicked = false;
+  }
+
+  elem.onmouseout = function(e){
+    e.preventDefault();
+    clicked = false;
+    e.originalTarget.style.transform = "translateY(0px)";
+  }
+
+  elem.onmousemove = function(e){
+   e.preventDefault();
+   if(e.buttons > 0){
+    console.log(e.bubbles);
+    deltaX += Number(e.clientX) - lastX;
+    console.log(lastX,deltaX);
+    e.originalTarget.style.transform = "translate("+deltaX+"px,-20px)";
+   } 
+     lastX = e.clientX;
+  }
+
 }
 
 function select(index){
   var ul = document.getElementById("thumbnailList");
   if(selected)selected.className = "";
-  console.log(selected);
   ul.children[index].className = "selected";
   selected = ul.children[index];
   _index = index;
@@ -87,7 +135,7 @@ function prevPage(){
   if(_index > 0) { 
     _index--;  
   } else {
-   _index = list.length -1;
+    _index = list.length -1;
   }
   select(_index);
   return _index;
