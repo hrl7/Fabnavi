@@ -45,6 +45,7 @@ function updateDocumentTree(){
 
   ul.appendChild(frag);
   root.appendChild(ul);
+  $("#thumbnailList").sortable().disableSelection();
 }
 
 function generateNode(index){
@@ -53,10 +54,11 @@ function generateNode(index){
   thumb.src = list[index].thumbnailURL || list[index].globalURL || list[index].localURL;
   thumb.width = thumbnailWidth;
   thumb.height = thumbnailHeight;
-  node.draggable = false;
-  thumb.draggable = false;
-  //setMouseEvent(thumb);
+  thumb.draggable = true;
   node.appendChild(thumb);
+  node.draggable = true;
+//  node.className = "ui-state-default";
+  //setMouseEvent(thumb);
   return node;
 }
 
