@@ -24,7 +24,7 @@ function init(imageList){
       (scroll > 500 && d < 0)  ||
       (scroll < scrollMinLimit && d > 0)){
       scroll += d;
-      root.childNodes[0].style.transform = "translateX("+scroll+"px)";
+      root.childNodes[0].style.left= +scroll+"px";
     }
   }
 
@@ -57,17 +57,9 @@ function generateNode(index){
   thumb.draggable = true;
   node.appendChild(thumb);
   node.draggable = true;
-//  node.className = "ui-state-default";
   //setMouseEvent(thumb);
-  return node;
-}
-
-function setMouseEvent(elem){
-  var deltaX = 0;
-  var lastX = 0;
-  var clicked = false;
-
-  elem.onclick = function (e){
+  
+  node.onclick = function (e){
     e.preventDefault();
     clicked = true;
     var parent = e.originalTarget.parentElement;
@@ -75,43 +67,9 @@ function setMouseEvent(elem){
     Director.setPage(index);
     select(index);
   }
-
-  elem.onmouseup = function(e){
-    e.preventDefault();
-    clicked = false;
-    e.originalTarget.style.transform = "translateY(0px)";
-  }
-
-  elem.onmouseenter = function(e){
-   e.preventDefault();
-  if(e.bubbles)return e.stopPropagation();
-    e.originalTarget.style.transform = "translateY(-20px)";
-  }
-
-  elem.onmouseleave = function(e){
-    e.preventDefault();
-    e.originalTarget.style.transform = "translateY(0px)";
-    clicked = false;
-  }
-
-  elem.onmouseout = function(e){
-    e.preventDefault();
-    clicked = false;
-    e.originalTarget.style.transform = "translateY(0px)";
-  }
-
-  elem.onmousemove = function(e){
-   e.preventDefault();
-   if(e.buttons > 0){
-    console.log(e.bubbles);
-    deltaX += Number(e.clientX) - lastX;
-    console.log(lastX,deltaX);
-    e.originalTarget.style.transform = "translate("+deltaX+"px,-20px)";
-   } 
-     lastX = e.clientX;
-  }
-
+  return node;
 }
+
 
 function select(index){
   var ul = document.getElementById("thumbnailList");

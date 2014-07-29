@@ -3,23 +3,25 @@
   div#editor {
     z-index : 2;
     top : 0px;
-    width : 5000px;
     position : fixed;
-    background-color:rgba(0,0,0,0.6);
-
-    li {
-      float:left;
-      border: white 1px solid;
-      list-style:none;
-      margin: {
-        left:30px;
-        top:20px;
-        bottom:20px;
+    ul {
+      width : 5000px;
+      background-color:rgba(0,0,0,0.6);
+      position:absolute;
+      li {
+        float:left;
+        border: white 1px solid;
+        list-style:none;
+        margin: {
+          left:30px;
+          top:20px;
+          bottom:20px;
+        }
+        img {
+          transform:rotateZ(180deg);
+        }
       }
-      img {
-        transform:rotateZ(180deg);
-      }
-    }
+   }
     .selected {
       border: yellow 1px solid;
     }
