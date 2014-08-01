@@ -16,6 +16,7 @@ function init (_mode){
     new Error("mode is invalid");
   }
 
+  /* Before */  
   ImageList = CachableImageList();
   MainView.init();
   Detail.init();
@@ -26,17 +27,21 @@ function init (_mode){
 
   ImageList.getListDeferred().then(ThumbnailViewer.init);
 
-
-  /*
-   * mdoe initilize
-   */
-  if(mode == 1){
-    initForAddMode();
+  /*  Initialize each Mode   */
+  switch(mode){
+    case 0:
+      break;
+    case 1:
+      initForAddMode();
+      break;
+    case 2:
+      break;
+    default:
+      break
   }
 
-
+  /*  After   */
   UIPanel.init();
-
   KeyBind[modeList[mode]]();
 
   /* Finish Initializing */
@@ -101,6 +106,10 @@ function toggleConsole(){
   UIPanel.toggle();
 }
 
+function toggleEditor() {
+ ThumbnailViewer.toggleEditor();
+}
+
 /* recorder interface */
 function switchShoingList(){
   if(showingImageList == ImageList){
@@ -150,6 +159,7 @@ return {
   toggleConsole:toggleConsole,
   shoot:shoot,
   toggleShowingList:switchShoingList,
+  toggleEditor:toggleEditor,
   list:getShowingImageList,
   updateShowingImageList:updateShowingImageList,
 };

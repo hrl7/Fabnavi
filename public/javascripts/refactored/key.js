@@ -33,16 +33,16 @@ function editMode(){
   setKeyMap();
 }
 
-function clearKeyMap(){
-  keyMap = [];
-}
-
 function commonKeyMap() {
   keyMap[39] = Director.nextPage;
   keyMap[97] = Director.nextPage;
   keyMap[37] = Director.prevPage;
   keyMap[99] = Director.prevPage;
   keyMap[68] = Director.toggleConsole;
+}
+
+function clearKeyMap(){
+  keyMap = [];
 }
 
 function showKeyMap(){

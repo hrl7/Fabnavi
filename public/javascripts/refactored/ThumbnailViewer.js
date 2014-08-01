@@ -10,7 +10,8 @@ var ThumbnailViewer = function(){
       lastChanged = -1,
       selected,
       _index = 0,
-      root
+      root,
+      isShow = true
   ;  
 
 
@@ -127,11 +128,18 @@ function getIndex(target,parent){
 }
 
 function show(){
-
+ root.style.display = "";
+ isShow = true;
 }
 
 function hide(){
+ root.style.display = "none";
+ isShow = false;
+}
 
+function toggleEditor(){
+  if(isShow)hide();
+  else show();
 }
 
 function append( obj ){
@@ -150,6 +158,7 @@ return {
   init:init,
   show:show,
   hide:hide,
+  toggleEditor:toggleEditor,
   append:append,
   list:getList,
   next:nextPage,
