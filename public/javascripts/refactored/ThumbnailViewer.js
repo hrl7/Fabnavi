@@ -45,20 +45,30 @@ function updateDocumentTree(){
 
   ul.appendChild(frag);
   root.appendChild(ul);
-  $("#thumbnailList").sortable().disableSelection();
+  $("#thumbnailList").sortable(
+    {update:updateImageList}).disableSelection();
+
+}
+
+function updateImageList(){
+  var ul = document.getElementById("thumbnailList");
+  var res = [];
+  for(var i in ul.childNodes){
+    res.push(ul.childNodes[i].idURL);
+  }
+  Director.updateShowingImageList(res);
 }
 
 function generateNode(index){
   var node = document.createElement("li");
   var thumb = document.createElement("img");
   thumb.src = list[index].thumbnailURL || list[index].globalURL || list[index].localURL;
+  node.idURL= list[index].globalURL || list[index].localURL;
   thumb.width = thumbnailWidth;
   thumb.height = thumbnailHeight;
   thumb.draggable = true;
   node.appendChild(thumb);
   node.draggable = true;
-  //setMouseEvent(thumb);
-  
   node.onclick = function (e){
     e.preventDefault();
     clicked = true;

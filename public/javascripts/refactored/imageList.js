@@ -29,7 +29,7 @@ function pushLocalImageWithURL(url){
 function pushImageUrlRecursively(images,i){
   i = i || 0;
   if(i >= images.length){
-   d.resolve(list);
+    d.resolve(list);
     return 0;
   }
   var image = images[i];
@@ -152,7 +152,22 @@ function splice(a,b){
 }
 
 function getListDeferred(){
-   return d.promise();
+  return d.promise();
+}
+
+function updateList(a){
+  var res = []; 
+  for(var i in a){
+    res.push(findElementFromUrl(a[i]));     
+  }
+  list = res;
+}
+
+function findElementFromUrl(url){
+  for(var i in list){
+    if(list[i].globalURL == url || list[i].localURL == url)return list[i];
+  }
+  return -1;
 }
 
 return {
@@ -160,6 +175,7 @@ return {
   list:getList,
   getListDeferred:getListDeferred,
   length:getLength,
+  updateListWithURLArray:updateList,
   push:pushLocalImageWithURL,
   next:nextPage,
   prev:prevPage,

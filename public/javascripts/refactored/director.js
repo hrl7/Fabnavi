@@ -119,12 +119,10 @@ function initForAddMode(){
 }
 
 function shoot(){
-  console.log("shoot");
   Camera.shoot().then(function(url){
       queueingImageList.push(url);
       nextPage();
   });
-
 }
 
 function shootAndGetURLWithDeferred(){
@@ -133,6 +131,10 @@ function shootAndGetURLWithDeferred(){
 
 function getShowingImageList(){
   return showingImageList;
+}
+
+function updateShowingImageList(a){
+  showingImageList.updateListWithURLArray(a);
 }
 
 return {
@@ -149,5 +151,6 @@ return {
   shoot:shoot,
   toggleShowingList:switchShoingList,
   list:getShowingImageList,
+  updateShowingImageList:updateShowingImageList,
 };
 }();
