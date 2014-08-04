@@ -35,6 +35,16 @@ function drawWaitingMessage(){
   ctx.rotate(-Math.PI);
 }
 
+function drawShootingMessage(){
+  ctx.fillStyle = "black";
+  ctx.font = "100px san-serif";
+  ctx.rotate(Math.PI);
+  ctx.translate(-1500,-800);
+  ctx.fillText("Taking picture...",400,400);
+  ctx.translate(1500,800);
+  ctx.rotate(-Math.PI);
+}
+
 function draw(image){
   ImageConverter.drawImage(image,cvs,ViewConfig.conf());
   currentImage = image;
@@ -55,6 +65,7 @@ return {
   showCalibrateLine:drawCalibrateLine,
   clear:clear,
   redraw:redraw,
+  showShootingMessage:drawShootingMessage,
 };
 
 }();

@@ -136,9 +136,10 @@ function switchShoingList(){
   showPage();
 }
 
-
 function shoot(){
+  MainView.showShootingMessage();
   Camera.shoot().then(function(url){
+      redraw();
       queueingImageList.push(url);
       nextPage();
   });
@@ -154,6 +155,11 @@ function getShowingImageList(){
 
 function updateShowingImageList(a){
   showingImageList.updateListWithURLArray(a);
+}
+
+function removePage(){
+  showingImageList.remove(showingImageList.index());
+  showPage();
 }
 
 return {
@@ -172,5 +178,6 @@ return {
   toggleEditor:toggleEditor,
   list:getShowingImageList,
   updateShowingImageList:updateShowingImageList,
+  removePage:removePage,
 };
 }();

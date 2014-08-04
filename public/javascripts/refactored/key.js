@@ -22,8 +22,9 @@ function playMode(){
 
 function addMode(){
   clearKeyMap();
-  keyMap[13] = Director.shoot;
   commonKeyMap();
+  keyMap[13] = Director.shoot;
+  keyMap[88] = Director.removePage;
   setKeyMap();
 }
 
@@ -31,6 +32,7 @@ function editMode(){
   clearKeyMap();
   commonKeyMap();
   keyMap[69] = Director.toggleEditor;
+  keyMap[88] = Director.removePage;
   setKeyMap();
 }
 

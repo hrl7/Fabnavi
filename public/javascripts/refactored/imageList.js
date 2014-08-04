@@ -186,6 +186,14 @@ function toggleEditor(){
  else console.log("Editor is not initialized");
 }
 
+function remove(i){
+  list.splice(i,1);
+}
+
+function getIndex(){
+  return index;
+}
+
 return {
   initWithURLArray:initWithURLArray,
   list:getList,
@@ -200,6 +208,8 @@ return {
   splice:splice,
   toggleEditor:toggleEditor,
   initEditor:initEditor,
+  remove:remove,
+  index:getIndex,
 };
 
 };
