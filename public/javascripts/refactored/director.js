@@ -16,9 +16,6 @@ function init (_mode){
     new Error("mode is invalid");
   }
 
-  /*  set debug mode */
-  mode = 2;
-
   /* Before */  
   ImageList = CachableImageList();
   MainView.init();
