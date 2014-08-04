@@ -17,7 +17,7 @@ function init (_mode){
   }
 
   /*  set debug mode */
-  mode = 1;
+  mode = 2;
 
   /* Before */  
   ImageList = CachableImageList();
@@ -32,11 +32,13 @@ function init (_mode){
   /*  Initialize each Mode   */
   switch(mode){
     case 0:
+    initAsPlayMode();
     break;
     case 1:
-    initForAddMode();
+    initAsAddMode();
     break;
     case 2:
+    initAsEditMode();
     break;
     default:
     break
@@ -49,6 +51,22 @@ function init (_mode){
   /* Finish Initializing */
   viewStatus = 1;
   showPage();
+}
+
+/* Initilizers */
+function initAsPlayMode(){
+  showingImageList = ImageList;
+}
+function initAsAddMode(){
+  Camera.init();
+  localImageList = CachableImageList();
+  queueingImageList = localImageList;
+  showingImageList = localImageList;
+}
+
+function initAsEditMode(){
+  showingImageList.initEditor();
+  showingImageList = ImageList;
 }
 
 /* Common fabnavi methods*/
@@ -121,12 +139,6 @@ function switchShoingList(){
   showPage();
 }
 
-function initForAddMode(){
-  Camera.init();
-  localImageList = CachableImageList();
-  queueingImageList = localImageList;
-  showingImageList = localImageList;
-}
 
 function shoot(){
   Camera.shoot().then(function(url){

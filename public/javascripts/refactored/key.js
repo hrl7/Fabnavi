@@ -30,6 +30,7 @@ function addMode(){
 function editMode(){
   clearKeyMap();
   commonKeyMap();
+  keyMap[69] = Director.toggleEditor;
   setKeyMap();
 }
 

@@ -199,6 +199,7 @@ return {
   getDeferredImage:loadImage,
   splice:splice,
   toggleEditor:toggleEditor,
+  initEditor:initEditor,
 };
 
 };
