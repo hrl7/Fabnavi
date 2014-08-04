@@ -164,4 +164,4 @@ return {
   next:nextPage,
   prev:prevPage,
 };
-}();
+};

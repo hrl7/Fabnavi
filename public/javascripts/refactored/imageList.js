@@ -3,13 +3,21 @@ function CachableImageList(){
   var list = [],
       waited = 0,
       index = 0,
-      d
+      d,
+      editor,
+      editorInitialized = false
   ;
 
 d = $.Deferred();
 
 function initWithURLArray(array){
   pushImageUrlRecursively(array);
+}
+
+function initEditor(){
+  editor = ThumbnailViewer();
+  d.promise().then(editor.init);
+  editorInitialized = true;
 }
 
 function getList() {
@@ -56,7 +64,7 @@ function getURL(n){
 function  getIndexFromLocalURL(url){
   for(i in list){
     if(list[i].localURL == url)return i;
-  }
+    }
   return -1;
 }
 
@@ -124,6 +132,7 @@ function nextPage(){
   } else {
     index = 0;
   }
+  if(editorInitialized)editor.next();
   return index;
 }
 
@@ -140,11 +149,13 @@ function prevPage(){
   } else {
     index = list.length -1;
   }
+  if(editorInitialized)editor.prev();
   return index;
 }
 
 function loadImage(){
-  return list[index].loadedImg;
+ if(list.length != 0)return list[index].loadedImg;
+ else return false;
 }
 
 function splice(a,b){
@@ -170,6 +181,11 @@ function findElementFromUrl(url){
   return -1;
 }
 
+function toggleEditor(){
+ if(editorInitialized)editor.toggleEditor();
+ else console.log("Editor is not initialized");
+}
+
 return {
   initWithURLArray:initWithURLArray,
   list:getList,
@@ -182,6 +198,7 @@ return {
   setPage:setPage,
   getDeferredImage:loadImage,
   splice:splice,
+  toggleEditor:toggleEditor,
 };
 
 };

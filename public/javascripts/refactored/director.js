@@ -16,6 +16,9 @@ function init (_mode){
     new Error("mode is invalid");
   }
 
+  /*  set debug mode */
+  mode = 1;
+
   /* Before */  
   ImageList = CachableImageList();
   MainView.init();
@@ -25,19 +28,18 @@ function init (_mode){
   ViewConfig.init();
   CalibrateController.init();
 
-  ImageList.getListDeferred().then(ThumbnailViewer.init);
 
   /*  Initialize each Mode   */
   switch(mode){
     case 0:
-      break;
+    break;
     case 1:
-      initForAddMode();
-      break;
+    initForAddMode();
+    break;
     case 2:
-      break;
+    break;
     default:
-      break
+    break
   }
 
   /*  After   */
@@ -69,14 +71,12 @@ function getMode(){
 function nextPage(){
   viewStatus = 1;
   showingImageList.next();
-  ThumbnailViewer.next();
   showPage();
 }
 
 function prevPage(){
   viewStatus = 1;
   showingImageList.prev();
-  ThumbnailViewer.prev();
   showPage();
 }
 
@@ -88,14 +88,15 @@ function setPage(i){
 }
 
 function showPage(){
-  var deferredImage = showingImageList.getDeferredImage();
-  MainView.showWaitMessage();
-  deferredImage.then(function(img){
-      MainView.draw(img);
-      viewStatus = 2;
-  });
+  var deferredImage;
+  if(deferredImage = showingImageList.getDeferredImage()){
+    MainView.showWaitMessage();
+    deferredImage.then(function(img){
+        MainView.draw(img);
+        viewStatus = 2;
+    });
+  }
 }
-
 function redraw(){
   viewStatus = 1;
   MainView.redraw();
@@ -107,7 +108,7 @@ function toggleConsole(){
 }
 
 function toggleEditor() {
- ThumbnailViewer.toggleEditor();
+  showingImageList.toggleEditor();
 }
 
 /* recorder interface */
