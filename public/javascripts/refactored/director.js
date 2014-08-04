@@ -133,7 +133,7 @@ function switchShoingList(){
   } else {
     showingImageList = ImageList;
   }
-  showPage();
+  prevPage();
 }
 
 function shoot(){
@@ -158,8 +158,10 @@ function updateShowingImageList(a){
 }
 
 function removePage(){
-  showingImageList.remove(showingImageList.index());
-  showPage();
+  if(showingImageList.length() >1){
+    showingImageList.remove(showingImageList.index());
+    showPage();
+  }
 }
 
 return {
