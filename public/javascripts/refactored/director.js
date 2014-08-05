@@ -29,16 +29,16 @@ function init (_mode){
   /*  Initialize each Mode   */
   switch(mode){
     case 0:
-    initAsPlayMode();
-    break;
+      initAsPlayMode();
+      break;
     case 1:
-    initAsAddMode();
-    break;
+      initAsAddMode();
+      break;
     case 2:
-    initAsEditMode();
-    break;
+      initAsEditMode();
+      break;
     default:
-    break
+      break
   }
 
   /*  After   */
@@ -143,6 +143,7 @@ function switchShoingList(){
 }
 
 function shoot(){
+  redraw();
   MainView.showShootingMessage();
   Camera.shoot().then(function(url){
       redraw();
@@ -166,7 +167,7 @@ function updateShowingImageList(a){
 function removePage(){
   if(showingImageList.length() >1){
     showingImageList.remove(showingImageList.index());
-    showPage();
+    reloadPage();
   }
 }
 

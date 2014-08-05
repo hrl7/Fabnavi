@@ -110,6 +110,10 @@ function prevPage(){
   return _index;
 }
 
+function reloadPage(){
+  select(_index);
+}
+
 /** get index 
  *  @params target {HTMLElement}
  *  @params parent {HTMLElement} the parent of the target
@@ -155,8 +159,10 @@ return {
   hide:hide,
   toggleEditor:toggleEditor,
   update:updateDocumentTree,
+  setPage:select,
   list:getList,
   next:nextPage,
   prev:prevPage,
+  reload:reloadPage,
 };
 };

@@ -36,7 +36,7 @@ function pushImageURL(obj){
 
 function pushLocalImageWithURL(url){
   var c = pushImageURL({localURL:url});
-  if(editor)editor.update(c);
+  if(editorInitialized)editor.update(c);
 }
 
 function pushImageUrlRecursively(images,i){
@@ -144,6 +144,7 @@ function nextPage(){
 function setPage(i){
   if(i < 0 || i >= list.length) return false;
   index = i;
+  if(editorInitialized)editor.reload();
   return index;
 }
 
@@ -193,7 +194,13 @@ function toggleEditor(){
 
 function remove(i){
   list.splice(i,1);
-  if(editor)editor.update();
+  console.log(index);
+  console.log(list.length);
+  if(index >= list.length)index = list.length - 1;
+  if(editorInitialized){
+   editor.update();
+   editor.setPage(index);
+  }
   Director.reloadPage();
 }
 
