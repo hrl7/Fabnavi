@@ -17,6 +17,10 @@ function initWithURLArray(array){
 function initEditor(){
   editor = ThumbnailViewer();
   d.promise().then(editor.init);
+  setEditorInitialized();
+}
+
+function setEditorInitialized(){
   editorInitialized = true;
 }
 
@@ -31,7 +35,8 @@ function pushImageURL(obj){
 }
 
 function pushLocalImageWithURL(url){
-  pushImageURL({localURL:url});
+  var c = pushImageURL({localURL:url});
+  if(editor)editor.update(c);
 }
 
 function pushImageUrlRecursively(images,i){
@@ -188,6 +193,8 @@ function toggleEditor(){
 
 function remove(i){
   list.splice(i,1);
+  if(editor)editor.update();
+  Director.reloadPage();
 }
 
 function getIndex(){
@@ -210,6 +217,7 @@ return {
   initEditor:initEditor,
   remove:remove,
   index:getIndex,
+  setEditorInitialized:setEditorInitialized,
 };
 
 };

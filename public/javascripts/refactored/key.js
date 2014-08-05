@@ -24,6 +24,7 @@ function addMode(){
   clearKeyMap();
   commonKeyMap();
   keyMap[13] = Director.shoot;
+  keyMap[69] = Director.toggleEditor;
   keyMap[88] = Director.removePage;
   setKeyMap();
 }

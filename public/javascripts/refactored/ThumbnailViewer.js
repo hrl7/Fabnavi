@@ -30,7 +30,6 @@ function init(imageList){
   }
 
   updateDocumentTree();
-  scrollMinLimit = -320 * list.length;
 }
 
 function updateDocumentTree(){
@@ -39,16 +38,15 @@ function updateDocumentTree(){
     frag.appendChild(generateNode(i));
   }
 
-  if(!(ul = document.getElementById("thumbnailList"))){
-    var ul = document.createElement("ul");
-    ul.id = "thumbnailList";
-  }
-
+  var ul = document.createElement("ul");
+  ul.id = "thumbnailList";
   ul.appendChild(frag);
+  var oldUl;
+  if(oldUl= document.getElementById("thumbnailList"))oldUl.remove();
   root.appendChild(ul);
   $("#thumbnailList").sortable(
     {update:updateImageList}).disableSelection();
-
+  scrollMinLimit = -320 * list.length;
 }
 
 function updateImageList(){
@@ -128,13 +126,13 @@ function getIndex(target,parent){
 }
 
 function show(){
- root.style.display = "";
- isShow = true;
+  root.style.display = "";
+  isShow = true;
 }
 
 function hide(){
- root.style.display = "none";
- isShow = false;
+  root.style.display = "none";
+  isShow = false;
 }
 
 function toggleEditor(){
@@ -142,9 +140,6 @@ function toggleEditor(){
   else show();
 }
 
-function append( obj ){
-  list.push(obj);
-}
 
 function splice(startIndex,lastIndex){
 
@@ -159,7 +154,7 @@ return {
   show:show,
   hide:hide,
   toggleEditor:toggleEditor,
-  append:append,
+  update:updateDocumentTree,
   list:getList,
   next:nextPage,
   prev:prevPage,

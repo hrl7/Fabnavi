@@ -7,7 +7,7 @@ var Camera = function() {
       //TODO : redirect to addon install page
       return false;
     }
-    document.sonycameracontroller.setup({ipaddress: "10.0.0.1", port: 10000, version: "1.0"},false);
+    document.sonycameracontroller.setup({ipaddress: "10.0.0.1", port: 10000, version: "1.0"},false,true);
     return true;
   }
 

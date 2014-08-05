@@ -51,6 +51,7 @@ function draw(image){
 }
 
 function redraw(){
+  clear();
   if(currentImage)draw(currentImage);
 }
 

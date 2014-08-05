@@ -57,13 +57,15 @@ function initAsPlayMode(){
 function initAsAddMode(){
   Camera.init();
   localImageList = CachableImageList();
+//  showingImageList.initEditor();
+  localImageList.initEditor();
   queueingImageList = localImageList;
   showingImageList = localImageList;
+  showingImageList.initWithURLArray([]);
 }
 
 function initAsEditMode(){
   showingImageList.initEditor();
-  showingImageList = ImageList;
 }
 
 /* Common fabnavi methods*/
@@ -102,9 +104,14 @@ function setPage(i){
   }
 }
 
+function reloadPage(){
+  setPage(showingImageList.index());
+}
+
 function showPage(){
   var deferredImage;
   if(deferredImage = showingImageList.getDeferredImage()){
+    redraw();
     MainView.showWaitMessage();
     deferredImage.then(function(img){
         MainView.draw(img);
@@ -140,7 +147,7 @@ function shoot(){
   MainView.showShootingMessage();
   Camera.shoot().then(function(url){
       redraw();
-      queueingImageList.push(url);
+      showingImageList.push(url);
       nextPage();
   });
 }
@@ -181,5 +188,6 @@ return {
   list:getShowingImageList,
   updateShowingImageList:updateShowingImageList,
   removePage:removePage,
+  reloadPage:reloadPage,
 };
 }();
