@@ -69,7 +69,7 @@ function getURL(n){
 function  getIndexFromLocalURL(url){
   for(i in list){
     if(list[i].localURL == url)return i;
-    }
+  }
   return -1;
 }
 
@@ -159,8 +159,8 @@ function prevPage(){
 }
 
 function loadImage(){
- if(list.length != 0)return list[index].loadedImg;
- else return false;
+  if(list.length != 0)return list[index].loadedImg;
+  else return false;
 }
 
 function splice(a,b){
@@ -187,8 +187,8 @@ function findElementFromUrl(url){
 }
 
 function toggleEditor(){
- if(editorInitialized)editor.toggleEditor();
- else console.log("Editor is not initialized");
+  if(editorInitialized)editor.toggleEditor();
+  else console.log("Editor is not initialized");
 }
 
 function remove(i){

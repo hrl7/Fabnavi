@@ -11,17 +11,17 @@ function init(){
 
 function setLocalData(key,jsonData) {
   var data = {};
-  if(Director.mode() == 1){
-    data["add"] = jsonData;
-    var res = getLocalData(key);
-    if(res && res.hasOwnProperty("play"))data["play"] = res.play;
-  } else {
+  if(Director.mode() == 0){
     data["play"] = jsonData;
     var res = getLocalData(key);
     if(res && res.hasOwnProperty("add"))data["add"] = res.add;
+  } else {
+    data["add"] = jsonData;
+    var res = getLocalData(key);
+    if(res && res.hasOwnProperty("play"))data["play"] = res.play;
+    var d = data.toSource();
+    localStorage.setItem(key,d);
   }
-  var d = data.toSource();
-  localStorage.setItem(key,d);
 }
 
 function getLocalData(key) {

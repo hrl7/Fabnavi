@@ -57,7 +57,6 @@ function initAsPlayMode(){
 function initAsAddMode(){
   Camera.init();
   localImageList = CachableImageList();
-//  showingImageList.initEditor();
   localImageList.initEditor();
   queueingImageList = localImageList;
   showingImageList = localImageList;
