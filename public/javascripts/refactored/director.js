@@ -147,8 +147,9 @@ function shoot(){
   MainView.showShootingMessage();
   Camera.shoot().then(function(url){
       redraw();
-      showingImageList.push(url);
+      var res = showingImageList.push(url);
       nextPage();
+      ImageUploadQueue.push(res);
   });
 }
 

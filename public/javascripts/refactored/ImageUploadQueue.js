@@ -2,13 +2,20 @@
 THUMBNAIL_WIDTH = 440;
 THUMBNAIL_HEIGHT = 320;
 
-function WorkQueue(){
+var ImageUploadQueue = function ImageUploadQueue(){
   var queue = [],
       runninng=false,
       timer = null
   ;
 
+/**
+ *  @params obj 
+ *      Object.img.src
+ *      Object.loadedImg
+ *
+ */
 function push (obj) {
+ console.log("Pushed : "+obj);
   queue.push(obj);
 }
 
@@ -81,7 +88,7 @@ function cropAndConvertImageToDataURLDeferred(img) {
 function convertImgToDataURL(cvs){
   notice("Converting...");
   var ctx = cvs.getContext('2d');
-  return ctx.toDataURL("image/jpeg").substring(23));
+  return ctx.toDataURL("image/jpeg").substring(23);
 }
 
 function generateThumbnailURL(url){
@@ -101,8 +108,8 @@ function updateURLList(resultUrl,url,isThumbnail){
   notice("Posting Playlist Files...");
   Server.savePlaylist();
   notice("Posted Playlist Files!!");
-  queue.queue.splice(0,1);
-  queue.runninng = false;
+  queue.splice(0,1);
+  runninng = false;
   d.resolve();
   return d.promise();
 }
@@ -137,12 +144,15 @@ function postPicture(data,localImageURL){
 }
 
 return {
+  push:push,
+  fire:fire,
 
 };
 }();
+
 var notice = function(mes){
   noticeElem = document.getElementById('notice') ; 
-  var str = mes + ". There're "+queue.queue.length +" tasks.";
+  var str = mes + ". There're "+queue.length +" tasks.";
   if(__DEBUG__&&noticeElem)noticeElem.textContent = str;
   else if(__DEBUG__)document.title =  str;
 }

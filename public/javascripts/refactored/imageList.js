@@ -35,8 +35,9 @@ function pushImageURL(obj){
 }
 
 function pushLocalImageWithURL(url){
-  var c = pushImageURL({localURL:url});
-  if(editorInitialized)editor.update(c);
+  var res = pushImageURL({localURL:url});
+  if(editorInitialized)editor.update(res);
+  return res;
 }
 
 function pushImageUrlRecursively(images,i){
@@ -225,6 +226,7 @@ return {
   remove:remove,
   index:getIndex,
   setEditorInitialized:setEditorInitialized,
+  get:get,
 };
 
 };
