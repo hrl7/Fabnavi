@@ -17,7 +17,6 @@ gem 'rake'
 gem 'slim'
 gem 'bcrypt'
 gem 'activerecord', '>= 3.1', :require => 'active_record'
-gem 'pg'
 gem 'sass'
 gem 'haml'
 
@@ -38,6 +37,9 @@ gem 'padrino', '0.12.1'
 #
 gem 'resque'
 gem 'aws-sdk'
+group :production do
+  gem 'pg'
+end 
 group :development do
   gem 'better_errors'
   gem 'sqlite3'
