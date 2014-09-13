@@ -34,7 +34,7 @@ Gdworker::App.controllers :project do
     index = params[:thumbnail]
     project_name = params[:project_id]
     author = params[:author]
-    proj = Project.joins(:author).readonly(false).where(:project_name => project_name, :authors => {:name => author}).first
+    proj = Project.joins(:author).readonly(false).where(:project_name => project_name, :authors => {:name => author})
     proj.thumbnail_picture_id = index.to_i+1
     proj.save
   end 
@@ -76,5 +76,20 @@ Gdworker::App.controllers :project do
       flash[:notice] = "Project name is Duplicated. Change project name"
       render "project/newProject"
     end
+  end
+
+  post "/status" do
+    puts params.to_json
+    if proj = Project.find_project(session[:authorName],session[:projectName]) then
+      puts proj.to_json
+      proj.status = 0
+      proj.status = 1 if params[:status] == "Public"
+      proj.project_name = params[:ProjectName] unless params[:ProjectName] == session[:projectName]
+      if proj.save then
+        redirect_to "/"
+      else 
+        redirect_to "/status/"+session[:authorName] + "/" + session[:projectName]
+      end 
+    end 
   end
 end

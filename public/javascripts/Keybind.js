@@ -17,18 +17,23 @@
            ProjectList.next();
            break;
          }
-         case 80 : 
          case 13: {
            ProjectList.fire();
            break;
          }
+         case 80 : /* Play */
+         {
+           ProjectList.play();
+           break;
+         }
          case 65 :/* Add */
          {
+           ProjectList.add();
            break;
          }
          case 69 :/* Edit */
          {
-
+           ProjectList.edit();
            break;
          }
          case 104:
@@ -46,6 +51,7 @@
          case 68 :/* delete */
          case 46 :
          {
+           ProjectList.del();
            break;
          }
          case 78 :/* New Proj*/
@@ -67,7 +73,7 @@
          case 103:
          case 27 : 
          {
-          returnToIndex();
+           returnToIndex();
            break;
          }
          case 37 :
@@ -155,6 +161,14 @@
          case 72 : {
            PlayController.info();
            break;
+         }
+         case 81 :{
+          if(confirm("Finish?")){
+            setTimeout(function(){
+              window.location.href = "/status/" + PlayConfig.author + "/" + PlayConfig.projectName;
+             },10);
+          }
+          break;
          }
          // Common Key Bind
          case 219:{

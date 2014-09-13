@@ -36,6 +36,28 @@ var ProjectList = {
         ProjectList.edit();
       }
     }
+
+    var projects = document.getElementsByTagName('li');
+    for(var i = 0; i< projects.length;i++){
+      projects[i].onclick = function(e){
+        console.log(e.originalTarget);
+        var target;
+        if(e.originalTarget.tagName != "LI"){
+          target = e.originalTarget.parentNode; 
+        } else {
+          target = e.originalTarget;
+        }
+        ProjectList.select(target);
+      }
+    }
+    var newProject;
+    if(newProject = document.getElementById('__newProject__')){
+      newProject.onclick = function(){
+        ProjectList.selectedId = "__newProject__";
+        ProjectList.play();
+      }
+    }
+
     ProjectList.select($('li')[0]);
     Keys.projectListKeyBind();
   },
@@ -82,16 +104,12 @@ var ProjectList = {
       ProjectList.selectedOpIndex = 3;
       return false;
     }
-    /* TODO 
-     * Separate this function
-     *
-     */
     var lst = document.getElementById(ProjectList.selectedId).childNodes;
     var inputIndex = 0;
     for(i in lst){
       var li = lst[i];
       if(li.tagName == "INPUT"){
-       li.className = li.className.replace(/selectedOp/,"");
+        li.className = li.className.replace(/selectedOp/,"");
         if(inputIndex == maybeIndex){
           li.className += " selectedOp";
           ProjectList.selectedOpIndex = maybeIndex;
@@ -107,7 +125,8 @@ var ProjectList = {
   },
 
   add : function () {
-    if(ProjectList.selectedId == "")return 0;
+    if(document.getElementById(ProjectList.selectedId).getElementsByClassName('addButton').length == 0)return 0;
+    ProjectList.selectOp(2);
     alert("Add photo");
     if(ProjectList.selectedId == "newProject"){
       return 0;
@@ -116,28 +135,32 @@ var ProjectList = {
   },
 
   play : function () {
-    if(ProjectList.selectedId == "")return 0;
     if(ProjectList.selectedId == "__newProject__"){
       window.location = "/new";
       return 0;
     }
+    if(document.getElementById(ProjectList.selectedId).getElementsByClassName('makeButton').length == 0)return 0;
+    ProjectList.selectOp(0);
     window.location += "project/"+ProjectList.selectedId;
   },
 
   edit : function () {
-    if(ProjectList.selectedId == "")return 0;
+    if(document.getElementById(ProjectList.selectedId).getElementsByClassName('editButton').length == 0)return 0;
+    ProjectList.selectOp(1);
     if(ProjectList.selectedId == "__newProject__"){
       window.location = "/new";
       return 0;
     }
     window.location += "edit/"+ProjectList.selectedId;
-   },
+  },
 
   del:function(){
-        if(confirm("are you sure to delete project :" + ProjectList.selectedId)){
-          e.originalTarget.parentElement.remove();
-          var data = ProjectList.selectedId.split('/');
-          $.get("/project/delete?project_id="+data[1]+"&author="+data[0]);
-        }
+    if(document.getElementById(ProjectList.selectedId).getElementsByClassName('deleteButton').length == 0)return 0;
+    ProjectList.selectOp(3);
+    if(confirm("are you sure to delete project :" + ProjectList.selectedId)){
+      e.originalTarget.parentElement.remove();
+      var data = ProjectList.selectedId.split('/');
+      $.get("/project/delete?project_id="+data[1]+"&author="+data[0]);
+    }
   }
 };

@@ -1,9 +1,9 @@
 __DEBUG__ = false;
 IS_CALIBRATION = false;
+IS_TESTABLE = false;
 var Fabnavi = {
   play:function () {
     __MODE__ = "play";
-    queue = new WorkQueue();
     PlayController.init(); 
     PlayController.play(PROJECT_DATA.projectName);
   },
@@ -11,6 +11,7 @@ var Fabnavi = {
     __MODE__ = "update";
     queue = new WorkQueue();
     CameraAPI.init();
+    RecordController.init();
     PlayController.init(); 
     RecordController.newProject();
     PlayController.play(PROJECT_DATA.projectName);

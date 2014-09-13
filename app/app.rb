@@ -36,6 +36,7 @@ module Gdworker
     end
 
     get '/' do
+      session[:projectName] = nil
       @email = session[:email] ||= "null"
       @name = "null"
       if not @email == "null" then
@@ -78,6 +79,17 @@ module Gdworker
       end
     end
 
+    get "/ref/:author/:project/" do
+      id = Project.find_project(params[:author],params[:project]).id
+      @picturesData= Picture.pictures_list(id)
+      @projectData = {:author=> params[:author],:projectName => params[:project]}
+      if @projectData == nil then
+        render 'errors/404'
+      else 
+        render 'project/ref'
+      end
+    end
+
     get "/edit/:author/:project/" do
       unless session[:authorName] == params[:author] then redirect_to '/'; return end
       id = Project.find_project(params[:author],params[:project]).id
@@ -89,7 +101,9 @@ module Gdworker
         render 'project/update'
       end
     end
+
     get "/new" do
+      session[:projectName] = nil
       if session[:authorName] == nil then
         redirect_to "/"
       else 
@@ -97,6 +111,15 @@ module Gdworker
         @authorName = session[:authorName]
         render 'project/newProject'
       end
+    end
+
+    get "/status/:author/:project" do
+      unless @authorName == params[:author] then return 0; end
+      if Project.find_project(@authorName,params[:project]).class == Project then
+        session[:projectName] = params[:project]
+        @projectName = params[:project]
+      end 
+      render 'project/status'
     end
 
     error 404 do

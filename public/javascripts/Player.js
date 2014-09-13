@@ -173,26 +173,48 @@
      return parameters;
    },
 
-   previous: function() {
-     if (PlayConfig.index == 0) {
-       PlayController.show(PlayConfig.imgURLs.length-1);
+   previous: function(forceChange) {
+     forceChange = forceChange || false;
+     if(IS_TESTABLE && PlayConfig.isTestShoot && forceChange){
+       if (RecordController.index == 0) {
+         PlayController.show(RecordController.imgURLs.length-1);
+       } else {
+         PlayController.show(Number(RecordController.index)-1);
+       }
      } else {
-       PlayController.show(Number(PlayConfig.index)-1);
+       if (PlayConfig.index == 0) {
+         PlayController.show(PlayConfig.imgURLs.length-1);
+       } else {
+         PlayController.show(Number(PlayConfig.index)-1);
+       }
      }
    },
 
-   next: function() {
-     if (PlayConfig.index == PlayConfig.imgURLs.length-1) {
-       PlayController.show(0);
-     } else {
-       PlayController.show(Number(PlayConfig.index)+1);
+   next: function(forceChange) {
+     forceChange = forceChange || false;
+     if(IS_TESTABLE && PlayConfig.isTestShoot && forceChange){
+       if (RecordController.index == RecordController.imgURLs.length-1) {
+         PlayController.show(0);
+       } else {
+         PlayController.show(Number(RecordController.index)+1);
+       }
+     }else {
+       if (PlayConfig.index == PlayConfig.imgURLs.length-1) {
+         PlayController.show(0);
+       } else {
+         PlayController.show(Number(PlayConfig.index)+1);
+       }
      }
    },
 
    show: function(index,force,freezeAspect) {
      if(force == undefined)force = false; 
      if(freezeAspect == undefined)freezeAspect = false;
-     PlayController.setPhoto(Number(index),force,freezeAspect);
+     if(IS_TESTABLE && PlayConfig.isTestShoot){
+       PlayController.setTestPhoto(Number(index));
+     }else {
+       PlayController.setPhoto(Number(index),force,freezeAspect);
+     }
      $("#arrow").text("");
      clearTimeout(PlayController.timerid);
      /* Annotations */
@@ -206,7 +228,31 @@
        }
      }
      PlayController.current_animation = null;
-     PlayConfig.index = Number(index);
+     if(IS_TESTABLE && PlayConfig.isTestShoot){
+       RecordController.index = Number(index);
+     } else {
+       PlayConfig.index = Number(index);
+     }
+   },
+
+   setTestPhoto : function(index ) {
+     var data = RecordController.imgURLs.get(index);
+     var url = data.img.src;
+     var img = data.img;
+     var isRaw = data.localURL ? true : false;
+     data.loadedImg.done(function(){
+         PlayController.ctx.clearRect(0,0,PlayController.cvs.width,PlayController.cvs.height);
+         PlayController.draw(img,isRaw);
+         PlayController.currentImg = img;
+         Ca.updateXYFromWH();
+         PlayController.currentURL = url;
+         PlayController.photoList.selectByName(url);
+         $("#counter").text((Number(index)+1)+"/"+PlayConfig.length);
+         $('#cvs').css('display','block');
+         $('#contents').show();
+     });
+     $('#photo').css('display','none');
+
    },
 
    setPhoto: function(index,force,freezeAspect) { /* force : force to reload image */

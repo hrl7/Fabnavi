@@ -1,9 +1,10 @@
+
 =partial 'layouts/header'
 =stylesheet_link_tag 'play','common'
-=javascript_include_tag 'jquery', 'common', 'Keybind','CachedImageList','WorkQueue','PlayConfig','Player','Calibrator','Recorder','CameraAPI','list','PhotoList', 'Fabnavi'
+=javascript_include_tag 'jquery', 'common' 
 body onload="Fabnavi.newProject()"
   #wizard
-    =form_tag '/project/new', :class => 'project-form', :method => 'POST' do
+    =form_tag '/project/status', :class => 'project-form', :method => 'POST' do
       =flash_tag :notice
       =field_set_tag do
         p
@@ -12,8 +13,12 @@ body onload="Fabnavi.newProject()"
         p
           =label_tag :Author
           =label_tag @authorName
+          =hidden_field_tag :author, :value=>@authorName
         p
           =label_tag :Description
           =text_area_tag :description, :value => @description||=""
+        p 
+          =label_tag :Status
+          =select_tag :status, :options=>["Private","Public"]
       =field_set_tag(:class => 'buttons') do
-        =submit_tag "Create Project",:id => "newButton"
+        =submit_tag "Update",:id => "newButton"
