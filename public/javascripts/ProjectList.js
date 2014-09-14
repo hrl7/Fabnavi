@@ -63,7 +63,7 @@ var ProjectList = {
   },
 
   select : function (target) {
-    if(target.tagName != "LI")return 0;
+    if(!target ||  target.tagName != "LI")return 0;
     $('li').removeClass('selectedItem');
     target.className = 'selectedItem';
     ProjectList.selectedId = target.id;
