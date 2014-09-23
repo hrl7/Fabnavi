@@ -4,10 +4,10 @@ var ImageConverter = function(){
 
     var ctx = cvs.getContext('2d'),
   /* set cropping area on image  */
-  sx = Number(conf.x),
-  sy = Number(conf.y),
-  sw = Number(conf.w),
-  sh = Number(conf.h),
+  sx = Number(conf.x) || 0,
+  sy = Number(conf.y) || 0,
+  sw = Number(conf.w) || img.width,
+  sh = Number(conf.h) || img.height,
 
   /* set project area */ 
   dx = 0,

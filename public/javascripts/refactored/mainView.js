@@ -9,6 +9,10 @@ function init (){
   initCanvas();
 }
 
+function getCtx(){
+  return ctx;
+}
+
 function initCanvas(){
   cvs = document.getElementById('cvs');
   ctx = cvs.getContext('2d');
@@ -67,6 +71,7 @@ return {
   clear:clear,
   redraw:redraw,
   showShootingMessage:drawShootingMessage,
+  getCtx:getCtx,
 };
 
 }();
