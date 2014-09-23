@@ -43,6 +43,7 @@ function commonKeyMap() {
   keyMap[37] = Director.prevPage;
   keyMap[99] = Director.prevPage;
   keyMap[68] = Director.toggleConsole;
+  keyMap[27] = Director.exit;
 }
 
 function clearKeyMap(){

@@ -25,20 +25,19 @@ function init (_mode){
   ViewConfig.init();
   CalibrateController.init();
 
-
   /*  Initialize each Mode   */
   switch(mode){
     case 0:
-      initAsPlayMode();
-      break;
+    initAsPlayMode();
+    break;
     case 1:
-      initAsAddMode();
-      break;
+    initAsAddMode();
+    break;
     case 2:
-      initAsEditMode();
-      break;
+    initAsEditMode();
+    break;
     default:
-      break
+    break
   }
 
   /*  After   */
@@ -172,6 +171,14 @@ function removePage(){
   }
 }
 
+function exitProject(){
+  if(confirm("Are you sure to exit this page?")){
+    setTimeout(function(){
+        window.location.pathname = "/";
+    },10);
+  }
+}
+
 return {
   init:init,
   mode:getModeInt,
@@ -190,5 +197,6 @@ return {
   updateShowingImageList:updateShowingImageList,
   removePage:removePage,
   reloadPage:reloadPage,
+  exit:exitProject,
 };
 }();
