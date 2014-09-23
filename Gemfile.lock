@@ -83,7 +83,6 @@ GEM
       padrino-core (= 0.12.1)
     padrino-support (0.12.1)
       activesupport (>= 3.1)
-    pg (0.17.1)
     polyglot (0.3.4)
     rack (1.5.2)
     rack-protection (1.5.3)
@@ -141,7 +140,6 @@ DEPENDENCIES
   binding_of_caller
   haml
   padrino (= 0.12.1)
-  pg
   rack-test
   rake
   resque

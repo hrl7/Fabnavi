@@ -17,7 +17,6 @@ gem 'rake'
 gem 'slim'
 gem 'bcrypt'
 gem 'activerecord', '>= 3.1', :require => 'active_record'
-gem 'pg'
 gem 'sass'
 gem 'haml'
 
