@@ -14,7 +14,7 @@ var Fabnavi = function(){
   }
 
   function add(){
-    director.init("add");
+    Director.init("add");
   }
 
   function edit(){
@@ -22,6 +22,9 @@ var Fabnavi = function(){
   }
 
   return {
+    play:play,
+    add:add,
+    edit:edit,
     run:run
   };
 }();

@@ -75,7 +75,7 @@ module Gdworker
       if @projectData == nil then
         render 'errors/404'
       else 
-        render 'project/update'
+        render 'project/add'
       end
     end
 
@@ -98,7 +98,7 @@ module Gdworker
       if @projectData == nil then
         render 'errors/404'
       else 
-        render 'project/update'
+        render 'project/edit'
       end
     end
 
