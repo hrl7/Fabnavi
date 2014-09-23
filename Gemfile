@@ -19,6 +19,7 @@ gem 'bcrypt'
 gem 'activerecord', '>= 3.1', :require => 'active_record'
 gem 'sass'
 gem 'haml'
+gem 'pg'
 
 # Test requirements
 gem 'rspec', :group => 'test'
@@ -37,11 +38,7 @@ gem 'padrino', '0.12.1'
 #
 gem 'resque'
 gem 'aws-sdk'
-group :production do
-  gem 'pg'
-end 
 group :development do
   gem 'better_errors'
-  gem 'sqlite3'
   gem 'binding_of_caller'
 end
