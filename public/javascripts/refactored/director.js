@@ -53,6 +53,7 @@ function init (_mode){
 function initAsPlayMode(){
   showingImageList = ImageList;
 }
+
 function initAsAddMode(){
   Camera.init();
   localImageList = CachableImageList();
