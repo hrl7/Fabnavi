@@ -1,21 +1,6 @@
 = partial 'layouts/header'
 =stylesheet_link_tag 'refactored','jquery-ui','jquery-uistructure','jquery-uitheme'
-=javascript_include_tag 'jquery',
-  'jquery-ui/jquery-ui.js',
-  'refactored/imageConverter',
-  'refactored/imageList',
-  'refactored/detail',
-  'refactored/viewConfig',
-  'refactored/ThumbnailViewer',
-  'refactored/key',
-  'refactored/camera',
-  'refactored/server',
-  'refactored/CalibrateController',
-  'refactored/ImageUploadQueue',
-  'refactored/UIPanel',
-  'refactored/director',
-  'refactored/mainView',
-  'refactored/fabnavi'
+= partial 'layouts/include'
 body onload="Fabnavi.edit()"
   = partial 'layouts/ref_content',:locals=> {:project => @projectData,:pictures=>@picturesData}
 
