@@ -5,12 +5,14 @@ function CachableImageList(){
       index = 0,
       d,
       editor,
-      editorInitialized = false
+      editorInitialized = false,
+      length = 0
   ;
 
 d = $.Deferred();
 
 function initWithURLArray(array){
+  length = array.length;
   pushImageUrlRecursively(array);
 }
 
@@ -137,7 +139,7 @@ function debugErrorFn(d){
 }
 
 function getLength(){
-  return list.length;
+  return length;
 }
 
 function getProgress(){

@@ -35,6 +35,16 @@ body {
   display:none;
 }
 
+#counter {
+  position:fixed;
+  left:400px;
+  top:400px;
+  z-index:2;
+  color:red;
+  font-size:30px;
+}
+
+
 
 
 #panel {

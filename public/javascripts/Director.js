@@ -7,10 +7,12 @@ var Director = function(){
       localImageList,
       showingImageList,
       queueingImageList,
-      mode = null
+      mode = null,
+      counter
   ;
 
 function init (_mode){
+  counter = document.getElementById("counter");
   mode = modeList.indexOf(_mode);
   if(mode == -1){
     new Error("mode is invalid");
@@ -108,6 +110,7 @@ function reloadPage(){
 }
 
 function showPage(){
+ counter.textContent = showingImageList.index() + 1 + "/" + showingImageList.length(); 
   var deferredImage;
   if(deferredImage = showingImageList.getDeferredImage()){
     // redraw();
