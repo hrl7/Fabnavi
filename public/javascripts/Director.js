@@ -110,8 +110,7 @@ function reloadPage(){
 function showPage(){
   var deferredImage;
   if(deferredImage = showingImageList.getDeferredImage()){
-   console.log(deferredImage);
-    //    redraw();
+    // redraw();
     MainView.clear();
     MainView.showWaitMessage();
     deferredImage.then(function(img){
@@ -135,7 +134,7 @@ function toggleEditor() {
 }
 
 /* recorder interface */
-function switchShoingList(){
+function switchShowingList(){
   if(showingImageList == ImageList){
     showingImageList = localImageList;
   } else {
@@ -151,10 +150,8 @@ function shoot(){
       Camera.shoot().then(function(url){
           redraw();
           var res = showingImageList.push(url);
-          setTimeout(function(){
           nextPage();
           ImageUploadQueue.push(res);
-         },200);
       });
   }).fail(function(){
       alert("Please Connect to Camera");
@@ -200,7 +197,7 @@ return {
   redraw:redraw,
   toggleConsole:toggleConsole,
   shoot:shoot,
-  toggleShowingList:switchShoingList,
+  toggleShowingList:switchShowingList,
   toggleEditor:toggleEditor,
   list:getShowingImageList,
   updateShowingImageList:updateShowingImageList,

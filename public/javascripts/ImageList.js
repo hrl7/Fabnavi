@@ -113,7 +113,6 @@ function createObject(obj){
 }
 
 function generateRecTimer(obj){
- console.log("Generate Timer Rec");
       return  window.setTimeout(function(){
         obj.img.src = "";
         obj.img.crossOrigin = "anonymous";
@@ -126,8 +125,6 @@ function generateRecTimer(obj){
 
 function debugSuccessFn(d,arg){
   return function(e){
-   console.log("LOADED!!");
-   console.log(arg);
     if(d != undefined)d.resolve(arg.img);
     window.clearTimeout(arg.timer);
   }
@@ -176,7 +173,6 @@ function prevPage(){
 }
 
 function loadImage(){
- console.log(index);
   if(list.length != 0)return list[index].loadedImg;
   else return false;
 }
@@ -211,8 +207,6 @@ function toggleEditor(){
 
 function remove(i){
   list.splice(i,1);
-  console.log(index);
-  console.log(list.length);
   if(index >= list.length)index = list.length - 1;
   if(editorInitialized){
    editor.update();
