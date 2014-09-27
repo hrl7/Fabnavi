@@ -110,7 +110,8 @@ function reloadPage(){
 function showPage(){
   var deferredImage;
   if(deferredImage = showingImageList.getDeferredImage()){
-    redraw();
+    //    redraw();
+    MainView.clear();
     MainView.showWaitMessage();
     deferredImage.then(function(img){
         MainView.draw(img);
@@ -143,13 +144,17 @@ function switchShoingList(){
 }
 
 function shoot(){
-  redraw();
-  MainView.showShootingMessage();
-  Camera.shoot().then(function(url){
+  Camera.ping().done(function(){
       redraw();
-      var res = showingImageList.push(url);
-      nextPage();
-      ImageUploadQueue.push(res);
+      MainView.showShootingMessage();
+      Camera.shoot().then(function(url){
+          redraw();
+          var res = showingImageList.push(url);
+          nextPage();
+          ImageUploadQueue.push(res);
+      });
+  }).fail(function(){
+      alert("Please Connect to Camera");
   });
 }
 

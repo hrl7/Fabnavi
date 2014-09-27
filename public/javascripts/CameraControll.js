@@ -1,7 +1,7 @@
 
 var Camera = function() {
- var connected = false,
-     heartbeat = null;
+  var connected = false,
+      heartbeat = null;
 
   function init () {
     if(document.sonycameracontroller == undefined){
@@ -13,17 +13,8 @@ var Camera = function() {
     document.sonycameracontroller.setup({ipaddress: "10.0.0.1", port: 10000, version: "1.0"},false,true);
 
     heartbeat = window.setInterval(function(){
-        ping().done(function(){
-            connected = true;
-        }).fail(function(){
-            connected = false;
-        });
+        ping();
     },5000);
-    ping().done(function(){
-        connected = true;
-    }).fail(function(){
-        connected = false;
-    });
     return true;
   }
 
@@ -39,16 +30,16 @@ var Camera = function() {
 
   function shoot () {
     var d = $.Deferred();
-    if(connected){
-      var listener = 
-      function (url,res) {
-        d.resolve(url);
-      };
-      document.sonycameracontroller.take(listener);
-    } else {
-      alert("Please Connect to Camera");
-      d.reject();
-    }
+    var t = window.setTimeout(function(){
+        d.reject("Camera Not Respond");        
+    },3000);
+    var listener = 
+    function (url,res) {
+      window.clearTimeout(t);
+      d.resolve(url);
+    };
+    document.sonycameracontroller.take(listener);
+
     return d.promise();
   }
 
@@ -58,10 +49,12 @@ var Camera = function() {
       var r = new XMLHttpRequest();
       var t = window.setTimeout(function(){
           r.abort();
+          connected = false;
           d.reject(false);
       },2000);
       r.onload = function(e){
         window.clearTimeout(t);
+        connected = true;
         d.resolve(true);
       };
       r.open("GET","http://10.0.0.1:10000",true);
