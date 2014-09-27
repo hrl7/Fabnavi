@@ -19,6 +19,7 @@
 #panel{
  position:fixed;
  left:20px;
+ top:20px;
   z-index:2;
   background-color:rgba(0,0,0,0.6);
 }
@@ -44,13 +45,6 @@ body {
   font-size:30px;
 }
 
-
-
-
-#panel {
- left:50px;
-}
-
 .data {
   user-select:none;
 }
@@ -63,6 +57,3 @@ tr {
 td {
   user-select:none;
 }
-
-
-
