@@ -60,9 +60,9 @@ function updateImageList(){
 
 function generateNode(index){
   var node = document.createElement("li");
-  var thumb = document.createElement("img");
-  thumb.src = list[index].thumbnailURL || list[index].globalURL || list[index].localURL;
+  var thumb = list[index].img.cloneNode();
   node.idURL= list[index].globalURL || list[index].localURL;
+  thumb.src = list[index].thumbnailURL || list[index].globalURL || list[index].localURL;
   thumb.width = thumbnailWidth;
   thumb.height = thumbnailHeight;
   thumb.draggable = true;

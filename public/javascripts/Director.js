@@ -110,6 +110,7 @@ function reloadPage(){
 function showPage(){
   var deferredImage;
   if(deferredImage = showingImageList.getDeferredImage()){
+   console.log(deferredImage);
     //    redraw();
     MainView.clear();
     MainView.showWaitMessage();
@@ -150,8 +151,10 @@ function shoot(){
       Camera.shoot().then(function(url){
           redraw();
           var res = showingImageList.push(url);
+          setTimeout(function(){
           nextPage();
           ImageUploadQueue.push(res);
+         },200);
       });
   }).fail(function(){
       alert("Please Connect to Camera");

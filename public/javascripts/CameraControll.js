@@ -36,7 +36,9 @@ var Camera = function() {
     var listener = 
     function (url,res) {
       window.clearTimeout(t);
-      d.resolve(url);
+      setTimeout(function(){
+        d.resolve(url);
+     },100);
     };
     document.sonycameracontroller.take(listener);
 

@@ -2,6 +2,8 @@ var ImageConverter = function(){
 
   function projectImgToCanvas(img,cvs,conf){
 
+   console.trace();
+   console.log(img);
     var ctx = cvs.getContext('2d'),
   /* set cropping area on image  */
   sx = Number(conf.x) || 0,

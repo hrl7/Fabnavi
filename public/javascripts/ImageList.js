@@ -94,15 +94,16 @@ function createObject(obj){
     obj.img = new Image();
     if(obj.hasOwnProperty("localURL")){
       var d = $.Deferred();
+      obj.timer = generateRecTimer(obj);
       obj.img.crossOrigin = "anonymous";
-      obj.img.onload = debugSuccessFn(d,obj.img);
+      obj.img.onload = debugSuccessFn(d,obj);
       obj.img.onerror = debugErrorFn(d);
       obj.img.src = obj.localURL;
       obj.loadedImg = d.promise();
     } else if(obj.hasOwnProperty("globalURL")){
       obj.img.src = obj.globalURL;
       var d = $.Deferred();
-      obj.img.onload = debugSuccessFn(d,obj.img);
+      obj.img.onload = debugSuccessFn(d,obj);
       obj.img.onerror = debugErrorFn(d);
       obj.img.src = obj.globalURL;
       obj.loadedImg = d.promise();
@@ -111,10 +112,24 @@ function createObject(obj){
   return obj;
 }
 
+function generateRecTimer(obj){
+ console.log("Generate Timer Rec");
+      return  window.setTimeout(function(){
+        obj.img.src = "";
+        obj.img.crossOrigin = "anonymous";
+        obj.img.onload = debugSuccessFn(d,obj);
+        obj.img.onerror = debugErrorFn(d);
+        obj.img.src = obj.localURL;
+        obj.timer = generateRecTimer(obj);
+      },3000);
+}
 
 function debugSuccessFn(d,arg){
   return function(e){
-    if(d != undefined)d.resolve(arg);
+   console.log("LOADED!!");
+   console.log(arg);
+    if(d != undefined)d.resolve(arg.img);
+    window.clearTimeout(arg.timer);
   }
 }
 
@@ -161,6 +176,7 @@ function prevPage(){
 }
 
 function loadImage(){
+ console.log(index);
   if(list.length != 0)return list[index].loadedImg;
   else return false;
 }
