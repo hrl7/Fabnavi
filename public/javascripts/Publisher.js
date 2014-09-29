@@ -5,14 +5,13 @@ var Publisher = function(){
       currentTopicIndex = 0
   ;
 
-  setInterval(function(){
-    console.log("Called" ,length,currentTopicIndex);
+setInterval(function(){
     currentTopicIndex++;
     if(currentTopicIndex >= length)currentTopicIndex = 0;
-   },3001);
+},3001);
 
 function subscribe(topic,content,callback){
- if(topics.hasOwnProperty(topic))return false;
+  if(topics.hasOwnProperty(topic))return false;
   topics[topic] = {content:content,context:this,callback:callback||null};
   length++;
 }
@@ -21,7 +20,7 @@ function subscribe(topic,content,callback){
 function update(topic,content){
   if(topics.hasOwnProperty(topic)){
     topics[topic].content = content;
- }
+  }
 }
 
 function unsubscribe(topic){
@@ -31,15 +30,20 @@ function unsubscribe(topic){
 }
 
 function publish(){
-  console.log("Published "+length+" cases----------------");
+  var res = "";
+  res += "Published "+length+" cases----------------\n";
   for(s in topics){
-    console.log(s,s.content);
+    res += s + " " + s.content + "\n";
   }
+  return res;
+}
+
+function dbg(){
+  console.log(publish());
 }
 
 function getOneLineTopic(i){
   i = i||currentTopicIndex;
-  console.log(i);
   if(length > i){
     var cnt = 0;
     for(topic in topics){
@@ -57,5 +61,6 @@ return {
   update:update,
   publish:publish,
   getOneLineTopic:getOneLineTopic,
+  dbg:dbg,
 };
 }();
