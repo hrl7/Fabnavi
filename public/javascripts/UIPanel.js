@@ -5,14 +5,16 @@ var UIPanel =  function () {
       mainPanel,
 
   /* Buttons  */
-      zoomInBtn,
-      zoomOutBtn,
-      aspBtn,
-      saveConfigBtn,
-      isShowPanel
+  zoomInBtn,
+  zoomOutBtn,
+  aspBtn,
+  saveConfigBtn,
+  isShowPanel
   ;
 
 function init(){
+  Publisher.subscribe("Mode","Normal");
+
   mainPanel = document.getElementById('panel');
   editContents = document.getElementById('editProject');
   propertyContents = document.getElementById('property');
@@ -32,8 +34,8 @@ function init(){
   setCalibrateMode();
 
   setInterval(function(){
-    document.title = Publisher.getOneLineTopic(); 
-   },1000);
+      document.title = Publisher.getOneLineTopic(); 
+  },500);
 }
 
 function setCalibrateMode(){
@@ -41,6 +43,7 @@ function setCalibrateMode(){
   editContents.className = "hide";
   calibrateContents.className = "show";
   CalibrateController.addMouseEvent();
+  Publisher.update("Mode","Calibrate");
 }
 
 function setEditMode(){
@@ -48,6 +51,7 @@ function setEditMode(){
   editContents.className = "show";
   calibrateContents.className = "hide";
   CalibrateController.removeMouseEvent();
+  Publisher.update("Mode","Edit");
 }
 
 function setNormalMode(){
@@ -55,6 +59,7 @@ function setNormalMode(){
   calibrateContents.className = "hide";
   editContents.className = "hide";
   CalibrateController.removeMouseEvent();
+  Publisher.update("Mode","Normal");
 }
 
 function hideUIPanel(){

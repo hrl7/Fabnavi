@@ -55,10 +55,12 @@ function getConfig(){
 
 function saveConfig(){
   setLocalConfig(Detail.projectName());
+  Publisher.unsubscribe("Config");
 }
 
 function setConfig(conf){
   _conf = normalize(conf);
+  Publisher.subscribe("Config","Not Saved");
 }
 
 function normalize(conf){

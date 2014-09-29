@@ -19,10 +19,13 @@ function subscribe(topic,content,callback){
 
 
 function update(topic,content){
-
+  if(topics.hasOwnProperty(topic)){
+    topics[topic].content = content;
+ }
 }
 
 function unsubscribe(topic){
+  if(topics.hasOwnProperty(topic))delete topics[topic];
   length--;
 
 }
@@ -44,7 +47,7 @@ function getOneLineTopic(i){
       cnt++;
     }
   } 
-  return "No Topics";
+  return "Fabnavi";
 }
 
 

@@ -13,6 +13,7 @@ d = $.Deferred();
 
 function initWithURLArray(array){
   length = array.length;
+  Publisher.subscribe("Loading","0/"+length);
   pushImageUrlRecursively(array);
 }
 
@@ -46,11 +47,13 @@ function pushImageUrlRecursively(images,i){
   i = i || 0;
   if(i >= images.length){
     d.resolve(list);
+    Publisher.unsubscribe("Loading");
     return 0;
   }
   var image = images[i];
   var res = pushImageURL({globalURL:image.url,thumbnailURL:image.thumbnail_url});
   res.loadedImg.then(function(){
+      Publisher.update("Loading",i+1+"/"+length);
       pushImageUrlRecursively(images,i+1);
   });
 }
