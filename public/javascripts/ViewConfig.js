@@ -19,9 +19,9 @@ function setLocalData(key,jsonData) {
     data["add"] = jsonData;
     var res = getLocalData(key);
     if(res && res.hasOwnProperty("play"))data["play"] = res.play;
-    var d = data.toSource();
-    localStorage.setItem(key,d);
   }
+  var d = data.toSource();
+  localStorage.setItem(key,d);
 }
 
 function getLocalData(key) {
@@ -50,7 +50,7 @@ function setLocalConfig(id) {
 }
 
 function getConfig(){
-  return _conf;
+  return normalize(_conf);
 }
 
 function saveConfig(){
@@ -58,7 +58,16 @@ function saveConfig(){
 }
 
 function setConfig(conf){
-  _conf = conf;
+  _conf = normalize(conf);
+}
+
+function normalize(conf){
+  var res = {};
+  for(c in conf){
+    if(isNaN(conf[c]))res[c] = 0;
+    else res[c] = Number(conf[c]);
+   }
+   return res;
 }
 
 return {

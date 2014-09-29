@@ -10,10 +10,21 @@ var CalibrateController = function () {
       drag = false,
       zi = false,
       zo = false,
-      as,
+      as=1,
       cvs,
       aspShift = false
   ;
+
+function dbg(){
+  console.log("x: "+x);
+  console.log("y: "+y);
+  console.log("w: "+w);
+  console.log("h: "+h);
+  console.log("cx: "+cx);
+  console.log("cy: "+cy);
+  console.log("lx: "+lx);
+  console.log("ly: "+ly);
+}
 
 function zoomIn  (_shift) {
   var shift = _shift | 10;
@@ -51,10 +62,10 @@ function moveRelatively(dx,dy){
 
 function loadFromViewConfig(){
   var conf = ViewConfig.conf();
-  x = conf.x;
-  y = conf.y;
-  w = conf.w;
-  h = conf.h;
+  x = conf.x || 0;
+  y = conf.y || 0;
+  w = conf.w || 1000;
+  h = conf.h || 1000; 
   validateWH();
 }
 
