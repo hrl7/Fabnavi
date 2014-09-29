@@ -30,6 +30,10 @@ function init(){
 
   initCalibrateButtons();
   setCalibrateMode();
+
+  setInterval(function(){
+    document.title = Publisher.getOneLineTopic(); 
+   },1000);
 }
 
 function setCalibrateMode(){
