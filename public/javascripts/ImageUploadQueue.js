@@ -34,6 +34,7 @@ function stop () {
 }
 
 function fire () {
+ console.log(queue);
   if(runninng){
     Publisher.unsubscribe("Upload");
     return 0;
@@ -56,6 +57,7 @@ function fire () {
     cachedImage.loadedImg
     .then(cropAndConvertImageToDataURL)
     .then(postPicture(url))
+    .then(updateURLList)
     .fail(function(e){
         console.log(e.toSource());
     });
@@ -70,10 +72,9 @@ function fire () {
  * @return {String (Deferred)}
  */
 
-function cropAndConvertImageToDataURL(arg) {
+function cropAndConvertImageToDataURL(img) {
  var d = $.Deferred();
  try{
-  var img = arg;
   var cvs = document.createElement('canvas');
   cvs.width = img.naturalWidth;
   cvs.height = img.naturalHeight;
@@ -104,13 +105,13 @@ function updateURLList(resultUrl,url,isThumbnail){
   notice("Image Posted!!!");
   var res = resultUrl.replace("\"","","g");
   if(isThumbnail){
-    PlayConfig.imgURLs.addThumbnailURLFromLocalURL(res,url);
+   Director.list().addThumbnailURLFromLocalURL(res,url);
   } else {
-    PlayConfig.imgURLs.addGlobalURLFromLocalURL(res,url);
+   Director.list().addGlobalURLFromLocalURL(res,url);
   }
-  if(__MODE__ != "Import")RecordController.updateList();
+//  RecordController.updateList();
   notice("Posting Playlist Files...");
-  Server.savePlaylist();
+  Server.postPlaylist();
   notice("Posted Playlist Files!!");
   queue.splice(0,1);
   runninng = false;

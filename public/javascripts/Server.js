@@ -15,7 +15,7 @@ var Server = function (){
     $.post("/project/postConfig",
       {
         project_id:Detail.projectName(),
-        data:JSON.stringify(ImageList.list()),
+        data:JSON.stringify(Director.list().list()),
         author:Detail.author()
       },
       function(){},

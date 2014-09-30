@@ -242,6 +242,8 @@ return {
   index:getIndex,
   setEditorInitialized:setEditorInitialized,
   get:get,
+  addGlobalURLFromLocalURL:addGlobalURLFromLocalURL,
+  addThumbnailURLFromLocalURL:addThumbnailURLFromLocalURL,
 };
 
 };
