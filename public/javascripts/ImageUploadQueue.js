@@ -25,7 +25,7 @@ function clear () {
 
 function start(){
   timer = setInterval(function(){
-    fire(); 
+      fire(); 
   },5000);
 }
 
@@ -62,9 +62,9 @@ function fire () {
       .then(cropAndConvertImageToDataURL(true))
       .then(postPicture(generateThumbnailURL(url)))
       .then(updateURLList(true)))
-     .done(function(a,b){
+    .done(function(a,b){
         queue.shift();
-    this.runninng = false;
+        this.runninng = false;
     })
     .fail(function(e){
         this.runninng = false;
@@ -82,23 +82,23 @@ function fire () {
 
 function cropAndConvertImageToDataURL(isThumbnail) {
   return function(img){
-  var d = $.Deferred();
-  try{
-    var cvs = document.createElement('canvas');
-    if(isThumbnail){
-    cvs.width = THUMBNAIL_WIDTH;
-    cvs.height = THUMBNAIL_HEIGHT;
-    } else {
-    cvs.width = img.naturalWidth;
-    cvs.height = img.naturalHeight;
-   }
-    ImageConverter.drawImage(img,cvs,ViewConfig.conf());
-    d.resolve(convertImgToDataURL(cvs));
-  } catch (e){
-    d.reject(e);
+    var d = $.Deferred();
+    try{
+      var cvs = document.createElement('canvas');
+      if(isThumbnail){
+        cvs.width = THUMBNAIL_WIDTH;
+        cvs.height = THUMBNAIL_HEIGHT;
+      } else {
+        cvs.width = img.naturalWidth;
+        cvs.height = img.naturalHeight;
+      }
+      ImageConverter.drawImage(img,cvs,ViewConfig.conf());
+      d.resolve(convertImgToDataURL(cvs));
+    } catch (e){
+      d.reject(e);
+    }
+    return d.promise();
   }
-  return d.promise();
- }
 }
 
 /**
@@ -116,24 +116,24 @@ function generateThumbnailURL(url){
 }
 
 function updateURLList(isThumbnail){
- return function(resultUrl,url){
-  var d = $.Deferred();
-  notice("Image Posted!!!");
-  var res = resultUrl.replace("\"","","g");
-  if(isThumbnail){
-    Director.list().addThumbnailURLFromLocalURL(res,url);
-  } else {
-    Director.list().addGlobalURLFromLocalURL(res,url);
+  return function(resultUrl,url){
+    var d = $.Deferred();
+    notice("Image Posted!!!");
+    var res = resultUrl.replace("\"","","g");
+    if(isThumbnail){
+      Director.list().addThumbnailURLFromLocalURL(res,url);
+    } else {
+      Director.list().addGlobalURLFromLocalURL(res,url);
+    }
+    //  RecordController.updateList();
+    notice("Posting Playlist Files...");
+    Server.postPlaylist();
+    notice("Posted Playlist Files!!");
+    //  queue.splice(0,1);
+    runninng = false;
+    d.resolve(url);
+    return d.promise();
   }
-  //  RecordController.updateList();
-  notice("Posting Playlist Files...");
-  Server.postPlaylist();
-  notice("Posted Playlist Files!!");
-//  queue.splice(0,1);
-  runninng = false;
-  d.resolve(url);
-  return d.promise();
-}
 }
 
 /** 

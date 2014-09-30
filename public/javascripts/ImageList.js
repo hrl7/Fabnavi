@@ -118,14 +118,14 @@ function createObject(obj){
 }
 
 function generateRecTimer(obj){
-      return  window.setTimeout(function(){
-        obj.img.src = "";
-        obj.img.crossOrigin = "anonymous";
-        obj.img.onload = debugSuccessFn(d,obj);
-        obj.img.onerror = debugErrorFn(d);
-        obj.img.src = obj.localURL;
-        obj.timer = generateRecTimer(obj);
-      },3000);
+  return  window.setTimeout(function(){
+      obj.img.src = "";
+      obj.img.crossOrigin = "anonymous";
+      obj.img.onload = debugSuccessFn(d,obj);
+      obj.img.onerror = debugErrorFn(d);
+      obj.img.src = obj.localURL;
+      obj.timer = generateRecTimer(obj);
+  },3000);
 }
 
 function debugSuccessFn(d,arg){
@@ -214,8 +214,8 @@ function remove(i){
   list.splice(i,1);
   if(index >= list.length)index = list.length - 1;
   if(editorInitialized){
-   editor.update();
-   editor.setPage(index);
+    editor.update();
+    editor.setPage(index);
   }
   Director.reloadPage();
 }

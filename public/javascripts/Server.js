@@ -26,4 +26,4 @@ var Server = function (){
     setThumbnail:setThumbnail,
     postPlaylist:postPlaylist,
   };
-}();
+  }();

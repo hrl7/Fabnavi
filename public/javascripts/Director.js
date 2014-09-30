@@ -62,7 +62,10 @@ function initAsAddMode(){
   localImageList.initEditor();
   queueingImageList = localImageList;
   showingImageList = localImageList;
-  showingImageList.initWithURLArray([]);
+  if(PICTURES_DATA.length == 0)
+    showingImageList.initWithURLArray([]);
+  else 
+    showingImageList = ImageList;
 }
 
 function initAsEditMode(){
@@ -110,7 +113,7 @@ function reloadPage(){
 }
 
 function showPage(){
- counter.textContent = showingImageList.index() + 1 + "/" + showingImageList.length(); 
+  counter.textContent = showingImageList.index() + 1 + "/" + showingImageList.length(); 
   var deferredImage;
   if(deferredImage = showingImageList.getDeferredImage()){
     MainView.clear();
