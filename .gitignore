@@ -6,3 +6,4 @@ db/development_database.db
 doc
 public/data
 public/stylesheets
+pstart.sh
