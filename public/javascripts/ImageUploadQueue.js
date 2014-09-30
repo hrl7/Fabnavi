@@ -34,7 +34,7 @@ function stop () {
 }
 
 function fire () {
- console.log(queue);
+  console.log(queue);
   if(runninng){
     Publisher.unsubscribe("Upload");
     return 0;
@@ -54,10 +54,19 @@ function fire () {
    */
   if(cachedImage.hasOwnProperty("loadedImg")){
     notice("Loading Image...");
-    cachedImage.loadedImg
-    .then(cropAndConvertImageToDataURL)
-    .then(postPicture(url))
-    .then(updateURLList)
+    $.when(
+      cachedImage.loadedImg
+      .then(cropAndConvertImageToDataURL(false))
+      .then(postPicture(url))
+      .then(updateURLList(false)),
+      cachedImage.loadedImg
+      .then(cropAndConvertImageToDataURL(true))
+      .then(postPicture(generateThumbnailURL(url)))
+      .then(updateURLList(true)))
+     .done(function(a,b){
+        console.log("COMPLETE");
+        console.log(a,b);
+    })
     .fail(function(e){
         console.log(e.toSource());
     });
@@ -72,18 +81,25 @@ function fire () {
  * @return {String (Deferred)}
  */
 
-function cropAndConvertImageToDataURL(img) {
- var d = $.Deferred();
- try{
-  var cvs = document.createElement('canvas');
-  cvs.width = img.naturalWidth;
-  cvs.height = img.naturalHeight;
-  ImageConverter.drawImage(img,cvs,ViewConfig.conf());
-  d.resolve(convertImgToDataURL(cvs));
- } catch (e){
-  d.reject(e);
+function cropAndConvertImageToDataURL(isThumbnail) {
+  return function(img){
+  var d = $.Deferred();
+  try{
+    var cvs = document.createElement('canvas');
+    if(isThumbnail){
+    cvs.width = THUMBNAIL_WIDTH;
+    cvs.height = THUMBNAIL_HEIGHT;
+    } else {
+    cvs.width = img.naturalWidth;
+    cvs.height = img.naturalHeight;
+   }
+    ImageConverter.drawImage(img,cvs,ViewConfig.conf());
+    d.resolve(convertImgToDataURL(cvs));
+  } catch (e){
+    d.reject(e);
+  }
+  return d.promise();
  }
- return d.promise();
 }
 
 /**
@@ -100,23 +116,25 @@ function generateThumbnailURL(url){
   return url.replace(/.JPG/,"_thumbnail.JPG");
 }
 
-function updateURLList(resultUrl,url,isThumbnail){
+function updateURLList(isThumbnail){
+ return function(resultUrl,url){
   var d = $.Deferred();
   notice("Image Posted!!!");
   var res = resultUrl.replace("\"","","g");
   if(isThumbnail){
-   Director.list().addThumbnailURLFromLocalURL(res,url);
+    Director.list().addThumbnailURLFromLocalURL(res,url);
   } else {
-   Director.list().addGlobalURLFromLocalURL(res,url);
+    Director.list().addGlobalURLFromLocalURL(res,url);
   }
-//  RecordController.updateList();
+  //  RecordController.updateList();
   notice("Posting Playlist Files...");
   Server.postPlaylist();
   notice("Posted Playlist Files!!");
   queue.splice(0,1);
   runninng = false;
-  d.resolve();
+  d.resolve(url);
   return d.promise();
+}
 }
 
 /** 
@@ -127,27 +145,27 @@ function updateURLList(resultUrl,url,isThumbnail){
  *  @return {Deferred}
  */
 function postPicture(localImageURL){
- return function(data){
-  notice("Posting Picture....");
-  var d = $.Deferred();
-  $.post("/project/postPicture",
-    { 
-      data:data,
-      project_id:Detail.projectName(),
-      author:Detail.author(),
-      url:localImageURL
-    },function(res,err){
-      if(err != "success"){
-        console.log(err);
-        notice("Error to post picture");
-        runninng = false;
-        d.reject(err);
-      } else {
-        d.resolve(res,localImageURL);
-      }
-  });
-  return d.promise();
- };
+  return function(data){
+    notice("Posting Picture....");
+    var d = $.Deferred();
+    $.post("/project/postPicture",
+      { 
+        data:data,
+        project_id:Detail.projectName(),
+        author:Detail.author(),
+        url:localImageURL
+      },function(res,err){
+        if(err != "success"){
+          console.log(err);
+          notice("Error to post picture");
+          runninng = false;
+          d.reject(err);
+        } else {
+          d.resolve(res,localImageURL);
+        }
+    });
+    return d.promise();
+  };
 }
 
 return {
@@ -158,6 +176,6 @@ return {
 }();
 
 var notice = function(mes){
- console.log("NOTICE=============",mes);
+  console.log("NOTICE=============",mes);
   Publisher.update("Upload",mes);
 }
