@@ -113,7 +113,6 @@ function showPage(){
  counter.textContent = showingImageList.index() + 1 + "/" + showingImageList.length(); 
   var deferredImage;
   if(deferredImage = showingImageList.getDeferredImage()){
-    // redraw();
     MainView.clear();
     MainView.showWaitMessage();
     deferredImage.then(function(img){
