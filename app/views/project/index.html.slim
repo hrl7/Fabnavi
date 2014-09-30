@@ -1,10 +1,10 @@
 =partial 'layouts/header'
 =stylesheet_link_tag 'fabnavi'
 script src="https://login.persona.org/include.js"
-=javascript_include_tag 'jquery', 'common','Keybind','ProjectList', 'Fabnavi'
+=javascript_include_tag 'jquery', 'Keybind','ProjectList'
 
 meta content="width=device-width user-scalable=no" name="viewport"
-body onload="Fabnavi.showProjectList()"
+body onload="ProjectList.init()"
   =partial 'layouts/statusbar',:locals => {:email=>@email,:name=>@name}
   img#title-logo src="images/fabnaviLogo.gif"
   #projectList

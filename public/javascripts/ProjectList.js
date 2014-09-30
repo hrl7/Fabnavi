@@ -1,39 +1,43 @@
-var ProjectList = {
-  selectedOpIndex:0,
-  init : function () {
+var ProjectList =  function(){
+  var selectedOpIndex = 0;
 
-  },
+  function init(){
+    load();
+    authInit();
+    KeyBind.init();
+  }
 
-  load :function () {
-    ProjectList.selectedId = "";
+  function load () {
+
+    selectedId = "";
     var makeButtons = document.getElementsByClassName('makeButton');
     for (var i = 0; i < makeButtons.length;i++){
       makeButtons[i].onclick = function(e){ 
-        ProjectList.selectedId = e.originalTarget.parentElement.id;
-        ProjectList.play();
+        selectedId = e.originalTarget.parentElement.id;
+        play();
       };
     }
 
     var deleteButtons = document.getElementsByClassName('deleteButton');
     for (var i = 0; i < deleteButtons.length;i++){
       deleteButtons[i].onclick = function(e){
-        ProjectList.selectedId = e.originalTarget.parentElement.id;
+        selectedId = e.originalTarget.parentElement.id;
 
       }
     }
     var addButtons = document.getElementsByClassName('addButton');
     for (var i = 0; i < addButtons.length;i++){
       addButtons[i].onclick = function(e){
-        ProjectList.selectedId = e.originalTarget.parentElement.id;
-        ProjectList.add();
+        selectedId = e.originalTarget.parentElement.id;
+        add();
       }
     }
 
     var editButtons = document.getElementsByClassName('editButton');
     for (var i = 0; i < editButtons.length;i++){
       editButtons[i].onclick = function(e){
-        ProjectList.selectedId = e.originalTarget.parentElement.id;
-        ProjectList.edit();
+        selectedId = e.originalTarget.parentElement.id;
+        edit();
       }
     }
 
@@ -47,64 +51,63 @@ var ProjectList = {
         } else {
           target = e.originalTarget;
         }
-        ProjectList.select(target);
+        select(target);
       }
     }
     var newProject;
     if(newProject = document.getElementById('__newProject__')){
       newProject.onclick = function(){
-        ProjectList.selectedId = "__newProject__";
-        ProjectList.play();
+        selectedId = "__newProject__";
+        play();
       }
     }
 
-    ProjectList.select($('li')[0]);
-    Keys.projectListKeyBind();
-  },
+    select($('li')[0]);
+  }
 
-  select : function (target) {
+  function select(target) {
     if(!target ||  target.tagName != "LI")return 0;
     $('li').removeClass('selectedItem');
     target.className = 'selectedItem';
-    ProjectList.selectedId = target.id;
-    ProjectList.selectOp(0);
-  },
+    selectedId = target.id;
+    selectOp(0);
+  }
 
-  prev : function () {
-    if(ProjectList.selectedId == "")return 0;
-    var s = document.getElementById(ProjectList.selectedId).previousElementSibling;
+  function prev  () {
+    if(selectedId == "")return 0;
+    var s = document.getElementById(selectedId).previousElementSibling;
     if(s == null)return 0;
-    ProjectList.select(s); 
-  },
+    select(s); 
+  }
 
-  next : function () {
-    if(ProjectList.selectedId == ""){
-      ProjectList.select($("li")[0]);
+  function next () {
+    if(selectedId == ""){
+      select($("li")[0]);
       return 0;
     }
-    var s = document.getElementById(ProjectList.selectedId).nextElementSibling;
+    var s = document.getElementById(selectedId).nextElementSibling;
     if(s == null)return 0;
-    ProjectList.select(s); 
-  },
+    select(s); 
+  }
 
-  up :function(){
-    ProjectList.selectOp(ProjectList.selectedOpIndex - 1);
-  },
+  function up(){
+    selectOp(selectedOpIndex - 1);
+  }
 
-  down :function(){
-    ProjectList.selectOp(ProjectList.selectedOpIndex + 1);
-  },
+  function down(){
+    selectOp(selectedOpIndex + 1);
+  }
 
-  selectOp:function(maybeIndex){
+  function selectOp(maybeIndex){
     if(!AUTHOR_NAME)return false;
     if(maybeIndex < 0){
-      ProjectList.selectedOpIndex = 0;
+      selectedOpIndex = 0;
       return false;
     } else if (maybeIndex > 3){
-      ProjectList.selectedOpIndex = 3;
+      selectedOpIndex = 3;
       return false;
     }
-    var lst = document.getElementById(ProjectList.selectedId).childNodes;
+    var lst = document.getElementById(selectedId).childNodes;
     var inputIndex = 0;
     for(i in lst){
       var li = lst[i];
@@ -112,56 +115,141 @@ var ProjectList = {
         li.className = li.className.replace(/selectedOp/,"");
         if(inputIndex == maybeIndex){
           li.className += " selectedOp";
-          ProjectList.selectedOpIndex = maybeIndex;
+          selectedOpIndex = maybeIndex;
         }
         inputIndex++; 
       }
     }
-  },
+  }
 
-  fire:function(){
+  function fire(){
     var lst = ['play','edit','add','del'];
-    ProjectList[lst[ProjectList.selectedOpIndex]]();
-  },
+    ProjectList[lst[selectedOpIndex]]();
+  }
 
-  add : function () {
-    if(document.getElementById(ProjectList.selectedId).getElementsByClassName('addButton').length == 0)return 0;
-    ProjectList.selectOp(2);
+  function newProject(){
+    alert("Stub");
+  }
+  function add () {
+    if(document.getElementById(selectedId).getElementsByClassName('addButton').length == 0)return 0;
+    selectOp(2);
     alert("Add photo");
-    if(ProjectList.selectedId == "newProject"){
+    if(selectedId == "newProject"){
       return 0;
     }
-    window.location += "add/"+ProjectList.selectedId;
-  },
+    window.location += "add/"+selectedId;
+  }
 
-  play : function () {
-    if(ProjectList.selectedId == "__newProject__"){
+  function play () {
+    if(selectedId == "__newProject__"){
       window.location = "/new";
       return 0;
     }
-    if(document.getElementById(ProjectList.selectedId).getElementsByClassName('makeButton').length == 0)return 0;
-    ProjectList.selectOp(0);
-    window.location += "project/"+ProjectList.selectedId;
-  },
+    if(document.getElementById(selectedId).getElementsByClassName('makeButton').length == 0)return 0;
+    selectOp(0);
+    window.location += "project/"+selectedId;
+  }
 
-  edit : function () {
-    if(document.getElementById(ProjectList.selectedId).getElementsByClassName('editButton').length == 0)return 0;
-    ProjectList.selectOp(1);
-    if(ProjectList.selectedId == "__newProject__"){
+  function edit () {
+    if(document.getElementById(selectedId).getElementsByClassName('editButton').length == 0)return 0;
+    selectOp(1);
+    if(selectedId == "__newProject__"){
       window.location = "/new";
       return 0;
     }
-    window.location += "edit/"+ProjectList.selectedId;
-  },
+    window.location += "edit/"+selectedId;
+  }
 
-  del:function(){
-   var elem = document.getElementById(ProjectList.selectedId);
+  function del(){
+    var elem = document.getElementById(selectedId);
     if(!elem || elem.getElementsByClassName('deleteButton').length == 0)return 0;
-    ProjectList.selectOp(3);
-    if(confirm("are you sure to delete project :" + ProjectList.selectedId)){
+    selectOp(3);
+    if(confirm("are you sure to delete project :" + selectedId)){
       elem.remove();
-      var data = ProjectList.selectedId.split('/');
+      var data = selectedId.split('/');
       $.get("/project/delete?project_id="+data[1]+"&author="+data[0]);
     }
   }
-};
+
+  function authInit(){
+    var signIn = document.getElementById('signin');
+    var signOut= document.getElementById('signout');
+    var author_name = document.getElementById('author_name');
+    var author_email = document.getElementById('author_email');
+    var avatar = document.getElementById('avatar');
+    var header = document.getElementById('header');
+    if(AUTHOR_EMAIL != null){
+      author_email.textContent = AUTHOR_EMAIL;
+      if(AUTHOR_NAME != null){
+        author_name.textContent = AUTHOR_NAME;
+        signIn.style.display = "none";
+        header.onclick = function(){
+          if(signOut.className == ""){
+            signOut.className = "show";
+          } else {
+            signOut.className = "";
+          }
+        };
+      }else {
+        header.className = "";
+      }
+
+    } else {
+      author_email.textContent = "Plese sign in with Persona";
+      signOut.style.display = "none";
+      author_name.className = "hide";
+      author_email.className = "hide";
+      avatar.className = "hide";
+      header.className = "hide";
+    }
+
+    if(signIn){
+      signIn.onclick = function(){navigator.id.request();};
+    }
+    if(signOut){
+      author_name.onclick = null;
+      signOut.onclick = function(){navigator.id.logout();};
+    }
+
+    navigator.id.watch({
+        loggedInEmail:AUTHOR_EMAIL,
+        onlogin: function(assertion){
+          $.ajax(
+            { type : 'POST',
+              url: '/auth/login',
+              data:{assertion:assertion},
+              success:function(res,status,xhr){
+                window.location = res;
+              },
+              error:function(res,status,xhr){
+                console.log(res);
+                alert("login failure" + res);
+              },
+          });
+        },
+
+        onlogout:function(){
+          $.ajax(
+            {type:'POST',
+              url:'/auth/logout',
+              success:function(res,status,xhr){window.location.reload();},
+              error:function(res,status,xhr){alert("logout failure" + res);},
+          });
+            }
+        });
+      }
+      return {
+        init:init,
+        prev:prev,
+        next:next,
+        fire:fire,
+        add:add,
+        play:play,
+        edit:edit,
+        up:up,
+        down:down,
+        del:del,
+        newProject:newProject,
+      }
+     }();
+

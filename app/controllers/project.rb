@@ -51,7 +51,7 @@ Gdworker::App.controllers :project do
     fileName =File.basename(/^http.*.(?i:JPG)/.match(url)[0])
     filePath = id+'/'+fileName
     puts filePath
-    save_pict_S3(filePath,pict)
+    save_pict_S3(filePath,pict) 
     "https://s3-ap-northeast-1.amazonaws.com/files.fabnavi/"+filePath
   end 
 

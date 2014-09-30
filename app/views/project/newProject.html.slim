@@ -1,7 +1,7 @@
 =partial 'layouts/header'
 =stylesheet_link_tag 'play','common'
-=javascript_include_tag 'jquery', 'common', 'Keybind','CachedImageList','WorkQueue','PlayConfig','Player','Calibrator','Recorder','CameraAPI','list','PhotoList', 'Fabnavi'
-body onload="Fabnavi.newProject()"
+=javascript_include_tag 'jquery'
+body onload=""
   #wizard
     =form_tag '/project/new', :class => 'project-form', :method => 'POST' do
       =flash_tag :notice
