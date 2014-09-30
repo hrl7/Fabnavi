@@ -25,7 +25,7 @@ function clear () {
 
 function start(){
   timer = setInterval(function(){
-      fire(); 
+    fire(); 
   },5000);
 }
 
@@ -34,18 +34,17 @@ function stop () {
 }
 
 function fire () {
-  console.log(queue);
   if(runninng){
-    Publisher.unsubscribe("Upload");
     return 0;
   }
-  Publisher.subscribe("Upload",queue.length+" images");
   runninng = true;
   if (queue.length < 1) {
+    Publisher.unsubscribe("Upload");
     runninng = false;
     notice("No task");
     return -1;
   }
+  Publisher.subscribe("Upload",queue.length+" images");
   var cachedImage = queue[0];
   var url = cachedImage.img.src;
   /* Original, thumbnail
@@ -64,14 +63,14 @@ function fire () {
       .then(postPicture(generateThumbnailURL(url)))
       .then(updateURLList(true)))
      .done(function(a,b){
-        console.log("COMPLETE");
-        console.log(a,b);
+        queue.shift();
+    this.runninng = false;
     })
     .fail(function(e){
+        this.runninng = false;
         console.log(e.toSource());
     });
   }
-  this.runninng = false;
 }
 
 /**
@@ -130,7 +129,7 @@ function updateURLList(isThumbnail){
   notice("Posting Playlist Files...");
   Server.postPlaylist();
   notice("Posted Playlist Files!!");
-  queue.splice(0,1);
+//  queue.splice(0,1);
   runninng = false;
   d.resolve(url);
   return d.promise();
@@ -171,7 +170,7 @@ function postPicture(localImageURL){
 return {
   push:push,
   fire:fire,
-
+  start:start,
 };
 }();
 
