@@ -155,10 +155,11 @@ var ProjectList = {
   },
 
   del:function(){
-    if(document.getElementById(ProjectList.selectedId).getElementsByClassName('deleteButton').length == 0)return 0;
+   var elem = document.getElementById(ProjectList.selectedId);
+    if(!elem || elem.getElementsByClassName('deleteButton').length == 0)return 0;
     ProjectList.selectOp(3);
     if(confirm("are you sure to delete project :" + ProjectList.selectedId)){
-      e.originalTarget.parentElement.remove();
+      elem.remove();
       var data = ProjectList.selectedId.split('/');
       $.get("/project/delete?project_id="+data[1]+"&author="+data[0]);
     }
