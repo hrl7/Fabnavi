@@ -71,7 +71,6 @@ function initAsAddMode(){
    } else {
     showingImageList = ImageList;
    }
-  
 }
 
 function initAsEditMode(){
@@ -82,6 +81,7 @@ function setCalibrateMode(){
  recordingMode = 1;
  calibrateLock = false; 
  switchShowingList(true);
+ MainView.showCalibrateLine();
 }
 
 function setAddMode(){
