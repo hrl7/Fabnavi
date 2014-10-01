@@ -2,22 +2,22 @@ function HideableDOM(id ){
   this.id = id;
   this.elem = document.getElementById(id);
   this.hide();
- }
+}
 HideableDOM.prototype = {
-    hide:function(){
-     this.elem.classList.remove("show");
-     this.elem.classList.add("hide");
-    },
-    show:function(){
-     this.elem.classList.remove("hide");
-     this.elem.classList.add("show");
-    },
-    text :function(){
-      return this.elem.textContent;
-    },
-    setText:function(str){
-      this.elem.innerHTML= str;
-    }
+  hide:function(){
+    this.elem.classList.remove("show");
+    this.elem.classList.add("hide");
+  },
+  show:function(){
+    this.elem.classList.remove("hide");
+    this.elem.classList.add("show");
+  },
+  text :function(){
+    return this.elem.textContent;
+  },
+  setText:function(str){
+    this.elem.innerHTML= str;
+  }
 };
 
 var UIPanel =  function () {
@@ -63,8 +63,8 @@ function init(){
 
   informationElement.show();
   setInterval(function(){
-    informationElement.setText(Publisher.publish());
-//    informationElement.setText(Publisher.getOneLineTopic());
+      informationElement.setText(Publisher.publish());
+      //    informationElement.setText(Publisher.getOneLineTopic());
       document.title = Publisher.getOneLineTopic(); 
   },500);
 }

@@ -79,6 +79,12 @@ function initAsEditMode(){
 function setCalibrateMode(){
  recordingMode = 1;
  calibrateLock = false; 
+ switchShowingList(false);
+}
+
+function setCropMode(){
+ recordingMode = 2;
+ calibrateLock = false; 
  switchShowingList(true);
  MainView.showCalibrateLine();
 }
@@ -181,7 +187,7 @@ function toggleEditor() {
 /* recorder interface */
 function switchShowingList(isLocalOnly){
   isLocalOnly = isLocalOnly || false;
-  if(isLocalOnly || showingImageList == ImageList){
+  if(isLocalOnly || (localImageList && showingImageList == ImageList)){
     showingImageList = localImageList;
   } else {
     showingImageList = ImageList;
@@ -245,8 +251,10 @@ return {
   redraw:redraw,
   toggleConsole:toggleConsole,
   shoot:shoot,
+
   toggleShowingList:switchShowingList,
   toggleEditor:toggleEditor,
+
   list:getShowingImageList,
   updateShowingImageList:updateShowingImageList,
   removePage:removePage,
@@ -254,5 +262,10 @@ return {
   exit:exitProject,
   calibrateLock:getCalibrateLock,
   recordingMode:getRecordingMode,
+
+  setCalibrateMode:setCalibrateMode,
+  setPlayMode:setPlayMode,
+  setCropMode:setCropMode,
+  setAddMode:setAddMode,
 };
 }();
