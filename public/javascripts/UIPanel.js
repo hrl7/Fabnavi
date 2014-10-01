@@ -1,7 +1,29 @@
+function HideableDOM(id ){
+  this.id = id;
+  this.elem = document.getElementById(id);
+  this.hide();
+ }
+HideableDOM.prototype = {
+    hide:function(){
+     this.elem.classList.remove("show");
+     this.elem.classList.add("hide");
+    },
+    show:function(){
+     this.elem.classList.remove("hide");
+     this.elem.classList.add("show");
+    },
+    text :function(){
+      return this.elem.textContent;
+    },
+    setText:function(str){
+      this.elem.textContent = str;
+    }
+};
+
 var UIPanel =  function () {
-  var editContents,
-      propertyContents,
-      calibrateContents,
+  var editElement,
+      propertyElement,
+      calibrateElement,
       mainPanel,
 
   /* Buttons  */
@@ -16,12 +38,11 @@ var UIPanel =  function () {
 function init(){
   Publisher.subscribe("Mode","Normal");
 
-  counter = document.getElementById("counter");
-
-  mainPanel = document.getElementById('panel');
-  editContents = document.getElementById('editProject');
-  propertyContents = document.getElementById('property');
-  calibrateContents = document.getElementById('calibrate');
+  counter = new HideableDOM("counter");
+  mainPanel = new HideableDOM('panel');
+  editElement = new HideableDOM('editProject');
+  propertyElement = new HideableDOM('property');
+  calibrateElement = new HideableDOM('calibrate');
 
   document.getElementById('savePlaylist').onclick = function(){
   };
@@ -42,38 +63,41 @@ function init(){
 }
 
 function setCalibrateMode(){
-  propertyContents.className = "hide"; 
-  editContents.className = "hide";
-  calibrateContents.className = "show";
+  propertyElement.hide(); 
+  editElement.hide();
+  calibrateElement.show();
   CalibrateController.addMouseEvent();
+
   Publisher.update("Mode","Calibrate");
 }
 
 function setEditMode(){
-  propertyContents.className = "hide"; 
-  editContents.className = "show";
-  calibrateContents.className = "hide";
+  propertyElement.hide(); 
+  editElement.show();
+  calibrateElement.hide();
   CalibrateController.removeMouseEvent();
+
   Publisher.update("Mode","Edit");
 }
 
 function setNormalMode(){
-  propertyContents.className = "show"; 
-  calibrateContents.className = "hide";
-  editContents.className = "hide";
+  propertyElement.show(); 
+  calibrateElement.hide();
+  editElement.hide();
   CalibrateController.removeMouseEvent();
+
   Publisher.update("Mode","Normal");
 }
 
 function hideUIPanel(){
-  mainPanel.className = "hide";
-  counter.className = "hide";
+  mainPanel.hide();
+  counter.hide();
   isShowPanel = false;
 }
 
 function showUIPanel(){
-  mainPanel.className = "show";
-  counter.className = "show";
+  mainPanel.show();
+  counter.show();
   isShowPanel = true;
 }
 
@@ -95,7 +119,7 @@ function initCalibrateButtons(){
 }
 
 function setCounterText(str){
-  counter.textContent = str;
+  counter.setText(str);
 }
 
 return {
