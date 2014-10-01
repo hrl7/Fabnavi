@@ -16,7 +16,7 @@ HideableDOM.prototype = {
       return this.elem.textContent;
     },
     setText:function(str){
-      this.elem.textContent = str;
+      this.elem.innerHTML= str;
     }
 };
 
@@ -25,6 +25,8 @@ var UIPanel =  function () {
       propertyElement,
       calibrateElement,
       mainPanel,
+      informationElement,
+      usageElement,
 
   /* Buttons  */
   zoomInBtn,
@@ -43,6 +45,8 @@ function init(){
   editElement = new HideableDOM('editProject');
   propertyElement = new HideableDOM('property');
   calibrateElement = new HideableDOM('calibrate');
+  informationElement = new HideableDOM('info');
+  usageElement = new HideableDOM('usage');
 
   document.getElementById('savePlaylist').onclick = function(){
   };
@@ -57,7 +61,10 @@ function init(){
   initCalibrateButtons();
   setCalibrateMode();
 
+  informationElement.show();
   setInterval(function(){
+    informationElement.setText(Publisher.publish());
+//    informationElement.setText(Publisher.getOneLineTopic());
       document.title = Publisher.getOneLineTopic(); 
   },500);
 }
@@ -122,12 +129,17 @@ function setCounterText(str){
   counter.setText(str);
 }
 
+function setInformation(str){
+  informationElement.setText(str);
+}
+
 return {
   init:init,
   show:showUIPanel,
   hide:hideUIPanel,
   toggle:togglePanel,
   setCounterText:setCounterText,
+  setInformation:setInformation,
 };
 
 } ();

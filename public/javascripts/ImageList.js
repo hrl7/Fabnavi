@@ -40,7 +40,9 @@ function pushImageURL(obj,index){
   } else {
     list.push(obj);
   }
-  length = list.length;
+  if(length > loadingLength){
+    length = list.length;
+ }
   return res;
 }
 
@@ -192,6 +194,8 @@ function loadImage(){
 
 function splice(a,b){
   list.splice(a,b); 
+  length = list.length;
+  loadingLength = list.length;
 }
 
 function getListDeferred(){

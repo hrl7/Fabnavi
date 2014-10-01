@@ -31,9 +31,9 @@ function unsubscribe(topic){
 
 function publish(){
   var res = "";
-  res += "Published "+length+" cases----------------\n";
+  res += "Published "+length+" cases----------------<BR>";
   for(s in topics){
-    res += s + " " + s.content + "\n";
+    res += s + ": " + topics[s].content + "\n <BR>";
   }
   return res;
 }
