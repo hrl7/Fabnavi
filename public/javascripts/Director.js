@@ -3,6 +3,9 @@ var Director = function(){
   var viewStatusList = ["Initializing","loadingImage","showing"],
       viewStatus= 0,
       modeList = ["play","add","edit"],
+      recordingModeList = ["Play","Calibrate","Crop","Add"],
+      recordingMode = 0,
+      calibrateLock = true,
       ImageList,
       localImageList,
       showingImageList,
@@ -62,14 +65,39 @@ function initAsAddMode(){
   localImageList.initEditor();
   queueingImageList = localImageList;
   showingImageList = localImageList;
-  if(PICTURES_DATA.length == 0)
+  if(PICTURES_DATA.length == 0){
     showingImageList.initWithURLArray([]);
-  else 
+    setCalibrateMode();
+   } else {
     showingImageList = ImageList;
+   }
+  
 }
 
 function initAsEditMode(){
   showingImageList.initEditor();
+}
+
+function setCalibrateMode(){
+ recordingMode = 1;
+ calibrateLock = false; 
+ switchShowingList(true);
+}
+
+function setAddMode(){
+ recordingMode = 3;
+ calibrateLock = true; 
+ switchShowingList(false);
+}
+
+function setPlayMode(){
+ recordingMode = 0;
+ calibrateLock = true; 
+ switchShowingList(false);
+}
+
+function getCalibrateLock(){
+  return calibrateLock;
 }
 
 /* Common fabnavi methods*/
@@ -121,13 +149,26 @@ function showPage(){
     deferredImage.then(function(img){
         MainView.draw(img);
         viewStatus = 2;
+        afterShowing();
     });
   }
 }
+
+function afterShowing(){
+  if(recordingMode == 1) {
+    MainView.showCalibrateLine();
+  }
+}
+
+function getRecordingMode(){
+  return recordingMode;
+}
+
 function redraw(){
   viewStatus = 1;
   MainView.redraw();
   viewStatus = 2;
+  if(recordingMode == 1)MainView.showCalibrateLine();
 }
 
 function toggleConsole(){
@@ -139,8 +180,9 @@ function toggleEditor() {
 }
 
 /* recorder interface */
-function switchShowingList(){
-  if(showingImageList == ImageList){
+function switchShowingList(isLocalOnly){
+  isLocalOnly = isLocalOnly || false;
+  if(isLocalOnly || showingImageList == ImageList){
     showingImageList = localImageList;
   } else {
     showingImageList = ImageList;
@@ -150,11 +192,12 @@ function switchShowingList(){
 
 function shoot(){
   Camera.ping().done(function(){
-      redraw();
-      MainView.showShootingMessage();
+      MainView.clear();
+      UIPanel.hide();
+      showingImageList.hideEditor();
       Camera.shoot().then(function(url){
           redraw();
-          var res = showingImageList.push(url);
+          var res = showingImageList.push(url,showingImageList.index());
           nextPage();
           ImageUploadQueue.push(res);
       });
@@ -209,5 +252,7 @@ return {
   removePage:removePage,
   reloadPage:reloadPage,
   exit:exitProject,
+  calibrateLock:getCalibrateLock,
+  recordingMode:getRecordingMode,
 };
 }();

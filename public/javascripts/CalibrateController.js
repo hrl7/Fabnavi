@@ -84,6 +84,10 @@ function toggleAspectShiftMode(){
 }
 
 function addMouseEvent (){
+ if(Director.calibrateLock()){
+  removeMouseEvent();
+  return -1;
+ }
   cvs.onwheel = function(e){
     e.preventDefault();
     var y = e.deltaY;

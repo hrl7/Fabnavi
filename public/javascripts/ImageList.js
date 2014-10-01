@@ -31,14 +31,22 @@ function getList() {
   return list;
 }
 
-function pushImageURL(obj){
+function pushImageURL(obj,index){
   var res = createObject(obj);
-  list.push(res);
+  console.log(index);
+  if(Number.isInteger(index) && index < length){
+    list.splice(index+1,0,res);
+  } else {
+    list.push(obj);
+  }
+  length = list.length;
   return res;
 }
 
-function pushLocalImageWithURL(url){
-  var res = pushImageURL({localURL:url});
+function pushLocalImageWithURL(url,index){
+ console.log(index);
+ index = index || 0;
+ var res = pushImageURL({localURL:url},index);
   if(editorInitialized)editor.update(res);
   return res;
 }
@@ -210,6 +218,10 @@ function toggleEditor(){
   else console.log("Editor is not initialized");
 }
 
+function hideEditor(){
+  if(editor)editor.hide();
+}
+
 function remove(i){
   list.splice(i,1);
   if(index >= list.length)index = list.length - 1;
@@ -238,6 +250,7 @@ return {
   splice:splice,
   toggleEditor:toggleEditor,
   initEditor:initEditor,
+  hideEditor:hideEditor,
   remove:remove,
   index:getIndex,
   setEditorInitialized:setEditorInitialized,
