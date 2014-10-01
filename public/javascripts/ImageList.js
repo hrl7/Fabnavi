@@ -35,7 +35,6 @@ function getList() {
 
 function pushImageURL(obj,index){
   var res = createObject(obj);
-  console.log(index);
   if(Number.isInteger(index) && index < length){
     list.splice(index+1,0,res);
   } else {
@@ -46,7 +45,6 @@ function pushImageURL(obj,index){
 }
 
 function pushLocalImageWithURL(url,index){
- console.log(index);
  index = index || 0;
  var res = pushImageURL({localURL:url},index);
   if(editorInitialized)editor.update(res);

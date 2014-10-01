@@ -28,6 +28,7 @@ function init (_mode){
   showingImageList = ImageList;
   ViewConfig.init();
   CalibrateController.init();
+  UIPanel.init();
 
   /*  Initialize each Mode   */
   switch(mode){
@@ -45,7 +46,6 @@ function init (_mode){
   }
 
   /*  After   */
-  UIPanel.init();
   KeyBind[modeList[mode]]();
 
   /* Finish Initializing */

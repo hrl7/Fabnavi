@@ -67,11 +67,13 @@ function setNormalMode(){
 
 function hideUIPanel(){
   mainPanel.className = "hide";
+  counter.className = "hide";
   isShowPanel = false;
 }
 
 function showUIPanel(){
   mainPanel.className = "show";
+  counter.className = "show";
   isShowPanel = true;
 }
 
