@@ -9,11 +9,14 @@ var UIPanel =  function () {
   zoomOutBtn,
   aspBtn,
   saveConfigBtn,
-  isShowPanel
+  isShowPanel,
+  counter
   ;
 
 function init(){
   Publisher.subscribe("Mode","Normal");
+
+  counter = document.getElementById("counter");
 
   mainPanel = document.getElementById('panel');
   editContents = document.getElementById('editProject');
@@ -89,11 +92,16 @@ function initCalibrateButtons(){
   aspBtn.onclick = CalibrateController.toggleAspBtn;
 }
 
+function setCounterText(str){
+  counter.textContent = str;
+}
+
 return {
   init:init,
   show:showUIPanel,
   hide:hideUIPanel,
   toggle:togglePanel,
+  setCounterText:setCounterText,
 };
 
 } ();

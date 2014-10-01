@@ -6,13 +6,15 @@ function CachableImageList(){
       d,
       editor,
       editorInitialized = false,
-      length = 0
+      length = 0,
+      loadingLength = 0
   ;
 
 d = $.Deferred();
 
 function initWithURLArray(array){
   length = array.length;
+  loadingLength = array.length;
   Publisher.subscribe("Loading","0/"+length);
   pushImageUrlRecursively(array);
 }
@@ -236,12 +238,17 @@ function getIndex(){
   return index;
 }
 
+function getLoadingLength(){
+  return loadingLength;
+}
+
 return {
   initWithURLArray:initWithURLArray,
   list:getList,
   getListDeferred:getListDeferred,
   length:getLength,
   updateListWithURLArray:updateList,
+  maxLength:getLoadingLength,
   push:pushLocalImageWithURL,
   next:nextPage,
   prev:prevPage,

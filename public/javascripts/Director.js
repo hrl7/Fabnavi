@@ -15,7 +15,6 @@ var Director = function(){
   ;
 
 function init (_mode){
-  counter = document.getElementById("counter");
   mode = modeList.indexOf(_mode);
   if(mode == -1){
     new Error("mode is invalid");
@@ -141,7 +140,7 @@ function reloadPage(){
 }
 
 function showPage(){
-  counter.textContent = showingImageList.index() + 1 + "/" + showingImageList.length(); 
+ UIPanel.setCounterText(showingImageList.index() + 1 + "/" + showingImageList.maxLength()); 
   var deferredImage;
   if(deferredImage = showingImageList.getDeferredImage()){
     MainView.clear();
@@ -191,6 +190,7 @@ function switchShowingList(isLocalOnly){
 }
 
 function shoot(){
+ if(recordingMode == 0)throw new Error("PlayMode cannot take picture");
   Camera.ping().done(function(){
       MainView.clear();
       UIPanel.hide();
