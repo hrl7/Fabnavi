@@ -139,6 +139,7 @@ return {
   toggle:togglePanel,
   setCounterText:setCounterText,
   setInformation:setInformation,
+  setCalibrateMode:setCalibrateMode,
 };
 
 } ();

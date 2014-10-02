@@ -66,11 +66,11 @@ function initAsAddMode(){
   showingImageList = localImageList;
   if(PICTURES_DATA.length == 0){
     showingImageList.initWithURLArray([]);
-    setCalibrateMode();
-   } else {
+    setCropMode();
+  } else {
     showingImageList = ImageList;
-   }
-   setAddMode();
+    setAddMode();
+  }
 }
 
 function initAsEditMode(){
@@ -78,28 +78,29 @@ function initAsEditMode(){
 }
 
 function setCalibrateMode(){
- recordingMode = 1;
- calibrateLock = false; 
- switchShowingList(false);
+  recordingMode = 1;
+  calibrateLock = false; 
+  switchShowingList(false);
 }
 
 function setCropMode(){
- recordingMode = 2;
- calibrateLock = false; 
- switchShowingList(true);
- MainView.showCalibrateLine();
+  recordingMode = 2;
+  calibrateLock = false; 
+  switchShowingList(true);
+  MainView.showCalibrateLine();
+  UIPanel.setCalibrateMode();
 }
 
 function setAddMode(){
- recordingMode = 3;
- calibrateLock = true; 
- switchShowingList(false);
+  recordingMode = 3;
+  calibrateLock = true; 
+  switchShowingList(false);
 }
 
 function setPlayMode(){
- recordingMode = 0;
- calibrateLock = true; 
- switchShowingList(false);
+  recordingMode = 0;
+  calibrateLock = true; 
+  switchShowingList(false);
 }
 
 function getCalibrateLock(){
@@ -147,7 +148,7 @@ function reloadPage(){
 }
 
 function showPage(){
- UIPanel.setCounterText(showingImageList.index() + 1 + "/" + showingImageList.maxLength()); 
+  UIPanel.setCounterText(showingImageList.index() + 1 + "/" + showingImageList.maxLength()); 
   var deferredImage;
   if(deferredImage = showingImageList.getDeferredImage()){
     MainView.clear();
@@ -197,7 +198,7 @@ function switchShowingList(isLocalOnly){
 }
 
 function shoot(){
- if(recordingMode == 0)throw new Error("PlayMode cannot take picture");
+  if(recordingMode == 0)throw new Error("PlayMode cannot take picture");
   Camera.ping().done(function(){
       MainView.clear();
       UIPanel.hide();
