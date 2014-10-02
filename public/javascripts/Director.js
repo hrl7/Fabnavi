@@ -70,6 +70,7 @@ function initAsAddMode(){
    } else {
     showingImageList = ImageList;
    }
+   setAddMode();
 }
 
 function initAsEditMode(){

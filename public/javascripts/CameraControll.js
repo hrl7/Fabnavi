@@ -6,7 +6,6 @@ var Camera = function() {
   function init () {
     if(document.sonycameracontroller == undefined){
       alert("Addon is not  installed");
-      //TODO : redirect to addon install page
       window.open("https://github.com/hrl7/SonyCameraRemoteControllerAddon/blob/master/addon/sonycameraremotecontroller.xpi?raw=true");
       return false;
     }

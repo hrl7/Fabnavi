@@ -50,6 +50,7 @@ function drawShootingMessage(){
 }
 
 function draw(image){
+ console.log(image.src);
   ImageConverter.drawImage(image,cvs,ViewConfig.conf());
   currentImage = image;
 }

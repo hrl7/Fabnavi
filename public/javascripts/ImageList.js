@@ -13,15 +13,15 @@ function CachableImageList(){
 d = $.Deferred();
 
 function initWithURLArray(array){
-  length = array.length;
   loadingLength = array.length;
-  Publisher.subscribe("Loading","0/"+length);
+  Publisher.subscribe("Loading","0/"+array.length);
   pushImageUrlRecursively(array);
 }
 
 function initEditor(){
   editor = ThumbnailViewer();
-  d.promise().then(editor.init);
+  //  d.promise().then(editor.init);
+  editor.init(list); 
   setEditorInitialized();
 }
 
@@ -35,20 +35,18 @@ function getList() {
 
 function pushImageURL(obj,index){
   var res = createObject(obj);
-  if(Number.isInteger(index) && index < length){
+  if(Number.isInteger(index) && index < list.length){
     list.splice(index+1,0,res);
   } else {
     list.push(obj);
   }
-  if(length > loadingLength){
-    length = list.length;
- }
+  length = list.length;
   return res;
 }
 
 function pushLocalImageWithURL(url,index){
- index = index || 0;
- var res = pushImageURL({localURL:url},index);
+  index = index || 0;
+  var res = pushImageURL({localURL:url},index);
   if(editorInitialized)editor.update(res);
   return res;
 }
@@ -57,14 +55,16 @@ function pushImageUrlRecursively(images,i){
   i = i || 0;
   if(i >= images.length){
     d.resolve(list);
+    loadingLength = -1;
     Publisher.unsubscribe("Loading");
     return 0;
   }
   var image = images[i];
   var res = pushImageURL({globalURL:image.url,thumbnailURL:image.thumbnail_url});
   res.loadedImg.then(function(){
-      Publisher.update("Loading",i+1+"/"+length);
+      Publisher.update("Loading",i+1+"/"+loadingLength);
       pushImageUrlRecursively(images,i+1);
+      if(editorInitialized)editor.update();
   });
 }
 
@@ -195,7 +195,6 @@ function loadImage(){
 function splice(a,b){
   list.splice(a,b); 
   length = list.length;
-  loadingLength = list.length;
 }
 
 function getListDeferred(){
@@ -233,6 +232,7 @@ function remove(i){
     editor.update();
     editor.setPage(index);
   }
+  length = list.length;
   Director.reloadPage();
 }
 
@@ -241,17 +241,23 @@ function getIndex(){
 }
 
 function getLoadingLength(){
-  return loadingLength;
+  if(loadingLength > length){
+   return loadingLength;
+  } else {
+   return length;
+  }
 }
 
 return {
-  initWithURLArray:initWithURLArray,
   list:getList,
   getListDeferred:getListDeferred,
   length:getLength,
+
+  initWithURLArray:initWithURLArray,
   updateListWithURLArray:updateList,
   maxLength:getLoadingLength,
   push:pushLocalImageWithURL,
+
   next:nextPage,
   prev:prevPage,
   setPage:setPage,

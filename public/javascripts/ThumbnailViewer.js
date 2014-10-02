@@ -10,12 +10,13 @@ var ThumbnailViewer = function(){
       lastChanged = -1,
       selected,
       _index = 0,
-      root,
+      root = false,
       isShow = true
   ;  
 
 
 function init(imageList){
+ console.log(imageList);
   list = imageList;
   root = document.getElementById("editor");
   root.onwheel = function(e){
@@ -130,13 +131,17 @@ function getIndex(target,parent){
 }
 
 function show(){
+  if(root){ 
   root.style.display = "";
   isShow = true;
+ }
 }
 
 function hide(){
+ if(root){
   root.style.display = "none";
   isShow = false;
+ }
 }
 
 function toggleEditor(){

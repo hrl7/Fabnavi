@@ -59,7 +59,6 @@ function init(){
   document.getElementById('calibrate_tab').onclick = setCalibrateMode;
 
   initCalibrateButtons();
-  setCalibrateMode();
 
   informationElement.show();
   setInterval(function(){
