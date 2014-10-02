@@ -17,6 +17,9 @@ HideableDOM.prototype = {
   },
   setText:function(str){
     this.elem.innerHTML= str;
+  },
+  onclick:function(cb){
+    this.elem.onclick = cb;
   }
 };
 
@@ -38,7 +41,7 @@ var UIPanel =  function () {
   ;
 
 function init(){
-  Publisher.subscribe("Mode","Normal");
+  Publisher.subscribe("Mode","Play");
 
   counter = new HideableDOM("counter");
   mainPanel = new HideableDOM('panel');
@@ -48,22 +51,27 @@ function init(){
   informationElement = new HideableDOM('info');
   usageElement = new HideableDOM('usage');
 
+
   document.getElementById('savePlaylist').onclick = function(){
   };
 
   document.getElementById('setThumbnail').onclick = function(){
   };
 
-  document.getElementById('edit_tab').onclick = setEditMode;
-  document.getElementById('property_tab').onclick = setNormalMode;
-  document.getElementById('calibrate_tab').onclick = setCalibrateMode;
+  document.getElementById('edit_tab').onclick = Director.setPlayMode;
+  document.getElementById('property_tab').onclick = Director.setPlayMode;
+  document.getElementById('calibrate_tab').onclick = Director.setCalibrateMode;
+  if(Director.mode() == 1){
+    var crop_tab = new HideableDOM('crop_tab');
+    crop_tab.onclick(Director.setCropMode);
+    crop_tab.show();
+  }
 
   initCalibrateButtons();
 
   informationElement.show();
   setInterval(function(){
       informationElement.setText(Publisher.publish());
-      //    informationElement.setText(Publisher.getOneLineTopic());
       document.title = Publisher.getOneLineTopic(); 
   },500);
 }
@@ -72,27 +80,20 @@ function setCalibrateMode(){
   propertyElement.hide(); 
   editElement.hide();
   calibrateElement.show();
-  CalibrateController.addMouseEvent();
-
-  Publisher.update("Mode","Calibrate");
+  usageElement.show();
+  setUsage("Calibrate Mode : Please drag and scroll picture");
 }
 
 function setEditMode(){
   propertyElement.hide(); 
   editElement.show();
   calibrateElement.hide();
-  CalibrateController.removeMouseEvent();
-
-  Publisher.update("Mode","Edit");
 }
 
 function setNormalMode(){
   propertyElement.show(); 
   calibrateElement.hide();
   editElement.hide();
-  CalibrateController.removeMouseEvent();
-
-  Publisher.update("Mode","Normal");
 }
 
 function hideUIPanel(){
@@ -132,6 +133,11 @@ function setInformation(str){
   informationElement.setText(str);
 }
 
+function setUsage(str){
+  usageElement.setText(str);
+}
+
+
 return {
   init:init,
   show:showUIPanel,
@@ -139,6 +145,7 @@ return {
   toggle:togglePanel,
   setCounterText:setCounterText,
   setInformation:setInformation,
+  setUsage:setUsage,
   setCalibrateMode:setCalibrateMode,
 };
 

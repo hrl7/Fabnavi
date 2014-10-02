@@ -57,7 +57,6 @@ function init (_mode){
 function initAsPlayMode(){
   showingImageList = ImageList;
   setCalibrateMode();
-  UIPanel.setCalibrateMode();
 }
 
 function initAsAddMode(){
@@ -71,6 +70,7 @@ function initAsAddMode(){
     setCropMode();
   } else {
     showingImageList = ImageList;
+    console.log(showingImageList.list());
     setAddMode();
   }
 }
@@ -83,6 +83,8 @@ function setCalibrateMode(){
   recordingMode = 1;
   calibrateLock = false; 
   switchShowingList(false);
+  CalibrateController.addMouseEvent();
+  Publisher.update("Mode","Calibrate");
 }
 
 function setCropMode(){
@@ -91,18 +93,24 @@ function setCropMode(){
   switchShowingList(true);
   MainView.showCalibrateLine();
   UIPanel.setCalibrateMode();
+  Publisher.update("Mode","Crop");
+  CalibrateController.addMouseEvent();
 }
 
 function setAddMode(){
   recordingMode = 3;
   calibrateLock = true; 
   switchShowingList(false);
+  CalibrateController.removeMouseEvent();
+  Publisher.update("Mode","Add");
 }
 
 function setPlayMode(){
   recordingMode = 0;
   calibrateLock = true; 
   switchShowingList(false);
+  CalibrateController.removeMouseEvent();
+  Publisher.update("Mode","Play");
 }
 
 function getCalibrateLock(){
@@ -164,7 +172,7 @@ function showPage(){
 }
 
 function afterShowing(){
-  if(recordingMode == 1) {
+  if(recordingMode == 2) {
     MainView.showCalibrateLine();
   }
 }
@@ -177,7 +185,7 @@ function redraw(){
   viewStatus = 1;
   MainView.redraw();
   viewStatus = 2;
-  if(recordingMode == 1)MainView.showCalibrateLine();
+  if(recordingMode == 2)MainView.showCalibrateLine();
 }
 
 function toggleConsole(){
@@ -196,7 +204,6 @@ function switchShowingList(isLocalOnly){
   } else {
     showingImageList = ImageList;
   }
-  prevPage();
 }
 
 function shoot(){
