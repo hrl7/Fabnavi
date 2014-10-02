@@ -56,6 +56,8 @@ function init (_mode){
 /* Initilizers */
 function initAsPlayMode(){
   showingImageList = ImageList;
+  setCalibrateMode();
+  UIPanel.setCalibrateMode();
 }
 
 function initAsAddMode(){

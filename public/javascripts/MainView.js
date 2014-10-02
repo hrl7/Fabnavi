@@ -50,7 +50,6 @@ function drawShootingMessage(){
 }
 
 function draw(image){
- console.log(image.src);
   ImageConverter.drawImage(image,cvs,ViewConfig.conf());
   currentImage = image;
 }
@@ -64,6 +63,10 @@ function clear(){
   ctx.clearRect(0,0,cvs.width,cvs.height);
 }
 
+function getCurrentImage(){
+  return currentImage || false;
+}
+
 return {
   init:init,
   draw:draw,
@@ -73,6 +76,7 @@ return {
   redraw:redraw,
   showShootingMessage:drawShootingMessage,
   getCtx:getCtx,
+  getCurrentImage:getCurrentImage,
 };
 
 }();

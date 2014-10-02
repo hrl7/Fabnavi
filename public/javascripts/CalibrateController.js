@@ -12,7 +12,8 @@ var CalibrateController = function () {
       zo = false,
       as=1,
       cvs,
-      aspShift = false
+      aspShift = false,
+      isInitalized = false
   ;
 
 function dbg(){
@@ -84,10 +85,10 @@ function toggleAspectShiftMode(){
 }
 
 function addMouseEvent (){
- if(Director.calibrateLock()){
-  removeMouseEvent();
-  return -1;
- }
+  if(Director.calibrateLock()){
+    removeMouseEvent();
+    return -1;
+  }
   cvs.onwheel = function(e){
     e.preventDefault();
     var y = e.deltaY;
@@ -138,8 +139,20 @@ function updateXYFromCenter (){
 
 function update (){
   updateXYFromCenter();
-  ViewConfig.setConf({x:x,y:y,w:w,h:h});
+  if(isInitalized)ViewConfig.setConf({x:x,y:y,w:w,h:h});
+  else { 
+   initConf();
+  }
   Director.redraw();
+}
+
+function initConf(){
+    var c = "";
+    if(c = MainView.getCurrentImage()){
+      w = c.naturalWidth;
+      h = c.naturalHeight;
+      isInitalized = true;
+     }
 }
 
 return {

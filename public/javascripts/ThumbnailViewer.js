@@ -16,7 +16,6 @@ var ThumbnailViewer = function(){
 
 
 function init(imageList){
- console.log(imageList);
   list = imageList;
   root = document.getElementById("editor");
   root.onwheel = function(e){
