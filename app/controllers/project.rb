@@ -34,8 +34,9 @@ Gdworker::App.controllers :project do
     index = params[:thumbnail]
     project_name = params[:project_id]
     author = params[:author]
-    proj = Project.joins(:author).readonly(false).where(:project_name => project_name, :authors => {:name => author})
-    proj.thumbnail_picture_id = index.to_i+1
+    proj = Project.joins(:author).readonly(false).find_by(:project_name => project_name, :authors => {:name => author})
+    puts proj
+    proj.thumbnail_picture_id = index.to_i
     proj.save
   end 
 

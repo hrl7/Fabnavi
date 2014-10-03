@@ -26,6 +26,7 @@ function addMode(){
   keyMap[13] = Director.shoot;
   keyMap[69] = Director.toggleEditor;
   keyMap[88] = Director.removePage;
+  keyMap[84] = Director.setThumbnail;
   setKeyMap();
 }
 
@@ -34,6 +35,7 @@ function editMode(){
   commonKeyMap();
   keyMap[69] = Director.toggleEditor;
   keyMap[88] = Director.removePage;
+  keyMap[84] = Director.setThumbnail;
   setKeyMap();
 }
 

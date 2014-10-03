@@ -1,6 +1,6 @@
 - path = project.author.name + '/' + project.project_name
 - id = project.thumbnail_picture_id
-- if id then  url = project.picture[id].try(:url) else url = "images/noimage.gif" end
+- if id then  url = project.picture.select{|p|p.order_in_project == id+1}[0].try(:url) else url = "images/noimage.gif" end
 li id="#{{path}}" class="project"
   img.thumbnail src="#{{url}}"
   - if project.author.name != session[:authorName] then

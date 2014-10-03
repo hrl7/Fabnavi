@@ -233,6 +233,10 @@ function updateShowingImageList(a){
   showingImageList.updateListWithURLArray(a);
 }
 
+function setThumbnail(){
+ Server.setThumbnail(showingImageList.index());
+} 
+
 function removePage(){
   if(showingImageList.length() >1){
     showingImageList.remove(showingImageList.index());
@@ -263,6 +267,7 @@ return {
 
   toggleShowingList:switchShowingList,
   toggleEditor:toggleEditor,
+  setThumbnail:setThumbnail,
 
   list:getShowingImageList,
   updateShowingImageList:updateShowingImageList,

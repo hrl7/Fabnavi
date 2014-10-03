@@ -1,9 +1,10 @@
 var Server = function (){
 
   function setThumbnail (index){
+   console.log(index);
     $.post("/project/setThumbnail",
       {
-        project_id:Detal.projectName(),
+        project_id:Detail.projectName(),
         author:Detail.author(),
         thumbnail:index
       },

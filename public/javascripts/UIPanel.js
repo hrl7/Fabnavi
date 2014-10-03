@@ -56,6 +56,7 @@ function init(){
   };
 
   document.getElementById('setThumbnail').onclick = function(){
+    Director.setThumbnail();
   };
 
   document.getElementById('edit_tab').onclick = Director.setPlayMode;
