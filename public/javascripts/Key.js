@@ -27,6 +27,7 @@ function addMode(){
   keyMap[69] = Director.toggleEditor;
   keyMap[88] = Director.removePage;
   keyMap[84] = Director.setThumbnail;
+  keyMap[83] = Server.postPlaylist;
   setKeyMap();
 }
 
@@ -36,6 +37,7 @@ function editMode(){
   keyMap[69] = Director.toggleEditor;
   keyMap[88] = Director.removePage;
   keyMap[84] = Director.setThumbnail;
+  keyMap[83] = Server.postPlaylist;
   setKeyMap();
 }
 

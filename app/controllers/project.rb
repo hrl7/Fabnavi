@@ -5,9 +5,14 @@ Gdworker::App.controllers :project do
 
   post "/postConfig" do
     data = params[:data]
+    puts data
     imgURLs = JSON.parse data
     proj = Project.find_project(params[:author],params[:project_id])
     pictureURLs= proj.picture
+    pictureURLs.map!{ |pict|
+      pict.order_in_project = -1
+      pict.save
+    }
     imgURLs.each_with_index do |url,i|
       unless url = imgURLs[i]["globalURL"] then next end 
       unless pict = pictureURLs.find_by(:url =>url) then

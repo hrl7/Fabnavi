@@ -248,6 +248,10 @@ function getLoadingLength(){
   }
 }
 
+function saveLock(){
+  return loadingLength != -1;
+}
+
 return {
   list:getList,
   getListDeferred:getListDeferred,
@@ -272,6 +276,7 @@ return {
   get:get,
   addGlobalURLFromLocalURL:addGlobalURLFromLocalURL,
   addThumbnailURLFromLocalURL:addThumbnailURLFromLocalURL,
+  saveLock : saveLock,
 };
 
 };

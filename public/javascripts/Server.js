@@ -13,15 +13,22 @@ var Server = function (){
   }
 
   function postPlaylist (){
+    var lst = Director.list();
+    console.log(lst.saveLock);
+    if(lst.saveLock() == false){
+     Publisher.unsubscribe("Playlist");
     $.post("/project/postConfig",
       {
         project_id:Detail.projectName(),
-        data:JSON.stringify(Director.list().list()),
+        data:JSON.stringify(lst.list()),
         author:Detail.author()
       },
       function(){},
       "json");
+  } else {
+    Publisher.subscribe("Playlist","Cannot Save, Please Retry later");
   }
+ }
 
   return {
     setThumbnail:setThumbnail,

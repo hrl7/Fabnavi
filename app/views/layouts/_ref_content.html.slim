@@ -1,5 +1,5 @@
 javascript:
-  PICTURES_DATA = #{{pictures.to_json}}
+  PICTURES_DATA = #{{pictures.delete_if{|p| p.order_in_project == -1}.to_json}}
   PROJECT_DATA = #{{project.to_json}}
 #contents
   canvas#cvs
