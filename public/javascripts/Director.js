@@ -69,8 +69,6 @@ function initAsAddMode(){
     showingImageList.initWithURLArray([]);
     setCropMode();
   } else {
-    showingImageList = ImageList;
-    console.log(showingImageList.list());
     setAddMode();
   }
 }

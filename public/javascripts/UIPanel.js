@@ -99,12 +99,16 @@ function setNormalMode(){
 function hideUIPanel(){
   mainPanel.hide();
   counter.hide();
+  informationElement.hide();
+  usageElement.hide();
   isShowPanel = false;
 }
 
 function showUIPanel(){
   mainPanel.show();
   counter.show();
+  informationElement.show();
+  usageElement.show();
   isShowPanel = true;
 }
 
