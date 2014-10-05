@@ -70,7 +70,7 @@ function init(){
 
   initCalibrateButtons();
 
-  informationElement.show();
+  informationElement.hide();
   setInterval(function(){
       informationElement.setText(Publisher.publish());
       document.title = Publisher.getOneLineTopic(); 
