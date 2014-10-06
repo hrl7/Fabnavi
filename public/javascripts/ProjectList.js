@@ -44,7 +44,6 @@ var ProjectList =  function(){
     var projects = document.getElementsByTagName('li');
     for(var i = 0; i< projects.length;i++){
       projects[i].onclick = function(e){
-        console.log(e.originalTarget);
         var target;
         if(e.originalTarget.tagName != "LI"){
           target = e.originalTarget.parentNode; 
