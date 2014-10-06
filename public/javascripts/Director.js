@@ -75,12 +75,14 @@ function initAsAddMode(){
 
 function initAsEditMode(){
   showingImageList.initEditor();
+  UIPanel.setEditMode();
 }
 
 function setCalibrateMode(){
   recordingMode = 1;
   calibrateLock = false; 
   switchShowingList(false);
+  UIPanel.setCalibrateMode();
   CalibrateController.addMouseEvent();
   Publisher.update("Mode","Calibrate");
 }
@@ -99,6 +101,7 @@ function setAddMode(){
   recordingMode = 3;
   calibrateLock = true; 
   switchShowingList(false);
+  UIPanel.setNormalMode();
   CalibrateController.removeMouseEvent();
   Publisher.update("Mode","Add");
 }
@@ -107,6 +110,7 @@ function setPlayMode(){
   recordingMode = 0;
   calibrateLock = true; 
   switchShowingList(false);
+  UIPanel.setNormalMode();
   CalibrateController.removeMouseEvent();
   Publisher.update("Mode","Play");
 }

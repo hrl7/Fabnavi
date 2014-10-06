@@ -33,20 +33,20 @@ function init(imageList){
 }
 
 function updateDocumentTree(){
-  var frag = document.createDocumentFragment();
-  for(var i in list){
-    frag.appendChild(generateNode(i));
-  }
+    var frag = document.createDocumentFragment();
+    for(var i in list){
+      frag.appendChild(generateNode(i));
+    }
 
-  var ul = document.createElement("ul");
-  ul.id = "thumbnailList";
-  ul.appendChild(frag);
-  var oldUl;
-  if(oldUl= document.getElementById("thumbnailList"))oldUl.remove();
-  root.appendChild(ul);
-  $("#thumbnailList").sortable(
-    {update:updateImageList}).disableSelection();
-  scrollMinLimit = -320 * list.length;
+    var ul = document.createElement("ul");
+    ul.id = "thumbnailList";
+    ul.appendChild(frag);
+    var oldUl;
+    if(oldUl= document.getElementById("thumbnailList"))oldUl.remove();
+    root.appendChild(ul);
+    $("#thumbnailList").sortable(
+      {update:updateImageList}).disableSelection();
+    scrollMinLimit = -330 * list.length;
 }
 
 function updateImageList(){

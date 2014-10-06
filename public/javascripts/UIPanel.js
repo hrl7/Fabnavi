@@ -152,6 +152,8 @@ return {
   setInformation:setInformation,
   setUsage:setUsage,
   setCalibrateMode:setCalibrateMode,
+  setNormalMode:setNormalMode,
+  setEditMode:setEditMode,
 };
 
 } ();
