@@ -47,6 +47,7 @@ function commonKeyMap() {
   keyMap[37] = Director.prevPage;
   keyMap[99] = Director.prevPage;
   keyMap[68] = Director.toggleConsole;
+  keyMap[67] = ViewConfig.save;
   keyMap[27] = Director.exit;
 }
 

@@ -114,7 +114,7 @@ module Gdworker
     end
 
     get "/status/:author/:project" do
-      unless @authorName == params[:author] then return 0; end
+      unless @authorName == params[:author] then redirect_to "/" ; end
       if Project.find_project(@authorName,params[:project]).class == Project then
         session[:projectName] = params[:project]
         @projectName = params[:project]
