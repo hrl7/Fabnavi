@@ -126,5 +126,8 @@ module Gdworker
       render 'errors/404'
     end
 
+    get "/test" do
+      render 'test/project_page_test'
+    end
   end
 end
