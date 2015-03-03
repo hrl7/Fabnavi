@@ -13,7 +13,7 @@ var ProjectList =  function(){
     var makeButtons = document.getElementsByClassName('makeButton');
     for (var i = 0; i < makeButtons.length;i++){
       makeButtons[i].onclick = function(e){ 
-        selectedId = e.originalTarget.parentElement.id;
+        selectedId = e.target.parentElement.id;
         play();
       };
     }
@@ -21,14 +21,14 @@ var ProjectList =  function(){
     var deleteButtons = document.getElementsByClassName('deleteButton');
     for (var i = 0; i < deleteButtons.length;i++){
       deleteButtons[i].onclick = function(e){
-        selectedId = e.originalTarget.parentElement.id;
+        selectedId = e.target.parentElement.id;
 
       }
     }
     var addButtons = document.getElementsByClassName('addButton');
     for (var i = 0; i < addButtons.length;i++){
       addButtons[i].onclick = function(e){
-        selectedId = e.originalTarget.parentElement.id;
+        selectedId = e.target.parentElement.id;
         add();
       }
     }
@@ -36,7 +36,7 @@ var ProjectList =  function(){
     var editButtons = document.getElementsByClassName('editButton');
     for (var i = 0; i < editButtons.length;i++){
       editButtons[i].onclick = function(e){
-        selectedId = e.originalTarget.parentElement.id;
+        selectedId = e.target.parentElement.id;
         edit();
       }
     }
@@ -45,10 +45,10 @@ var ProjectList =  function(){
     for(var i = 0; i< projects.length;i++){
       projects[i].onclick = function(e){
         var target;
-        if(e.originalTarget.tagName != "LI"){
-          target = e.originalTarget.parentNode; 
+        if(e.target.tagName != "LI"){
+          target = e.target.parentNode; 
         } else {
-          target = e.originalTarget;
+          target = e.target;
         }
         select(target);
       }
