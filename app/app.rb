@@ -122,7 +122,7 @@ module Gdworker
       render 'project/status'
     end
 
-    error 404 do
+    not_found do
       render 'errors/404'
     end
 
