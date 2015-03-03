@@ -41,4 +41,6 @@ gem 'aws-sdk'
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'guard'
+  gem 'guard-livereload'
 end
