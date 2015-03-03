@@ -64,6 +64,7 @@ return {
   add:addMode,
   edit:editMode,
   keyMap:showKeyMap,
+  mode:"Project"
 };
-
 }();
+

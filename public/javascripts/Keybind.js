@@ -48,6 +48,9 @@ function showKeyMap(){
 
 return {
  init:init, 
+ keyMap:showKeyMap,
+ mode:"Index"
+
 };
 }();
 
