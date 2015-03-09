@@ -22,8 +22,6 @@ gem 'haml'
 gem 'pg'
 
 # Test requirements
-gem 'rspec', :group => 'test'
-gem 'rack-test', :require => 'rack/test', :group => 'test'
 
 # Padrino Stable Gem
 gem 'padrino', '0.12.1'
@@ -38,6 +36,22 @@ gem 'padrino', '0.12.1'
 #
 gem 'resque'
 gem 'aws-sdk'
+gem 'rspec', '3.1'
+gem 'rack-test', :require => 'rack/test'
+
+group :development, :test do
+  gem 'factory_girl_rails', '~> 4.4.1'
+  gem 'rspec-rails', '~> 3.1.0'
+end
+
+group :test do
+  gem 'faker' , '~> 1.4.3'
+  gem 'capybara', '~> 2.4.3'
+  gem 'database_cleaner'
+  gem 'launchy'
+  gem 'selenium-webdriver'
+end
+
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
