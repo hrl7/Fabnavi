@@ -19,7 +19,6 @@ gem 'bcrypt'
 gem 'activerecord', '>= 3.1', :require => 'active_record'
 gem 'sass'
 gem 'haml'
-gem 'pg'
 
 # Test requirements
 
@@ -42,6 +41,7 @@ gem 'rack-test', :require => 'rack/test'
 group :development, :test do
   gem 'factory_girl_rails', '~> 4.4.1'
   gem 'rspec-rails', '~> 3.1.0'
+  gem 'sqlite3'
 end
 
 group :test do
@@ -58,3 +58,8 @@ group :development do
   gem 'guard'
   gem 'guard-livereload'
 end
+
+group :production do
+  gem 'pg'
+end
+
