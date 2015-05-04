@@ -1,0 +1,12 @@
+p#notice = notice
+
+p
+  strong Name:
+  = @tag.name
+p
+  strong Description:
+  = @tag.description
+
+= link_to 'Edit', edit_tag_path(@tag)
+'|
+= link_to 'Back', tags_path

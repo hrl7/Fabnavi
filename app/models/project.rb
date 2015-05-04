@@ -6,6 +6,7 @@ class Project < ActiveRecord::Base
   validates_uniqueness_of :user, scope: :project_name
   validates :project_name, length:{maximum:30,minimum:4}
   has_many :picture
+  has_many :tagging
   belongs_to :user
 
   def visible_to_user? user

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150504115544) do
+ActiveRecord::Schema.define(version: 20150504165306) do
 
   create_table "photos", force: :cascade do |t|
     t.string   "file",                          null: false
@@ -36,6 +36,23 @@ ActiveRecord::Schema.define(version: 20150504115544) do
   end
 
   add_index "projects", ["project_name", "user_id"], name: "index_projects_on_project_name_and_user_id", unique: true
+
+  create_table "taggings", force: :cascade do |t|
+    t.integer  "tag_id"
+    t.integer  "project_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "taggings", ["project_id"], name: "index_taggings_on_project_id"
+  add_index "taggings", ["tag_id"], name: "index_taggings_on_tag_id"
+
+  create_table "tags", force: :cascade do |t|
+    t.string   "name"
+    t.string   "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

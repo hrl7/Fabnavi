@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
     :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :omniauth_providers => [:persona]
 
+  has_many :project
+
 
   def update_with_password (params, *options)
     if encrypted_password.blank?
