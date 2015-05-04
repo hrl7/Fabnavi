@@ -11,15 +11,24 @@ html
     javascript:
       CURRENT_USER = "";
   body[onload="Auth.init();"]
-    .header
+    header.header
+      img[src="#{image_path("h_logo.png")}"]
+      img[src="#{image_path("h_home.png")}"]
+      img[src="#{image_path("h_create.png")}"]
+      img[src="#{image_path("h_edit.png")}"]
+          
       - if user_signed_in?
         | Logged in as #{current_user.email}
         = link_to 'User Profile Edit', edit_user_registration_path
         = link_to 'Log out', destroy_user_session_path, method: :delete
       -else
-        button#signIn Sign Up or Sign in
-
+        img#signIn[src="#{image_path("h_signin.png")}"]
+    section.search-bar
+      form
+        img.search-icon[src="#{image_path("search_icon.png")}"]
+        input#search-box
     .nav
         .notice #{notice}
         .alert #{alert}
     = yield
+    footer
