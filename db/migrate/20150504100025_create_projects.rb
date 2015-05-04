@@ -1,11 +1,11 @@
 class CreateProjects < ActiveRecord::Migration
   def change
     create_table :projects do |t|
-      t.string :project_name
-      t.integer :thumbnail_picture_id
-      t.integer :user_id
-      t.integer :status
-      t.string :description
+      t.string  :project_name,          null: false, default: ""
+      t.integer :thumbnail_picture_id,  null: false, default: 0
+      t.integer :user_id,               null: false
+      t.integer :status,                null: false, default: 0
+      t.string :description,            null: false, default: ""
 
       t.timestamps null: false
     end

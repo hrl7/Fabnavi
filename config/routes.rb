@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  root to: "projects#index"
+  devise_for :users, controllers: { omniauth_callbacks: "omniauth_callbacks" }
+
   resources :projects
   resources :photos
   # The priority is based upon order of creation: first created -> highest priority.
