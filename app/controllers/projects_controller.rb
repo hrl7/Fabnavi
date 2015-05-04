@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate! , only: [:new]
 
   # GET /projects
   # GET /projects.json
@@ -25,6 +26,7 @@ class ProjectsController < ApplicationController
   # POST /projects.json
   def create
     @project = Project.new(project_params)
+    @project.user = current_user
 
     respond_to do |format|
       if @project.save
@@ -69,6 +71,13 @@ class ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:project_name, :thumbnail_picture_id, :user_id, :status, :description)
+      params.require(:project).permit(:project_name, :thumbnail_picture_id,:status, :description)
+    end
+
+    def authenticate! 
+     unless user_signed_in?
+      flash[:notice] = "You need to sign in"
+      redirect_to root_path
+     end
     end
 end
