@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resources :tags
   root to: "projects#index"
+  get 'home' => "projects#home", :as => "home"
   devise_for :users, controllers: { omniauth_callbacks: "omniauth_callbacks" }
 
   resources :projects do

@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy, :detail]
-  before_action :authenticate! , only: [:new, :edit, :update, :destroy]
+  before_action :authenticate! , only: [:new, :home, :edit, :update, :destroy]
 
   # GET /projects
   # GET /projects.json
@@ -16,6 +16,10 @@ class ProjectsController < ApplicationController
 
   def detail
 
+  end
+
+  def home
+    redirect_to root_path
   end
 
   # GET /projects/new

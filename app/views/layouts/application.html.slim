@@ -12,10 +12,14 @@ html
       CURRENT_USER = "";
   body[onload="Auth.init();"]
     header.header
-      img[src="#{image_path("h_logo.png")}"]
-      img[src="#{image_path("h_home.png")}"]
-      img[src="#{image_path("h_create.png")}"]
-      img[src="#{image_path("h_edit.png")}"]
+      a href="#{root_path}"
+        img[src="#{image_path("h_logo.png")}"]
+      a href="#{home_path}"
+        img[src="#{image_path("h_home.png")}"]
+      a href="#{new_project_path}"
+        img[src="#{image_path("h_create.png")}"]
+      a href="#{edit_user_registration_path}"
+        img[src="#{image_path("h_edit.png")}"]
           
       - if user_signed_in?
         | Logged in as #{current_user.email}
