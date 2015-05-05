@@ -7,6 +7,9 @@ var Key = function () {
 
 function setKeyMap(){
   window.onkeydown = function(e) {
+    if(!(e.altKey || e.metaKey) ){
+      e.preventDefault();
+    }
     var key = e.keyCode,
         i = 0
          ;
@@ -91,7 +94,7 @@ setKeyMap();
 
 
 return {
- setKeyMap:setKeyMapWithArray, 
+ setKeyMap:setKeyMapWithArray,
 
   register:register,
   deregister:deregister,
@@ -103,4 +106,3 @@ return {
   mode:"Project"
 };
 }();
-
