@@ -11,7 +11,7 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.json
   def show
-   
+   render layouts: :player
   end
 
   def detail
@@ -88,7 +88,7 @@ class ProjectsController < ApplicationController
       params.require(:project).permit(:project_name, :thumbnail_picture_id,:status, :description)
     end
 
-    def authenticate! 
+    def authenticate!
      unless user_signed_in?
       flash[:notice] = "You need to sign in"
       redirect_to root_path
