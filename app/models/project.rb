@@ -5,7 +5,7 @@ class Project < ActiveRecord::Base
   validates :status , presence: true
   validates_uniqueness_of :user, scope: :project_name
   validates :project_name, length:{maximum:30,minimum:4}
-  has_many :picture
+  has_many :photo
   has_many :tagging
   belongs_to :user
 

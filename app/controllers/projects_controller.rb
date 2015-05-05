@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :edit, :update, :destroy, :detail]
+  before_action :set_project, only: [:edit, :update, :destroy, :detail]
+  before_action :set_project_with_pictures, only: [:show]
   before_action :authenticate! , only: [:new, :home, :edit, :update, :destroy]
 
   # GET /projects
@@ -11,7 +12,7 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.json
   def show
-   render layouts: :player
+   render layout: 'player'
   end
 
   def detail
@@ -74,13 +75,23 @@ class ProjectsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+
     def set_project
       @project = Project.find(params[:id])
       unless @project.visible_to_user? current_user
        flash[:alert] = "This project is private"
        redirect_to root_path
       end
+    end
+
+    def set_project_with_pictures
+      @project = Project.find(params[:id])
+
+      unless @project.visible_to_user? current_user
+        flash[:alert] = "This project is private"
+        redirect_to root_path
+      end
+        @pictures = Photo.where(:project => @project)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
