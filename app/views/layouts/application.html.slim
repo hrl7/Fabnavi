@@ -14,24 +14,26 @@ html
       CURRENT_USER = "";
   body[onload="Auth.init();"]
     header.header
-      a href="#{root_path}"
+      a.logo href="#{root_path}"
         img[src="#{image_path("h_logo.png")}"]
-      a href="#{home_path}"
-        img[src="#{image_path("h_home.png")}"]
-      a href="#{new_project_path}"
-        img[src="#{image_path("h_create.png")}"]
-      a href="#{edit_user_registration_path}"
-        img[src="#{image_path("h_edit.png")}"]
+      .menu
+        a.menu-action href="#{home_path}"
+          img[src="#{image_path("h_home.png")}"]
+        a.menu-action href="#{new_project_path}"
+          img[src="#{image_path("h_create.png")}"]
+        a.menu-action href="#{edit_user_registration_path}"
+          img[src="#{image_path("h_edit.png")}"]
 
-      - if user_signed_in?
-        | Logged in as #{current_user.email}
-        = link_to 'User Profile Edit', edit_user_registration_path
-        = link_to 'Log out', destroy_user_session_path, method: :delete
-      -else
-        img#signIn[src="#{image_path("h_signin.png")}"]
+        - if user_signed_in?
+          | Logged in as #{current_user.email}
+          = link_to 'User Profile Edit', edit_user_registration_path
+          = link_to 'Log out', destroy_user_session_path, method: :delete
+        -else
+          img.menu-action#signIn[src="#{image_path("h_signin.png")}"]
     section.search-bar
       form
-        img.search-icon[src="#{image_path("search_icon.png")}"]
+        span.search-icon
+          img[src="#{image_path("search_icon.png")}"]
         input#search-box
     .nav
         .notice #{notice}

@@ -1,3 +1,6 @@
+-content_for( :css_link ) do
+  =stylesheet_link_tag 'project_list'
+
 h1 Listing projects
 
 table
@@ -14,16 +17,18 @@ table
 
   tbody
     - @projects.each do |project|
-      tr
-        td = project.project_name
-        td = project.thumbnail_picture_id
+      tr.project
+        td.project-name = project.project_name
+        td.thumbnail 
+          img src="#{{project.thumbnail_src}}"
         td = project.user_id
         td = project.status
         td = project.description
-        td = link_to 'Play', project_path(project)
-        td = link_to 'Detail', detail_project_path(project)
-        td = link_to 'Edit', edit_project_path(project)
-        td = link_to 'Delete', project, data: {:confirm => 'Are you sure?'}, :method => :delete
+        td = link_to 'Play',    project_path(project)
+        td = link_to 'Record',  record_project_path(project)
+        td = link_to 'Detail',  detail_project_path(project)
+        td = link_to 'Edit',    edit_project_path(project)
+        td = link_to 'Delete',  project, data: {:confirm => 'Are you sure?'}, :method => :delete
 
 br
 

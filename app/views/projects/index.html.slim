@@ -1,35 +1,25 @@
 -content_for( :css_link ) do
   =stylesheet_link_tag 'project_list'
 
-h1 Listing projects
-
-table
-  thead
-    tr
-      th Project name
-      th Thumbnail picture
-      th User
-      th Status
-      th Description
-      th
-      th
-      th
-
-  tbody
+.projects
     - @projects.each do |project|
-      tr.project
-        td.project-name = project.project_name
-        td.thumbnail 
+      .project
+        .thumbnail 
           img src="#{{project.thumbnail_src}}"
-        td = project.user_id
-        td = project.status
-        td = project.description
-        td = link_to 'Play',    project_path(project)
-        td = link_to 'Record',  record_project_path(project)
-        td = link_to 'Detail',  detail_project_path(project)
-        td = link_to 'Edit',    edit_project_path(project)
-        td = link_to 'Delete',  project, data: {:confirm => 'Are you sure?'}, :method => :delete
-
-br
-
-= link_to 'New Project', new_project_path
+        .project-name = project.project_name
+        .user 
+          span = image_tag image_path("user_icon.png")
+          | #{project.user.name}
+        .status = project.status
+        description = project.description
+        ul.action 
+          li
+            = link_to 'Play',    project_path(project)
+          li
+            = link_to 'Record',  record_project_path(project)
+          li
+            = link_to 'Detail',  detail_project_path(project)
+          li
+            = link_to 'Edit',    edit_project_path(project)
+          li
+            = link_to 'Delete',  project, data: {:confirm => 'Are you sure?'}, :method => :delete

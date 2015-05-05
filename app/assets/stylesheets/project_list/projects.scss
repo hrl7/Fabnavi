@@ -1,12 +1,37 @@
 // Place all the styles related to the projects controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+@import "../var";
 
 .thumbnail {
-  width:200px;
+  width:90%;
+  padding:5%;
 }
 
 .thumbnail img {
   transform:rotateZ(180deg);
   width:100%;
+}
+
+
+.projects {
+  margin:0 auto;
+  width:$ct-width;
+  border:solid 1px red;
+}
+
+.project {
+  background-color:$white;
+  border-radius:4px;
+  width: $ct-width / 4;
+  margin-left :(100% - $ct-width) / 8;
+  margin-right:(100% - $ct-width) / 8;
+  margin-bottom : 20px;
+  float:left;
+
+
+  .user {
+    text-align:right;
+
+  }
 }

@@ -1,0 +1,56 @@
+@import "../var.scss";
+body {
+  background-color : $black;
+}
+
+
+.header {
+    width : $ct-width * 0.9;
+    margin : 0 auto;
+
+}
+.menu {
+  float:right;
+  position:relative;
+  width : 50%;
+
+  height: 100%;
+  margin-top: 50px;
+}
+
+.menu-action {
+  float:right;
+  margin-left:$ct-width / 10;
+
+}
+
+.logo {
+
+}
+
+.search-bar {
+  width:100%;
+  background-color : $brown;
+  margin-top:20px;
+  margin-bottom:20px;
+  padding-top:10px;
+  padding-bottom:10px;
+  form {
+    width : $ct-width / 5;
+    background-color:white;
+    border-radius:4px;
+    box-shadow:none;
+
+    .search-icon {
+      width:20%;
+    }
+
+  input {
+    box-shadow:none;
+
+        width:80%;
+      vertical-align: middle;
+    }
+
+  }
+}
