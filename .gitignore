@@ -20,3 +20,5 @@
 /db/*.csv
 /**/*.swp
 /**/*.swo
+
+/public/uploads
