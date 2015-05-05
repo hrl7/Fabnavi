@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:edit, :update, :destroy, :detail]
-  before_action :set_project_with_pictures, only: [:show]
-  before_action :authenticate! , only: [:new, :home, :edit, :update, :destroy]
+  before_action :set_project_with_pictures, only: [:show, :record]
+  before_action :authenticate! , only: [:new, :home, :edit, :record, :update, :destroy]
 
   # GET /projects
   # GET /projects.json
@@ -13,6 +13,10 @@ class ProjectsController < ApplicationController
   # GET /projects/1.json
   def show
    render layout: 'player'
+  end
+
+  def record
+    render layout: 'player'
   end
 
   def detail

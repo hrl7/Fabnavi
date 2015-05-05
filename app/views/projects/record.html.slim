@@ -1,0 +1,16 @@
+-content_for( :js_include ) do
+  javascript:
+    function boot(){
+      Fabnavi.add();
+    }
+
+javascript:
+  PICTURES_DATA = #{{@pictures.to_json}}
+  PROJECT_DATA = #{{@project.to_json}}
+#contents
+  #thumbnailList
+  img#photo height="3715"  width="4928"  crossorigin="anonymous"
+  canvas#cvs
+  #counter
+  #editor
+  img#navigation-image
