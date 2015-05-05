@@ -20,7 +20,7 @@ var Fabnavi = function(){
       new Error("mode is invalid");
     }
 
-    /* Before */  
+    /* Before */
     globalImageList = CachableImageList();
     MainView.init();
     Detail.init();
@@ -80,7 +80,7 @@ var Fabnavi = function(){
   }
 
   function setCalibrateMode(){
-    setCalibrationLock(false); 
+    setCalibrationLock(false);
     setGlobalImageVisible();
     CalibrateController.addMouseEvent();
   }
@@ -100,14 +100,14 @@ var Fabnavi = function(){
   }
 
   function setPlayMode(){
-    setCalibrationLock(true); 
+    setCalibrationLock(true);
 
     setGlobalImageVisible();
     CalibrateController.removeMouseEvent();
   }
 
   function setCalibrationLine(show){
-    _showCalibrationLine = show;    
+    _showCalibrationLine = show;
     redraw();
   }
 
@@ -147,7 +147,7 @@ var Fabnavi = function(){
   function setPage(i){
     if(showingImageList.setPage(i) !== false){
       viewStatus = 1;
-      showPage(); 
+      showPage();
     }
   }
 
@@ -159,7 +159,7 @@ var Fabnavi = function(){
   }
 
   function showPage(){
-    console.log(showingImageList.index() + 1 + "/" + showingImageList.maxLength()); 
+    console.log(showingImageList.index  () + 1 + "/" + showingImageList.maxLength());
     var deferredImage;
     if(deferredImage = showingImageList.getDeferredImage()){
       MainView.clear();
@@ -223,7 +223,7 @@ var Fabnavi = function(){
 
   function setThumbnail(){
     Server.setThumbnail(showingImageList.index());
-  } 
+  }
 
   function removePage(){
     if(showingImageList.length() >1){

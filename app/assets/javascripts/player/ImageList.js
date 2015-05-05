@@ -21,7 +21,7 @@ function initWithURLArray(array){
 function initEditor(){
   editor = ThumbnailViewer();
   //  d.promise().then(editor.init);
-  editor.init(list); 
+  editor.init(list);
   setEditorInitialized();
 }
 
@@ -43,7 +43,7 @@ function getUploadList() {
   return res;
 
   function isReady(obj){
-      return obj.hasOwnProperty("globalURL"); 
+      return obj.hasOwnProperty("globalURL");
   }
 }
 
@@ -74,12 +74,36 @@ function pushImageUrlRecursively(images,i){
     return 0;
   }
   var image = images[i];
-  var res = pushImageURL({globalURL:image.url,thumbnailURL:image.thumbnail_url});
+  console.log(image);
+
+  var res = pushImageURL(
+    {
+      globalURL:image.file.url.replace(/^.*https%3A/,"https:/"),
+      thumbnailURL:peelThumbnail(image)
+      });
   res.loadedImg.then(function(){
       Publisher.update("Loading",i+1+"/"+loadingLength);
       pushImageUrlRecursively(images,i+1);
       if(editorInitialized)editor.update();
   });
+
+  // TODO : Refactor!!!
+  function peelThumbnail(img){
+    if(img.hasOwnProperty("thumbnail")) {
+      if(img.thumbnail.hasOwnProperty("url")){
+        return convert_file_to_s3(img.thumbnail.url);
+      }
+    }
+    return null;
+  }
+
+  function convert_file_to_s3 (url) {
+    if(url){
+      return url.replace(/^.*https%3A/,"https:/");
+    } else {
+        return "";
+    }
+  }
 }
 
 
@@ -117,7 +141,7 @@ function addThumbnailURLFromLocalURL(thumbnailUrl,localUrl){
 }
 
 function createObject(obj){
-  /* if argObj has not img elem, 
+  /* if argObj has not img elem,
    * add img elem and set src */
   if(!obj.hasOwnProperty("img")){
     obj.img = new Image();
@@ -175,7 +199,7 @@ function getProgress(){
 function nextPage(){
   if(list.length === 0)return index;
   if(index < list.length-1){
-    index++;  
+    index++;
   } else {
     index = 0;
   }
@@ -192,8 +216,8 @@ function setPage(i){
 
 function prevPage(){
   if(list.length === 0)return index;
-  if(index > 0) { 
-    index--;  
+  if(index > 0) {
+    index--;
   } else {
     index = list.length -1;
   }
@@ -207,7 +231,7 @@ function loadImage(){
 }
 
 function splice(a,b){
-  list.splice(a,b); 
+  list.splice(a,b);
   length = list.length;
 }
 
@@ -216,9 +240,9 @@ function getListDeferred(){
 }
 
 function updateList(a){
-  var res = []; 
+  var res = [];
   for(var i in a){
-    res.push(findElementFromUrl(a[i]));     
+    res.push(findElementFromUrl(a[i]));
   }
   list = res;
 }
@@ -296,4 +320,3 @@ return {
 };
 
 };
-
