@@ -1,0 +1,21 @@
+p#notice = notice
+
+p
+  strong Project name:
+  = @project.project_name
+p
+  strong Thumbnail picture:
+  = @project.thumbnail_picture_id
+p
+  strong User:
+  = @project.user.name
+p
+  strong Status:
+  = @project.status
+p
+  strong Description:
+  = @project.description
+
+= link_to 'Edit', edit_project_path(@project)
+'|
+= link_to 'Back', projects_path

@@ -1,0 +1,18 @@
+p#notice = notice
+
+p
+  strong File:
+  =image_tag @photo.file
+p
+  strong Thumbnail:
+  =image_tag @photo.thumbnail
+p
+  strong Project:
+  = @photo.project_id
+p
+  strong Order in project:
+  = @photo.order_in_project
+
+= link_to 'Edit', edit_photo_path(@photo)
+'|
+= link_to 'Back', photos_path
