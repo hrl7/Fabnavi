@@ -20,9 +20,10 @@ table
         td = project.user_id
         td = project.status
         td = project.description
-        td = link_to 'Show', project
+        td = link_to 'Play', project_path(project)
+        td = link_to 'Detail', detail_project_path(project)
         td = link_to 'Edit', edit_project_path(project)
-        td = link_to 'Destroy', project, data: {:confirm => 'Are you sure?'}, :method => :delete
+        td = link_to 'Delete', project, data: {:confirm => 'Are you sure?'}, :method => :delete
 
 br
 

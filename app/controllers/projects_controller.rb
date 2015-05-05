@@ -19,7 +19,8 @@ class ProjectsController < ApplicationController
   end
 
   def home
-    redirect_to root_path
+    @projects = Project.all
+    render action: :index
   end
 
   # GET /projects/new
