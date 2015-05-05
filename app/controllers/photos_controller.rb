@@ -1,5 +1,6 @@
 class PhotosController < ApplicationController
   before_action :set_photo, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate!
 
   # GET /photos
   # GET /photos.json
@@ -62,13 +63,20 @@ class PhotosController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_photo
-      @photo = Photo.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_photo
+    @photo = Photo.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def photo_params
-      params.require(:photo).permit(:file, :thumbnail, :project_id, :order_in_project)
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def photo_params
+    params.require(:photo).permit(:file, :thumbnail, :project_id, :order_in_project)
+  end
+
+  def authenticate! 
+    unless user_signed_in?
+      flash[:notice] = "You need to sign in"
+      redirect_to root_path
     end
+  end
 end
