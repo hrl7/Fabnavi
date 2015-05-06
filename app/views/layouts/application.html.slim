@@ -21,19 +21,21 @@ html
       a.logo href="#{root_path}"
         img[src="#{image_path("h_logo.png")}"]
       .menu
-        a.menu-action href="#{home_path}"
-          img[src="#{image_path("h_home.png")}"]
-        a.menu-action href="#{new_project_path}"
-          img[src="#{image_path("h_create.png")}"]
-        a.menu-action href="#{edit_user_registration_path}"
-          img[src="#{image_path("h_edit.png")}"]
-
         - if user_signed_in?
-          | Logged in as #{current_user.email}
-          = link_to 'User Profile Edit', edit_user_registration_path
-          = link_to 'Log out', destroy_user_session_path, method: :delete
+          = link_to image_tag(image_path('h_sign_out.png')), destroy_user_session_path, method: :delete, class: 'menu-action'
         -else
-          img.menu-action#signIn[src="#{image_path("h_signin.png")}"]
+          .menu-action
+            img.menu-action#signIn[src="#{image_path("h_signin.png")}"]
+        a.menu-action href="#{edit_user_registration_path}"
+          img[src="#{image_path("h_config.png")}"]
+        a.menu-action href="#{new_project_path}"
+          img[src="#{image_path("h_create.png")}"] 
+        a.menu-action href="#{home_path}"
+          img[src="#{image_path("h_myproject.png")}"]
+        a.menu-action href="#{root_path}"
+          img[src="#{image_path("h_top.png")}"]
+
+
     section.belt
       .search-bar
         form
