@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  validates :name , length:{maximum:10, minimum:2}
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -15,7 +16,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def self.from_omniauth(auth) 
+  def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
       user.password = Devise.friendly_token[0,20]
