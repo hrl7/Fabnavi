@@ -9,6 +9,9 @@ var KeyBind = function () {
 
 function setKeyMap(){
   window.onkeydown = function(e) {
+    if(!(e.altKey || e.metaKey) ){
+      e.preventDefault();
+    }
     var key = e.keyCode;
     if(keyMap.hasOwnProperty(key)){
       keyMap[key]();
