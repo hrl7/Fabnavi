@@ -5,14 +5,14 @@ html
       | Fabnavi
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     == yield :css_link
-
+    == yield :js_include
     script src="https://login.persona.org/include.js"
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
 
     javascript:
       CURRENT_USER = "";
-  body[onload="Auth.init();"]
+  body[onload="Auth.init();window.hasOwnProperty('boot') && boot();"]
     header.header
       a.logo href="#{root_path}"
         img[src="#{image_path("h_logo.png")}"]

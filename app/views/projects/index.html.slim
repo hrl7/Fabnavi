@@ -2,6 +2,10 @@
   =stylesheet_link_tag 'project_list'
 -content_for( :js_include ) do
   =javascript_include_tag 'project_list'
+  javascript:
+    function boot(){
+      ProjectList.init();
+    }
 
 .projects
     - @projects.each do |project|
