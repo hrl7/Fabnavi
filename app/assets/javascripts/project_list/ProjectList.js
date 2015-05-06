@@ -18,6 +18,13 @@ var ProjectList = function() {
     for (var i = 0; i < projects.length; ++i) {
       projects[i].onclick = function(e) {
         selectRec(e.target);
+        console.log("clicked");
+      }
+
+      projects[i].dblclick = function(e){
+        console.log("double clicked");
+        selectRec(e.target);
+        openActionMenu(selected);
       }
     }
     select(projects[0]);
@@ -123,7 +130,6 @@ var ProjectList = function() {
 
   function shallower() {
     if (depth == 1) {
-      depth--;
       closeActionMenu(selected);
     }
   }
@@ -140,6 +146,10 @@ var ProjectList = function() {
     actsElem.classList.remove('hide');
     selectAction(actsElem.children[0]);
     depth = 1;
+  }
+
+  function fire(){
+    selectedAction.children[0].click();
   }
 
   return {

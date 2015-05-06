@@ -3,7 +3,7 @@ html
   head
     title
       | Fabnavi
-    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
     == yield :css_link
     == yield :js_include
     script src="https://login.persona.org/include.js"
