@@ -4,8 +4,10 @@
 @import "../var";
 
 .thumbnail {
-  width:90%;
-  padding:5%;
+
+  width:200px;
+  height:200px * 0.7487;
+  margin:10px auto;
 }
 
 .thumbnail img {

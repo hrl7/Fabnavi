@@ -17,7 +17,7 @@ class Project < ActiveRecord::Base
     end
 
     if src == nil or src == ""
-      return "/images/play.png"
+      return "/images/noimage.gif"
     else
       return convert_file_to_s3 src
     end
