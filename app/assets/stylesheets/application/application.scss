@@ -46,6 +46,7 @@ a:hover {
   margin-bottom: 40px;
   padding-top: 10px;
   padding-bottom: 20px;
+  float:left;
 }
 .search-bar {
   width: $ct-width;
@@ -70,6 +71,7 @@ a:hover {
       width: 80%;
       font-size:14pt;
       float:right;
+      font-style:italic;
     }
     .search-icon {
       margin:5px 0;
