@@ -30,11 +30,12 @@ html
           = link_to 'Log out', destroy_user_session_path, method: :delete
         -else
           img.menu-action#signIn[src="#{image_path("h_signin.png")}"]
-    section.search-bar
-      form
-        span.search-icon
-          img[src="#{image_path("search_icon.png")}"]
-        input#search-box
+    section.belt
+      .search-bar
+        form
+          input#search-box
+          span.search-icon
+
     .nav
         .notice #{notice}
         .alert #{alert}

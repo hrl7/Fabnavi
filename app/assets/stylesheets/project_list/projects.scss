@@ -17,7 +17,7 @@
 .projects {
   margin:0 auto;
   width:$ct-width;
-  border:solid 1px red;
+  color: $black;
 }
 
 .project {
@@ -29,6 +29,17 @@
   margin-bottom : 20px;
   float:left;
 
+  a:active,
+  a:visited,
+  a:link {
+    color:$black;
+    text-decoration:none;
+  }
+
+  a:hover{
+    color:$brown;
+    text-decoration:none;
+  }
 
   .user {
     text-align:right;

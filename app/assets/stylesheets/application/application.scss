@@ -1,56 +1,83 @@
 @import "../var.scss";
 body {
-  background-color : $black;
+  background-color: $black;
+  color: $white;
 }
 
+a,
+a:active,
+a:visited,
+a:link {
+  color: $white;
+  text-decoration: none;
+}
+
+a:hover {
+  color: $brown;
+  text-decoration: none;
+}
 
 .header {
-    width : $ct-width * 0.9;
-    margin : 0 auto;
-
+  width: $ct-width * 0.9;
+  margin: 0 auto;
 }
-.menu {
-  float:right;
-  position:relative;
-  width : 50%;
 
+.menu {
+  float: right;
+  position: relative;
+  width: 50%;
   height: 100%;
   margin-top: 50px;
 }
 
 .menu-action {
-  float:right;
-  margin-left:$ct-width / 10;
-
+  float: right;
+  margin-left: $ct-width / 10;
 }
 
 .logo {
 
 }
 
+.belt {
+  width: 100%;
+  background-color: $brown;
+  margin-top: 10px;
+  margin-bottom: 40px;
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
 .search-bar {
-  width:100%;
-  background-color : $brown;
-  margin-top:20px;
-  margin-bottom:20px;
-  padding-top:10px;
-  padding-bottom:10px;
+  width: $ct-width;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  height: $belt-height;
   form {
-    width : $ct-width / 5;
-    background-color:white;
-    border-radius:4px;
-    box-shadow:none;
+    position: absolute;
+    right: 0;
+    margin-right: (100% - $ct-width) / 8;
+    width: $ct-width / 3;
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: none;
 
+    input {
+      box-shadow: none;
+      line-height: $belt-height;
+      background: none;
+      border: none;
+      width: 80%;
+      font-size:14pt;
+      float:right;
+    }
     .search-icon {
-      width:20%;
+      margin:5px 0;
+      margin-left : 5px;
+      height:$belt-height;
+      width:$belt-height;
+      display:block;
+      background: url("/images/search_icon.png") no-repeat scroll 0 0;;
     }
-
-  input {
-    box-shadow:none;
-
-        width:80%;
-      vertical-align: middle;
-    }
-
   }
 }
