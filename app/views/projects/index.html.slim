@@ -13,12 +13,11 @@
         .thumbnail
           img src="#{{project.thumbnail_src}}"
         .project-name = project.project_name
-        .date = project.date
-        .user
-          span = image_tag image_path("user_icon.png")
-          | #{project.user.name}
-        .status = project.status
-        description = project.description
+        .box
+          .date = project.date
+          .user
+            = image_tag image_path("user_icon.png"), class: 'user-icon'
+            .username #{project.user.name}
         ul.actions.hide
           li.action.action-box
             = link_to 'Play',    project_path(project) 

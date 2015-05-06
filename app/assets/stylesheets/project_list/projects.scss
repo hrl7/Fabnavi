@@ -2,73 +2,79 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 @import "../var";
-
 .thumbnail {
-
-  width:200px;
-  height:200px * 0.7487;
-  margin:10px auto;
+  width: 200px;
+  height: 200px * 0.7487;
+  margin: 10px auto;
 }
-
 .thumbnail img {
-  transform:rotateZ(180deg);
-  width:100%;
+  transform: rotateZ(180deg);
+  width: 100%;
 }
-
 .projects {
-  margin:0 auto;
-  width:$ct-width;
+  margin: 0 auto;
+  width: $ct-width;
   color: $black;
 }
-
 .selected-project {
-  background-color : $selected-color;
+  background-color: $selected-color;
 }
-
 .project {
-  background-color:$white;
+  background-color: $white;
 }
-.project-box{
-  border-radius:4px;
+.project-box {
+  border-radius: 4px;
   width: $ct-width / 4;
-  margin-left :(100% - $ct-width) / 8;
-  margin-right:(100% - $ct-width) / 8;
-  margin-bottom : 20px;
-  float:left;
-  position:relative;
+  margin-left: (100% - $ct-width) / 8;
+  margin-right: (100% - $ct-width) / 8;
+  margin-bottom: 20px;
+  float: left;
+  position: relative;
 }
-  a:active,
-  a:visited,
-  a:link {
-    color:$black;
-    text-decoration:none;
+.date {
+  width: 50%;
+  float: left;
+}
+.user-icon {
+  float: left;
+}
+.username {
+  float: left;
+  width: 80%;
+  overflow: auto;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.user {
+  float: left;
+  width: 50%;
+}
+a:active,
+a:visited,
+a:link {
+  color: $black;
+  text-decoration: none;
+}
+a:hover {
+  color: $brown;
+  text-decoration: none;
+}
+.user {
+  text-align: right;
+}
+ul.actions {
+  position: absolute;
+  top: 0;
+  .selected-action {
+    background-color: $selected-color;
   }
-
-  a:hover{
-    color:$brown;
-    text-decoration:none;
+  .action {
+    background-color: $white;
   }
-
-  .user {
-    text-align:right;
+  .action-box {
+    list-style: none;
   }
-
-  ul.actions {
-    position:absolute;
-    top:0;
-
-    .selected-action {
-      background-color : $selected-color;
-    }
-    .action {
-      background-color : $white;
-    }
-    .action-box {
-        list-style:none;
-    }
-  }
-
-
+}
 .hide {
-  display:none;
+  display: none;
 }
