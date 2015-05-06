@@ -10,8 +10,12 @@ html
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
 
-    javascript:
-      CURRENT_USER = "";
+    - if signed_in?
+      javascript:
+        var CURRENT_USER = "#{{current_user.email}}";
+    - else
+      javascript:
+        var CURRENT_USER = "";
   body[onload="Auth.init();window.hasOwnProperty('boot') && boot();"]
     header.header
       a.logo href="#{root_path}"

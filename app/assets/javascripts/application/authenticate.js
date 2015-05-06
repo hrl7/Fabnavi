@@ -19,20 +19,19 @@ var Auth = (function(){
    if(CURRENT_USER == null){
     CURRENT_USER = {email: ""};
    }
-   console.log("registered");
     navigator.id.watch({
         loggedInEmail:CURRENT_USER.email,
         onlogin: function(assertion){
-         console.log(CURRENT_USER);
           $.ajax({
               type:"POST",
               url:"/users/auth/persona/callback",
               data:{assertion:assertion},
               success: function(res, status, xhr){
-                window.location.reload();
+                window.location = res;
               },
               error: function(res, status, xhr){
-                console.log(res,status,xhr);
+                window.location = res;
+
               }
           });
         },
@@ -43,10 +42,11 @@ var Auth = (function(){
               url:"/users/sign_out",
               success: function(res, status, xhr){
                 if(CURRENT_USER.email != null)
-                  window.location.reload();
+                window.location = res;
+
               },
               error: function(res, status, xhr){
-                console.log(res,status,xhr);
+                window.location = res;
               }
           });
         }

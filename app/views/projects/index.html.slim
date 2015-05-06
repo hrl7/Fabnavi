@@ -17,7 +17,7 @@
           .date = project.date
           .user
             = image_tag image_path("user_icon.png"), class: 'user-icon'
-            .username #{project.user.name}
+            .username #{project.try(:user).try(:name)}
         ul.actions.hide
           li.action.action-box
             = link_to 'Play',    project_path(project) 
