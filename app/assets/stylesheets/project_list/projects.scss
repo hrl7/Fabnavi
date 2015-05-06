@@ -35,6 +35,7 @@
   margin-right:(100% - $ct-width) / 8;
   margin-bottom : 20px;
   float:left;
+  position:relative;
 }
   a:active,
   a:visited,
@@ -53,11 +54,17 @@
   }
 
   ul.actions {
+    position:absolute;
+    top:0;
+
     .selected-action {
       background-color : $selected-color;
     }
     .action {
       background-color : $white;
+    }
+    .action-box {
+        list-style:none;
     }
   }
 
