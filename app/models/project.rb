@@ -23,6 +23,9 @@ class Project < ActiveRecord::Base
     end
   end
 
+  def date
+    self.updated_at.strftime "%Y/%m/%d"
+  end
   # development only
   def convert_file_to_s3 url
     url.gsub(/^.*https%3A/,"https:/")

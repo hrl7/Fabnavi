@@ -13,6 +13,7 @@
         .thumbnail
           img src="#{{project.thumbnail_src}}"
         .project-name = project.project_name
+        .date = project.date
         .user
           span = image_tag image_path("user_icon.png")
           | #{project.user.name}
