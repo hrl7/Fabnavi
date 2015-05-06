@@ -28,7 +28,9 @@ function init(){
   keyMap[38] = ProjectList.up;
   keyMap[98] = ProjectList.down;
   keyMap[40] = ProjectList.down;
-  keyMap[13] = ProjectList.fire;
+  keyMap[13] = ProjectList.enter;
+  keyMap[27] = ProjectList.escape;
+
   setKeyMap();
 }
 function clearKeyMap(){

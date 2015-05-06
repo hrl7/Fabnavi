@@ -19,13 +19,13 @@
         .status = project.status
         description = project.description
         ul.actions.hide
-          li
+          li.action.action-box
             = link_to 'Play',    project_path(project)
-          li
+          li.action.action-box
             = link_to 'Record',  record_project_path(project)
-          li
+          li.action.action-box
             = link_to 'Detail',  detail_project_path(project)
-          li
+          li.action.action-box
             = link_to 'Edit',    edit_project_path(project)
-          li
+          li.action.action-box
             = link_to 'Delete',  project, data: {:confirm => 'Are you sure?'}, :method => :delete

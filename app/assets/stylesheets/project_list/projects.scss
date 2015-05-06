@@ -51,6 +51,12 @@
   }
 
   ul.actions {
+    .selected-action {
+      background-color : $selected-color;
+    }
+    .action {
+      background-color : $white;
+    }
   }
 
 
