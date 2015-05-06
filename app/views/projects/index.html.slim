@@ -1,7 +1,7 @@
 -content_for( :css_link ) do
-  =stylesheet_link_tag 'project_list'
+  =stylesheet_link_tag 'project_list', media: 'all', 'data-turbolinks-track' => true
 -content_for( :js_include ) do
-  =javascript_include_tag 'project_list'
+  =javascript_include_tag 'project_list', media: 'all', 'data-turbolinks-track' => true
   javascript:
     function boot(){
       ProjectList.init();
