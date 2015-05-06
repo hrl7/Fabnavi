@@ -5,3 +5,12 @@ $selected-color : #F5BE17;
 
 $ct-width : 80%;
 $belt-height : 28px;
+  @font-face{
+    font-family : "ArialRoundedMTBoldBold";
+    font-style: normal;
+    font-weight: normal;
+    src:url("/fonts/ArialRoundedMTBoldBold.ttf") format('truetype');
+  }
+  @mixin base-font {
+    font-family : "ArialRoundedMTBoldBold";
+}

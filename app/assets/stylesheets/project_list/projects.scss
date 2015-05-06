@@ -2,6 +2,11 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 @import "../var";
+
+body {
+
+  @include base-font;
+}
 .thumbnail {
   width: 200px;
   height: 200px * 0.7487;
@@ -30,10 +35,17 @@
   margin-bottom: 20px;
   float: left;
   position: relative;
+  padding-bottom:20px;
+}
+.project-name {
+  font-size:17pt;
+  margin-left:20px;
+  margin-bottom:5px;
 }
 .date {
-  width: 50%;
+  width: 40%;
   float: left;
+  margin-left:10%;
 }
 .user-icon {
   float: left;
