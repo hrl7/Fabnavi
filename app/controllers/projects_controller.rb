@@ -6,7 +6,7 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
-    @projects = Project.all
+    @projects = Project.order('updated_at desc').all
   end
 
   # GET /projects/1
@@ -24,7 +24,7 @@ class ProjectsController < ApplicationController
   end
 
   def home
-    @projects = Project.all
+    @projects = Project.joins(:user).order('updated_at desc').where(:user => current_user)
     render action: :index
   end
 
