@@ -29,12 +29,6 @@ function init(){
   keyMap[98] = ProjectList.down;
   keyMap[40] = ProjectList.down;
   keyMap[13] = ProjectList.fire;
-  keyMap[80] = ProjectList.play;
-  keyMap[65] = ProjectList.add;
-  keyMap[69] = ProjectList.edit;
-  keyMap[68] = ProjectList.del;
-  keyMap[46] = ProjectList.del;
-  keyMap[78] = ProjectList.newProject;
   setKeyMap();
 }
 function clearKeyMap(){
@@ -47,10 +41,8 @@ function showKeyMap(){
 }
 
 return {
- init:init, 
+ init:init,
  keyMap:showKeyMap,
- mode:"Index"
 
 };
 }();
-

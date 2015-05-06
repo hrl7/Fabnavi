@@ -9,16 +9,16 @@
 
 .projects
     - @projects.each do |project|
-      .project
-        .thumbnail 
+      .project-box.project
+        .thumbnail
           img src="#{{project.thumbnail_src}}"
         .project-name = project.project_name
-        .user 
+        .user
           span = image_tag image_path("user_icon.png")
           | #{project.user.name}
         .status = project.status
         description = project.description
-        ul.actions
+        ul.actions.hide
           li
             = link_to 'Play',    project_path(project)
           li

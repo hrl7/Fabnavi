@@ -13,22 +13,27 @@
   width:100%;
 }
 
-
 .projects {
   margin:0 auto;
   width:$ct-width;
   color: $black;
 }
 
+.selected-project {
+  background-color : $selected-color;
+}
+
 .project {
   background-color:$white;
+}
+.project-box{
   border-radius:4px;
   width: $ct-width / 4;
   margin-left :(100% - $ct-width) / 8;
   margin-right:(100% - $ct-width) / 8;
   margin-bottom : 20px;
   float:left;
-
+}
   a:active,
   a:visited,
   a:link {
@@ -46,6 +51,9 @@
   }
 
   ul.actions {
-    display:none;
   }
+
+
+.hide {
+  display:none;
 }
