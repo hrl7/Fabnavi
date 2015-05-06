@@ -30,8 +30,7 @@ var Auth = (function(){
                 window.location = res;
               },
               error: function(res, status, xhr){
-                window.location = res;
-
+                console.log(res,status,xhr);
               }
           });
         },
@@ -42,11 +41,11 @@ var Auth = (function(){
               url:"/users/sign_out",
               success: function(res, status, xhr){
                 if(CURRENT_USER.email != null)
-                window.location = res;
+                window.location.reload();
 
               },
               error: function(res, status, xhr){
-                window.location = res;
+                console.log(res,status,xhr);
               }
           });
         }

@@ -15,8 +15,8 @@ html
         var CURRENT_USER = "#{{current_user.email}}";
     - else
       javascript:
-        var CURRENT_USER = "";
-  body[onload="Auth.init();window.hasOwnProperty('boot') && boot();"]
+        var CURRENT_USER = null;
+  body[onload="Auth.init();boot();"]
     header.header
       a.logo href="#{root_path}"
         img[src="#{image_path("h_logo.png")}"]
