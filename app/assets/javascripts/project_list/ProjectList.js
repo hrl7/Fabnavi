@@ -17,14 +17,14 @@ var ProjectList = function() {
     projects = document.getElementsByClassName('project-box');
     for (var i = 0; i < projects.length; ++i) {
       projects[i].onclick = function(e) {
+        if(selected){
+          var last = selected;
+          selectRec(e.target);
+          if(selected == last) {
+            deeper();
+          }
+        }
         selectRec(e.target);
-        console.log("clicked");
-      }
-
-      projects[i].dblclick = function(e){
-        console.log("double clicked");
-        selectRec(e.target);
-        openActionMenu(selected);
       }
     }
     select(projects[0]);
@@ -143,6 +143,11 @@ var ProjectList = function() {
   function openActionMenu(elem) {
     actions = elem.getElementsByClassName('action-box');
     var actsElem = elem.getElementsByClassName('actions')[0];
+    for(var i = 0; i < actsElem.length; i++){
+      actsElem[i].onclick = function(e){
+        return false;
+      }
+    }
     actsElem.classList.remove('hide');
     selectAction(actsElem.children[0]);
     depth = 1;
