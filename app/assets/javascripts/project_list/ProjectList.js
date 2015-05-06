@@ -3,7 +3,7 @@ var ProjectList = function() {
     projects = null,
     selected = null,
     actions = null
-  selectedAction = null,
+    selectedAction = null,
     depth = 0
 
   ;
@@ -27,7 +27,9 @@ var ProjectList = function() {
         selectRec(e.target);
       }
     }
-    select(projects[0]);
+    if(projects.length > 0){
+      select(projects[0]);
+    }
   }
 
   function indexOfSelectedProject() {
