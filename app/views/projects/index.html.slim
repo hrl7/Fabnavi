@@ -1,5 +1,7 @@
 -content_for( :css_link ) do
   =stylesheet_link_tag 'project_list'
+-content_for( :js_include ) do
+  =javascript_include_tag 'project_list'
 
 .projects
     - @projects.each do |project|
@@ -12,7 +14,7 @@
           | #{project.user.name}
         .status = project.status
         description = project.description
-        ul.action 
+        ul.actions
           li
             = link_to 'Play',    project_path(project)
           li
