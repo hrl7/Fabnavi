@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
+  validates :name , length:{minimum:3}
   devise :database_authenticatable, :registerable,
     :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :omniauth_providers => [:persona]
 
@@ -13,6 +14,13 @@ class User < ActiveRecord::Base
     else
       super
     end
+  end
+
+  def password_required?
+    #TODO check whether this is secure?
+    #bybug.pry
+    #super && auths.length == 0
+    false
   end
 
   def self.from_omniauth(auth)
