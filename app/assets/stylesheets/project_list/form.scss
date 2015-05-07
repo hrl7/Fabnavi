@@ -1,0 +1,40 @@
+@import "../var";
+input {
+  padding : 0;
+  margin : 0;
+
+}
+.form-box {
+  font-size : 20pt;
+  width:$ct-width * 0.7;
+  margin: 0 auto;
+}
+
+.form-title {
+  text-align : center;
+  width:100%;
+  font-size:30pt;
+}
+
+.form-text {
+  width:100%;
+  font-size:100%;
+  margin-top:10px;
+}
+
+.form-select {
+  font-size:100%;
+  @include base-font;
+}
+
+.field {
+  margin-bottom : 30px;
+}
+
+.actions  {
+    width: 20%;
+    margin: 0 auto;
+    input {
+      width:100%;
+    }
+}

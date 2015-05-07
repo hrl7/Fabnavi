@@ -1,8 +1,10 @@
-h1 Editing project
+- content_for (:css_link) do
+  = stylesheet_link_tag "project_list" 
+
+h1.form-title Editing project
 
 == render 'form'
 
 = link_to 'Show', @project
 '|
 = link_to 'Back', projects_path
-

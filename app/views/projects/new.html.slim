@@ -1,5 +1,8 @@
-h1 New project
+- content_for (:css_link) do
+  = stylesheet_link_tag "project_list" 
+h1.form-title Create New project
 
 == render 'form'
+
 
 = link_to 'Back', projects_path
