@@ -1,0 +1,15 @@
+= form_for @timing do |f|
+  - if @timing.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@timing.errors.count, "error")} prohibited this timing from being saved:"
+      ul
+        - @timing.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label :time
+    = f.text_field :time
+  .field
+    = f.label :movie
+    = f.text_field :movie
+  .actions = f.submit

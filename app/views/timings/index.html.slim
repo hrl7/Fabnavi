@@ -1,0 +1,23 @@
+h1 Listing timings
+
+table
+  thead
+    tr
+      th Time
+      th Movie
+      th
+      th
+      th
+
+  tbody
+    - @timings.each do |timing|
+      tr
+        td = timing.time
+        td = timing.movie
+        td = link_to 'Show', timing
+        td = link_to 'Edit', edit_timing_path(timing)
+        td = link_to 'Destroy', timing, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Timing', new_timing_path

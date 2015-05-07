@@ -1,0 +1,12 @@
+p#notice = notice
+
+p
+  strong File:
+  = @movie.file
+p
+  strong Project:
+  = @movie.project
+
+= link_to 'Edit', edit_movie_path(@movie)
+'|
+= link_to 'Back', movies_path

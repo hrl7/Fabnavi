@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :timings
+  resources :movies
   resources :tags
   root to: "projects#index"
   get 'home' => "projects#home", :as => "home"
