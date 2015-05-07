@@ -12,9 +12,7 @@
   .field
     = f.label "Project description"
     = f.text_area :description, rows: 10, class: "form-text"
-  .field 
-    = f.label :status
-    = f.select :status, Project.statuses.keys,{},{class: "form-select"}
+
   -if controller.action_name == "new"  
     center 
       | You need calibration sheet !!
