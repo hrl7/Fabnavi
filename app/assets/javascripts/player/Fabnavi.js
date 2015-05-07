@@ -203,10 +203,12 @@ var Fabnavi = function(){
     Camera.ping().done(function(){
       MainView.clear();
       showingImageList.hideEditor();
+      setNavigationImage("");
       Camera.shoot().then(function(url){
         redraw();
         var res = showingImageList.push(url,showingImageList.index());
         nextPage();
+        setNavigationImage("key_bind.png");
         ImageUploadQueue.push(res);
       });
     }).fail(function(){
