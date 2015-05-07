@@ -37,7 +37,7 @@ var PhaseController = (function(){
     var d = new $.Deferred();
     registerCallback(function(){
       d.resolve();
-    },[]); 
+    },[]);
     return d.promise();
   };
 
@@ -54,7 +54,7 @@ var PhaseController = (function(){
     var d = new $.Deferred();
     registerCallback(function(){
       d.resolve();
-    },[]); 
+    },[]);
     return d.promise();
   }
 
@@ -71,14 +71,14 @@ var PhaseController = (function(){
       Fabnavi.shoot();
       beforeStageChanging();
       d.resolve();
-    },[13]); 
+    },[13]);
     return d.promise();
   }
 
   var putCalibrationSheet = function(){
     Fabnavi.setCalibrationLine(true);
     Fabnavi.setNavigationImage("move_sheet.gif");
-    Fabnavi.setCalibrationLock(true); 
+    Fabnavi.setCalibrationLock(true);
 
     var keyMap = [];
     keyMap[27] = Fabnavi.exit;
@@ -89,7 +89,7 @@ var PhaseController = (function(){
       console.log("Put picture");
       beforeStageChanging();
       d.resolve();
-    },[32]); 
+    },[32]);
     return d.promise();
   }
 
@@ -99,7 +99,12 @@ var PhaseController = (function(){
     Fabnavi.setCalibrationLine(true);
     CalibrateController.addMouseEvent();
 
-    var keyMap = [];
+    var keyMap = [], d = 10;
+    keyMap[27] = Fabnavi.exit;
+    keyMap[39] = CalibrateController.moveRegionCB(-d,0);
+    keyMap[37] = CalibrateController.moveRegionCB(d,0);
+    keyMap[38] = CalibrateController.moveRegionCB(0,-d);
+    keyMap[40] = CalibrateController.moveRegionCB(0,d);
     keyMap[27] = Fabnavi.exit;
     Key.setKeyMap(keyMap);
 
@@ -108,7 +113,7 @@ var PhaseController = (function(){
       console.log("move Picture");
       beforeStageChanging();
       d.resolve();
-    },[32]); 
+    },[32]);
     return d.promise();
   }
 
@@ -116,7 +121,7 @@ var PhaseController = (function(){
     CalibrateController.removeMouseEvent();
     Fabnavi.setNavigationImage("adjust_asp.gif");
 
-    var keyMap = [],d = 20;
+    var keyMap = [],d = 10;
     keyMap[39] = CalibrateController.changeRegionCB(-d,0);
     keyMap[37] = CalibrateController.changeRegionCB(d,0);
     keyMap[38] = CalibrateController.changeRegionCB(0,-d);
@@ -135,8 +140,8 @@ var PhaseController = (function(){
   }
 
   function beforeStageChanging(){
-    Fabnavi.setCalibrationLine(false); 
-    Fabnavi.setCalibrationLock(false); 
+    Fabnavi.setCalibrationLine(false);
+    Fabnavi.setCalibrationLock(false);
     Fabnavi.setNavigationImage("");
     CalibrateController.removeMouseEvent();
     Key.clear();
@@ -155,7 +160,7 @@ var PhaseController = (function(){
 
   function registerCallback(fn,keys){
     Key.deregister();
-    Key.register(fn,keys); 
+    Key.register(fn,keys);
   }
 
   function deregister(){
@@ -169,6 +174,3 @@ var PhaseController = (function(){
   };
 
 })();
-
-
-

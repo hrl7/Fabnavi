@@ -61,6 +61,12 @@ function changeRegionCB(_w,_h){
  }
 }
 
+function moveRegionCB(_dx,_dy){
+  return function(){
+    moveRelatively(_dx,_dy);
+  }
+}
+
 
 
 function validateWH(){
@@ -79,7 +85,7 @@ function loadFromViewConfig(){
   x = conf.x || 0;
   y = conf.y || 0;
   w = conf.w || 1000;
-  h = conf.h || 1000; 
+  h = conf.h || 1000;
   validateWH();
 }
 
@@ -127,7 +133,7 @@ function addMouseEvent (){
         lx = eX;
       }else {
         var eY = e.clientY;
-        moveRelatively(lx - eX,eY - ly); 
+        moveRelatively(lx - eX,eY - ly);
         lx =  eX;
         ly =  eY;
       }
@@ -156,7 +162,7 @@ function updateXYFromCenter (){
 function update (){
   updateXYFromCenter();
   if(isInitalized)ViewConfig.setConf({x:x,y:y,w:w,h:h});
-  else { 
+  else {
    initConf();
   }
   Fabnavi.redraw();
@@ -177,5 +183,6 @@ return {
   removeMouseEvent:removeMouseEvent,
   toggleAspBtn:toggleAspectShiftMode,
   changeRegionCB:changeRegionCB,
+  moveRegionCB:moveRegionCB,
 };
 } ();
