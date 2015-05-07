@@ -12,6 +12,11 @@
       .project-box.project
         .thumbnail
           img src="#{{project.thumbnail_src}}"
+          - if true 
+            - if project.private_project?
+              img#status-icon src="#{{image_path('private.png')}}"
+            -else 
+              img#status-icon src="#{{image_path('public.png')}}"
         .project-name = project.project_name
         .box
           .date = project.date

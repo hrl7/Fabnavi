@@ -12,10 +12,18 @@ body {
   height: 200px * 0.7487;
   margin: 10px auto;
 }
+
 .thumbnail img {
   transform: rotateZ(180deg);
   width: 100%;
 }
+#status-icon {
+    width:20%;
+    position:absolute;
+    top:5%;
+    right:10%;
+}
+
 .projects {
   margin: 0 auto;
   width: $ct-width;
