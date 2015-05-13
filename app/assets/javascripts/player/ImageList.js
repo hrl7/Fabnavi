@@ -48,6 +48,7 @@ function getUploadList() {
 }
 
 function pushImageURL(obj,index){
+  index = index || 0;
   var res = createObject(obj);
   if(Number.isInteger(index) && index < list.length){
     list.splice(index+1,0,res);
@@ -55,13 +56,12 @@ function pushImageURL(obj,index){
     list.push(obj);
   }
   length = list.length;
+  if(editorInitialized)editor.update(res);
   return res;
 }
 
 function pushLocalImageWithURL(url,index){
-  index = index || 0;
   var res = pushImageURL({localURL:url},index);
-  if(editorInitialized)editor.update(res);
   return res;
 }
 
