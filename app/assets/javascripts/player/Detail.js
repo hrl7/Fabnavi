@@ -6,7 +6,7 @@ var Detail = function(){
   ;
 
 function init(){
-  projectName = PROJECT_DATA.projectName;
+  projectName = PROJECT_DATA.project_name;
   author = PROJECT_DATA.author;
   Publisher.subscribe("Name",projectName);
 }
