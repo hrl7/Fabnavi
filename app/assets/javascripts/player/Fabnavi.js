@@ -159,13 +159,15 @@ var Fabnavi = function(){
     setPage(showingImageList.index());
   }
 
-  function showPage(){
+    function showPage(){
     console.log(showingImageList.index  () + 1 + "/" + showingImageList.maxLength());
     var deferredImage;
     if(deferredImage = showingImageList.getDeferredImage()){
       MainView.clear();
       MainView.showWaitMessage();
       deferredImage.then(function(img){
+        MainView.clear();
+       console.log(img);
         MainView.draw(img);
         viewStatus = 2;
         afterShowing();
@@ -193,11 +195,27 @@ var Fabnavi = function(){
   /* recorder interface */
   function setLocalImageVisible(){
     showingImageList = localImageList;
-  }
+}
 
   function setGlobalImageVisible(){
     showingImageList = globalImageList;
   }
+  function testShoot(){
+      MainView.clear();
+      MainView.drawMessage("This is Test Image",0,100);
+      MainView.drawMessage(PROJECT_DATA.project_name,0,200);
+      MainView.drawMessage("User id: "+PROJECT_DATA.user_id,0,300);
+      MainView.drawMessage(Date(),0,400);
+     var img = document.createElement("img");
+      img.src = MainView.toDataURL();
+      showingImageList.hideEditor();
+      setNavigationImage("");
+      redraw();
+      var res = showingImageList.pushImage({testImg:img} ,showingImageList.index());
+      nextPage();
+      setNavigationImage("key_bind.png");
+      ImageUploadQueue.push(res);
+    }
 
   function shoot(){
     Camera.ping().done(function(){
@@ -266,6 +284,7 @@ var Fabnavi = function(){
     setPage:setPage,
     redraw:redraw,
     shoot:shoot,
+    testShoot:testShoot,
 
     toggleEditor:toggleEditor,
     setThumbnail:setThumbnail,

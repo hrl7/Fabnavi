@@ -13,6 +13,10 @@ function getCtx(){
   return ctx;
 }
 
+function getCvs(){
+  return cvs;
+}
+
 function initCanvas(){
   cvs = document.getElementById('cvs');
   ctx = cvs.getContext('2d');
@@ -30,6 +34,7 @@ function drawCalibrateLine(){
 }
 
 function drawWaitingMessage(){
+ console.log("Draw Waiting Message");
   ctx.fillStyle = "black";
   ctx.font = "100px san-serif";
   ctx.rotate(Math.PI);
@@ -50,6 +55,7 @@ function drawShootingMessage(){
 }
 
 function draw(image){
+ console.log("Draw Image");
   ImageConverter.drawImage(image,cvs,ViewConfig.conf());
   currentImage = image;
 }
@@ -67,6 +73,23 @@ function getCurrentImage(){
   return currentImage || false;
 }
 
+function toDataURL(){
+  return cvs.toDataURL();
+}
+
+function drawMessage(mes,x,y){
+ x = x || 0;
+ y = y || 20;
+  ctx.fillStyle = "black";
+  ctx.font = "100px san-serif";
+  ctx.rotate(Math.PI);
+  ctx.translate(-1500,-800);
+  ctx.fillText(mes,x,y);
+  ctx.translate(1500,800);
+  ctx.rotate(-Math.PI);
+}
+
+
 return {
   init:init,
   draw:draw,
@@ -76,7 +99,12 @@ return {
   redraw:redraw,
   showShootingMessage:drawShootingMessage,
   getCtx:getCtx,
+  getCvs:getCvs,
+
   getCurrentImage:getCurrentImage,
+  drawMessage:drawMessage,
+
+  toDataURL : toDataURL,
 };
 
 }();

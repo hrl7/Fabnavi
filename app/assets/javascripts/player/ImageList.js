@@ -145,7 +145,13 @@ function createObject(obj){
    * add img elem and set src */
   if(!obj.hasOwnProperty("img")){
     obj.img = new Image();
-    if(obj.hasOwnProperty("localURL")){
+    if(obj.hasOwnProperty("testImg")){
+      var d = $.Deferred();
+      obj.img.crossOrigin = "anonymous";
+      d.resolve(obj.testImg);
+      obj.loadedImg = d.promise();
+      console.log(obj);
+     } else if(obj.hasOwnProperty("localURL")){
       var d = $.Deferred();
       obj.timer = generateRecTimer(obj);
       obj.img.crossOrigin = "anonymous";
@@ -299,6 +305,7 @@ return {
   updateListWithURLArray:updateList,
   maxLength:getLoadingLength,
   push:pushLocalImageWithURL,
+  pushImage:pushImageURL,
 
   next:nextPage,
   prev:prevPage,
