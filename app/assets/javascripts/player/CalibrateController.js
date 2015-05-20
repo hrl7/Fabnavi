@@ -95,8 +95,11 @@ function init (){
       if(zi)zoomIn();
       if(zo)zoomOut();
   },50);
+  lx = cvs.clientWidth;
+  ly = cvs.clientHeight;
   loadFromViewConfig();
   updateXYFromWH();
+  update();
 }
 
 function toggleAspectShiftMode(){
@@ -184,5 +187,7 @@ return {
   toggleAspBtn:toggleAspectShiftMode,
   changeRegionCB:changeRegionCB,
   moveRegionCB:moveRegionCB,
+  dbg:dbg,
+  update:update,
 };
 } ();
