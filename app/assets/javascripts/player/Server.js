@@ -64,10 +64,32 @@ var Server = function (){
     };
   }
 
+function postPhoto(file,thumbnail,project_id,order_in_project){
+    var fd = new FormData();
+    fd.append("file", file,".png");
+    fd.append("thumbnail", thumbnail,".png");
+    fd.append("project_id", project_id);
+    fd.append("order_in_project",order_in_project);
+    $.ajax({ 
+      url: "/photos",
+      type: "POST",
+      data:fd, 
+      processData: false,
+      contentType: false  
+    },
+    function(res,err){
+      console.log(res);
+      console.log(err);
+    }
+    );
+
+}
+
 
   return {
     setThumbnail:setThumbnail,
     postPlaylist:postPlaylist,
     postPicture:postPicture,
+    postPhoto:postPhoto,
   };
 }();
