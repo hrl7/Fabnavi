@@ -7,9 +7,11 @@ body {
 
   @include base-font;
 }
+$thumb-width : 200px;
+$thumb-height: 200px * 0.7487;
 .thumbnail {
-  width: 200px;
-  height: 200px * 0.7487;
+  width: $thumb-width;
+  height: $thumb-height;
   margin: 10px auto;
 }
 
@@ -72,7 +74,7 @@ body {
 a:active,
 a:visited,
 a:link {
-  color: $black;
+  color: $white;
   text-decoration: none;
 }
 a:hover {
@@ -84,15 +86,30 @@ a:hover {
 }
 ul.actions {
   position: absolute;
-  top: 0;
+  top: 0px;
+  left:3px;
+  padding:0px;
+  padding-top:0px;
+  margin:10px;
+  width:$thumb-width;
+
   .selected-action {
-    background-color: $selected-color;
+    color: $selected-color !important;
+    a {
+    color: $selected-color !important;
+    }
   }
   .action {
-    background-color: $white;
+    color:$white !important;
+    a{
+    color:$white !important;
+    }
   }
   .action-box {
+    background-color: $tp-black;
     list-style: none;
+    height: ($thumb-height - 5px) / 5;
+    margin-bottom:1px;
   }
 }
 .hide {
