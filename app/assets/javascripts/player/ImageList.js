@@ -206,9 +206,7 @@ function nextPage(){
   if(list.length === 0)return index;
   if(index < list.length-1){
     index++;
-  } else {
-    index = 0;
-  }
+  }  
   if(editorInitialized)editor.next();
   return index;
 }
@@ -224,9 +222,7 @@ function prevPage(){
   if(list.length === 0)return index;
   if(index > 0) {
     index--;
-  } else {
-    index = list.length -1;
-  }
+  }  
   if(editorInitialized)editor.prev();
   return index;
 }
