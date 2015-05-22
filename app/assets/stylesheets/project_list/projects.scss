@@ -47,6 +47,9 @@ $thumb-height: 200px * 0.7487;
   position: relative;
   padding-bottom:20px;
 }
+.project-box:hover {
+  background-color: $hover-color;
+}
 .project-name {
   font-size:17pt;
   margin-left:20px;
