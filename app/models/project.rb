@@ -24,7 +24,7 @@ class Project < ActiveRecord::Base
   end
 
   def date
-    self.updated_at.strftime "%Y/%m/%d"
+    self.updated_at.strftime "%y/%m/%d"
   end
   # development only
   def convert_file_to_s3 url
