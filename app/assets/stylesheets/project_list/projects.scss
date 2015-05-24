@@ -7,8 +7,6 @@ body {
 
   @include base-font;
 }
-$thumb-width : 200px;
-$thumb-height: 200px * 0.7487;
 .thumbnail {
   width: $thumb-width;
   height: $thumb-height;
@@ -111,8 +109,16 @@ ul.actions {
   .action-box {
     background-color: $tp-black;
     list-style: none;
-    height: ($thumb-height - 5px) / 5;
+    height: $action-height;
     margin-bottom:1px;
+    img {
+      width:$action-height * 0.8;
+      margin:  $action-height * 0.1;
+    }
+    a {
+      position:absolute;
+      margin-top:$action-height * 0.2;
+    }
   }
 }
 .hide {
