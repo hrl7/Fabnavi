@@ -5,6 +5,7 @@ $white : #EFEFEF;
 $tp-black :rgba(54, 48, 48, 0.8);
 $selected-color : #F5BE17;
 $hover-color:#E1B22B;
+$username-color : #3B6ACE;
 @font-face{
     font-family : "ArialRoundedMTBoldBold";
     font-style: normal;
@@ -22,3 +23,5 @@ $thumb-width : 200px;
 $thumb-height: 200px * 0.7487;
 $belt-height : 28px;
 $action-height: ($thumb-height - 5px) / 5;
+$avatar-length: 40px;
+$thumb-pad  : 20px;

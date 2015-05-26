@@ -50,7 +50,7 @@ body {
 }
 .project-name {
   font-size:17pt;
-  margin-left:20px;
+  margin-left:$thumb-pad;
   margin-bottom:5px;
 }
 .date {
@@ -60,10 +60,15 @@ body {
 }
 .user-icon {
   float: left;
+  width:$avatar-length;
+  height:$avatar-length;
+  margin-left:$thumb-pad;
+  margin-right:5px;
 }
 .username {
   float: left;
-  width: 80%;
+  width: 60%;
+  color:$username-color;
   overflow: auto;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -123,4 +128,11 @@ ul.actions {
 }
 .hide {
   display: none;
+}
+// User edit
+
+.avatar {
+  max-width:400px;
+  max-height:400px;
+
 }
