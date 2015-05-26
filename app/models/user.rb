@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
     :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :omniauth_providers => [:persona]
 
   has_many :project
+  mount_uploader :avatar, AvatarUploader
 
 
   def update_with_password (params, *options)

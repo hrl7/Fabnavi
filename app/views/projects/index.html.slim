@@ -19,7 +19,7 @@
               img#status-icon src="#{{image_path('public.png')}}"
         .project-name = project.project_name
         .box
-          = image_tag image_path("user_icon.png"), class: 'user-icon'
+          = image_tag project.try(:user).try(:avatar), class: 'user-icon'
           .username #{project.try(:user).try(:name)}
           .date Date:#{project.date}
         ul.actions.hide
