@@ -58,8 +58,16 @@ a:hover {
 //nav
 
 .nav {
+  margin-top:30px;
   @include outer-container;
  .notice {
+  position:relative;
+  .pin {
+    margin:0 auto;
+    position:absolute;
+    width:80%;
+    bottom:45pt;
+  }
     border: 10px outset #D78324;
     float:left;
     font-size:20pt;
@@ -68,6 +76,7 @@ a:hover {
     background-color:#3D3A39;
   }
 }
+
 
 .belt {
   @include outer-container(100%);
