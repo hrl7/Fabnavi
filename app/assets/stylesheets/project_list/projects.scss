@@ -28,7 +28,7 @@ body {
 
 .projects {
  @include outer-container;
-  margin: 0 auto;
+  margin:20px auto;
   width: $ct-width;
   color: $black;
 }

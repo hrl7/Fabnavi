@@ -43,7 +43,9 @@ html
           span.search-icon
 
     .nav
-      .notice #{notice}
-      .alert #{alert}
+      - if notice 
+        .notice #{notice} 
+      - if alert
+        .alert #{alert}
     = yield
     footer.belt
