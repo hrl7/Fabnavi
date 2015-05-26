@@ -47,6 +47,7 @@ body {
   border-radius: 4px;
   margin-bottom: 20px;
   padding-bottom:20px;
+  position:relative;
 }
 .project-box:hover {
   background-color: $hover-color;
@@ -94,13 +95,13 @@ a:hover {
   text-align: right;
 }
 ul.actions {
-  position: absolute;
+  position:absolute;
   top: 0px;
-  left:3px;
+  left:16px;
   padding:0px;
-  padding-top:0px;
   margin:10px;
   width:$thumb-width;
+  height:0px;
 
   .selected-action {
     color: $selected-color !important;
@@ -131,17 +132,4 @@ ul.actions {
 }
 .hide {
   display: none;
-}
-// User edit
-
-.avatar {
-  max-width:400px;
-  max-height:400px;
-
-}
-
-//nav
-
- .notice {
-  border: inset 10px #ff0000;
 }

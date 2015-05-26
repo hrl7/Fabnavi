@@ -1,4 +1,6 @@
 @import "../var.scss";
+@import "bourbon";
+@import "neat";
 body {
   background-color: $black;
   color: $white;
@@ -45,15 +47,27 @@ a:hover {
 .logo {
 
 }
+// User edit
+
+.avatar {
+  max-width:400px;
+  max-height:400px;
+
+}
+
+//nav
+
+.nav {
+  @include outer-container;
+ .notice {
+    border: inset 10px #ff0000;
+  }
+}
 
 .belt {
-  width: 100%;
+  @include outer-container(100%);
   background-color: $brown;
-  margin-top: 10px;
-  margin-bottom: 40px;
-  padding-top: 10px;
   padding-bottom: 20px;
-  float:left;
 }
 .search-bar {
   width: $ct-width;
