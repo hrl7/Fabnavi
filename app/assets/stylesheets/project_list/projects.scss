@@ -2,6 +2,8 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 @import "../var";
+@import "bourbon";
+@import "neat";
 
 body {
 
@@ -25,6 +27,7 @@ body {
 }
 
 .projects {
+ @include outer-container;
   margin: 0 auto;
   width: $ct-width;
   color: $black;
@@ -36,13 +39,13 @@ body {
   background-color: $white;
 }
 .project-box {
+
+
+  @include span-columns(3);
+  @include omega(4n);
+
   border-radius: 4px;
-  width: $ct-width / 4;
-  margin-left: (100% - $ct-width) / 8;
-  margin-right: (100% - $ct-width) / 8;
   margin-bottom: 20px;
-  float: left;
-  position: relative;
   padding-bottom:20px;
 }
 .project-box:hover {
@@ -135,4 +138,10 @@ ul.actions {
   max-width:400px;
   max-height:400px;
 
+}
+
+//nav
+
+ .notice {
+  border: inset 10px #ff0000;
 }
