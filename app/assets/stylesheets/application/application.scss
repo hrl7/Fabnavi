@@ -31,8 +31,15 @@ a:hover {
 }
 
 .menu-action {
-  float: right;
+  float: left;
   margin-left: $ct-width / 10;
+}
+
+.nav-action {
+  border:solid 2px white;
+}
+.selected-nav-action {
+  border:solid 2px red;
 }
 
 .logo {

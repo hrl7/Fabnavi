@@ -1,12 +1,13 @@
 var ProjectList = function() {
   var
     projects = null,
-    selected = null,
-    actions = null
-    selectedAction = null,
-    depth = 0
+    navActions = null,
+             selected = null,
+             actions = null
+               selectedAction = null,
+             depth = 0
 
-  ;
+               ;
 
   function init() {
     load();
@@ -15,6 +16,7 @@ var ProjectList = function() {
 
   function load() {
     projects = document.getElementsByClassName('project-box');
+    navActions = document.getElementsByClassName('menu-action');
     for (var i = 0; i < projects.length; ++i) {
       projects[i].onclick = function(e) {
         if(selected){
@@ -36,14 +38,22 @@ var ProjectList = function() {
     for (var i = 0; i < projects.length; ++i) {
       if (projects[i].classList.contains('selected-project')) return i;
     }
+    for (var i = 0; i < navActions.length; ++i) {
+      if (navActions[i].classList.contains('selected-nav-action')) return i-5;
+    }
     return null;
   }
 
   function deselect(elem) {
-    elem.classList.remove('selected-project');
-    closeActionMenu(elem);
+    if(elem.classList.contains('project-box')){
+      elem.classList.remove('selected-project');
+      closeActionMenu(elem);
 
-    elem.classList.add('project');
+      elem.classList.add('project');
+    } else if(elem.classList.contains('menu-action')){
+      elem.classList.remove('selected-nav-action');
+      elem.classList.add('nav-action');
+    }
   }
 
   function select(elem) {
@@ -51,8 +61,13 @@ var ProjectList = function() {
     if (selected) {
       deselect(selected);
     }
-    elem.classList.add('selected-project');
-    elem.classList.remove('project');
+    if(elem.classList.contains('project-box')){
+      elem.classList.add('selected-project');
+      elem.classList.remove('project');
+    } else if(elem.classList.contains('menu-action')){
+      elem.classList.add('selected-nav-action');
+      elem.classList.remove('nav-action');
+    }
     selected = elem;
   }
 
@@ -86,9 +101,18 @@ var ProjectList = function() {
   /* 0 : <-, 1: ^, 2: v , 3: -> */
   function move_projects(dir) {
     if (depth == 0) { //move around and select project
-      var dst = indexOfSelectedProject() + [-1, -4, 4, 1][dir];
+      var dst = indexOfSelectedProject();
+      if(dst <= 3 && dst >= 0){
+         dst += [-1, -5, 4, 1][dir];
+      } else if (dst > 0){
+         dst += [-1, -4, 4, 1][dir];
+      } else {
+         dst += [-1, 0, 5, 1][dir];
+      }
       if (dst >= 0 && dst < projects.length) {
         select(projects[dst]);
+      } else if( dst < 0 && dst >= -5 ){
+        select(navActions[dst + 5]);
       }
     } else { // select action phase
       if (dir == 1 || dir == 2) {
@@ -127,6 +151,7 @@ var ProjectList = function() {
 
   function deeper() {
     if (depth == 1) fire();
+    if (selected.classList.contains("menu-action")) fireNavAction();
     openActionMenu(selected);
   }
 
@@ -153,6 +178,9 @@ var ProjectList = function() {
     actsElem.classList.remove('hide');
     selectAction(actsElem.children[0]);
     depth = 1;
+  }
+  function fireNavAction(){
+    selected.click();
   }
 
   function fire(){
