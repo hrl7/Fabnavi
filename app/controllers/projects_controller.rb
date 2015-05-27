@@ -59,7 +59,7 @@ class ProjectsController < ApplicationController
   def update
     respond_to do |format|
       if @project.update(project_params)
-        format.html { redirect_to detail_project_path, notice: 'Project was successfully updated.' }
+        format.html { redirect_to root_path, notice: 'Project was successfully updated.' }
         format.json { render :show, status: :ok, location: @project }
       else
         format.html { render :edit }
@@ -72,10 +72,8 @@ class ProjectsController < ApplicationController
   # DELETE /projects/1.json
   def destroy
     @project.destroy
-    respond_to do |format|
-      format.html { redirect_to root_path, notice: 'Project was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    flash[:notice] = 'Project was successfully destroyed.' 
+    render :json => {:id => @project}
   end
 
   private

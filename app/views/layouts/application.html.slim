@@ -7,7 +7,7 @@ html
     == yield :css_link
     == yield :js_include
     script src="https://login.persona.org/include.js"
-    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => false
     = csrf_meta_tags
 
     - if signed_in?
@@ -16,7 +16,30 @@ html
     - else
       javascript:
         var CURRENT_USER = null;
-  body[onpageshow="Auth.init();window.hasOwnProperty('boot') && boot();" onunload="function(){};"]
+    javascript:
+        function set(){
+            var action = location.pathname;
+            var acts = document.querySelectorAll(".menu-action");
+            console.log(action);
+            acts[set_current_state(action)].classList.add("current-page");
+            function set_current_state(i){
+              switch(i){
+                case "/":
+                case "/index":
+                  return 0;
+                case "/home":
+                  return 1;
+                case "/projects/new":
+                  return 2;
+                case "/users/edit":
+                  return 3;
+                default:
+                  console.log("not recognized :"+i);
+              }
+            }
+        }
+        
+  body[onpageshow="set();Auth.init();;window.hasOwnProperty('boot') && boot();" onunload="console.log('Hello fabnavi');"]
     header.header
       a.logo href="#{root_path}"
         img[src="#{image_path("h_logo.png")}"]
@@ -32,8 +55,8 @@ html
         - if user_signed_in?
           = link_to image_tag(image_path('h_sign_out.png')), destroy_user_session_path, method: :delete, class: 'menu-action nav-action '
         -else
-          .menu-action.nav-action
-            img.menu-action#signIn[src="#{image_path("h_signin.png")}"]
+          .menu-action.nav-action#signIn
+            img[src="#{image_path("h_signin.png")}"]
 
 
     section.belt

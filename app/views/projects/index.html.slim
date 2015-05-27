@@ -35,6 +35,6 @@
           li.action.action-box
             =image_tag image_path("p_edit.png")
             = link_to 'Edit',    edit_project_path(project)
-          li.action.action-box
+          li.action.action-box.delete
             =image_tag image_path("p_delete.png")
-            = link_to 'Delete',  project, data: {:confirm => 'Are you sure?'}, :method => :delete
+            = link_to 'Delete',  project, method: :delete, data: {confirm: "Are you sure to delete?"}

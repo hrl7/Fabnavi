@@ -20,39 +20,57 @@ a:hover {
 }
 
 .header {
-  width: $ct-width * 0.9;
-  margin: 0 auto;
+  @include outer-container;
+  margin-top:40px;
+  margin-bottom:20px;
 }
 
 .menu {
-  float: right;
-  position: relative;
-  width: 70%;
-  height: 100%;
-  margin-top: 50px;
+   margin-top:20px;
+  @include span-columns(8);
 }
 
+
+
 .menu-action {
-  float: left;
-  margin-left: $ct-width / 10;
+  @include span-columns(1.5 of 8);
+  img {
+    width:100%;
+    background-color:$white;
+  }
+  border-radius: 20px;
+}
+
+.current-page {
+  img {
+    background-color:$selected-color;
+  }
 }
 
 .nav-action {
-  border:solid 2px white;
+ img{
+    border:solid 4px $white;
+    border-radius: 20px;
+   }
+}
+.nav-action :hover {
+  border:solid 4px $hover-color;
 }
 .selected-nav-action {
-  border:solid 2px red;
+ img{
+  border:solid 4px $selected-color;
+  border-radius: 20px;
+ }
 }
 
 .logo {
-
+  @include span-columns(4);
 }
 // User edit
 
 .avatar {
   max-width:400px;
   max-height:400px;
-
 }
 
 //nav
@@ -88,6 +106,7 @@ a:hover {
   position: relative;
   margin-left: auto;
   margin-right: auto;
+  padding-top:5px;
   height: $belt-height;
   form {
     position: absolute;
