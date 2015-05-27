@@ -21,9 +21,12 @@ a:hover {
 
 .header {
   @include outer-container;
+  margin-top:40px;
+  margin-bottom:20px;
 }
 
 .menu {
+   margin-top:20px;
   @include span-columns(8);
 }
 
@@ -46,16 +49,16 @@ a:hover {
 
 .nav-action {
  img{
-    border:solid 10px $white;
+    border:solid 4px $white;
     border-radius: 20px;
    }
 }
 .nav-action :hover {
-  border:solid 10px $hover-color;
+  border:solid 4px $hover-color;
 }
 .selected-nav-action {
  img{
-  border:solid 10px $selected-color;
+  border:solid 4px $selected-color;
   border-radius: 20px;
  }
 }
@@ -103,6 +106,7 @@ a:hover {
   position: relative;
   margin-left: auto;
   margin-right: auto;
+  padding-top:5px;
   height: $belt-height;
   form {
     position: absolute;
