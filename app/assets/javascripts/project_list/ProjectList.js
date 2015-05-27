@@ -102,13 +102,16 @@ var ProjectList = function() {
   function move_projects(dir) {
     if (depth == 0) { //move around and select project
       var dst = indexOfSelectedProject();
-      if(dst <= 3 && dst >= 0){
+      if(dst <= 3 && dst >= 0){// project first row
          dst += [-1, -5, 4, 1][dir];
-      } else if (dst > 0){
+      } else if (dst > 0){ // project other row
          dst += [-1, -4, 4, 1][dir];
-      } else {
+      } else if (dst == -1){ //sign out
+         dst += [-1, 0, 4, 1][dir];
+      } else { // action row
          dst += [-1, 0, 5, 1][dir];
       }
+
       if (dst >= 0 && dst < projects.length) {
         select(projects[dst]);
       } else if( dst < 0 && dst >= -5 ){
