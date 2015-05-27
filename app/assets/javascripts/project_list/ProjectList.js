@@ -147,6 +147,7 @@ var ProjectList = function() {
     if (selectedAction) {
       deselectAction(selectedAction);
     }
+    console.log(elem);
     elem.classList.add('selected-action');
     elem.classList.remove('action');
     selectedAction = elem;
@@ -187,7 +188,7 @@ var ProjectList = function() {
   }
 
   function fire(){
-    selectedAction.children[0].click();
+    selectedAction.children[1].click();
   }
 
   return {
