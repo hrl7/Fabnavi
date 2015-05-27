@@ -16,7 +16,7 @@ html
     - else
       javascript:
         var CURRENT_USER = null;
-  body[onpageshow="Auth.init();window.hasOwnProperty('boot') && boot();"]
+  body[onpageshow="Auth.init();window.hasOwnProperty('boot') && boot();" onunload="function(){};"]
     header.header
       a.logo href="#{root_path}"
         img[src="#{image_path("h_logo.png")}"]
