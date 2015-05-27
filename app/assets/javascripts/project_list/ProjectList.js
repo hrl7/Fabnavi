@@ -17,8 +17,10 @@ var ProjectList = function() {
   function load() {
     projects = document.getElementsByClassName('project-box');
     navActions = document.getElementsByClassName('menu-action');
+    deletes = document.getElementsByClassName('delete');
     for (var i = 0; i < projects.length; ++i) {
       projects[i].onclick = function(e) {
+        e.stopPropagation();
         if(selected){
           var last = selected;
           selectRec(e.target);
@@ -31,6 +33,22 @@ var ProjectList = function() {
     }
     if(projects.length > 0){
       select(projects[0]);
+    }
+    for(var i=0; i < deletes.length; ++i){
+      deletes[i].onclick = function(e){
+        e.stopPropagation();
+        e.preventDefault();
+        if(confirm("Are you sure to delete?")){
+           var t = null;
+           if(e.target.nodeName == "LI"){
+              t = e.target.children[1]; 
+           } else {
+             t = e.target;
+           }
+           var url = t.attributes.getNamedItem("href").value;
+           $.ajax({url:url,method:"DELETE"}).done(function(res){location = "/"});
+        }
+      }
     }
   }
 
@@ -147,7 +165,6 @@ var ProjectList = function() {
     if (selectedAction) {
       deselectAction(selectedAction);
     }
-    console.log(elem);
     elem.classList.add('selected-action');
     elem.classList.remove('action');
     selectedAction = elem;
@@ -178,6 +195,7 @@ var ProjectList = function() {
     var actsElem = elem.getElementsByClassName('actions')[0];
     for(var i = 0; i < actsElem.length; i++){
       actsElem[i].onclick = function(e){
+        e.stopPropagation();
         return false;
       }
     }
