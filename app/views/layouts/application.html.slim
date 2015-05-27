@@ -55,8 +55,8 @@ html
         - if user_signed_in?
           = link_to image_tag(image_path('h_sign_out.png')), destroy_user_session_path, method: :delete, class: 'menu-action nav-action '
         -else
-          .menu-action.nav-action
-            img.menu-action#signIn[src="#{image_path("h_signin.png")}"]
+          .menu-action.nav-action#signIn
+            img[src="#{image_path("h_signin.png")}"]
 
 
     section.belt

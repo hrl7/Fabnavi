@@ -156,7 +156,9 @@ var ProjectList = function() {
   function deeper() {
     if (depth == 1) fire();
     if (selected.classList.contains("menu-action")) fireNavAction();
-    openActionMenu(selected);
+    else {
+      openActionMenu(selected);
+    }
   }
 
   function shallower() {
