@@ -8,6 +8,7 @@ gem 'slim-rails'
 gem 'carrierwave'
 gem "devise"
 gem "fog"
+gem "fog-aws"
 gem "rails_config"
 gem "omniauth"
 gem "omniauth-persona"

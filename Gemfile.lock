@@ -421,6 +421,7 @@ DEPENDENCIES
   factory_girl_rails
   faker
   fog
+  fog-aws
   guard
   guard-livereload (~> 2.4)
   guard-rspec
