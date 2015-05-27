@@ -108,15 +108,13 @@ ul.actions {
   height:0px;
 
   .selected-action {
-    color: $selected-color !important;
     a {
-    color: $selected-color !important;
+    color: $selected-color ;
     }
   }
   .action {
-    color:$white !important;
-    a{
-    color:$white !important;
+    a {
+      color:$white;
     }
   }
   .action-box {
@@ -132,6 +130,9 @@ ul.actions {
       position:absolute;
       margin-top:$action-height * 0.2;
     }
+  }
+  .delete {
+    background-color: $tp-red;
   }
 }
 .hide {
