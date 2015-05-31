@@ -2,7 +2,7 @@ CarrierWave.configure do |config|
   case Rails.env
   when 'production'
     config.fog_directory = ENV["AWS_DIR"]
-    config.asset_host = ENV["AWS_ENDPOINT"]
+    config.asset_host = ENV["AWS_ENDPOINT"] + "/" + ENV["AWS_DIR"]
     config.fog_credentials = {
       provider:              'AWS',                        # required
       aws_access_key_id:     ENV["AWS_ACCESS_KEY_ID"],                        # required
@@ -19,7 +19,7 @@ CarrierWave.configure do |config|
 
   when 'development-s3'
     config.fog_directory = ENV["AWS_DIR"]
-    config.asset_host = ENV["AWS_ENDPOINT"]
+    config.asset_host = ENV["AWS_ENDPOINT"] + "/" + ENV["AWS_DIR"]
   when 'test'
     config.fog_directory = ENV["AWS_DIR"]
     config.asset_host = ENV["AWS_ENDPOINT"]
