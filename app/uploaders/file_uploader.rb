@@ -7,13 +7,24 @@ class FileUploader < CarrierWave::Uploader::Base
   # include CarrierWave::MiniMagick
 
   # Choose what kind of storage to use for this uploader:
-  storage :file
-  # storage :fog
-
+  case Rails.env
+  when 'production'
+    storage :fog
+  when 'development'
+    storage :file
+  when 'development-s3'
+    storage :fog
+  when 'test'
+    storage :file
+  end
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
-    "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+    if storage == :fog
+      "#{fog_directory}/uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+    else 
+      "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+    end
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
