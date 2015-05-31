@@ -37,6 +37,10 @@ class ProjectsController < ApplicationController
   def edit
   end
 
+  def post_order
+
+  end
+
   # POST /projects
   # POST /projects.json
   def create

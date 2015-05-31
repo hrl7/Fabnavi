@@ -17,7 +17,7 @@ var Server = function (){
     console.log("save lock:loadingLength",lst.saveLock());
     if(lst.saveLock() == false){
       Publisher.unsubscribe("Playlist");
-      $.post("/projects/update",
+      $.post("/projects/playlist",
           {
             id:Project.id,
         user_id:Project.user_id,

@@ -113,7 +113,7 @@ var ImageUploadQueue = function ImageUploadQueue(){
     //  RecordController.updateList();
     notice("Posting Playlist Files...");
     try{
-    //Server.postPlaylist();
+    Server.postPlaylist();
     //  queue.splice(0,1);
     d.resolve();
     } catch(e) {
