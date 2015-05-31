@@ -3,6 +3,7 @@ THUMBNAIL_WIDTH = 440;
 THUMBNAIL_HEIGHT = 320;
 
 var ImageUploadQueue = function ImageUploadQueue(){
+  start();
   var queue = [],
       runninng=false,
       timer = null
@@ -57,10 +58,10 @@ var ImageUploadQueue = function ImageUploadQueue(){
         .then(updateURLList)
         .done(function(a,b){
           queue.shift();
-          this.runninng = false;
+          runninng = false;
         })
       .fail(function(e){
-        this.runninng = false;
+        runninng = false;
         console.log(e.toSource());
       });
     }
@@ -88,6 +89,9 @@ var ImageUploadQueue = function ImageUploadQueue(){
               img.globalURL = res.file.file.url;
               img.thumbnailURL = res.thumbnail.thumbnail.url;
               d.resolve(res);
+            },
+            function(res,err){
+              d.reject(err);
             }
             );
       return d.promise();
@@ -108,9 +112,13 @@ var ImageUploadQueue = function ImageUploadQueue(){
     var d = $.Deferred();
     //  RecordController.updateList();
     notice("Posting Playlist Files...");
-    Server.postPlaylist();
+    try{
+    //Server.postPlaylist();
     //  queue.splice(0,1);
     d.resolve();
+    } catch(e) {
+      d.reject(e);
+    }
     return d.promise();
   }
 
@@ -126,6 +134,6 @@ var ImageUploadQueue = function ImageUploadQueue(){
 }();
 
 var notice = function(mes){
-  console.log("NOTICE=============",mes);
+//  console.log("NOTICE=============",mes);
   Publisher.update("Upload",mes);
 }
