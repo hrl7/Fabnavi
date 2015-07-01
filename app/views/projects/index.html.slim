@@ -9,7 +9,7 @@
 
 .projects
     - @projects.each do |project|
-      .project-box.project
+      .project-box.project[data="#{project.id}"]
         .thumbnail
           img src="#{{project.thumbnail_src}}"
           - if controller.action_name == "home"

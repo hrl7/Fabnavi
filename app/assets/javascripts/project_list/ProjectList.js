@@ -46,7 +46,17 @@ var ProjectList = function() {
             t = e.target;
           }
           var url = t.attributes.getNamedItem("href").value;
-          $.ajax({url:url,method:"DELETE"}).done(function(res){location = "/"});
+          $.ajax({url:url,method:"DELETE"}).done(
+              function(res){
+            for(var i=0;i<projects.length;i++){
+              if(projects[i].attributes.getNamedItem("data").value == res.id){
+                var target = projects[i];
+                $(target).fadeOut(200,function(){
+                  target.remove();
+                });
+              }
+            }
+              });
         }
       }
     }
@@ -91,11 +101,11 @@ var ProjectList = function() {
   }
 
   function scrollTo(target){
-      if(window.scrollY > target.offsetTop || window.scrollY < target.offsetTop + target.clientHeight){
-        if (target) {
-          $('html,body').animate({scrollTop: target.offsetTop - 100},400);
-        }
+    if(window.scrollY > target.offsetTop || window.scrollY < target.offsetTop + target.clientHeight){
+      if (target) {
+        $('html,body').animate({scrollTop: target.offsetTop - 100},400);
       }
+    }
   }
 
   function selectRec(elem) {

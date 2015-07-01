@@ -77,7 +77,7 @@ class ProjectsController < ApplicationController
   def destroy
     @project.destroy
     flash[:notice] = 'Project was successfully destroyed.' 
-    render :json => {:id => @project}
+    render :json => @project
   end
 
   private
