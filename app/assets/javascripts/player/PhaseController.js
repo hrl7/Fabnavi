@@ -37,7 +37,7 @@ var PhaseController = (function(){
     var d = new $.Deferred();
     registerCallback(function(){
       d.resolve();
-    },[]);
+    },0);
     return d.promise();
   };
 
@@ -71,7 +71,7 @@ var PhaseController = (function(){
       Fabnavi.shoot();
       beforeStageChanging();
       d.resolve();
-    },[13]);
+    },13);
     return d.promise();
   }
 
@@ -89,7 +89,7 @@ var PhaseController = (function(){
       console.log("Put picture");
       beforeStageChanging();
       d.resolve();
-    },[32]);
+    },32);
     return d.promise();
   }
 
@@ -113,7 +113,7 @@ var PhaseController = (function(){
       console.log("move Picture");
       beforeStageChanging();
       d.resolve();
-    },[32]);
+    },32);
     return d.promise();
   }
 
@@ -135,7 +135,7 @@ var PhaseController = (function(){
       beforeStageChanging();
       ViewConfig.save();
       d.resolve();
-    }, [32]);
+    }, 32);
     return d.promise();
   }
 
@@ -159,7 +159,7 @@ var PhaseController = (function(){
   }
 
   function registerCallback(fn,keys){
-    Key.deregister();
+    Key.clearTrigger();
     Key.register(fn,keys);
   }
 
