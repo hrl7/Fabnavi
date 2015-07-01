@@ -112,6 +112,7 @@ ul.actions {
     color: $selected-color ;
     }
   }
+
   .action {
     a {
       color:$white;
@@ -132,7 +133,9 @@ ul.actions {
     }
   }
   .delete {
-    background-color: $tp-red;
+    a {
+      color: $red;
+   }
   }
 }
 .hide {
