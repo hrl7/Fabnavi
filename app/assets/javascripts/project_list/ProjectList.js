@@ -1,7 +1,7 @@
 var ProjectList = function() {
   var
     projects = null,
-    navActions = null,
+             navActions = null,
              selected = null,
              actions = null
                selectedAction = null,
@@ -39,14 +39,14 @@ var ProjectList = function() {
         e.stopPropagation();
         e.preventDefault();
         if(confirm("Are you sure to delete?")){
-           var t = null;
-           if(e.target.nodeName == "LI"){
-              t = e.target.children[1]; 
-           } else {
-             t = e.target;
-           }
-           var url = t.attributes.getNamedItem("href").value;
-           $.ajax({url:url,method:"DELETE"}).done(function(res){location = "/"});
+          var t = null;
+          if(e.target.nodeName == "LI"){
+            t = e.target.children[1]; 
+          } else {
+            t = e.target;
+          }
+          var url = t.attributes.getNamedItem("href").value;
+          $.ajax({url:url,method:"DELETE"}).done(function(res){location = "/"});
         }
       }
     }
@@ -87,6 +87,15 @@ var ProjectList = function() {
       elem.classList.remove('nav-action');
     }
     selected = elem;
+    scrollTo(elem);
+  }
+
+  function scrollTo(target){
+      if(window.scrollY > target.offsetTop || window.scrollY < target.offsetTop + target.clientHeight){
+        if (target) {
+          $('html,body').animate({scrollTop: target.offsetTop - 100},400);
+        }
+      }
   }
 
   function selectRec(elem) {
@@ -121,13 +130,13 @@ var ProjectList = function() {
     if (depth == 0) { //move around and select project
       var dst = indexOfSelectedProject();
       if(dst <= 3 && dst >= 0){// project first row
-         dst += [-1, -5, 4, 1][dir];
+        dst += [-1, -5, 4, 1][dir];
       } else if (dst > 0){ // project other row
-         dst += [-1, -4, 4, 1][dir];
+        dst += [-1, -4, 4, 1][dir];
       } else if (dst == -1){ //sign out
-         dst += [-1, 0, 4, 1][dir];
+        dst += [-1, 0, 4, 1][dir];
       } else { // action row
-         dst += [-1, 0, 5, 1][dir];
+        dst += [-1, 0, 5, 1][dir];
       }
 
       if (dst >= 0 && dst < projects.length) {
