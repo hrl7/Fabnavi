@@ -12,7 +12,8 @@ var Fabnavi = function(){
       queueingImageList,
       mode = null,
       counter,
-      navigator
+      navigator,
+      filter
         ;
 
   function init (_mode){
@@ -32,6 +33,7 @@ var Fabnavi = function(){
     CalibrateController.init();
 
     navigator = document.getElementById('navigation-image');
+    filter = document.querySelector('.filter');
 
     /*  Initialize each Mode   */
     switch(mode){
@@ -80,8 +82,27 @@ var Fabnavi = function(){
     }
   }
 
+  function showFilterWithImage(img){
+    filter.style.display = "block";
+    filter.querySelector("img").src = img;
+  }
+  function showFilterWithString( message ){
+    filter.style.display = "block";
+    var text = filter.querySelector("div");
+     text.textContent = message;
+     text.style.display = "block";
+  }
+
+  function hideFilter(){
+    filter.style.display = "none";
+    filter.querySelector("img").src = "";
+    var text = filter.querySelector("div");
+     text.textContent = "";
+     text.style.display = "none";
+  }
+
   function showAlert(){
-    $('.exit-alert').show(); 
+    showFilterWithImage("/images/alert.png");
     var d = $.Deferred();
 
     Key.register(function(){
@@ -98,9 +119,7 @@ var Fabnavi = function(){
    console.log("hiding alert");
     Key.deregister(13);
     Key.deregister(27);
-    var al = document.querySelector('.exit-alert');
-    al.style.display = "none";
-    console.log(al);
+    hideFilter();
   }
 
   function setCalibrateMode(){

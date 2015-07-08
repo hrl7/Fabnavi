@@ -1,5 +1,4 @@
 body {
-
   width:100%;
   margin:0;
   padding:0;
@@ -19,7 +18,7 @@ body {
   width:20%;
 }
 
-.exit-alert {
+.filter {
  display:none;
   top:0;
   left:0;
@@ -29,7 +28,7 @@ body {
   background-color:rgba(0,0,0,0.7);
 
   img {
-   position:fixed;
+    position:fixed;
     width:500px;
     top:50%;
     left:50%;
@@ -37,3 +36,4 @@ body {
     margin-top: -120px;
   }
 }
+
