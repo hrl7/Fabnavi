@@ -42,6 +42,8 @@ var PhaseController = (function(){
   };
 
   var playSlide = function(){
+    Fabnavi.showFilterWithString("Project Start");
+    window.setTimeout(function(){Fabnavi.hideFilter()},1000);
 
     var keyMap = [];
     keyMap[39] = Fabnavi.nextPage;
@@ -61,6 +63,7 @@ var PhaseController = (function(){
   var putCalibrationSheetWithShoot = function(){
     Fabnavi.setCalibrationLine(true);
     Fabnavi.setNavigationImage("move_sheet.gif");
+    Fabnavi.showFilterWithString("Calibration Mode");
 
     var keyMap = [];
     keyMap[27] = Fabnavi.exit;
@@ -79,6 +82,7 @@ var PhaseController = (function(){
     Fabnavi.setCalibrationLine(true);
     Fabnavi.setNavigationImage("move_sheet.gif");
     Fabnavi.setCalibrationLock(true);
+    Fabnavi.showFilterWithString("Calibration Mode");
 
     var keyMap = [];
     keyMap[27] = Fabnavi.exit;
@@ -98,6 +102,7 @@ var PhaseController = (function(){
     Fabnavi.setCalibrationLock(false);
     Fabnavi.setCalibrationLine(true);
     CalibrateController.addMouseEvent();
+    Fabnavi.showFilterWithString("Calibration Mode");
 
     var keyMap = [], d = 10;
     keyMap[27] = Fabnavi.exit;
@@ -120,6 +125,7 @@ var PhaseController = (function(){
   var adjustSize = function(){
     CalibrateController.removeMouseEvent();
     Fabnavi.setNavigationImage("adjust_asp.gif");
+    Fabnavi.showFilterWithString("Calibration Mode");
 
     var keyMap = [],d = 10;
     keyMap[39] = CalibrateController.changeRegionCB(-d,0);
@@ -144,6 +150,7 @@ var PhaseController = (function(){
     Fabnavi.setCalibrationLock(false);
     Fabnavi.setNavigationImage("");
     CalibrateController.removeMouseEvent();
+    Fabnavi.hideFilter();
     Key.clear();
   }
 

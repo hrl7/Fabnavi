@@ -82,10 +82,6 @@ var Fabnavi = function(){
     }
   }
 
-  function showFilterWithImage(img){
-    filter.style.display = "block";
-    filter.querySelector("img").src = img;
-  }
   function showFilterWithString( message ){
     filter.style.display = "block";
     var text = filter.querySelector("div");
@@ -95,14 +91,13 @@ var Fabnavi = function(){
 
   function hideFilter(){
     filter.style.display = "none";
-    filter.querySelector("img").src = "";
     var text = filter.querySelector("div");
      text.textContent = "";
      text.style.display = "none";
   }
 
   function showAlert(){
-    showFilterWithImage("/images/alert.png");
+    $('.exit-alert').show();
     var d = $.Deferred();
 
     Key.register(function(){
@@ -119,7 +114,7 @@ var Fabnavi = function(){
    console.log("hiding alert");
     Key.deregister(13);
     Key.deregister(27);
-    hideFilter();
+    document.querySelector('.exit-alert').style.display = "none";
   }
 
   function setCalibrateMode(){
@@ -355,7 +350,9 @@ var Fabnavi = function(){
 
     setGlobalImageVisible:setGlobalImageVisible,
     setLocalImageVisible:setLocalImageVisible,
-
     setNavigationImage:setNavigationImage,
+
+    showFilterWithString:showFilterWithString,
+    hideFilter : hideFilter,
   };
 }();
