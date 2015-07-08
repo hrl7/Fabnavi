@@ -31,6 +31,7 @@ var Fabnavi = function(){
     queueingImageList = localImageList;
     ViewConfig.init();
     CalibrateController.init();
+    Meter.init();
 
     navigator = document.getElementById('navigation-image');
     filter = document.querySelector('.filter');
@@ -197,7 +198,9 @@ var Fabnavi = function(){
   }
 
   function showPage(){
-    console.log(showingImageList.index  () + 1 + "/" + showingImageList.maxLength());
+
+    Meter.set(showingImageList.index  () + 1, showingImageList.maxLength());
+
     var deferredImage;
     if(deferredImage = showingImageList.getDeferredImage()){
       MainView.clear();
