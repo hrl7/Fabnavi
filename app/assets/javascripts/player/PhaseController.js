@@ -71,9 +71,16 @@ var PhaseController = (function(){
 
     var d = new $.Deferred();
     registerCallback(function(){
-      Fabnavi.shoot();
-      beforeStageChanging();
-      d.resolve();
+      var res = Fabnavi.shoot();
+      console.log(res);
+      res.done(function(){
+        beforeStageChanging();
+        d.resolve();
+      })
+      .fail(function(){
+          console.log("Connection failed retry...");
+      });
+    
     },13);
     return d.promise();
   }

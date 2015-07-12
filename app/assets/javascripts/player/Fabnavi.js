@@ -258,7 +258,7 @@ var Fabnavi = function(){
   }
 
   function shoot(){
-    Camera.ping().done(function(){
+    return Camera.ping().done(function(){
       MainView.clear();
       showingImageList.hideEditor();
       setNavigationImage("");
