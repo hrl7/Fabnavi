@@ -1,6 +1,7 @@
 var Fabnavi = function(){
   window.onwheel = function(e){e.preventDefault();};
 
+
   var viewStatusList = ["Initializing","loadingImage","showing"],
       viewStatus= 0,
       modeList = ["play","add","edit"],
