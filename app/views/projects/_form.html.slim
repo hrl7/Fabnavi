@@ -15,10 +15,12 @@
 
   -if controller.action_name == "new"  
     center 
-      | You need calibration sheet !!
+      | You need calibration sheet and Fixfox Addon !!
       br
-      | Please print this PDF.
+      | Please print this PDF and install the Addon.
     a.pdf href="https://drive.google.com/folderview?id=0B9k4M70SGKlAQ0xtTTNnOWgwOXM&usp=sharing" target="_blank"
       =image_tag image_path('pdf.png')
+    a.pdf href="http://crest-multimedia-web.s3.amazonaws.com/tsuka/fabnavi-preview/public/sonycameraremotecontroller.xpi" target="_blank"
+      =image_tag image_path('firefox-extension.png')
     
   .actions = f.submit
