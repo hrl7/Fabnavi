@@ -102,6 +102,13 @@ class ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
+      taggings = params.require(:project).permit(:tagging)
+      tags = taggings[:tagging].split(",")
+      tag_models = tags.collect{|t| Tag.find_or_create_by(name: t)}
+      tagging_models = tag_models.collect { |t|  Tagging.new({tag:t, project:@project} ) unless Tagging.where(tag_id: t.id, project_id: @project.id).first}
+      tagging_models.each { |t| t.save if t}
+
+      tagginged = Tagging.find_by(project_id: @project.id).collect
       params.require(:project).permit(:project_name, :thumbnail_picture_id,:status, :description)
     end
 
