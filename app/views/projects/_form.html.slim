@@ -14,7 +14,7 @@
     = f.text_area :description, rows: 10, class: "form-text"
   .field
     = f.label "Tag"
-    = f.text_area :tagging, rows: 1, class: "form-text", value: @project.tagging.all.map { |t| t.tag.name}.to_s.gsub(/\"|\[/,"").gsub(/\]/,",")
+    = f.text_area :tagging, rows: 1, class: "form-text", value: @project.tagging.all.map { |t| t.tag.try(:name)}.compact.to_s.gsub(/\"|\[/,"").gsub(/\]/,",")
 
   -if controller.action_name == "new"  
     center 
