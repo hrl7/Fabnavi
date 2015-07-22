@@ -71,7 +71,7 @@ var ProjectList = function() {
       if (projects[i].classList.contains('selected-project')) return i;
     }
     for (var i = 0; i < navActions.length; ++i) {
-      if (navActions[i].classList.contains('selected-nav-action')) return i-5;
+      if (navActions[i].classList.contains('selected-nav-action')) return i-6;
     }
     return null;
   }
@@ -99,6 +99,13 @@ var ProjectList = function() {
     } else if(elem.classList.contains('menu-action')){
       elem.classList.add('selected-nav-action');
       elem.classList.remove('nav-action');
+    }
+    if(elem.classList.contains('search-bar')){
+      KeyBind.allowInput();
+      document.querySelector('#search-box').focus();
+    } else {
+      KeyBind.denyInput();
+      document.querySelector('#search-box').blur();
     }
     selected = elem;
     scrollTo(elem);
@@ -144,25 +151,62 @@ var ProjectList = function() {
     if (depth == 0) { //move around and select project
       var dst = indexOfSelectedProject();
       if(dst <= 3 && dst >= 0){// project first row
-        dst += [-1, -5, 4, 1][dir];
+       switch (dir){
+        case 0:
+          dst += -1;
+         break;
+        case 1:
+         dst = -1;
+         break;
+         case 2:
+          dst += 4;
+          break;
+         case 3:
+          dst += 1;
+          break;
+       }
       } else if (dst > 0){ // project other row
         dst += [-1, -4, 4, 1][dir];
-      } else if (dst == -1){ //sign out
-        dst += [-1, 0, 4, 1][dir];
+      } else if (dst == -1){ //search
+       switch(dir){
+        case 0:
+         break;
+        case 1:
+         dst = -6;
+         break;
+         case 2:
+         dst = 3;
+          break;
+         case 3:
+          break;
+       }
       } else { // action row
-        dst += [-1, 0, 5, 1][dir];
+       switch (dir){
+        case 0:
+          dst += -1;
+         break;
+        case 1:
+         break;
+         case 2:
+          dst = -1;
+          break;
+         case 3:
+          dst += 1;
+          break;
+       }
       }
 
       if (dst >= 0 && dst < projects.length) {
         select(projects[dst]);
-      } else if( dst < 0 && dst >= -5 ){
-        select(navActions[dst + 5]);
+      } else if( dst < 0 && dst >= -6 ){
+        select(navActions[dst + 6]);
       }
     } else { // select action phase
       if (dir == 1 || dir == 2) {
         moveAction(dir - 1);
       }
     }
+    console.log("depth: "+depth+", dst: "+dst+", dir: "+dir+", actions: "+actions);
   }
 
   function indexOfSelectedAction() {
