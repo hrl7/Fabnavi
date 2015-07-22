@@ -9,7 +9,8 @@
 
 .projects
     - @projects.each do |project|
-      .project-box.project[data="#{project.id}"]
+      .project-box.project[data="#{project.id}" raw="#{project.to_json.gsub("id","thumbnail_url\":\""+project.thumbnail_src+"\",\"id")}"]
+        -puts project.thumbnail_src.to_s
         .thumbnail
           img src="#{{project.thumbnail_src}}"
           - if controller.action_name == "home"
