@@ -22,11 +22,13 @@ var ProjectList = function() {
     filter = document.querySelector('.filter');
     for (var i = 0; i < projects.length; ++i) {
       projects[i].onclick = function(e) {
+       console.log("clicked");
         e.stopPropagation();
         if(selected){
           var last = selected;
           selectRec(e.target);
           if(selected == last) {
+            openLightBox(selected);
             deeper();
           }
         }
