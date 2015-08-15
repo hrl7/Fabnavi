@@ -46,7 +46,7 @@ class ProjectsController < ApplicationController
         @project.photo.each do |src|
           if src.file.to_s == dst["url"]
             src.order_in_project = dst["order_in_project"]
-            #src.save
+            src.save
           end
         end
       end
