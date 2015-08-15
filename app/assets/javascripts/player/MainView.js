@@ -60,7 +60,6 @@ function draw(image){
   ImageConverter.drawImage(image,cvs,ViewConfig.conf());
 
   currentImage = image;
-  CalibrateController.update();
 }
 
 function redraw(){
