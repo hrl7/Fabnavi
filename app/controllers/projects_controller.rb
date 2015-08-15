@@ -45,8 +45,14 @@ class ProjectsController < ApplicationController
       playlist.each do |dst|
         @project.photo.each do |src|
           if src.file.to_s == dst["url"]
+            puts "======================="
+            puts dst.to_json
+            puts src.to_json
             src.order_in_project = dst["order_in_project"]
             src.save
+            puts src.to_json
+            puts "end======================="
+
           end
         end
       end
