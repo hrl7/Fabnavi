@@ -58,7 +58,9 @@ function drawShootingMessage(){
 function draw(image){
  console.log("Draw Image");
   ImageConverter.drawImage(image,cvs,ViewConfig.conf());
+
   currentImage = image;
+  CalibrateController.update();
 }
 
 function redraw(){
