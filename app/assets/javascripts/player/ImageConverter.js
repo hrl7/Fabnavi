@@ -49,6 +49,13 @@ var ImageConverter = function(){
       dh = sh*StoDh;
       ctx.fillRect(0,dy+dh,cvs.width,100);
     }
+    /*
+    console.trace();
+    console.log("Resize Image----------------");
+    console.log("Source Image Size:              =>  w: "+img.naturalWidth+ ",  h: "+ img.naturalHeight);
+    console.log("Cropping Image Source Size      => sx: "+sx+", sy: "+sy+", sw: "+sw+", sh: "+sh);
+    console.log("Cropping Image Destination Size => dx: "+dx+", dy: "+dy+", dw: "+dw+", dh: "+dh);
+    */
     ctx.drawImage(img,sx,sy,sw,sh,dx,dy,dw,dh);
   }
 

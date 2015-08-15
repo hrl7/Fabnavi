@@ -12,7 +12,7 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.json
   def show
-   render layout: 'player'
+    render layout: 'player'
   end
 
   def record
@@ -39,6 +39,20 @@ class ProjectsController < ApplicationController
 
   def post_order
 
+    @project = Project.find(params.require('id'))
+    if @project.user_id == current_user.id
+      playlist = JSON.parse params.require("data")
+      playlist.each do |dst|
+        @project.photo.each do |src|
+          if src.file.to_s == dst["url"]
+            src.order_in_project = dst["order_in_project"]
+            src.save
+          end
+        end
+      end
+    end
+
+    render "playlist"
   end
 
   # POST /projects
@@ -82,45 +96,45 @@ class ProjectsController < ApplicationController
 
   private
 
-    def set_project
-      @project = Project.find(params[:id])
-      unless @project.visible_to_user? current_user
-       flash[:alert] = "This project is private"
-       redirect_to root_path
-      end
+  def set_project
+    @project = Project.find(params[:id])
+    unless @project.visible_to_user? current_user
+      flash[:alert] = "This project is private"
+      redirect_to root_path
     end
+  end
 
-    def set_project_with_pictures
-      @project = Project.find(params[:id])
+  def set_project_with_pictures
+    @project = Project.find(params[:id])
 
-      unless @project.visible_to_user? current_user
-        flash[:alert] = "This project is private"
-        redirect_to root_path
-      end
-        @pictures = Photo.where(:project => @project)
+    unless @project.visible_to_user? current_user
+      flash[:alert] = "This project is private"
+      redirect_to root_path
     end
+    @pictures = Photo.where(:project => @project)
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def project_params
-      taggings = params.require(:project).permit(:tagging)
-      tags = taggings[:tagging].split(",").map {|t| t.gsub(/\s+/,"")}
-      tags.uniq!
-      puts tags
-      tag_models = tags.collect{|t| Tag.find_or_create_by(name: t)}
-      tagging_models = tag_models.map { |t|  Tagging.new({tag:t, project:@project} ) unless Tagging.where(tag_id: t.id, project_id: @project.id).first}
-      tagging_models.compact!
-      tagging_models.each { |t| t.save if t}
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def project_params
+    taggings = params.require(:project).permit(:tagging)
+    tags = taggings[:tagging].split(",").map {|t| t.gsub(/\s+/,"")}
+    tags.uniq!
+    puts tags
+    tag_models = tags.collect{|t| Tag.find_or_create_by(name: t)}
+    tagging_models = tag_models.map { |t|  Tagging.new({tag:t, project:@project} ) unless Tagging.where(tag_id: t.id, project_id: @project.id).first}
+    tagging_models.compact!
+    tagging_models.each { |t| t.save if t}
 
-      saved_tagging_models = Tagging.where(project: @project)
-      saved_tagging_models.each {|t| t.destroy unless tags.include? t.tag.name}
+    saved_tagging_models = Tagging.where(project: @project)
+    saved_tagging_models.each {|t| t.destroy unless tags.include? t.tag.name}
 
-      params.require(:project).permit(:project_name, :thumbnail_picture_id,:status, :description)
-    end
+    params.require(:project).permit(:project_name, :thumbnail_picture_id,:status, :description)
+  end
 
-    def authenticate!
-     unless user_signed_in?
+  def authenticate!
+    unless user_signed_in?
       flash[:notice] = "You need to sign in"
       redirect_to root_path
-     end
     end
+  end
 end
