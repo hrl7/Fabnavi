@@ -22,6 +22,7 @@ function initCanvas(){
   ctx = cvs.getContext('2d');
   cvs.width = screen.width;
   cvs.height = screen.height;
+  ctx.strokeStyle = "#00ff00";
 }
 
 function drawCalibrateLine(){
