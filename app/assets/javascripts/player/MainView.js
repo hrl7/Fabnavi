@@ -35,7 +35,7 @@ function drawCalibrateLine(){
 
 function drawWaitingMessage(){
  console.log("Draw Waiting Message");
-  ctx.fillStyle = "black";
+  ctx.fillStyle = "green";
   ctx.font = "100px ArialRoundedMTBoldBold, serif";
   ctx.rotate(Math.PI);
   ctx.translate(-1500,-800);
@@ -45,7 +45,7 @@ function drawWaitingMessage(){
 }
 
 function drawShootingMessage(){
-  ctx.fillStyle = "black";
+  ctx.fillStyle = "green";
   ctx.font = "100px ArialRoundedMTBoldBold, serif";
   ctx.rotate(Math.PI);
   ctx.translate(-1500,-800);
@@ -80,7 +80,7 @@ function toDataURL(){
 function drawMessage(mes,x,y){
  x = x || 0;
  y = y || 20;
-  ctx.fillStyle = "black";
+  ctx.fillStyle = "green";
   ctx.font = "100px ArialRoundedMTBoldBold, serif";
   ctx.rotate(Math.PI);
   ctx.translate(-1500,-800);

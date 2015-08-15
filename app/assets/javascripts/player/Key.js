@@ -7,7 +7,10 @@ var Key = function () {
 
   function setKeyMap(){
     window.onkeydown = function(e) {
-      if(!document.mozFullScreen)document.body.mozRequestFullScreen();
+      if(!document.mozFullScreen){
+        document.body.mozRequestFullScreen();
+        Fabnavi.reloadPage();
+      }
       if(!(e.altKey || e.metaKey) ){
         e.preventDefault();
       }
