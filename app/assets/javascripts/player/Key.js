@@ -7,9 +7,11 @@ var Key = function () {
 
   function setKeyMap(){
     window.onkeydown = function(e) {
-      if(!document.mozFullScreen){
+
+      if(!document.mozFullScreen && e.keyCode == 13 && document.querySelector('.exit-alert').style.display != "block"){
         document.body.mozRequestFullScreen();
         Fabnavi.reloadPage();
+        return;
       }
       if(!(e.altKey || e.metaKey) ){
         e.preventDefault();
