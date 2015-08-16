@@ -2,8 +2,14 @@ Rails.application.routes.draw do
   resources :tags
   root to: "projects#index"
   get 'home' => "projects#home", :as => "home"
+  get 'users/sign_in' => "projects#index"
 
-  devise_for :users, controllers: { omniauth_callbacks: "omniauth_callbacks", registrations: 'registrations' }
+  devise_for :users, controllers: {
+   omniauth_callbacks: "omniauth_callbacks",
+   registrations: 'registrations'
+  }
+
+
   resources :projects do
     member do
      get 'detail'
