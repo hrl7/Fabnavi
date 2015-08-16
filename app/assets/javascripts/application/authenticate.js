@@ -1,13 +1,18 @@
 var Auth = (function(){
 
     function init(){
-      var signIn = document.getElementById('signIn') || false,
+      var signIn = document.querySelectorAll('.signIn'),
           signOut = document.getElementById('signOut') || false
       ;
 
-    if(signIn)signIn.onclick = function(){
-      registerPersonaCallbacks();
-      navigator.id.request();
+    
+    if(signIn) {
+      for(elem of signIn){
+        elem.onclick = function(){
+          registerPersonaCallbacks();
+          navigator.id.request();
+        }  
+      }
     }
     if(signOut)signOut.onclick = function(){
       registerPersonaCallbacks();
