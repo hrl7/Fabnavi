@@ -27,7 +27,7 @@ var Fabnavi = function(){
     globalImageList = CachableImageList();
     MainView.init();
     Detail.init();
-    globalImageList.initWithURLArray(PICTURES_DATA);
+    globalImageList.initWithURLArray(PICTURES_DATA.sort(function(a,b){return a.order_in_project < b.order_in_project}));
     showingImageList = globalImageList;
     queueingImageList = localImageList;
     ViewConfig.init();
