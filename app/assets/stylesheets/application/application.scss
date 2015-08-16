@@ -19,10 +19,21 @@ a:hover {
   text-decoration: none;
 }
 
+body {
+  z-index:0;
+}
+header {
+ margin-top:-10px;
+ z-index:100;
+  position:fixed;
+
+  background-color:#231815;
+  width:100%;
+} 
 .header {
   @include outer-container;
-  margin-top:40px;
-  margin-bottom:20px;
+  width:100%;
+
 }
 
 .menu {
@@ -64,7 +75,7 @@ a:hover {
 }
 
 .logo {
-  @include span-columns(4);
+  @include span-columns(3);
 }
 // User edit
 
@@ -95,6 +106,9 @@ a:hover {
   }
 }
 
+.padding-box {
+  height:200px;
+}
 
 .belt {
   @include outer-container(100%);
