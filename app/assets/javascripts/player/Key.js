@@ -13,7 +13,7 @@ var Key = function () {
         Fabnavi.reloadPage();
         return;
       }
-      if(!(e.altKey || e.metaKey) ){
+      if(!(e.altKey || e.metaKey || e.ctrlKey || e.shiftKey) ){
         e.preventDefault();
       }
       var key = e.keyCode,
