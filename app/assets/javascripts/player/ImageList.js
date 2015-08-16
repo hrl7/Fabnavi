@@ -68,6 +68,7 @@ function pushLocalImageWithURL(url,index){
 function pushImageUrlRecursively(images,i){
   i = i || 0;
   if(i >= images.length){
+    list = list.sort(function(a,b){return a.index > b.index});
     d.resolve(list);
     loadingLength = -1;
     Publisher.unsubscribe("Loading");
@@ -79,7 +80,8 @@ function pushImageUrlRecursively(images,i){
   var res = pushImageURL(
     {
       globalURL:image.file.url.replace(/^.*https%3A/,"https:/"),
-      thumbnailURL:peelThumbnail(image)
+      thumbnailURL:peelThumbnail(image),
+      index:image.order_in_project 
       });
   res.loadedImg.then(function(){
       Publisher.update("Loading",i+1+"/"+loadingLength);
