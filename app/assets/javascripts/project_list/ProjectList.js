@@ -112,9 +112,9 @@ var ProjectList = function() {
   }
 
   function scrollTo(target){
-    if(window.scrollY > target.offsetTop || window.scrollY < target.offsetTop + target.clientHeight){
+    if( window.scrollY > target.offsetTop  || window.scrollY < target.offsetTop + target.clientHeight){
       if (target) {
-        $('html,body').animate({scrollTop: target.offsetTop - 100},400);
+        $('html,body').animate({scrollTop: target.offsetTop - 400},400);
       }
     }
   }
