@@ -258,6 +258,7 @@ var ProjectList = function() {
   }
 
   function openLightBox(elem){
+   /*
    try{
      var projectData = JSON.parse(elem.attributes.getNamedItem('raw').value);   
     filter.querySelector('.box-title').textContent = projectData.project_name;
@@ -269,6 +270,7 @@ var ProjectList = function() {
     console.log(e);
     filter.classList.add('hide');
    }
+   */
   }
 
   function closeLightBox(){
