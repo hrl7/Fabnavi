@@ -7,6 +7,7 @@ gem 'neat'
 
 gem 'slim-rails'
 gem 'carrierwave'
+gem 'react-rails'
 gem "devise"
 gem "fog"
 gem "fog-aws"
