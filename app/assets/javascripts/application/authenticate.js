@@ -21,9 +21,6 @@ var Auth = (function(){
   }
 
   function registerPersonaCallbacks (){
-   if(CURRENT_USER == null){
-    CURRENT_USER = {email: ""};
-   }
     navigator.id.watch({
         loggedInEmail:CURRENT_USER.email,
         onlogin: function(assertion){

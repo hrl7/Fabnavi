@@ -1,4 +1,4 @@
-var SearchBar = React.createClass({
+var Footer = React.createClass({
 
   propTypes : {
   },
@@ -16,19 +16,12 @@ var SearchBar = React.createClass({
 
   render : function(){
     return (
-      <section className="belt" >
-        <div className="menu-action search-bar">
-          <form >
-            <input id="search-box" onChange={this.handleChange} />
-            <span className="search-icon" ></span>
-          </form>
-        </div>
-      </section>
+      <footer className="belt">
+      </footer>
     );
   },
 
   handleChange: function ( event ){
-    NavigationViewActionCreator.search( event.target.value );
   },
 
   onclick : function() {

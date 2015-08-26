@@ -1,6 +1,5 @@
 var _accountInfo = {};
 
-
 var AccountStore = Object.assign({}, EventEmitter.prototype, {
   init : function () {
     _accountInfo.email = (window.hasOwnProperty('CURRENT_USER') && window.CURRENT_USER) || "";

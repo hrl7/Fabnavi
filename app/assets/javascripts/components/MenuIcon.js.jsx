@@ -20,12 +20,12 @@ var MenuIcon = React.createClass({
   render : function(){
     return (
       <a className="menu-action nav-action" >
-         <img src={this.props.src} onClick={this._onclick}/>
+         <img src={this.props.src} onClick={this.onclick}/>
       </a>
      );
   },
 
-  _onclick : function() {
+  onclick : function() {
     NavigationViewActionCreator.menuSelect(this.props.act); 
   },
 
