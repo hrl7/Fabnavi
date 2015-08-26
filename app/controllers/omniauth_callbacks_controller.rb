@@ -10,11 +10,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
         session["devise.persona_data"] = request.env["omniauth.auth"]
       end
 
-      if @user.sign_in_count == 1
-        render :text => edit_user_registration_path
-      else
-        render :text => root_path
-      end
+        render :text => @user.to_json
     else
       flash[:notice] = "Authentication Failed"
       render :text => root_path

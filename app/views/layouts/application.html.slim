@@ -16,33 +16,11 @@ html
     - else
       javascript:
         var CURRENT_USER = null;
-    javascript:
-        function set(){
-            var action = location.pathname;
-            var acts = document.querySelectorAll(".menu-action");
-            console.log(action);
-            acts[set_current_state(action)].classList.add("current-page");
-            function set_current_state(i){
-              switch(i){
-                case "/":
-                case "/index":
-                case "/users/sign_in":
-                  return 0;
-                case "/home":
-                  return 1;
-                case "/projects/new":
-                  return 2;
-                case "/users/edit":
-                  return 3;
-                default:
-                  console.log("not recognized :"+i);
-              }
-            }
-        }
         
-  body[onpageshow="set();Auth.init();;window.hasOwnProperty('boot') && boot();" onunload="console.log('Hello fabnavi');"]
-    header
-      .header
+  body[onload="window.hasOwnProperty('boot') && boot();"]
+    //= react_component('Navigation')
+    header#navigation
+      //.header
         a.logo href="#{root_path}"
           img[src="#{image_path("h_logo.png")}"]
         .menu
