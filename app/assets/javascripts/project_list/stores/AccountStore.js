@@ -40,7 +40,6 @@ var AccountStore = Object.assign({}, EventEmitter.prototype, {
 });
 
 AccountStore.dispatchToken = AppDispatcher.register(function( action ){
-    console.log("Dispatcher received");
     switch( action.type ){
 
       case ActionTypes.SIGN_IN : 
