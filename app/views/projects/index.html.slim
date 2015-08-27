@@ -6,7 +6,7 @@
     function boot(){
      bootReact();
     }
-    var PROJECTS = #{{@projects.to_json}};
+    var PROJECTS = #{{@projects.to_json(include: [:user, :photo])}};
 
 .projects
     - @projects.each do |project|

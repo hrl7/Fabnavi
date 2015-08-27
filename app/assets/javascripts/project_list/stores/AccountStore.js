@@ -46,6 +46,7 @@ AccountStore.dispatchToken = AppDispatcher.register(function( action ){
       case ActionTypes.SIGN_IN : 
         Persona.signIn();         
         break; 
+
       case ActionTypes.SIGN_IN_SUCCESS : 
         AccountStore.setEmail(action.email);
         AccountStore.emitChange();
