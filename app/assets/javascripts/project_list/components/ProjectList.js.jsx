@@ -7,7 +7,7 @@ var ProjectList = React.createClass({
   getStateFromStores : function () {
     return {
      projects : ProjectStore.getProjectsAll(),
-     selectedProjectIndex : ProjectSelectorStore.getSelector(),
+     selected : ProjectSelectorStore.getSelector(),
     };
   },
 
@@ -29,11 +29,10 @@ var ProjectList = React.createClass({
 
   render : function(){
     var projects = [];
-    console.log(this.state.projects);
     for( var i in this.state.projects ){
       projects.push(<ProjectElement
         project={this.state.projects[i]}
-        selected={this.state.selectedProjectIndex == i}
+        isSelected={this.state.selected.index == i}
         />);
     }
     return (
