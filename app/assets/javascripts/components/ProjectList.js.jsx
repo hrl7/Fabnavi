@@ -9,6 +9,12 @@ var ProjectList = React.createClass({
     };
   },
 
+  _onChange : function () {
+    console.log("fired projectlist");
+    console.log(this.state);
+    this.setState(this.getStateFromStores());
+  },
+
   getInitialState: function() {
      return this.getStateFromStores();
   },
@@ -42,6 +48,7 @@ var ProjectList = React.createClass({
   },
 
   componentDidMount : function () {
+    ProjectStore.addChangeListener(this._onChange);
   },
 
   componentWillUpdate : function() {
@@ -51,6 +58,7 @@ var ProjectList = React.createClass({
   },
 
   componentWillUnmount : function() {
+    ProjectStore.removeChangeListener(this._onChange);
   },
 
 });

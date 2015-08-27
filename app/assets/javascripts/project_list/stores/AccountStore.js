@@ -6,15 +6,15 @@ var AccountStore = Object.assign({}, EventEmitter.prototype, {
   }, 
 
   emitChange : function(){
-    this.emit(CHANGE_EVENT);
+    this.emit(ACCOUNT_CHANGE_EVENT);
   },
 
   addChangeListener: function(callback) {
-    this.on(CHANGE_EVENT, callback);
+    this.on(ACCOUNT_CHANGE_EVENT, callback);
   },
 
   removeChangeListener: function(callback) {
-    this.removeListener(CHANGE_EVENT, callback);
+    this.removeListener(ACCOUNT_CHANGE_EVENT, callback);
   },
 
   getUserEmail : function () {

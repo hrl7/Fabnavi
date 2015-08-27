@@ -51,8 +51,12 @@ var ProjectElement = React.createClass({
         </div>
         <div className="box">
           <img className="user-icon" src={this.getUserIconSrc()}  />
-          <div className="username"></div>
-          <div className="date"></div>
+          <div className="username">
+            {this.props.project.user.name}
+          </div>
+          <div className="date">
+            {this.props.project.updated_at} 
+          </div>
         </div>
         <ul className="actions hide">
         </ul>

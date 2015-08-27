@@ -18,38 +18,7 @@ html
         var CURRENT_USER = null;
         
   body[onload="window.hasOwnProperty('boot') && boot();"]
-    //= react_component('Navigation')
     header#navigation
-      //.header
-        a.logo href="#{root_path}"
-          img[src="#{image_path("h_logo.png")}"]
-        .menu
-          a.menu-action.nav-action  href="#{root_path}"
-            img[src="#{image_path("h_top.png")}"]
-          - if user_signed_in?
-            a.menu-action.nav-action  href="#{home_path}"
-              img[src="#{image_path("h_myproject.png")}"]
-            a.menu-action.nav-action  href="#{new_project_path}"
-              img[src="#{image_path("h_create.png")}"] 
-            a.menu-action.nav-action href="#{edit_user_registration_path}"
-              img[src="#{image_path("h_config.png")}"]
-            = link_to image_tag(image_path('h_sign_out.png')), destroy_user_session_path, method: :delete, class: 'menu-action nav-action '
-          -else
-            a.menu-action.nav-action.signIn
-              img[src="#{image_path("h_myproject.png")}"]
-            a.menu-action.nav-action.signIn 
-              img[src="#{image_path("h_create.png")}"] 
-            a.menu-action.nav-action.signIn
-              img[src="#{image_path("h_config.png")}"]
-            .menu-action.nav-action.signIn
-              img[src="#{image_path("h_signin.png")}"]
-
-      section.belt
-        .search-bar.menu-action
-          form
-            input#search-box
-            span.search-icon
-
     .padding-box
     .nav
       - if notice
@@ -59,7 +28,6 @@ html
       - if alert
         .alert #{alert}
     = yield
-    footer.belt
     .filter.hide
       .box
         .box-title

@@ -18,7 +18,6 @@ var Navigation = React.createClass({
   getDefaultProps: function() {
      return {
         headerSrc : "images/h_logo.png",
-        
      };
    },
 
@@ -54,7 +53,6 @@ var Navigation = React.createClass({
   },
 
   componentWillMount : function() {
-    AccountStore.removeChangeListener(this._onChange);
   },
 
   componentDidMount : function () {
@@ -72,8 +70,7 @@ var Navigation = React.createClass({
   },
 
   componentWillUnmount : function() {
-    return {
-    };
+    AccountStore.removeChangeListener(this._onChange);
   },
 
 

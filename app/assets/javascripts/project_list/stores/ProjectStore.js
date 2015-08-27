@@ -3,6 +3,8 @@ var _projects = {};
 var ProjectStore = Object.assign({}, EventEmitter.prototype, {
   init : function () {
     _projects = PROJECTS;
+    console.log("init projectlist ");
+    this.emitChange();
   },
 
   getProjectsAll : function (){
@@ -10,15 +12,16 @@ var ProjectStore = Object.assign({}, EventEmitter.prototype, {
   },
 
   emitChange : function(){
-    this.emit(CHANGE_EVENT);
+    console.log("emit projectlist change event");
+    this.emit(PROJECT_LIST_CHANGE_EVENT);
   },
 
   addChangeListener: function(callback) {
-    this.on(CHANGE_EVENT, callback);
+    this.on(PROJECT_LIST_CHANGE_EVENT, callback);
+    console.log(this._getEvents());
   },
 
   removeChangeListener: function(callback) {
-    this.removeListener(CHANGE_EVENT, callback);
+    this.removeListener(PROJECT_LIST_CHANGE_EVENT, callback);
   },
-
 });

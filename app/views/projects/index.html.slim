@@ -8,35 +8,19 @@
     }
     var PROJECTS = #{{@projects.to_json(include: [:user, :photo])}};
 
-.projects
-    - @projects.each do |project|
-      .project-box.project[data="#{project.id}" raw="#{project.to_json.gsub("id","thumbnail_url\":\""+project.thumbnail_src+"\",\"id")}"]
-        -puts project.thumbnail_src.to_s
-        .thumbnail
-          img src="#{{project.thumbnail_src}}"
-          - if controller.action_name == "home"
-            - if project.private_project?
-              img#status-icon src="#{{image_path('private.png')}}"
-            -else 
-              img#status-icon src="#{{image_path('public.png')}}"
-        .project-name = project.project_name
-        .box
-          = image_tag project.try(:user).try(:avatar).try(:url), class: 'user-icon'
-          .username #{project.try(:user).try(:name)}
-          .date Date:#{project.date}
-        ul.actions.hide
-          li.action.action-box
-            =image_tag image_path("p_play.png")
-            = link_to 'Play',    project_path(project) 
-          li.action.action-box
-            =image_tag image_path("p_record.png")
-            = link_to 'Record',  record_project_path(project)
-          li.action.action-box
-            =image_tag image_path("p_detail.png")
-            = link_to 'Detail',  detail_project_path(project)
-          li.action.action-box
-            =image_tag image_path("p_edit.png")
-            = link_to 'Edit',    edit_project_path(project)
-          li.action.action-box.delete
-            =image_tag image_path("p_delete.png")
-            = link_to 'Delete',  project, method: :delete, data: {confirm: "Are you sure to delete?"}
+//ul.actions.hide
+  li.action.action-box
+    =image_tag image_path("p_play.png")
+    = link_to 'Play',    project_path(project) 
+  li.action.action-box
+    =image_tag image_path("p_record.png")
+    = link_to 'Record',  record_project_path(project)
+  li.action.action-box
+    =image_tag image_path("p_detail.png")
+    = link_to 'Detail',  detail_project_path(project)
+  li.action.action-box
+    =image_tag image_path("p_edit.png")
+    = link_to 'Edit',    edit_project_path(project)
+  li.action.action-box.delete
+    =image_tag image_path("p_delete.png")
+    = link_to 'Delete',  project, method: :delete, data: {confirm: "Are you sure to delete?"}
