@@ -31473,7 +31473,6 @@ var MenuIcon = React.createClass({
   getDefaultProps: function () {
     return {
       headerSrc: "images/h_logo.png"
-
     };
   },
 
@@ -31509,9 +31508,7 @@ var MenuIcon = React.createClass({
     );
   },
 
-  componentWillMount: function () {
-    AccountStore.removeChangeListener(this._onChange);
-  },
+  componentWillMount: function () {},
 
   componentDidMount: function () {
     AccountStore.addChangeListener(this._onChange);
@@ -31526,7 +31523,7 @@ var MenuIcon = React.createClass({
   },
 
   componentWillUnmount: function () {
-    return {};
+    AccountStore.removeChangeListener(this._onChange);
   }
 
 });var ProjectElement = React.createClass({
@@ -31586,8 +31583,16 @@ var MenuIcon = React.createClass({
         "div",
         { className: "box" },
         React.createElement("img", { className: "user-icon", src: this.getUserIconSrc() }),
-        React.createElement("div", { className: "username" }),
-        React.createElement("div", { className: "date" })
+        React.createElement(
+          "div",
+          { className: "username" },
+          this.props.project.user.name
+        ),
+        React.createElement(
+          "div",
+          { className: "date" },
+          this.props.project.updated_at
+        )
       ),
       React.createElement("ul", { className: "actions hide" })
     );
@@ -31618,6 +31623,12 @@ var MenuIcon = React.createClass({
     };
   },
 
+  _onChange: function () {
+    console.log("fired projectlist");
+    console.log(this.state);
+    this.setState(this.getStateFromStores());
+  },
+
   getInitialState: function () {
     return this.getStateFromStores();
   },
@@ -31645,13 +31656,17 @@ var MenuIcon = React.createClass({
 
   componentWillMount: function () {},
 
-  componentDidMount: function () {},
+  componentDidMount: function () {
+    ProjectStore.addChangeListener(this._onChange);
+  },
 
   componentWillUpdate: function () {},
 
   componentDidUpdate: function () {},
 
-  componentWillUnmount: function () {}
+  componentWillUnmount: function () {
+    ProjectStore.removeChangeListener(this._onChange);
+  }
 
 });var SearchBar = React.createClass({
   displayName: "SearchBar",
@@ -31702,7 +31717,30 @@ var MenuIcon = React.createClass({
 });
 
 
+var KeyActionCreator = {
+  handleKeyDown : function ( event ) {
+    if(event.metaKey) return 0;
+    event.preventDefault();
+    event.stopped = true;
+
+    var payload = {
+      type    : ActionTypes.KEY_DOWN,
+      keyCode : event.keyCode,
+      charCode: event.charCode,
+      ctrl    : event.ctrlKey,
+      alt     : event.altKey,
+      meta    : event.metaKey,
+      shift   : event.shiftKey
+    };
+
+    console.log("Key Action Created", payload );
+    AppDispatcher.dispatch( payload ); 
+  },
+}
+
+;
 var NavigationViewActionCreator = {
+
   search : function ( act, text ) {
    console.log("Nav Action Created", act, text );
     if ( ActionTypes.hasOwnProperty(act) ){
@@ -31712,6 +31750,7 @@ var NavigationViewActionCreator = {
       });
     }
   },
+
   menuSelect: function ( act ) {
    console.log("Nav Action Created",act);
     if ( ActionTypes.hasOwnProperty(act) ){
@@ -31745,18 +31784,25 @@ const ActionTypes = {
   SIGN_OUT  : "SIGN_OUT",
   SIGN_IN   : "SIGN_IN",
   CONFIG    : "CONFIG",
+  KEY_DOWN  : "KEY_DOWN",
+  KEY_PRESS : "KEY_PRESS",
+  KEY_UP    : "KEY_UP",
   SIGN_IN_SUCCESS : "SIGN_IN_SUCCESS",
   SIGN_IN_FAILURE : "SIGN_IN_FAILURE",
   SIGN_OUT_FAILURE: "SIGN_OUT_FAILURE",
   SIGN_OUT_SUCCESS: "SIGN_OUT_SUCCESS",
 }
-const CHANGE_EVENT="CHANGE_EVENT";
+const ACCOUNT_CHANGE_EVENT="ACCOUNT_CHANGE_EVENT";
+const PROJECT_LIST_CHANGE_EVENT="PROJECT_LIST_CHANGE_EVENT";
+const PROJECT_SELECTOR_CHANGE_EVENT="PROJECT_SELECTOR_CHANGE_EVENT";
 
 var AppDispatcher = new Flux.Dispatcher();
 function bootReact( ) {
   console.log("Fabnavi boot");
   AccountStore.init();
   ProjectStore.init();
+  ProjectSelectorStore.init();
+  window.onkeydown = KeyActionCreator.handleKeyDown;
   React.render(React.createElement(FabnaviApp, null), document.body);
 }
 ;
@@ -31768,15 +31814,15 @@ var AccountStore = Object.assign({}, EventEmitter.prototype, {
   }, 
 
   emitChange : function(){
-    this.emit(CHANGE_EVENT);
+    this.emit(ACCOUNT_CHANGE_EVENT);
   },
 
   addChangeListener: function(callback) {
-    this.on(CHANGE_EVENT, callback);
+    this.on(ACCOUNT_CHANGE_EVENT, callback);
   },
 
   removeChangeListener: function(callback) {
-    this.removeListener(CHANGE_EVENT, callback);
+    this.removeListener(ACCOUNT_CHANGE_EVENT, callback);
   },
 
   getUserEmail : function () {
@@ -31832,11 +31878,36 @@ AccountStore.dispatchToken = AppDispatcher.register(function( action ){
 
 });
 
+var ProjectSelectorStore = Object.assign({}, EventEmitter.prototype, {
+  init : function () {
+    console.log("init project selector");
+  },
+
+  emitChange : function(){
+    console.log("emit ProjectSelector change event");
+    this.emit(PROJECT_SELECTOR_CHANGE_EVENT);
+  },
+
+  addChangeListener: function(callback) {
+    this.on(PROJECT_SELECTOR_CHANGE_EVENT, callback);
+    console.log(this._getEvents());
+  },
+
+  removeChangeListener: function(callback) {
+    this.removeListener(PROJECT_SELECTOR_CHANGE_EVENT, callback);
+  },
+});
+
+ProjectSelectorStore.dispatchToken = AppDispatcher.register(function( action ){
+  console.log("Selector received action : ",action);
+});
 var _projects = {};
 
 var ProjectStore = Object.assign({}, EventEmitter.prototype, {
   init : function () {
     _projects = PROJECTS;
+    console.log("init projectlist ");
+    this.emitChange();
   },
 
   getProjectsAll : function (){
@@ -31844,16 +31915,25 @@ var ProjectStore = Object.assign({}, EventEmitter.prototype, {
   },
 
   emitChange : function(){
-    this.emit(CHANGE_EVENT);
+    console.log("emit projectlist change event");
+    this.emit(PROJECT_LIST_CHANGE_EVENT);
   },
 
   addChangeListener: function(callback) {
-    this.on(CHANGE_EVENT, callback);
+    this.on(PROJECT_LIST_CHANGE_EVENT, callback);
+    console.log(this._getEvents());
   },
 
   removeChangeListener: function(callback) {
-    this.removeListener(CHANGE_EVENT, callback);
+    this.removeListener(PROJECT_LIST_CHANGE_EVENT, callback);
   },
+});
+
+ProjectStore.dispatchToken = AppDispatcher.register(function( action ){
+  switch(action.type){
+    default : 
+      break;
+  };
 
 });
 var Persona = {
