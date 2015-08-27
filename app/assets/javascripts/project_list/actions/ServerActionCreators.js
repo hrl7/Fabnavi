@@ -1,6 +1,5 @@
 var ServerActionCreator = {
   signIn: function ( email ) {
-    console.log("Server Action Created", email);
     AppDispatcher.dispatch ({
       type : ActionTypes.SIGN_IN_SUCCESS,
       email : email 
@@ -8,7 +7,6 @@ var ServerActionCreator = {
   },
 
   signOut: function ( act ) {
-   console.log("Server Action Created", act);
     AppDispatcher.dispatch ({
       type : ActionTypes.SIGN_OUT_SUCCESS
     });

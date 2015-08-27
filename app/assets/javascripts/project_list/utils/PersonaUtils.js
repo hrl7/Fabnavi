@@ -11,7 +11,6 @@ var Persona = {
   },
 
   init : function () {
-          console.log("Init persona");
     navigator.id.watch({
        onlogin: function(assertion){
           $.ajax({
@@ -31,7 +30,6 @@ var Persona = {
               type:"DELETE",
               url:"/users/sign_out",
                 success: function(res, status, xhr){
-                  console.log(res);
                   ServerActionCreator.signOut(res);
               },
               error: function(res, status, xhr){

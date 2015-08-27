@@ -12,8 +12,6 @@ var ProjectList = React.createClass({
   },
 
   _onChange : function () {
-    console.log("fired projectlist");
-    console.log(this.state);
     this.setState(this.getStateFromStores());
   },
 

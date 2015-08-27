@@ -3,7 +3,6 @@ var _selector  = {
 
 var ProjectSelectorStore = Object.assign({}, EventEmitter.prototype, {
   init : function () {
-    console.log("init project selector");
     _selector = {
       index : 0,
       row   : 0,
@@ -12,11 +11,9 @@ var ProjectSelectorStore = Object.assign({}, EventEmitter.prototype, {
   },
 
   setSelectorIndex : function ( index  ){
-    console.log(index);
     _selector.index = index;
     _selector.col   = index % 4;
     _selector.row   = Math.floor(index / 4);
-    console.log(_selector);
     this.emitChange();
   },
 
@@ -25,13 +22,11 @@ var ProjectSelectorStore = Object.assign({}, EventEmitter.prototype, {
   },
 
   emitChange : function(){
-    console.log("emit ProjectSelector change event");
     this.emit(PROJECT_SELECTOR_CHANGE_EVENT);
   },
 
   addChangeListener: function(callback) {
     this.on(PROJECT_SELECTOR_CHANGE_EVENT, callback);
-    console.log(this._getEvents());
   },
 
   removeChangeListener: function(callback) {
@@ -42,7 +37,6 @@ var ProjectSelectorStore = Object.assign({}, EventEmitter.prototype, {
 var keyMap = [];
 var ProjectSelectorState = new machina.Fsm({
   initialize : function() {
-    console.log("Selector StateMachine Initialized");
   },
 
   initialState : "projects",
@@ -52,7 +46,6 @@ var ProjectSelectorState = new machina.Fsm({
     projects : {
       setSelectorByIndex : function setSelectorByIndex( index ){
         //validates selector
-        console.log(index);
         var projects = ProjectStore.getProjectsAll();
         if( index >= projects.length ) {
           index = projects.length -1;
@@ -120,7 +113,6 @@ var ProjectSelectorState = new machina.Fsm({
 });
 
 ProjectSelectorStore.dispatchToken = AppDispatcher.register(function( action ){
-  console.log("Selector received action : ",action);
   switch( action.type ){
     case ActionTypes.KEY_DOWN:
       if( keyMap.hasOwnProperty( action.keyCode ) ){

@@ -7,8 +7,6 @@ var Navigation = React.createClass({
   },
 
   _onChange : function () {
-    console.log("Fire From Navigation");
-    console.log(this.state);
     this.setState(this.getStateFromStores());
   },
   getInitialState: function() {

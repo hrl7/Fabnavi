@@ -14,7 +14,6 @@ var KeyActionCreator = {
       shift   : event.shiftKey
     };
 
-    console.log("Key Action Created", payload );
     AppDispatcher.dispatch( payload ); 
   },
 }
