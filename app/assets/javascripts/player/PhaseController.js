@@ -37,11 +37,13 @@ var PhaseController = (function(){
     var d = new $.Deferred();
     registerCallback(function(){
       d.resolve();
-    },[]);
+    },0);
     return d.promise();
   };
 
   var playSlide = function(){
+    Fabnavi.showFilterWithString("Project Start");
+    window.setTimeout(function(){Fabnavi.hideFilter()},1000);
 
     var keyMap = [];
     keyMap[39] = Fabnavi.nextPage;
@@ -61,6 +63,7 @@ var PhaseController = (function(){
   var putCalibrationSheetWithShoot = function(){
     Fabnavi.setCalibrationLine(true);
     Fabnavi.setNavigationImage("move_sheet.gif");
+    Fabnavi.showFilterWithString("Calibration Mode");
 
     var keyMap = [];
     keyMap[27] = Fabnavi.exit;
@@ -68,10 +71,17 @@ var PhaseController = (function(){
 
     var d = new $.Deferred();
     registerCallback(function(){
-      Fabnavi.shoot();
-      beforeStageChanging();
-      d.resolve();
-    },[13]);
+      var res = Fabnavi.shoot();
+      console.log(res);
+      res.done(function(){
+        beforeStageChanging();
+        d.resolve();
+      })
+      .fail(function(){
+          console.log("Connection failed retry...");
+      });
+    
+    },13);
     return d.promise();
   }
 
@@ -79,6 +89,7 @@ var PhaseController = (function(){
     Fabnavi.setCalibrationLine(true);
     Fabnavi.setNavigationImage("move_sheet.gif");
     Fabnavi.setCalibrationLock(true);
+    Fabnavi.showFilterWithString("Calibration Mode");
 
     var keyMap = [];
     keyMap[27] = Fabnavi.exit;
@@ -89,7 +100,7 @@ var PhaseController = (function(){
       console.log("Put picture");
       beforeStageChanging();
       d.resolve();
-    },[32]);
+    },32);
     return d.promise();
   }
 
@@ -98,6 +109,7 @@ var PhaseController = (function(){
     Fabnavi.setCalibrationLock(false);
     Fabnavi.setCalibrationLine(true);
     CalibrateController.addMouseEvent();
+    Fabnavi.showFilterWithString("Calibration Mode");
 
     var keyMap = [], d = 10;
     keyMap[27] = Fabnavi.exit;
@@ -113,13 +125,14 @@ var PhaseController = (function(){
       console.log("move Picture");
       beforeStageChanging();
       d.resolve();
-    },[32]);
+    },32);
     return d.promise();
   }
 
   var adjustSize = function(){
     CalibrateController.removeMouseEvent();
     Fabnavi.setNavigationImage("adjust_asp.gif");
+    Fabnavi.showFilterWithString("Calibration Mode");
 
     var keyMap = [],d = 10;
     keyMap[39] = CalibrateController.changeRegionCB(-d,0);
@@ -135,7 +148,7 @@ var PhaseController = (function(){
       beforeStageChanging();
       ViewConfig.save();
       d.resolve();
-    }, [32]);
+    }, 32);
     return d.promise();
   }
 
@@ -144,6 +157,7 @@ var PhaseController = (function(){
     Fabnavi.setCalibrationLock(false);
     Fabnavi.setNavigationImage("");
     CalibrateController.removeMouseEvent();
+    Fabnavi.hideFilter();
     Key.clear();
   }
 
@@ -159,7 +173,7 @@ var PhaseController = (function(){
   }
 
   function registerCallback(fn,keys){
-    Key.deregister();
+    Key.clearTrigger();
     Key.register(fn,keys);
   }
 

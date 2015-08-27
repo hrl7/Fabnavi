@@ -17,7 +17,7 @@ var Server = function (){
     console.log("save lock:loadingLength",lst.saveLock());
     if(lst.saveLock() == false){
       Publisher.unsubscribe("Playlist");
-      $.post("/projects/update",
+      $.post("/projects/playlist",
           {
             id:Project.id,
         user_id:Project.user_id,
@@ -46,7 +46,7 @@ var Server = function (){
             photo:{
                     file:data,
                     url:localImageURL,
-                    id:Project.id,
+                    project_id:Project.id,
                     user_id:Project.user_id,
                   }
           },
@@ -64,10 +64,32 @@ var Server = function (){
     };
   }
 
+function postPhoto(file,thumbnail,project_id,order_in_project = 0){
+    var fd = new FormData();
+    fd.append("file", file,".png");
+    fd.append("thumbnail", thumbnail,".png");
+    fd.append("project_id", project_id);
+    fd.append("order_in_project",order_in_project);
+    return $.ajax({ 
+      url: "/photos.json",
+      type: "POST",
+      data:fd, 
+      processData: false,
+      contentType: false  
+    },
+    function(res,err){
+      console.log(res);
+      console.log(err);
+    }
+    );
+
+}
+
 
   return {
     setThumbnail:setThumbnail,
     postPlaylist:postPlaylist,
     postPicture:postPicture,
+    postPhoto:postPhoto,
   };
 }();

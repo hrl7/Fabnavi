@@ -1,0 +1,300 @@
+@font-face {
+  font-family: "ArialRoundedMTBoldBold";
+  font-style: normal;
+  font-weight: normal;
+  src: url("/fonts/ArialRoundedMTBoldBold.ttf") format("truetype");
+}
+/* line 2, /Users/hrl7/fabnavi3/app/assets/stylesheets/project_list/form.scss */
+input {
+  padding: 0;
+  margin: 0;
+}
+
+/* line 7, /Users/hrl7/fabnavi3/app/assets/stylesheets/project_list/form.scss */
+.form-box {
+  font-size: 20pt;
+  width: 56%;
+  margin: 0 auto;
+}
+
+/* line 13, /Users/hrl7/fabnavi3/app/assets/stylesheets/project_list/form.scss */
+.form-title {
+  text-align: center;
+  width: 100%;
+  font-size: 30pt;
+}
+
+/* line 19, /Users/hrl7/fabnavi3/app/assets/stylesheets/project_list/form.scss */
+.form-text {
+  width: 100%;
+  font-size: 100%;
+  margin-top: 10px;
+}
+
+/* line 25, /Users/hrl7/fabnavi3/app/assets/stylesheets/project_list/form.scss */
+.form-select {
+  font-size: 100%;
+  font-family: "ArialRoundedMTBoldBold";
+}
+
+/* line 30, /Users/hrl7/fabnavi3/app/assets/stylesheets/project_list/form.scss */
+.field {
+  margin-bottom: 30px;
+}
+
+/* line 34, /Users/hrl7/fabnavi3/app/assets/stylesheets/project_list/form.scss */
+.actions {
+  width: 300px;
+  height: 50px;
+  margin: 0 auto;
+}
+/* line 38, /Users/hrl7/fabnavi3/app/assets/stylesheets/project_list/form.scss */
+.actions input {
+  width: 100%;
+  height: 100%;
+  font-size: 100%;
+  border-radius: 10px;
+  box-shadow: inset 0 0 1em #EFEFEF;
+}
+
+/* line 47, /Users/hrl7/fabnavi3/app/assets/stylesheets/project_list/form.scss */
+.pdf {
+  width: 10%;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 30px;
+}
+/* line 52, /Users/hrl7/fabnavi3/app/assets/stylesheets/project_list/form.scss */
+.pdf img {
+  width: 100%;
+}
+@font-face {
+  font-family: "ArialRoundedMTBoldBold";
+  font-style: normal;
+  font-weight: normal;
+  src: url("/fonts/ArialRoundedMTBoldBold.ttf") format("truetype");
+}
+/* line 4, /Users/hrl7/.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/neat-1.7.2/app/assets/stylesheets/grid/_box-sizing.scss */
+html {
+  box-sizing: border-box;
+}
+
+/* line 9, /Users/hrl7/.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/neat-1.7.2/app/assets/stylesheets/grid/_box-sizing.scss */
+*, *::after, *::before {
+  box-sizing: inherit;
+}
+
+/* line 8, /Users/hrl7/fabnavi3/app/assets/stylesheets/project_list/projects.scss */
+body {
+  font-family: "ArialRoundedMTBoldBold";
+}
+
+/* line 13, /Users/hrl7/fabnavi3/app/assets/stylesheets/project_list/projects.scss */
+.filter {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.5);
+  top: 0px;
+  left: 0px;
+}
+
+/* line 23, /Users/hrl7/fabnavi3/app/assets/stylesheets/project_list/projects.scss */
+.thumbnail {
+  width: 200px;
+  height: 149.74px;
+  margin: 10px auto;
+}
+
+/* line 29, /Users/hrl7/fabnavi3/app/assets/stylesheets/project_list/projects.scss */
+.thumbnail img {
+  transform: rotateZ(180deg);
+  width: 100%;
+}
+
+/* line 33, /Users/hrl7/fabnavi3/app/assets/stylesheets/project_list/projects.scss */
+#status-icon {
+  width: 20%;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+/* line 40, /Users/hrl7/fabnavi3/app/assets/stylesheets/project_list/projects.scss */
+.projects {
+  max-width: 68em;
+  margin-left: auto;
+  margin-right: auto;
+  margin: 20px auto;
+  width: 80%;
+  color: #231815;
+}
+/* line 20, /Users/hrl7/.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/bourbon-4.2.2/app/assets/stylesheets/addons/_clearfix.scss */
+.projects::after {
+  clear: both;
+  content: "";
+  display: table;
+}
+
+/* line 46, /Users/hrl7/fabnavi3/app/assets/stylesheets/project_list/projects.scss */
+.selected-project {
+  background-color: #F5BE17;
+}
+
+/* line 49, /Users/hrl7/fabnavi3/app/assets/stylesheets/project_list/projects.scss */
+.project {
+  background-color: #EFEFEF;
+}
+
+/* line 52, /Users/hrl7/fabnavi3/app/assets/stylesheets/project_list/projects.scss */
+.project-box {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 23.23176%;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  position: relative;
+}
+/* line 89, /Users/hrl7/.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/neat-1.7.2/app/assets/stylesheets/grid/_span-columns.scss */
+.project-box:last-child {
+  margin-right: 0;
+}
+/* line 78, /Users/hrl7/.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/neat-1.7.2/app/assets/stylesheets/grid/_omega.scss */
+.project-box:nth-child(4n) {
+  margin-right: 0;
+}
+/* line 83, /Users/hrl7/.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/neat-1.7.2/app/assets/stylesheets/grid/_omega.scss */
+.project-box:nth-child(4n+1) {
+  clear: left;
+}
+
+/* line 63, /Users/hrl7/fabnavi3/app/assets/stylesheets/project_list/projects.scss */
+.project-box:hover {
+  background-color: #E1B22B;
+}
+
+/* line 66, /Users/hrl7/fabnavi3/app/assets/stylesheets/project_list/projects.scss */
+.project-name {
+  font-size: 17pt;
+  margin-left: 20px;
+  margin-bottom: 5px;
+}
+
+/* line 71, /Users/hrl7/fabnavi3/app/assets/stylesheets/project_list/projects.scss */
+.date {
+  width: 40%;
+  float: left;
+  margin-left: 10%;
+}
+
+/* line 76, /Users/hrl7/fabnavi3/app/assets/stylesheets/project_list/projects.scss */
+.user-icon {
+  float: left;
+  width: 40px;
+  height: 40px;
+  margin-left: 20px;
+  margin-right: 5px;
+}
+
+/* line 83, /Users/hrl7/fabnavi3/app/assets/stylesheets/project_list/projects.scss */
+.username {
+  float: left;
+  width: 60%;
+  color: #3B6ACE;
+  overflow: auto;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* line 91, /Users/hrl7/fabnavi3/app/assets/stylesheets/project_list/projects.scss */
+.user {
+  float: left;
+  width: 50%;
+}
+
+/* line 95, /Users/hrl7/fabnavi3/app/assets/stylesheets/project_list/projects.scss */
+a:active,
+a:visited,
+a:link {
+  color: #EFEFEF;
+  text-decoration: none;
+}
+
+/* line 101, /Users/hrl7/fabnavi3/app/assets/stylesheets/project_list/projects.scss */
+a:hover {
+  color: #966432;
+  text-decoration: none;
+}
+
+/* line 106, /Users/hrl7/fabnavi3/app/assets/stylesheets/project_list/projects.scss */
+#signIn {
+  cursor: pointer;
+}
+
+/* line 109, /Users/hrl7/fabnavi3/app/assets/stylesheets/project_list/projects.scss */
+.user {
+  text-align: right;
+}
+
+/* line 112, /Users/hrl7/fabnavi3/app/assets/stylesheets/project_list/projects.scss */
+ul.actions {
+  position: absolute;
+  top: 0px;
+  left: 16px;
+  padding: 0px;
+  margin: 10px;
+  width: 200px;
+  height: 0px;
+}
+/* line 122, /Users/hrl7/fabnavi3/app/assets/stylesheets/project_list/projects.scss */
+ul.actions .selected-action a {
+  color: #F5BE17;
+}
+/* line 128, /Users/hrl7/fabnavi3/app/assets/stylesheets/project_list/projects.scss */
+ul.actions .action a {
+  color: #EFEFEF;
+}
+/* line 132, /Users/hrl7/fabnavi3/app/assets/stylesheets/project_list/projects.scss */
+ul.actions .action-box {
+  background-color: rgba(54, 48, 48, 0.8);
+  list-style: none;
+  height: 28.948px;
+  margin-bottom: 1px;
+}
+/* line 137, /Users/hrl7/fabnavi3/app/assets/stylesheets/project_list/projects.scss */
+ul.actions .action-box img {
+  width: 23.1584px;
+  margin: 2.8948px;
+}
+/* line 141, /Users/hrl7/fabnavi3/app/assets/stylesheets/project_list/projects.scss */
+ul.actions .action-box a {
+  position: absolute;
+  margin-top: 5.7896px;
+}
+/* line 147, /Users/hrl7/fabnavi3/app/assets/stylesheets/project_list/projects.scss */
+ul.actions .delete a {
+  color: #FF1B00;
+}
+
+/* line 152, /Users/hrl7/fabnavi3/app/assets/stylesheets/project_list/projects.scss */
+.hide {
+  display: none;
+}
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+
+
+ */
+

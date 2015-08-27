@@ -1,11 +1,12 @@
 var ProjectList = function() {
   var
     projects = null,
-    navActions = null,
+             navActions = null,
              selected = null,
              actions = null
                selectedAction = null,
-             depth = 0
+             depth = 0,
+             filter = null
 
                ;
 
@@ -18,13 +19,16 @@ var ProjectList = function() {
     projects = document.getElementsByClassName('project-box');
     navActions = document.getElementsByClassName('menu-action');
     deletes = document.getElementsByClassName('delete');
+    filter = document.querySelector('.filter');
     for (var i = 0; i < projects.length; ++i) {
       projects[i].onclick = function(e) {
+       console.log("clicked");
         e.stopPropagation();
         if(selected){
           var last = selected;
           selectRec(e.target);
           if(selected == last) {
+            openLightBox(selected);
             deeper();
           }
         }
@@ -39,14 +43,24 @@ var ProjectList = function() {
         e.stopPropagation();
         e.preventDefault();
         if(confirm("Are you sure to delete?")){
-           var t = null;
-           if(e.target.nodeName == "LI"){
-              t = e.target.children[1]; 
-           } else {
-             t = e.target;
-           }
-           var url = t.attributes.getNamedItem("href").value;
-           $.ajax({url:url,method:"DELETE"}).done(function(res){location = "/"});
+          var t = null;
+          if(e.target.nodeName == "LI"){
+            t = e.target.children[1]; 
+          } else {
+            t = e.target;
+          }
+          var url = t.attributes.getNamedItem("href").value;
+          $.ajax({url:url,method:"DELETE"}).done(
+              function(res){
+            for(var i=0;i<projects.length;i++){
+              if(projects[i].attributes.getNamedItem("data").value == res.id){
+                var target = projects[i];
+                $(target).fadeOut(200,function(){
+                  target.remove();
+                });
+              }
+            }
+              });
         }
       }
     }
@@ -57,7 +71,7 @@ var ProjectList = function() {
       if (projects[i].classList.contains('selected-project')) return i;
     }
     for (var i = 0; i < navActions.length; ++i) {
-      if (navActions[i].classList.contains('selected-nav-action')) return i-5;
+      if (navActions[i].classList.contains('selected-nav-action')) return i-6;
     }
     return null;
   }
@@ -86,7 +100,23 @@ var ProjectList = function() {
       elem.classList.add('selected-nav-action');
       elem.classList.remove('nav-action');
     }
+    if(elem.classList.contains('search-bar')){
+      KeyBind.allowInput();
+      document.querySelector('#search-box').focus();
+    } else {
+      KeyBind.denyInput();
+      document.querySelector('#search-box').blur();
+    }
     selected = elem;
+    scrollTo(elem);
+  }
+
+  function scrollTo(target){
+    if(window.scrollY > target.offsetTop || window.scrollY < target.offsetTop + target.clientHeight){
+      if (target) {
+        $('html,body').animate({scrollTop: target.offsetTop - 100},400);
+      }
+    }
   }
 
   function selectRec(elem) {
@@ -121,25 +151,62 @@ var ProjectList = function() {
     if (depth == 0) { //move around and select project
       var dst = indexOfSelectedProject();
       if(dst <= 3 && dst >= 0){// project first row
-         dst += [-1, -5, 4, 1][dir];
+       switch (dir){
+        case 0:
+          dst += -1;
+         break;
+        case 1:
+         dst = -1;
+         break;
+         case 2:
+          dst += 4;
+          break;
+         case 3:
+          dst += 1;
+          break;
+       }
       } else if (dst > 0){ // project other row
-         dst += [-1, -4, 4, 1][dir];
-      } else if (dst == -1){ //sign out
-         dst += [-1, 0, 4, 1][dir];
+        dst += [-1, -4, 4, 1][dir];
+      } else if (dst == -1){ //search
+       switch(dir){
+        case 0:
+         break;
+        case 1:
+         dst = -6;
+         break;
+         case 2:
+         dst = 3;
+          break;
+         case 3:
+          break;
+       }
       } else { // action row
-         dst += [-1, 0, 5, 1][dir];
+       switch (dir){
+        case 0:
+          dst += -1;
+         break;
+        case 1:
+         break;
+         case 2:
+          dst = -1;
+          break;
+         case 3:
+          dst += 1;
+          break;
+       }
       }
 
       if (dst >= 0 && dst < projects.length) {
         select(projects[dst]);
-      } else if( dst < 0 && dst >= -5 ){
-        select(navActions[dst + 5]);
+      } else if( dst < 0 && dst >= -6 ){
+        select(navActions[dst + 6]);
       }
     } else { // select action phase
       if (dir == 1 || dir == 2) {
         moveAction(dir - 1);
       }
     }
+    console.log("depth: "+depth+", dst: "+dst+", dir: "+dir+", actions: "+actions);
   }
 
   function indexOfSelectedAction() {
@@ -190,6 +257,24 @@ var ProjectList = function() {
     depth = 0;
   }
 
+  function openLightBox(elem){
+   try{
+     var projectData = JSON.parse(elem.attributes.getNamedItem('raw').value);   
+    filter.querySelector('.box-title').textContent = projectData.project_name;
+    filter.querySelector('.box-close').onclick = closeLightBox;
+    filter.querySelector('.box-img').src = projectData.thumbnail_url;
+    filter.querySelector('.box-desc').textContent = projectData.description;
+    filter.classList.remove('hide');
+   } catch (e){
+    console.log(e);
+    filter.classList.add('hide');
+   }
+  }
+
+  function closeLightBox(){
+    filter.classList.add('hide');
+  }
+
   function openActionMenu(elem) {
     actions = elem.getElementsByClassName('action-box');
     var actsElem = elem.getElementsByClassName('actions')[0];
@@ -219,5 +304,8 @@ var ProjectList = function() {
     down: k,
     enter: deeper,
     escape: shallower,
+    all : function(){return projects;},
+    open : openLightBox,
+    close: closeLightBox,
   }
 }();

@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 
+ruby '2.2.2'
 gem 'bourbon'
 gem 'neat'
 
@@ -70,5 +71,6 @@ end
 
 group :production do
   gem "pg"
+gem 'rails_12factor'
 end
 

@@ -36,7 +36,7 @@ function drawCalibrateLine(){
 function drawWaitingMessage(){
  console.log("Draw Waiting Message");
   ctx.fillStyle = "black";
-  ctx.font = "100px san-serif";
+  ctx.font = "100px ArialRoundedMTBoldBold, serif";
   ctx.rotate(Math.PI);
   ctx.translate(-1500,-800);
   ctx.fillText("Now loading...",400,400);
@@ -46,7 +46,7 @@ function drawWaitingMessage(){
 
 function drawShootingMessage(){
   ctx.fillStyle = "black";
-  ctx.font = "100px san-serif";
+  ctx.font = "100px ArialRoundedMTBoldBold, serif";
   ctx.rotate(Math.PI);
   ctx.translate(-1500,-800);
   ctx.fillText("Taking picture...",400,400);
@@ -81,7 +81,7 @@ function drawMessage(mes,x,y){
  x = x || 0;
  y = y || 20;
   ctx.fillStyle = "black";
-  ctx.font = "100px san-serif";
+  ctx.font = "100px ArialRoundedMTBoldBold, serif";
   ctx.rotate(Math.PI);
   ctx.translate(-1500,-800);
   ctx.fillText(mes,x,y);

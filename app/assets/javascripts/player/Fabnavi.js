@@ -1,6 +1,7 @@
 var Fabnavi = function(){
   window.onwheel = function(e){e.preventDefault();};
 
+
   var viewStatusList = ["Initializing","loadingImage","showing"],
       viewStatus= 0,
       modeList = ["play","add","edit"],
@@ -12,7 +13,8 @@ var Fabnavi = function(){
       queueingImageList,
       mode = null,
       counter,
-      navigator
+      navigator,
+      filter
         ;
 
   function init (_mode){
@@ -30,8 +32,10 @@ var Fabnavi = function(){
     queueingImageList = localImageList;
     ViewConfig.init();
     CalibrateController.init();
+    Meter.init();
 
     navigator = document.getElementById('navigation-image');
+    filter = document.querySelector('.filter');
 
     /*  Initialize each Mode   */
     switch(mode){
@@ -72,12 +76,47 @@ var Fabnavi = function(){
   }
 
   function setNavigationImage(url){
-   if(url != ""){
-    navigator.style.display = "block";
-    navigator.src = "/images/" + url;
-   } else {
-    navigator.style.display = "none";
-   }
+    if(url != ""){
+      navigator.style.display = "block";
+      navigator.src = "/images/" + url;
+    } else {
+      navigator.style.display = "none";
+    }
+  }
+
+  function showFilterWithString( message ){
+    filter.style.display = "block";
+    var text = filter.querySelector("div");
+     text.textContent = message;
+     text.style.display = "block";
+  }
+
+  function hideFilter(){
+    filter.style.display = "none";
+    var text = filter.querySelector("div");
+     text.textContent = "";
+     text.style.display = "none";
+  }
+
+  function showAlert(){
+    $('.exit-alert').show();
+    var d = $.Deferred();
+
+    Key.register(function(){
+      d.resolve();
+    },13);
+
+    Key.register(function(){
+      d.reject();
+    },27);
+    return d.promise();
+  }
+
+  function hideAlert(){
+   console.log("hiding alert");
+    Key.deregister(13);
+    Key.deregister(27);
+    document.querySelector('.exit-alert').style.display = "none";
   }
 
   function setCalibrateMode(){
@@ -159,15 +198,17 @@ var Fabnavi = function(){
     setPage(showingImageList.index());
   }
 
-    function showPage(){
-    console.log(showingImageList.index  () + 1 + "/" + showingImageList.maxLength());
+  function showPage(){
+
+    Meter.set(showingImageList.index  () + 1, showingImageList.maxLength());
+
     var deferredImage;
     if(deferredImage = showingImageList.getDeferredImage()){
       MainView.clear();
       MainView.showWaitMessage();
       deferredImage.then(function(img){
         MainView.clear();
-       console.log(img);
+        console.log(img);
         MainView.draw(img);
         viewStatus = 2;
         afterShowing();
@@ -195,30 +236,30 @@ var Fabnavi = function(){
   /* recorder interface */
   function setLocalImageVisible(){
     showingImageList = localImageList;
-}
+  }
 
   function setGlobalImageVisible(){
     showingImageList = globalImageList;
   }
   function testShoot(){
-      MainView.clear();
-      MainView.drawMessage("This is Test Image",0,100);
-      MainView.drawMessage(PROJECT_DATA.project_name,0,200);
-      MainView.drawMessage("User id: "+PROJECT_DATA.user_id,0,300);
-      MainView.drawMessage(Date(),0,400);
-     var img = document.createElement("img");
-      img.src = MainView.toDataURL();
-      showingImageList.hideEditor();
-      setNavigationImage("");
-      redraw();
-      var res = showingImageList.pushImage({testImg:img} ,showingImageList.index());
-      nextPage();
-      setNavigationImage("key_bind.png");
-      ImageUploadQueue.push(res);
-    }
+    MainView.clear();
+    MainView.drawMessage("This is Test Image",0,100);
+    MainView.drawMessage(PROJECT_DATA.project_name,0,200);
+    MainView.drawMessage("User id: "+PROJECT_DATA.user_id,0,300);
+    MainView.drawMessage(Date(),0,400);
+    var img = document.createElement("img");
+    img.src = MainView.toDataURL();
+    showingImageList.hideEditor();
+    setNavigationImage("");
+    redraw();
+    var res = showingImageList.pushImage({testImg:img} ,showingImageList.index());
+    nextPage();
+    setNavigationImage("key_bind.png");
+    ImageUploadQueue.push(res);
+  }
 
   function shoot(){
-    Camera.ping().done(function(){
+    return Camera.ping().done(function(){
       MainView.clear();
       showingImageList.hideEditor();
       setNavigationImage("");
@@ -229,7 +270,7 @@ var Fabnavi = function(){
         setNavigationImage("key_bind.png");
         ImageUploadQueue.push(res);
       });
-    }).fail(function(){
+      }).fail(function(){
       alert("Please Connect to Camera");
     });
   }
@@ -254,11 +295,15 @@ var Fabnavi = function(){
   }
 
   function exitProject(){
-    if(confirm("Are you sure to exit this page?")){
+    showAlert().then(function(){
+      console.log("Exit phase");
       setTimeout(function(){
         window.location.pathname = "/";
       },10);
-    }
+    },function(){
+     console.log("rejected");
+     hideAlert();
+    });
   }
 
   function play(){
@@ -309,7 +354,9 @@ var Fabnavi = function(){
 
     setGlobalImageVisible:setGlobalImageVisible,
     setLocalImageVisible:setLocalImageVisible,
-
     setNavigationImage:setNavigationImage,
+
+    showFilterWithString:showFilterWithString,
+    hideFilter : hideFilter,
   };
 }();

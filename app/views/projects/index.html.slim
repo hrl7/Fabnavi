@@ -9,7 +9,8 @@
 
 .projects
     - @projects.each do |project|
-      .project-box.project
+      .project-box.project[data="#{project.id}" raw="#{project.to_json.gsub("id","thumbnail_url\":\""+project.thumbnail_src+"\",\"id")}"]
+        -puts project.thumbnail_src.to_s
         .thumbnail
           img src="#{{project.thumbnail_src}}"
           - if controller.action_name == "home"
@@ -19,7 +20,7 @@
               img#status-icon src="#{{image_path('public.png')}}"
         .project-name = project.project_name
         .box
-          = image_tag project.try(:user).try(:avatar), class: 'user-icon'
+          = image_tag project.try(:user).try(:avatar).try(:url), class: 'user-icon'
           .username #{project.try(:user).try(:name)}
           .date Date:#{project.date}
         ul.actions.hide

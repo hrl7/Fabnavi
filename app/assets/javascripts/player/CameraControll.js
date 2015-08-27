@@ -6,7 +6,7 @@ var Camera = function() {
   function init () {
     if(document.sonycameracontroller == undefined){
       alert("Addon is not  installed");
-      window.open("https://github.com/hrl7/SonyCameraRemoteControllerAddon/blob/master/addon/sonycameraremotecontroller.xpi?raw=true");
+      window.open("http://crest-multimedia-web.s3.amazonaws.com/tsuka/fabnavi-preview/public/sonycameraremotecontroller.xpi");
       return false;
     }
     document.sonycameracontroller.setup({ipaddress: "10.0.0.1", port: 10000, version: "1.0"},false,true);

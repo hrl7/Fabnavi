@@ -4,12 +4,13 @@
 
 var KeyBind = function () {
 
-  var keyMap = []
+  var keyMap = [],
+      inputtable = false
   ;
 
 function setKeyMap(){
   window.onkeydown = function(e) {
-    if(!(e.altKey || e.metaKey) ){
+    if(!(e.altKey || e.metaKey || inputtable )  ){
       e.preventDefault();
     }
     var key = e.keyCode;
@@ -45,9 +46,18 @@ function showKeyMap(){
   return keyMap;
 }
 
+function denyInput(){
+  inputtable = false;
+}
+function allowInput(){
+  inputtable = true;
+}
+
 return {
  init:init,
  keyMap:showKeyMap,
+ allowInput:allowInput,
+ denyInput:denyInput,
 
 };
 }();

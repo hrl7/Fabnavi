@@ -41,6 +41,7 @@ class PhotosController < ApplicationController
   # PATCH/PUT /photos/1
   # PATCH/PUT /photos/1.json
   def update
+    #TODO user owns the project?
     respond_to do |format|
       if @photo.update(photo_params)
         format.html { redirect_to @photo, notice: 'Photo was successfully updated.' }
@@ -70,7 +71,12 @@ class PhotosController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def photo_params
+   if params.include?(:file) 
+    params.permit(:file, :thumbnail, :project_id, :order_in_project)
+   else
     params.require(:photo).permit(:file, :thumbnail, :project_id, :order_in_project)
+   end
+
   end
 
   def authenticate! 
