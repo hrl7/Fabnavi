@@ -42,7 +42,7 @@ var ProjectElement = React.createClass({
 
   render : function(){
     return (
-      <div className="project-box project">
+      <div className={"project-box " + (this.props.isSelected  ? "selected-project" : "project")}>
         <div className="thumbnail">
           <img src={this.getThumbnailSrc()} />
         </div>

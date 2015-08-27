@@ -1,11 +1,13 @@
 var ProjectList = React.createClass({
 
   propTypes : {
+
   },
 
   getStateFromStores : function () {
     return {
-     projects : ProjectStore.getProjectsAll()
+     projects : ProjectStore.getProjectsAll(),
+     selectedProjectIndex : ProjectSelectorStore.getSelector(),
     };
   },
 
@@ -28,9 +30,12 @@ var ProjectList = React.createClass({
   render : function(){
     var projects = [];
     console.log(this.state.projects);
-    this.state.projects.forEach(function(project){
-      projects.push(<ProjectElement project={project} />);
-    });
+    for( var i in this.state.projects ){
+      projects.push(<ProjectElement
+        project={this.state.projects[i]}
+        selected={this.state.selectedProjectIndex == i}
+        />);
+    }
     return (
      <div className="projects">
         {projects} 
@@ -49,6 +54,7 @@ var ProjectList = React.createClass({
 
   componentDidMount : function () {
     ProjectStore.addChangeListener(this._onChange);
+    ProjectSelectorStore.addChangeListener(this._onChange);
   },
 
   componentWillUpdate : function() {
@@ -59,6 +65,7 @@ var ProjectList = React.createClass({
 
   componentWillUnmount : function() {
     ProjectStore.removeChangeListener(this._onChange);
+    ProjectSelectorStore.removeChangeListener(this._onChange);
   },
 
 });
