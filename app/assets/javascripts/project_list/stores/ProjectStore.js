@@ -25,3 +25,11 @@ var ProjectStore = Object.assign({}, EventEmitter.prototype, {
     this.removeListener(PROJECT_LIST_CHANGE_EVENT, callback);
   },
 });
+
+ProjectStore.dispatchToken = AppDispatcher.register(function( action ){
+  switch(action.type){
+    default : 
+      break;
+  };
+
+});
