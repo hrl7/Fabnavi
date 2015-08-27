@@ -7,20 +7,3 @@
      bootReact();
     }
     var PROJECTS = #{{@projects.to_json(include: [:user, :photo])}};
-
-//ul.actions.hide
-  li.action.action-box
-    =image_tag image_path("p_play.png")
-    = link_to 'Play',    project_path(project) 
-  li.action.action-box
-    =image_tag image_path("p_record.png")
-    = link_to 'Record',  record_project_path(project)
-  li.action.action-box
-    =image_tag image_path("p_detail.png")
-    = link_to 'Detail',  detail_project_path(project)
-  li.action.action-box
-    =image_tag image_path("p_edit.png")
-    = link_to 'Edit',    edit_project_path(project)
-  li.action.action-box.delete
-    =image_tag image_path("p_delete.png")
-    = link_to 'Delete',  project, method: :delete, data: {confirm: "Are you sure to delete?"}

@@ -7,7 +7,6 @@ html
     == yield :css_link
     == yield :js_include
     script src="https://login.persona.org/include.js"
-    = javascript_include_tag 'application', 'data-turbolinks-track' => false
     = csrf_meta_tags
 
     - if signed_in?
@@ -18,8 +17,6 @@ html
         var CURRENT_USER = null;
         
   body[onload="window.hasOwnProperty('boot') && boot();"]
-    header#navigation
-    .padding-box
     .nav
       - if notice
         .notice 
